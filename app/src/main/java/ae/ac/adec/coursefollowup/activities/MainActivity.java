@@ -1,0 +1,97 @@
+package ae.ac.adec.coursefollowup.activities;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+
+import com.mikepenz.iconics.typeface.FontAwesome;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+
+import ae.ac.adec.coursefollowup.R;
+
+
+public class MainActivity extends BaseActivity {
+
+    public Drawer.Result result;
+
+    public enum Category {
+        Dashboard(10),
+        Calender(20),
+        Tasks(30),
+        Notes(430),
+        Exams(50),
+        Semesters(60),
+        Classes(70),
+        Search(99),
+        Setting(100);
+
+        public int id;
+
+        private Category(int id) {
+            this.id = id;
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+
+
+        result = new Drawer()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withHeader(R.layout.header)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_dashboard),
+                        new PrimaryDrawerItem().withName(R.string.category_calender).withIdentifier(Category.Calender.id).withIcon(FontAwesome.Icon.faw_calendar),
+                       // new SectionDrawerItem().withName("Sec"),
+                        new PrimaryDrawerItem().withName(R.string.category_tasks).withIdentifier(Category.Tasks.id).withIcon(FontAwesome.Icon.faw_tasks),
+                        new PrimaryDrawerItem().withName(R.string.category_notes).withIdentifier(Category.Notes.id).withIcon(FontAwesome.Icon.faw_comment),
+                        new PrimaryDrawerItem().withName(R.string.category_exams).withIdentifier(Category.Exams.id).withIcon(FontAwesome.Icon.faw_edit),
+                        new PrimaryDrawerItem().withName(R.string.category_semesters).withIdentifier(Category.Semesters.id).withIcon(FontAwesome.Icon.faw_cubes),
+                        new PrimaryDrawerItem().withName(R.string.category_classes).withIdentifier(Category.Classes.id).withIcon(FontAwesome.Icon.faw_book),
+                        new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
+                        new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear)
+                )
+                .withSelectedItem(1)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem drawerItem) {
+                        if (drawerItem != null) {
+                            if (drawerItem instanceof Nameable) {
+                                //toolbar.setTitle(((Nameable) drawerItem).getNameRes());
+                                toolbar.setSubtitle(((Nameable) drawerItem).getNameRes());
+                            }
+                            if (onFilterChangedListener != null) {
+                                onFilterChangedListener.onFilterChanged(drawerItem.getIdentifier());
+                            }
+                        }
+                    }
+                })
+                .build();
+
+        //disable scrollbar :D it's ugly
+        result.getListView().setVerticalScrollBarEnabled(false);
+    }
+
+    private OnFilterChangedListener onFilterChangedListener;
+
+    public void setOnFilterChangedListener(OnFilterChangedListener onFilterChangedListener) {
+        this.onFilterChangedListener = onFilterChangedListener;
+    }
+
+
+    public interface OnFilterChangedListener {
+        public void onFilterChanged(int filter);
+    }
+}

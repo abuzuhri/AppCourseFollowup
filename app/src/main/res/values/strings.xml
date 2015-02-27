@@ -3,4 +3,20 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+
+
+    <!-- categories -->
+    <string name="category_dashboard">Dashboard</string>
+    <string name="category_calender">Calender</string>
+    <string name="category_classes">Classes</string>
+    <string name="category_tasks">Tasks</string>
+    <string name="category_notes">Notes</string>
+    <string name="category_exams">Exams</string>
+    <string name="category_semesters">Semesters</string>
+    <string name="category_search">Search</string>
+    <string name="category_setting">Settings</string>
+    <string name="category_people">People</string>
+    <string name="category_technology">Technology</string>
+
 </resources>

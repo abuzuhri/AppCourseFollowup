@@ -1,19 +1,23 @@
-package ae.ac.adec.coursefollowup;
+package ae.ac.adec.coursefollowup.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ae.ac.adec.coursefollowup.R;
 
-public class MainActivity extends ActionBarActivity {
+/**
+ * Created by Tareq on 02/27/2015.
+ */
+public class BaseActivity   extends ActionBarActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
