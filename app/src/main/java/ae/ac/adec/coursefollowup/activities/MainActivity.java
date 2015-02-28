@@ -92,9 +92,11 @@ public class MainActivity extends BaseActivity {
                 })
                 .build();
 
-        selectItem(0);
+
         //disable scrollbar :D it's ugly
         result.getListView().setVerticalScrollBarEnabled(false);
+
+        selectItem(Category.Dashboard.id);
     }
 
     private OnFilterChangedListener onFilterChangedListener;
@@ -137,8 +139,7 @@ public class MainActivity extends BaseActivity {
         if (fragment != null) {
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_main, fragment)
+            fragmentManager.beginTransaction().replace(R.id.fragment_main, fragment)
                     .commit();
         }
     }
