@@ -17,8 +17,15 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
+import ae.ac.adec.coursefollowup.fragments.ClassesFragment;
 import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
+import ae.ac.adec.coursefollowup.fragments.ExamFragment;
+import ae.ac.adec.coursefollowup.fragments.NoteFragment;
+import ae.ac.adec.coursefollowup.fragments.SearchFragment;
 import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
+import ae.ac.adec.coursefollowup.fragments.SettingFragment;
+import ae.ac.adec.coursefollowup.fragments.TaskFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -119,21 +126,21 @@ public class MainActivity extends BaseActivity {
         if (filter == Category.Dashboard.id) {
             fragment = new DashboardFragment();
         }else  if (filter == Category.Notes.id) {
-
+            fragment = new NoteFragment();
         }else if (filter == Category.Setting.id) {
-
+            fragment = new SettingFragment();
         }else if (filter == Category.Search.id) {
-
+            fragment = new SearchFragment();
         }else if (filter == Category.Classes.id) {
-
+            fragment = new ClassesFragment();
         }else if (filter == Category.Calender.id) {
-
+            fragment = new CalenderFragment();
         }else if (filter == Category.Exams.id) {
-
+            fragment = new ExamFragment();
         }else if (filter == Category.Semesters.id) {
             fragment = new SemesterFragment();
         }else if (filter == Category.Tasks.id) {
-
+            fragment = new TaskFragment();
         }
 
         if (fragment != null) {
