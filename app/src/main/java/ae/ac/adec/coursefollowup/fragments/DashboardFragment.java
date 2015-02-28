@@ -27,9 +27,14 @@ public class DashboardFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
         TextView view = (TextView) rootView.findViewById(R.id.section_label);
-        view.setText("DashboardFragment");
+        setText("DashboardFragment");
 
         return rootView;
     }
 
+
+    public void setText(String item) {
+        TextView view = (TextView) getView().findViewById(R.id.section_label);
+        view.setText(item);
+    }
 }

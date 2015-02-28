@@ -89,6 +89,7 @@ public class MainActivity extends BaseActivity {
                 })
                 .build();
 
+        selectItem(0);
         //disable scrollbar :D it's ugly
         result.getListView().setVerticalScrollBarEnabled(false);
     }
@@ -109,7 +110,7 @@ public class MainActivity extends BaseActivity {
         Fragment fragment = null;
         Log.i("tg", "position=> " + filter);
 
-        
+
         if (filter == Category.Dashboard.id) {
             fragment = new DashboardFragment();
         }else  if (filter == Category.Notes.id) {
