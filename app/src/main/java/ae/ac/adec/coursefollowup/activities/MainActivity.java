@@ -1,8 +1,12 @@
 package ae.ac.adec.coursefollowup.activities;
 
+
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -13,6 +17,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
+import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -54,7 +60,7 @@ public class MainActivity extends BaseActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_dashboard),
                         new PrimaryDrawerItem().withName(R.string.category_calender).withIdentifier(Category.Calender.id).withIcon(FontAwesome.Icon.faw_calendar),
-                       // new SectionDrawerItem().withName("Sec"),
+                        // new SectionDrawerItem().withName("Sec"),
                         new PrimaryDrawerItem().withName(R.string.category_tasks).withIdentifier(Category.Tasks.id).withIcon(FontAwesome.Icon.faw_tasks),
                         new PrimaryDrawerItem().withName(R.string.category_notes).withIdentifier(Category.Notes.id).withIcon(FontAwesome.Icon.faw_comment),
                         new PrimaryDrawerItem().withName(R.string.category_exams).withIdentifier(Category.Exams.id).withIcon(FontAwesome.Icon.faw_edit),
@@ -63,7 +69,7 @@ public class MainActivity extends BaseActivity {
                         new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
                         new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear)
                 )
-                .withSelectedItem(1)
+                .withSelectedItem(0)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem drawerItem) {
@@ -73,8 +79,11 @@ public class MainActivity extends BaseActivity {
                                 toolbar.setSubtitle(((Nameable) drawerItem).getNameRes());
                             }
                             if (onFilterChangedListener != null) {
-                                onFilterChangedListener.onFilterChanged(drawerItem.getIdentifier());
+                                selectItem(drawerItem.getIdentifier());
                             }
+                            //if (onFilterChangedListener != null) {
+                            //    onFilterChangedListener.onFilterChanged(drawerItem.getIdentifier());
+                            //}
                         }
                     }
                 })
@@ -93,5 +102,40 @@ public class MainActivity extends BaseActivity {
 
     public interface OnFilterChangedListener {
         public void onFilterChanged(int filter);
+    }
+
+
+    public  void  selectItem(int filter){
+        Fragment fragment = null;
+        Log.i("tg", "position=> " + filter);
+
+        
+        if (filter == Category.Dashboard.id) {
+            fragment = new DashboardFragment();
+        }else  if (filter == Category.Notes.id) {
+
+        }else if (filter == Category.Setting.id) {
+
+        }else if (filter == Category.Search.id) {
+
+        }else if (filter == Category.Classes.id) {
+
+        }else if (filter == Category.Calender.id) {
+
+        }else if (filter == Category.Exams.id) {
+
+        }else if (filter == Category.Semesters.id) {
+            fragment = new SemesterFragment();
+        }else if (filter == Category.Tasks.id) {
+
+        }
+
+        if (fragment != null) {
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_main, fragment)
+                    .commit();
+        }
     }
 }

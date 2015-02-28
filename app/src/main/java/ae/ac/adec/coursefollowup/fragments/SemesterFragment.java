@@ -1,8 +1,7 @@
 package ae.ac.adec.coursefollowup.fragments;
 
-
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import ae.ac.adec.coursefollowup.R;
 /**
  * Created by Tareq on 02/28/2015.
  */
-public class DashboardFragment extends Fragment {
+public class SemesterFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,10 +24,9 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.semester_fragment, container, false);
         TextView view = (TextView) rootView.findViewById(R.id.section_label);
-        view.setText("DashboardFragment");
-
+        view.setText("SemesterFragment");
         return rootView;
     }
 

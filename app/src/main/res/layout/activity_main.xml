@@ -20,12 +20,20 @@
 
 
 
-    <fragment
+    <!-- The main content view -->
+    <FrameLayout
+        android:id="@+id/fragment_main"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+    </FrameLayout>
+
+    <!--<fragment
         android:id="@+id/ly_last_images_fragment"
         android:layout_gravity="center"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:name="ae.ac.adec.coursefollowup.fragments.DashboardFragment"
-        tools:layout="@layout/dashboard_fragment" />
+        tools:layout="@layout/dashboard_fragment" />-->
 
 </LinearLayout>
