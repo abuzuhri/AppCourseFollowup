@@ -78,8 +78,11 @@ public class MainActivity extends BaseActivity {
                                 //toolbar.setTitle(((Nameable) drawerItem).getNameRes());
                                 toolbar.setSubtitle(((Nameable) drawerItem).getNameRes());
                             }
+
+                            selectItem(drawerItem.getIdentifier());
+
                             if (onFilterChangedListener != null) {
-                                selectItem(drawerItem.getIdentifier());
+
                             }
                             //if (onFilterChangedListener != null) {
                             //    onFilterChangedListener.onFilterChanged(drawerItem.getIdentifier());

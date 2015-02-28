@@ -1,8 +1,7 @@
 package ae.ac.adec.coursefollowup.fragments;
 
-import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,17 +25,12 @@ public class SemesterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.semester_fragment, container, false);
-        TextView view = (TextView) rootView.findViewById(R.id.section_label);
-        view.setTextColor(Color.RED);
-        view.setText("ssss");
-
-        setText("SemesterFragment");
+        setText(rootView,"SemesterFragment");
         return rootView;
     }
 
-    public void setText(String item) {
-        TextView view = (TextView) getView().findViewById(R.id.section_label);
-        view.setTextColor(Color.RED);
+    public void setText(View rootView,String item) {
+        TextView view = (TextView) rootView.findViewById(R.id.section_label);
         view.setText(item);
     }
 
