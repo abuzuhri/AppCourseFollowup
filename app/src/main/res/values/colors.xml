@@ -2,11 +2,12 @@
 
     <color name="colorPrimary">@color/color_Red_500</color>
     <color name="colorPrimaryDark">@color/color_Red_700</color>
-    <color name="colorAccent">@color/color_Red_100</color>
+    <color name="colorAccent">#FFFFFFFF</color>
 
+    <color name="textColorPrimary">#FFFFFFFF</color>
+    <color name="navigationBarColor">#FF000000</color>
 
-    <color name="textColorPrimary">#D9FFFFFF</color>
-    <color name="windowBackgroundColor">#333333</color>
+    <color name="windowBackgroundColor">#e1e1e1</color>
     <color name="drawerBackgroundColor">#F9F9F9</color>
     <color name="black_translucent">#80000000</color>
 
