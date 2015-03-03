@@ -1,28 +1,29 @@
 package ae.ac.adec.coursefollowup.db.models;
 
-import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "Years")
-public class Year extends BaseModel {
+@Table(name = "CourseTimes")
+public class CourseTime extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
-    public Year(){
+    public CourseTime(){
         super();
     }
 
-    @Column(name = "Name")
-    public String Name;
+    public Date StartDate;
+
+    public Date EndDate;
 
     // Used to return items from another table based on the foreign key
-    public List<Semester> Semesters() {
-        return getMany(Semester.class, "Year_Id");
+    public List<CourseTimeDay> Daies() {
+        return getMany(CourseTimeDay.class, "CourseTime_Id");
     }
 
 }
