@@ -9,31 +9,24 @@ import java.util.Date;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "Tasks")
-public class Task extends BaseModel {
+@Table(name = "Semesters")
+public class Exam extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
-    public Task(){
+    public Exam(){
         super();
     }
 
-    @Column(name = "Name")
-    public String Name;
+    public Date Date;
 
-    public Date DueDate;
+    public  Boolean IsResit;
 
-    public String Title;
+    public int Duration;
 
-    public String Detail;
+    public String Seat;
 
-    @Column(name = "TaskType_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public TaskType taskType;
+    public String Room;
 
     @Column(name = "Course_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Course course;
-
-
-
-
-
 }
