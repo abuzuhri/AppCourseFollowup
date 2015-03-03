@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".Application.myApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -13,9 +14,13 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- add the following metadata for version and database name -->
+            <meta-data android:name="AA_DB_NAME" android:value="CourseFollowUp.db" />
+            <meta-data android:name="AA_DB_VERSION" android:value="1" />
+
         </activity>
     </application>
 

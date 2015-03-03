@@ -5,4 +5,9 @@ package ae.ac.adec.coursefollowup.db.models;
  */
 public class Note extends BaseModel  {
 
+    // Must have a default constructor for every ActiveAndroid model
+    public Note(){
+        super();
+    }
+
 }

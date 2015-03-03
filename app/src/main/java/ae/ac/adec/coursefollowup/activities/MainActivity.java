@@ -21,6 +21,7 @@ import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
 import ae.ac.adec.coursefollowup.fragments.ClassesFragment;
 import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
 import ae.ac.adec.coursefollowup.fragments.ExamFragment;
+import ae.ac.adec.coursefollowup.fragments.HolidayFragment;
 import ae.ac.adec.coursefollowup.fragments.NoteFragment;
 import ae.ac.adec.coursefollowup.fragments.SearchFragment;
 import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity {
         Exams(50),
         Semesters(60),
         Classes(70),
+        Holiday(80),
         Search(99),
         Setting(100);
 
@@ -73,6 +75,7 @@ public class MainActivity extends BaseActivity {
                         new PrimaryDrawerItem().withName(R.string.category_exams).withIdentifier(Category.Exams.id).withIcon(FontAwesome.Icon.faw_edit),
                         new PrimaryDrawerItem().withName(R.string.category_semesters).withIdentifier(Category.Semesters.id).withIcon(FontAwesome.Icon.faw_cubes),
                         new PrimaryDrawerItem().withName(R.string.category_classes).withIdentifier(Category.Classes.id).withIcon(FontAwesome.Icon.faw_book),
+                        new PrimaryDrawerItem().withName(R.string.category_holidays).withIdentifier(Category.Holiday.id).withIcon(FontAwesome.Icon.faw_hotel),
                         new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
                         new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear)
                 )
@@ -141,6 +144,8 @@ public class MainActivity extends BaseActivity {
             fragment = new SemesterFragment();
         }else if (filter == Category.Tasks.id) {
             fragment = new TaskFragment();
+        }else if (filter == Category.Holiday.id) {
+            fragment = new HolidayFragment();
         }
 
         if (fragment != null) {
