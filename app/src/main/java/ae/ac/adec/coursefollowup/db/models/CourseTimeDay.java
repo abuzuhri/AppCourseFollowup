@@ -14,7 +14,7 @@ public class CourseTimeDay extends BaseModel {
         super();
     }
 
-    public int Day;
+    public int DayOfWeek ;
 
     @Column(name = "CourseTime_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public CourseTime courseTime;

@@ -25,4 +25,22 @@ public class Year extends BaseModel {
         return getMany(Semester.class, "Year_Id");
     }
 
+
+    /*
+    // Finds existing user based on remoteId or creates new user and returns
+    public static Year findOrCreateFromJson(JSONObject json) {
+        Year user = Year.fromJSON(json);
+        Year existingUser =
+                new Select().from(Year.class).where("remote_id = ?", this.remoteId).executeSingle();
+        if (existingUser != null) {
+            // found and return existing
+            return existingUser;
+        } else {
+            // create and return new
+            Year user = Year.fromJSON(json);
+            user.save();
+            return user;
+        }
+    }
+    */
 }
