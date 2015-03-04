@@ -30,7 +30,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
     @Override
     public HolidayViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
         // create a new view
-        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_holiday, null);
+        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_cardview_holiday, null);
 
         // create ViewHolder
         HolidayViewHolder viewHolder = new HolidayViewHolder(itemLayoutView, new IHolidayViewHolderClicks() {
