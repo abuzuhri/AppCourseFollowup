@@ -51,4 +51,5 @@ dependencies {
         transitive = true
     }
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'com.melnykov:floatingactionbutton:1.2.0'
 }
