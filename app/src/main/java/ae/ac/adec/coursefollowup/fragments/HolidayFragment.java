@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.views.adapters.HolidayAdapter;
@@ -29,7 +32,7 @@ public class HolidayFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.holiday_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_holiday, container, false);
         //setText(rootView,"HolidayFragment");
         String[] myDataset = { "Alpha", "Beta", "CupCake", "Donut", "Eclair",
                 "Froyo", "Gingerbread", "Honeycomb", "Ice Cream Sandwitch",
@@ -50,6 +53,16 @@ public class HolidayFragment extends BaseFragment {
         mAdapter = new HolidayAdapter(myDataset,getActivity());
         mRecyclerView.setAdapter(mAdapter);
         //mRecyclerView.setItemAnimator(new FeedItemAnimator());
+
+        FloatingActionButton fab=(FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.attachToRecyclerView(mRecyclerView);
+        fab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Floating Action Button Click", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         return rootView;
