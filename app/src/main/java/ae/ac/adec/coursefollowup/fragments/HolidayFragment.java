@@ -61,10 +61,17 @@ public class HolidayFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Floating Action Button Click", Toast.LENGTH_LONG).show();
+
             }
         });
 
 
         return rootView;
     }
+
+   // public void onSomeButtonClicked(View view) {
+    //   getActivity(). getWindow().setExitTransition(new Explode());
+    //    Intent intent = new Intent(getActivity(), MainSplashScreen.class);
+    //    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+    //}
 }
