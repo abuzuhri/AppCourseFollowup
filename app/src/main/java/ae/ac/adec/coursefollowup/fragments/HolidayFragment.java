@@ -1,16 +1,23 @@
 package ae.ac.adec.coursefollowup.fragments;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.views.adapters.HolidayAdapter;
 
 /**
  * Created by Tareq on 03/03/2015.
  */
 public class HolidayFragment extends BaseFragment {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,8 +29,29 @@ public class HolidayFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
-        setText(rootView,"HolidayFragment");
+        View rootView = inflater.inflate(R.layout.holiday_fragment, container, false);
+        //setText(rootView,"HolidayFragment");
+        String[] myDataset = { "Alpha", "Beta", "CupCake", "Donut", "Eclair",
+                "Froyo", "Gingerbread", "Honeycomb", "Ice Cream Sandwitch",
+                "JellyBean", "KitKat", "LollyPop" };
+
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new HolidayAdapter(myDataset,getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setItemAnimator(new FeedItemAnimator());
+
+
         return rootView;
     }
 }

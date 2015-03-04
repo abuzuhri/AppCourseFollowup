@@ -1,4 +1,4 @@
-package ae.ac.adec.coursefollowup.Utils;
+package ae.ac.adec.coursefollowup.utils;
 
 import android.text.format.DateFormat;
 
@@ -8,10 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * Created by Tareq on 02/27/2015.
- */
-public class Constants {
+public class Constant {
 
 
 
