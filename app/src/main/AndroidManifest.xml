@@ -22,6 +22,7 @@
             <meta-data android:name="AA_DB_VERSION" android:value="1" />
 
         </activity>
+        <activity android:name=".activities.OneFragmentActivity" android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

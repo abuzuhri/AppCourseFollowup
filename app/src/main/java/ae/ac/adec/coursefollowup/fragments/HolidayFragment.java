@@ -1,5 +1,6 @@
 package ae.ac.adec.coursefollowup.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.melnykov.fab.FloatingActionButton;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.views.adapters.HolidayAdapter;
 
 /**
@@ -60,8 +62,12 @@ public class HolidayFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Floating Action Button Click", Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), "Floating Action Button Click ==> "+ AddEditHolidayFragment.class.getName(), Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(v.getContext(), OneFragmentActivity.class);
+
+                intent.putExtra(OneFragmentActivity.FRAGMENT, AddEditHolidayFragment.class.getName());
+                startActivity(intent);
             }
         });
 

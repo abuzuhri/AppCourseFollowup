@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import ae.ac.adec.coursefollowup.R;
 
 /**
- * Created by Tareq on 02/28/2015.
+ * Created by Tareq on 03/05/2015.
  */
-public class TaskFragment extends BaseFragment {
-
+public class AddEditHolidayFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class TaskFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        setText(rootView,"TaskFragment");
+        setText(rootView,"DashboardFragment");
         return rootView;
     }
 }

@@ -10,7 +10,7 @@ import ae.ac.adec.coursefollowup.R;
 /**
  * Created by Tareq on 02/28/2015.
  */
-public class ClassesFragment extends BaseFragment {
+public class CoursesFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,8 +21,8 @@ public class ClassesFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
-        setText(rootView,"ClassesFragment");
+        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        setText(rootView,"CoursesFragment");
         return rootView;
     }
 }

@@ -34,6 +34,6 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:name="ae.ac.adec.coursefollowup.fragments.DashboardFragment"
-        tools:layout="@layout/dashboard_fragment" />-->
+        tools:layout="@layout/fragment_dashboard" />-->
 
 </LinearLayout>

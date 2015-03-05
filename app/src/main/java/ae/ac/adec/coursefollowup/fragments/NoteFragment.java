@@ -21,7 +21,7 @@ public class NoteFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         setText(rootView,"NoteFragment");
         return rootView;
     }

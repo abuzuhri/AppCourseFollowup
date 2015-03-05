@@ -42,6 +42,11 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
             }
 
             @Override
+            public void onEdit(View v) {
+
+            }
+
+            @Override
             public void onClick(View v) {
                 Log.i("TG","A B C");
                 Toast.makeText(v.getContext(), "on Click", Toast.LENGTH_LONG).show();

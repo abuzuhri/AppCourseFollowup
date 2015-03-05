@@ -18,7 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
-import ae.ac.adec.coursefollowup.fragments.ClassesFragment;
+import ae.ac.adec.coursefollowup.fragments.CoursesFragment;
 import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
 import ae.ac.adec.coursefollowup.fragments.ExamFragment;
 import ae.ac.adec.coursefollowup.fragments.HolidayFragment;
@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity {
         }else if (filter == Category.Search.id) {
             fragment = new SearchFragment();
         }else if (filter == Category.Classes.id) {
-            fragment = new ClassesFragment();
+            fragment = new CoursesFragment();
         }else if (filter == Category.Calender.id) {
             fragment = new CalenderFragment();
         }else if (filter == Category.Exams.id) {
