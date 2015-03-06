@@ -65,7 +65,6 @@ public class HolidayFragment extends BaseFragment {
                 Toast.makeText(v.getContext(), "Floating Action Button Click ==> "+ AddEditHolidayFragment.class.getName(), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(v.getContext(), OneFragmentActivity.class);
-
                 intent.putExtra(OneFragmentActivity.FRAGMENT, AddEditHolidayFragment.class.getName());
                 startActivity(intent);
             }

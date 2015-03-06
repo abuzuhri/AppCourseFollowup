@@ -18,12 +18,19 @@ import ae.ac.adec.coursefollowup.R;
 public class OneFragmentActivity extends BaseActivity {
 
     public  static final  String  FRAGMENT="FRAGMENT";
-
+    public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Boolean HaveToolbarShadow = intent.getBooleanExtra(HAVE_TOOLBAR_SHARDOW,false);
 
-        setContentView(R.layout.activity_main);
+        //Remove defult shadow in toolbar for use flexible space
+        if(!HaveToolbarShadow){
+            setContentView(R.layout.activity_without_toolbar_shadow);
+        }else setContentView(R.layout.activity_main);
+
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -37,9 +44,10 @@ public class OneFragmentActivity extends BaseActivity {
             }
         });
 
-        Intent intent = getIntent();
+
         String FragmentName = intent.getStringExtra(FRAGMENT);
         Log.i("tg","FragmentName = > "+FragmentName);
+
         Fragment fragment= Fragment.instantiate(this,FragmentName);
         selectFragment(fragment);
     }

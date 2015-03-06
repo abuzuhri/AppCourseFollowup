@@ -34,7 +34,6 @@
         </FrameLayout>
 
 
-        <include android:id="@+id/shadow_main_activity"  layout="@layout/toolbar_shadow" />
 
     </FrameLayout>
 

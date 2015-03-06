@@ -16,13 +16,16 @@ public class AddEditHolidayFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        setText(rootView,"DashboardFragment");
+        View rootView = inflater.inflate(R.layout.fragment_add_edit_holiday, container, false);
+        //setText(rootView,"DashboardFragment");
+
         return rootView;
     }
 }

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "ae.ac.adec.coursefollowup"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -54,4 +54,6 @@ dependencies {
     compile 'com.melnykov:floatingactionbutton:1.2.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
+    compile 'com.rengwuxian.materialedittext:library:1.8.3'
 }
