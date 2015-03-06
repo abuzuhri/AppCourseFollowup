@@ -20,4 +20,8 @@
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
 
+    <!-- ADD Edit  -->
+        <!-- Semester  -->
+        <string name="semester_name">العربي</string>
+    <!-- /ADD Edit  -->
 </resources>

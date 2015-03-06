@@ -23,6 +23,8 @@
 
         </activity>
         <activity android:name=".activities.OneFragmentActivity" android:screenOrientation="portrait" ></activity>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="813246298700515" />
     </application>
 
 </manifest>
