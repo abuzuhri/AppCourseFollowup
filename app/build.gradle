@@ -37,12 +37,9 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'io.reactivex:rxandroid:0.24.0'
-
     compile 'com.github.lzyzsd:circleprogress:1.0.1@aar'
     compile 'com.github.xiprox.errorview:library:1.0.0'
-
     compile 'com.google.android.apps.muzei:muzei-api:+'
-
     compile 'com.mikepenz.iconics:library:0.7.1@aar'
     compile('com.mikepenz.aboutlibraries:library:4.5.2@aar') {
         transitive = true
@@ -53,9 +50,8 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.melnykov:floatingactionbutton:1.2.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
     compile 'com.rengwuxian.materialedittext:library:1.8.3'
     compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.afollestad:material-dialogs:0.6.3.5'
     compile 'com.facebook.android:facebook-android-sdk:3.23.0'
 }

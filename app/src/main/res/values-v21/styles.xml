@@ -10,7 +10,7 @@
 
     </style>
 
-    <style name="AppTheme.DetailActivity" parent="MaterialDrawerTheme.TranslucentStatus">
+    <style name="AppTheme.DetailActivity" parent="MaterialDrawerTheme.Light.TranslucentStatus">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>

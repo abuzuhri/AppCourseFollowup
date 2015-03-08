@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.facebook.Session;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -95,9 +95,7 @@ public class MainActivity extends BaseActivity {
                             if (onFilterChangedListener != null) {
 
                             }
-                            //if (onFilterChangedListener != null) {
-                            //    onFilterChangedListener.onFilterChanged(drawerItem.getIdentifier());
-                            //}
+
                         }
                     }
                 })
@@ -110,7 +108,7 @@ public class MainActivity extends BaseActivity {
         selectItem(Category.Dashboard.id);
 
 
-        Session session = Session.getActiveSession();
+        //Session session = Session.getActiveSession();
     }
 
     private OnFilterChangedListener onFilterChangedListener;

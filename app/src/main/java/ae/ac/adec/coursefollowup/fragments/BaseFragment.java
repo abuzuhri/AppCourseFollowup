@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import ae.ac.adec.coursefollowup.R;
-import butterknife.ButterKnife;
 
 /**
  * Created by Tareq on 02/28/2015.
@@ -22,6 +21,5 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
     }
 }

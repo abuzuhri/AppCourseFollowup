@@ -78,7 +78,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?colorPrimary"
-                        android:text="Button" />
+                        android:text="Save" />
+
+                    <com.gc.materialdesign.views.ButtonRectangle
+                        android:id="@+id/button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?colorPrimary"
+                        android:text="Save" />
 
                     <Button
                         android:id="@+id/setErrorWithMinLines2Bt"

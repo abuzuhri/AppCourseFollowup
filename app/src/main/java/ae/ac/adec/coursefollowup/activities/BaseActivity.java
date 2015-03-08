@@ -3,6 +3,7 @@ package ae.ac.adec.coursefollowup.activities;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,7 +33,7 @@ public class BaseActivity   extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Log.i("tg", "tg tg >>>>  == ");
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
