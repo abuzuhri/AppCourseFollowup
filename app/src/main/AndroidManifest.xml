@@ -2,12 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ae.ac.adec.coursefollowup" >
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <application
         android:allowBackup="true"
         android:name=".Application.myApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
@@ -23,8 +27,10 @@
 
         </activity>
         <activity android:name=".activities.OneFragmentActivity" android:screenOrientation="portrait" ></activity>
+        <activity android:name="com.facebook.LoginActivity" android:screenOrientation="portrait" ></activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="813246298700515" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

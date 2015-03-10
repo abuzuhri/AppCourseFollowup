@@ -1,21 +1,36 @@
 package ae.ac.adec.coursefollowup.activities;
 
 
+import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.Session;
+import com.facebook.android.Facebook;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
@@ -28,11 +43,15 @@ import ae.ac.adec.coursefollowup.fragments.SearchFragment;
 import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
 import ae.ac.adec.coursefollowup.fragments.SettingFragment;
 import ae.ac.adec.coursefollowup.fragments.TaskFragment;
+import ae.ac.adec.coursefollowup.services.auths.AppFacebookAuth;
+import ae.ac.adec.coursefollowup.services.auths.AppGoogleAuth;
 
 
 public class MainActivity extends BaseActivity {
 
+    AppGoogleAuth googleApp;
     public Drawer.Result result;
+
 
     public enum Category {
         Dashboard(10),
@@ -57,6 +76,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -101,15 +122,18 @@ public class MainActivity extends BaseActivity {
                 })
                 .build();
 
-
         //disable scrollbar :D it's ugly
         result.getListView().setVerticalScrollBarEnabled(false);
-
         selectItem(Category.Dashboard.id);
 
+        //Update jma
+        // test facebook login
+        //AppFacebookAuth test=new AppFacebookAuth(this);
 
-        //Session session = Session.getActiveSession();
+        //Test Google login
+        //googleApp = new AppGoogleAuth(this);
     }
+
 
     private OnFilterChangedListener onFilterChangedListener;
 
@@ -117,36 +141,36 @@ public class MainActivity extends BaseActivity {
         this.onFilterChangedListener = onFilterChangedListener;
     }
 
-
     public interface OnFilterChangedListener {
         public void onFilterChanged(int filter);
     }
 
-
-    public  void  selectItem(int filter){
+    public void selectItem(int filter) {
         Fragment fragment = null;
         Log.i("tg", "position=> " + filter);
 
 
         if (filter == Category.Dashboard.id) {
             fragment = new DashboardFragment();
-        }else  if (filter == Category.Notes.id) {
+        } else if (filter == Category.Notes.id) {
             fragment = new NoteFragment();
-        }else if (filter == Category.Setting.id) {
+        } else if (filter == Category.Setting.id) {
             fragment = new SettingFragment();
-        }else if (filter == Category.Search.id) {
+            googleApp.googlePlusLogout();
+        } else if (filter == Category.Search.id) {
             fragment = new SearchFragment();
-        }else if (filter == Category.Classes.id) {
+            googleApp.googlePlusLogin();
+        } else if (filter == Category.Classes.id) {
             fragment = new CoursesFragment();
-        }else if (filter == Category.Calender.id) {
+        } else if (filter == Category.Calender.id) {
             fragment = new CalenderFragment();
-        }else if (filter == Category.Exams.id) {
+        } else if (filter == Category.Exams.id) {
             fragment = new ExamFragment();
-        }else if (filter == Category.Semesters.id) {
+        } else if (filter == Category.Semesters.id) {
             fragment = new SemesterFragment();
-        }else if (filter == Category.Tasks.id) {
+        } else if (filter == Category.Tasks.id) {
             fragment = new TaskFragment();
-        }else if (filter == Category.Holiday.id) {
+        } else if (filter == Category.Holiday.id) {
             fragment = new HolidayFragment();
         }
 
@@ -157,4 +181,39 @@ public class MainActivity extends BaseActivity {
                     .commit();
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // update jma
+        //googleApp.mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // update jma
+        /*if (googleApp.mGoogleApiClient.isConnected()) {
+            googleApp.mGoogleApiClient.disconnect();
+        }*/
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Remove comment when using facebook login
+        //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+
+        // Remove comment when using google login
+        /*if (requestCode == googleApp.RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                googleApp.signedInUser = false;
+            }
+            googleApp.mIntentInProgress = false;
+            if (!googleApp.mGoogleApiClient.isConnecting()) {
+                googleApp.mGoogleApiClient.connect();
+            }
+        }*/
+
+    }
+
 }

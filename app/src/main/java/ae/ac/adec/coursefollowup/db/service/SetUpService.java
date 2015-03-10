@@ -1,11 +1,13 @@
 package ae.ac.adec.coursefollowup.db.service;
 
+import android.provider.SyncStateContract;
+
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 
 import java.util.List;
 
-import ae.ac.adec.coursefollowup.utils.Constants;
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.db.models.CourseTime;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 
@@ -16,7 +18,7 @@ public class SetUpService extends  BaseService  {
 
 
 
-    public static List<CourseTime> getAllCourse(Constants.TimeFrame timeFrame) {
+    public static List<CourseTime> getAllCourse(ConstantVariable.TimeFrame timeFrame) {
         // get all today course
 
         From query = new Select()
@@ -25,7 +27,7 @@ public class SetUpService extends  BaseService  {
                 .on("CourseTimes.id=CourseTimeDaies.CourseTime_Id");
 
 
-        query=query.where("CourseTimes.StartDate > ? and CourseTimes.EndDate < ? and CourseTimeDaies.DayOfWeek  = ?", Constants.getCurrentDate().getTime(), Constants.getCurrentDate().getTime(), Constants.getCurrentDayOfWeek());
+        query=query.where("CourseTimes.StartDate > ? and CourseTimes.EndDate < ? and CourseTimeDaies.DayOfWeek  = ?",ConstantVariable. getCurrentDate().getTime(), ConstantVariable.getCurrentDate().getTime(), ConstantVariable.getCurrentDayOfWeek());
 
         /*if(timeFrame == Constants.TimeFrame.Current)
         {
