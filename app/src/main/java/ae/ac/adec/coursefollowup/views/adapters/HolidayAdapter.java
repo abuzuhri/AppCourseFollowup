@@ -82,8 +82,8 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
 
         viewHolder.butEdit.setVisibility(View.VISIBLE);
         viewHolder.btnDelete.setVisibility(View.VISIBLE);
-        //viewHolder.butEdit.setText("Edit");
-        //viewHolder.btnDelete.setText("Delete");
+        viewHolder.butEdit.setText("Edit");
+        viewHolder.btnDelete.setText("Delete");
         //butEdit
         //if(holiday.StartDate!=null)
         //    viewHolder.tvtinfo_text.setText(holiday.Name + holiday.StartDate.toString());
