@@ -2,17 +2,21 @@ package ae.ac.adec.coursefollowup.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.List;
+
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
+import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
+import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.views.adapters.HolidayAdapter;
 
 /**
@@ -30,18 +34,29 @@ public class HolidayFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                FillDate();
+            }
+        }, 500);
+    }
+
+    private void FillDate(){
+        HolidayDao holiday=new HolidayDao();
+        List<Holiday> holidayList= holiday.getAll();
+        mAdapter = new HolidayAdapter(holidayList,getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         View rootView = inflater.inflate(R.layout.fragment_holiday, container, false);
-        //setText(rootView,"HolidayFragment");
-        String[] myDataset = { "Alpha", "Beta", "CupCake", "Donut", "Eclair",
-                "Froyo", "Gingerbread", "Honeycomb", "Ice Cream Sandwitch",
-                "JellyBean", "KitKat", "LollyPop" };
-
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -53,8 +68,7 @@ public class HolidayFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        mAdapter = new HolidayAdapter(myDataset,getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        FillDate();
         //mRecyclerView.setItemAnimator(new FeedItemAnimator());
 
         FloatingActionButton fab=(FloatingActionButton) rootView.findViewById(R.id.fab);
@@ -63,8 +77,6 @@ public class HolidayFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Floating Action Button Click ==> "+ AddEditHolidayFragment.class.getName(), Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(v.getContext(), OneFragmentActivity.class);
                 intent.putExtra(OneFragmentActivity.FRAGMENT, AddEditHolidayFragment.class.getName());
                 startActivity(intent);
@@ -75,9 +87,10 @@ public class HolidayFragment extends BaseFragment {
         return rootView;
     }
 
-   // public void onSomeButtonClicked(View view) {
-    //   getActivity(). getWindow().setExitTransition(new Explode());
-    //    Intent intent = new Intent(getActivity(), MainSplashScreen.class);
-    //    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-    //}
+    /*public void onSomeButtonClicked(View view) {
+       getActivity(). getWindow().setExitTransition(new Explode());
+        Intent intent = new Intent(getActivity(), OneFragmentActivity.class);
+        intent.putExtra(OneFragmentActivity.FRAGMENT, AddEditHolidayFragment.class.getName());
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+    }*/
 }

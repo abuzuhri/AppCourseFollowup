@@ -1,7 +1,10 @@
 package ae.ac.adec.coursefollowup.db.dal;
 
+import android.util.Log;
+
 import com.activeandroid.query.Select;
 
+import java.util.Calendar;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.db.models.Holiday;
@@ -14,9 +17,19 @@ public class HolidayDao extends BaseDao {
         return Holiday.load(Holiday.class, Id);
     }
 
-    public  void  add(String Name){
+    public  void  add(String Name,long startDate,long endDate){
         Holiday holiday=new Holiday();
         holiday.Name=Name;
+
+        Calendar startDateCalendar=Calendar.getInstance();
+        startDateCalendar.setTimeInMillis(startDate);
+        holiday.StartDate= startDateCalendar.getTime();
+
+        Calendar endDateCalendar=Calendar.getInstance();
+        endDateCalendar.setTimeInMillis(endDate);
+        holiday.EndDate= endDateCalendar.getTime();
+
+        Log.i("tg","Name =>"+Name+" startDate=>"+holiday.StartDate.toString()+" endDate=>"+holiday.EndDate.toString());
         holiday.save();
     }
 

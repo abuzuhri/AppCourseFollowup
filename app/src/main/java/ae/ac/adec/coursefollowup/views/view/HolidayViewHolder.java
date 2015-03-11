@@ -14,14 +14,25 @@ import ae.ac.adec.coursefollowup.views.event.IHolidayViewHolderClicks;
 public class HolidayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener
 {
 
-    public TextView tvtinfo_text;
+    public TextView titleTextView;
+    public TextView txtFromDate;
+    public TextView txtToDate;
+
+    public TextView butEdit;
+    public TextView btnDelete;
+
     private int mPosition;
     public IHolidayViewHolderClicks mListener;
 
     public HolidayViewHolder(View itemLayoutView,IHolidayViewHolderClicks listener) {
         super(itemLayoutView);
         mListener=listener;
-        tvtinfo_text = (TextView) itemLayoutView.findViewById(R.id.info_text);
+        titleTextView = (TextView) itemLayoutView.findViewById(R.id.titleTextView);
+        txtFromDate = (TextView) itemLayoutView.findViewById(R.id.txtFromDate);
+        txtToDate = (TextView) itemLayoutView.findViewById(R.id.txtToDate);
+
+        butEdit = (TextView) itemLayoutView.findViewById(R.id.butEdit);
+        btnDelete = (TextView) itemLayoutView.findViewById(R.id.btnDelete);
         itemLayoutView.setOnClickListener(this);
 
     }

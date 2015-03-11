@@ -5,6 +5,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.fragments.Utils.DatePickerFragment;
 import ae.ac.adec.coursefollowup.fragments.Utils.IDateTimePickerResult;
@@ -40,5 +45,31 @@ public class BaseFragment extends Fragment  {
         newTime.show(getActivity().getSupportFragmentManager(), "timePicker", dateTimePickerResult);
     }
 
+
+    public void SetDateControl(final MaterialEditText dateControl){
+        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    OpenDatePicker(new IDateTimePickerResult() {
+                        @Override
+                        public void onDatePickerSubmit(int year, int month, int day, String tag) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(year,month,day);
+                            dateControl.setText(SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(calendar.getTime()));
+                            dateControl.setTag(calendar.getTimeInMillis());
+                        }
+
+                        @Override
+                        public void onTimePickerSubmit(int hourOfDay, int minute, String tag) {
+                            //Toast.makeText(getActivity(),tag,Toast.LENGTH_LONG).show();;
+                        }
+                    });
+                }
+                v.clearFocus();
+            }
+        });
+
+    }
 
 }

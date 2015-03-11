@@ -9,20 +9,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import ae.ac.adec.coursefollowup.R;
-import ae.ac.adec.coursefollowup.fragments.Utils.IDateTimePickerResult;
+import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 
 /**
  * Created by Tareq on 03/05/2015.
  */
 public class AddEditHolidayFragment extends BaseFragment {
+
+    MaterialEditText holidayName=null;
+    MaterialEditText startDate=null;
+    MaterialEditText endDate=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class AddEditHolidayFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setSubTitle("Add Semester");
+        setSubTitle("Add Holiday");
     }
 
 
@@ -56,8 +57,6 @@ public class AddEditHolidayFragment extends BaseFragment {
         switch (item.getItemId()) {
             case R.id.ic_menu_save_menu:
                 AddEdit();
-
-
                 return true;
             default:
                 break;
@@ -66,26 +65,19 @@ public class AddEditHolidayFragment extends BaseFragment {
         return false;
     }
     public void AddEdit(){
+        try {
+            HolidayDao holiday = new HolidayDao();
+            long startDateMil = (long) startDate.getTag();
+            long endDateMil = (long) endDate.getTag();
+            holiday.add(holidayName.getText().toString(), startDateMil, endDateMil);
+            getActivity().finish();
+            Toast.makeText(getActivity(),R.string.holiday_add_successfully,Toast.LENGTH_LONG).show();
+        }catch (Exception ex){
 
+        }
     }
 
-    public void SetDateControl(final MaterialEditText dateControl){
-        OpenDatePicker(new IDateTimePickerResult() {
-            @Override
-            public void onDatePickerSubmit(int year, int month, int day, String tag) {
-                Date date = new Date(year,month,day);
-                dateControl.setText(SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, Locale.ENGLISH).format(date).toUpperCase());
-                dateControl.setTag(date);
-                //dateControl.setText("Year "+year);
-                //Toast.makeText(getActivity(),tag+"  year "+year,Toast.LENGTH_LONG).show();;
-            }
 
-            @Override
-            public void onTimePickerSubmit(int hourOfDay, int minute, String tag) {
-                //Toast.makeText(getActivity(),tag,Toast.LENGTH_LONG).show();;
-            }
-        });
-    }
 
 
     @Override
@@ -99,16 +91,19 @@ public class AddEditHolidayFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_add_edit_holiday, container, false);
-        final MaterialEditText startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
-        startDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    SetDateControl(startDate);
-                }
-                v.clearFocus();
-            }
-        });
+
+        //Holiday Name
+        holidayName= (MaterialEditText) rootView.findViewById(R.id.txtholidayName);
+
+        // Start Date
+        startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
+        SetDateControl(startDate);
+
+
+        // End Date
+        endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
+        SetDateControl(endDate);
+
         return rootView;
     }
 

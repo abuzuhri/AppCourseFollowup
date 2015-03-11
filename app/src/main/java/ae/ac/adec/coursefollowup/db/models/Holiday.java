@@ -20,7 +20,9 @@ public class Holiday extends BaseModel {
     @Column(name = "Name")
     public String Name;
 
+    @Column
     public Date StartDate;
 
+    @Column
     public Date EndDate;
 }

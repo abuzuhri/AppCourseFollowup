@@ -22,7 +22,14 @@
     <string name="category_technology">Technology</string>
 
     <!-- ADD Edit  -->
+    <!-- Holiday  -->
+    <string name="holiday_add_successfully">Successfully add holiday</string>
+    <string name="holiday_name">Holiday Name</string>
+    <string name="holiday_start_date_hint">Start Date</string>
+    <string name="holiday_end_date_hint">End Date</string>
         <!-- Semester  -->
-        <string name="semester_name">العربي</string>
+        <string name="semester_name">Semester Name</string>
+    <string name="semester_start_date_hint">Start Date</string>
+    <string name="semester_end_date_hint">End Date</string>
     <!-- /ADD Edit  -->
 </resources>

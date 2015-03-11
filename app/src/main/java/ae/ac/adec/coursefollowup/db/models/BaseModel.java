@@ -9,6 +9,6 @@ import com.activeandroid.annotation.Column;
 public class BaseModel extends Model {
 
     // This is the unique id given by the server
-    @Column(name = "remote_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    @Column(name = "remote_id")
     public long remoteId;
 }

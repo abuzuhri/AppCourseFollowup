@@ -21,16 +21,17 @@
                 android:paddingTop="16dp">
 
                 <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/txtholidayName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/semester_name"
+                    android:hint="@string/holiday_name"
 
                     android:textCursorDrawable="@drawable/text_cursor"
                     android:textSize="34sp"
                     app:baseColor="@android:color/white"
                     app:floatingLabel="highlight"
                     app:maxCharacters="20"
-                    app:primaryColor="?colorAccent"
+                    app:primaryColor="@color/colorAccent"
                     app:singleLineEllipsis="true" />
 
             </LinearLayout>
@@ -57,22 +58,19 @@
                         android:id="@+id/txtStartDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Start Date"
+                        android:hint="@string/holiday_start_date_hint"
                         app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
-                        app:helperText="Term / Semester expected Start Date"
-                        app:iconPadding="10dp"
-                        app:maxCharacters="5" />
+                        app:iconPadding="10dp" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/txtEndDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="End Date"
+                        android:hint="@string/holiday_end_date_hint"
                         app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
-                        app:helperText="Term / Semester expected End Date"
-                        app:iconPadding="10dp"
-                        app:maxCharacters="5" />
+                        app:iconPadding="10dp" />
 
 
 

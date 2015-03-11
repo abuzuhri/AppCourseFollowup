@@ -8,7 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.views.event.IHolidayViewHolderClicks;
 import ae.ac.adec.coursefollowup.views.view.HolidayViewHolder;
 
@@ -17,11 +22,11 @@ import ae.ac.adec.coursefollowup.views.view.HolidayViewHolder;
  */
 public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
 
-    public String[] mDataset;
+    public List<Holiday> mDataset;
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public HolidayAdapter(String[] myDataset,Context context) {
+    public HolidayAdapter(List<Holiday> myDataset,Context context) {
         mDataset = myDataset;
         this.context=context;
     }
@@ -62,15 +67,36 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
 
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
+        Holiday holiday= mDataset.get(position);
 
-        viewHolder.tvtinfo_text.setText(mDataset[position].toString());
+        Calendar calendar = Calendar.getInstance();
+        //String startDate=holiday.StartDate.toString(); // SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(holiday.StartDate);
+
+        viewHolder.titleTextView.setText(holiday.Name);
+
+        String startDate= SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(holiday.StartDate);
+        viewHolder.txtFromDate.setText(context.getString(R.string.holiday_start_date_hint) +": "+startDate);
+
+        String endDate= SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(holiday.EndDate);
+        viewHolder.txtToDate.setText(context.getString(R.string.holiday_end_date_hint) +": "+endDate);
+
+        viewHolder.butEdit.setVisibility(View.VISIBLE);
+        viewHolder.btnDelete.setVisibility(View.VISIBLE);
+        //viewHolder.butEdit.setText("Edit");
+        //viewHolder.btnDelete.setText("Delete");
+        //butEdit
+        //if(holiday.StartDate!=null)
+        //    viewHolder.tvtinfo_text.setText(holiday.Name + holiday.StartDate.toString());
+        //+" Start Date= "
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        Log.i("tg","mDataset ==> "+mDataset.size());
+        return mDataset.size();
+
     }
 
 
