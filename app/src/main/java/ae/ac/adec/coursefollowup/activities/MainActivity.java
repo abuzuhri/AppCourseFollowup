@@ -94,7 +94,6 @@ public class MainActivity extends BaseActivity {
                             if (onFilterChangedListener != null) {
 
                             }
-
                         }
                     }
                 })
