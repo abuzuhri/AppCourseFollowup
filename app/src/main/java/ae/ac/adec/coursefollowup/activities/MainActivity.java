@@ -14,8 +14,11 @@ import android.widget.AdapterView;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import ae.ac.adec.coursefollowup.R;
@@ -25,6 +28,7 @@ import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
 import ae.ac.adec.coursefollowup.fragments.ExamFragment;
 import ae.ac.adec.coursefollowup.fragments.HolidayFragment;
 import ae.ac.adec.coursefollowup.fragments.NoteFragment;
+import ae.ac.adec.coursefollowup.fragments.ProfileFragment;
 import ae.ac.adec.coursefollowup.fragments.SearchFragment;
 import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
 import ae.ac.adec.coursefollowup.fragments.SettingFragment;
@@ -34,6 +38,7 @@ import ae.ac.adec.coursefollowup.fragments.TaskFragment;
 public class MainActivity extends BaseActivity {
 
     public Drawer.Result result;
+    public AccountHeader.Result headerResult;
 
     public enum Category {
         Dashboard(10),
@@ -45,7 +50,8 @@ public class MainActivity extends BaseActivity {
         Classes(70),
         Holiday(80),
         Search(99),
-        Setting(100);
+        Setting(100),
+        Profile(101);
 
         public int id;
 
@@ -63,12 +69,25 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-
+          headerResult = new AccountHeader()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.redheader)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Jafar Edit").withEmail("Jafar@Edit.com").withIcon(getResources().getDrawable(R.drawable.profile))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public void onProfileChanged(View view, IProfile profile) {
+                        selectItem(Category.Profile.id);
+                    }
+                })
+                .build();
 
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withTranslucentStatusBar(true)
+                .withAccountHeader(headerResult)
+                .withTranslucentStatusBar(false)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_dashboard),
@@ -152,6 +171,8 @@ public class MainActivity extends BaseActivity {
             fragment = new TaskFragment();
         }else if (filter == Category.Holiday.id) {
             fragment = new HolidayFragment();
+        }else if (filter == Category.Profile.id) {
+            fragment = new ProfileFragment();
         }
 
         if (fragment != null) {
