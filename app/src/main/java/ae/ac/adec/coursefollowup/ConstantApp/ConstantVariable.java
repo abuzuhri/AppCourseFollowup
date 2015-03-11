@@ -1,4 +1,4 @@
-package ae.ac.adec.coursefollowup.utils;
+package ae.ac.adec.coursefollowup.ConstantApp;
 
 import android.text.format.DateFormat;
 
@@ -8,9 +8,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class Constants {
-
-
+/**
+ * Created by JMA on 3/8/2015.
+ */
+public class ConstantVariable {
 
     public enum TimeFrame {
         Current(1),

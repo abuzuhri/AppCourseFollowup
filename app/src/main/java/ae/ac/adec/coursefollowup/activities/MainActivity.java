@@ -7,18 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import ae.ac.adec.coursefollowup.R;
@@ -28,7 +23,6 @@ import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
 import ae.ac.adec.coursefollowup.fragments.ExamFragment;
 import ae.ac.adec.coursefollowup.fragments.HolidayFragment;
 import ae.ac.adec.coursefollowup.fragments.NoteFragment;
-import ae.ac.adec.coursefollowup.fragments.ProfileFragment;
 import ae.ac.adec.coursefollowup.fragments.SearchFragment;
 import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
 import ae.ac.adec.coursefollowup.fragments.SettingFragment;
@@ -38,7 +32,6 @@ import ae.ac.adec.coursefollowup.fragments.TaskFragment;
 public class MainActivity extends BaseActivity {
 
     public Drawer.Result result;
-    public AccountHeader.Result headerResult;
 
     public enum Category {
         Dashboard(10),
@@ -50,8 +43,7 @@ public class MainActivity extends BaseActivity {
         Classes(70),
         Holiday(80),
         Search(99),
-        Setting(100),
-        Profile(101);
+        Setting(100);
 
         public int id;
 
@@ -69,25 +61,10 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-          headerResult = new AccountHeader()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.redheader)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("Jafar Edit").withEmail("Jafar@Edit.com").withIcon(getResources().getDrawable(R.drawable.profile))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public void onProfileChanged(View view, IProfile profile) {
-                        selectItem(Category.Profile.id);
-                    }
-                })
-                .build();
 
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
-                .withTranslucentStatusBar(false)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_dashboard),
@@ -131,7 +108,6 @@ public class MainActivity extends BaseActivity {
 
 
         //Session session = Session.getActiveSession();
-        //session.getAccessToken();
     }
 
     private OnFilterChangedListener onFilterChangedListener;
@@ -171,8 +147,6 @@ public class MainActivity extends BaseActivity {
             fragment = new TaskFragment();
         }else if (filter == Category.Holiday.id) {
             fragment = new HolidayFragment();
-        }else if (filter == Category.Profile.id) {
-            fragment = new ProfileFragment();
         }
 
         if (fragment != null) {
@@ -181,28 +155,5 @@ public class MainActivity extends BaseActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_main, fragment)
                     .commit();
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Log.i("tg", "tg tg >>>>  == ");
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
