@@ -7,22 +7,24 @@
     android:orientation="horizontal"
     card_view:cardElevation="2sp"
     card_view:cardUseCompatPadding="true"
-    card_view:contentPadding="@dimen/activity_horizontal_margin"
+
     card_view:cardCornerRadius="4dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="?android:selectableItemBackground">
 
         <TextView
             android:id="@+id/info_text"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
+
             android:layout_centerInParent="true"
-            android:background="?android:selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="24sp" />

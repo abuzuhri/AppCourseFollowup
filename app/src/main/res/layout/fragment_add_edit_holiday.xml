@@ -39,7 +39,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbarStyle="outsideOverlay"
+                android:scrollbarStyle="outsideInset"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,10 +54,11 @@
 
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/txtStartDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Start Date"
-                        app:iconLeft="@drawable/ic_phone"
+                        app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
                         app:helperText="Term / Semester expected Start Date"
                         app:iconPadding="10dp"
@@ -67,34 +68,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="End Date"
-                        app:iconLeft="@drawable/ic_phone"
+                        app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
                         app:helperText="Term / Semester expected End Date"
                         app:iconPadding="10dp"
                         app:maxCharacters="5" />
 
-                    <com.gc.materialdesign.views.ButtonRectangle
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?colorPrimary"
-                        android:text="Save" />
 
-                    <com.gc.materialdesign.views.ButtonRectangle
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?colorPrimary"
-                        android:text="Save" />
-
-                    <Button
-                        android:id="@+id/setErrorWithMinLines2Bt"
-                        android:layout_width="48dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/colorAccent"
-                        android:background="?colorPrimary"
-                        android:text="2" />
 
                 </LinearLayout>
              </ScrollView>

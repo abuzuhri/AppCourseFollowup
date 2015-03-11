@@ -12,6 +12,7 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent"
         android:padding="@dimen/RecyclerView_padding"
         android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
 
 

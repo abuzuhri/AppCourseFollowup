@@ -52,7 +52,6 @@ public class HolidayFragment extends BaseFragment {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         // specify an adapter (see also next example)
         mAdapter = new HolidayAdapter(myDataset,getActivity());
         mRecyclerView.setAdapter(mAdapter);

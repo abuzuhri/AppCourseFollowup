@@ -7,10 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -63,9 +64,11 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
 
+
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withTranslucentStatusBar(true)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_dashboard),
@@ -109,6 +112,7 @@ public class MainActivity extends BaseActivity {
 
 
         //Session session = Session.getActiveSession();
+        //session.getAccessToken();
     }
 
     private OnFilterChangedListener onFilterChangedListener;
@@ -156,5 +160,28 @@ public class MainActivity extends BaseActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_main, fragment)
                     .commit();
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Log.i("tg", "tg tg >>>>  == ");
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

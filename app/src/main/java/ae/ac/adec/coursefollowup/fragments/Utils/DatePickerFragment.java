@@ -4,7 +4,6 @@ package ae.ac.adec.coursefollowup.fragments.Utils;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -40,9 +39,9 @@ public class DatePickerFragment extends DialogFragment
 
         // Create a new instance of DatePickerDialog and return it
         DatePickerDialog datePickerDialog= new DatePickerDialog(getActivity(), this, year, month, day);
-       if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-           datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-       }
+       //if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+       //    datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+       //}
         return datePickerDialog;
     }
 

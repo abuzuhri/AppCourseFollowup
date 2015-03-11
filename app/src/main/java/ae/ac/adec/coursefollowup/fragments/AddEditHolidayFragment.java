@@ -1,29 +1,28 @@
 package ae.ac.adec.coursefollowup.fragments;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.Toast;
+
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import ae.ac.adec.coursefollowup.R;
-import ae.ac.adec.coursefollowup.fragments.Utils.DatePickerFragment;
 import ae.ac.adec.coursefollowup.fragments.Utils.IDateTimePickerResult;
-import ae.ac.adec.coursefollowup.fragments.Utils.TimePickerFragment;
 
 /**
  * Created by Tareq on 03/05/2015.
  */
-public class AddEditHolidayFragment extends BaseFragment implements IDateTimePickerResult ,DatePickerDialog.OnDateSetListener {
+public class AddEditHolidayFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class AddEditHolidayFragment extends BaseFragment implements IDateTimePic
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle("Add Semester");
+        setSubTitle("Add Semester");
     }
 
 
@@ -47,7 +46,7 @@ public class AddEditHolidayFragment extends BaseFragment implements IDateTimePic
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main2, menu);
+        inflater.inflate(R.menu.menu_save, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
@@ -55,29 +54,9 @@ public class AddEditHolidayFragment extends BaseFragment implements IDateTimePic
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_settings2:
+            case R.id.ic_menu_save_menu:
+                AddEdit();
 
-                DatePickerFragment newDate = new DatePickerFragment();
-                newDate.show(getActivity().getSupportFragmentManager(), "datePicker",this);
-
-                //startActivityForResult(ss, 999);
-                //getActivity().finish();
-                // Not implemented here
-                return false;
-            case R.id.action_settings3:
-                TimePickerFragment newTime = new TimePickerFragment();
-                newTime.show(getActivity().getSupportFragmentManager(), "timePicker", this);
-                //getActivity().finish();
-                // Do Fragment menu item stuff here
-                return true;
-            case R.id.action_settings4:
-                //final Calendar c = Calendar.getInstance();
-                //int year = c.get(Calendar.YEAR);
-                //int month = c.get(Calendar.MONTH);
-                //int day = c.get(Calendar.DAY_OF_MONTH);
-               // new DatePickerDialog(getActivity(), this, year, month, day).show();
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Delete entry").show();
 
                 return true;
             default:
@@ -86,6 +65,28 @@ public class AddEditHolidayFragment extends BaseFragment implements IDateTimePic
 
         return false;
     }
+    public void AddEdit(){
+
+    }
+
+    public void SetDateControl(final MaterialEditText dateControl){
+        OpenDatePicker(new IDateTimePickerResult() {
+            @Override
+            public void onDatePickerSubmit(int year, int month, int day, String tag) {
+                Date date = new Date(year,month,day);
+                dateControl.setText(SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, Locale.ENGLISH).format(date).toUpperCase());
+                dateControl.setTag(date);
+                //dateControl.setText("Year "+year);
+                //Toast.makeText(getActivity(),tag+"  year "+year,Toast.LENGTH_LONG).show();;
+            }
+
+            @Override
+            public void onTimePickerSubmit(int hourOfDay, int minute, String tag) {
+                //Toast.makeText(getActivity(),tag,Toast.LENGTH_LONG).show();;
+            }
+        });
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -98,21 +99,19 @@ public class AddEditHolidayFragment extends BaseFragment implements IDateTimePic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_add_edit_holiday, container, false);
+        final MaterialEditText startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
+        startDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    SetDateControl(startDate);
+                }
+                v.clearFocus();
+            }
+        });
         return rootView;
     }
 
-    @Override
-    public void onDatePickerSubmit(int year, int month, int day, String tag) {
-        Toast.makeText(getActivity(),tag+"  year "+year,Toast.LENGTH_LONG).show();;
-    }
 
-    @Override
-    public void onTimePickerSubmit(int hourOfDay, int minute, String tag) {
-        Toast.makeText(getActivity(),tag,Toast.LENGTH_LONG).show();;
-    }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-    }
 }
