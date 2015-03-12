@@ -65,13 +65,15 @@ public class MainActivity extends BaseActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        String Name="Jafar Edit Name";
+        String Email="Jafar@Edit.com";
 
         // Create the AccountHeader
         headerResult = new AccountHeader()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.redheader)
+                .withHeaderBackground(R.drawable.blueheader)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("Jafar Edit Name").withEmail("Jafar@Edit.com").withIcon(getResources().getDrawable(R.drawable.profile))
+                        new ProfileDrawerItem().withName(Name).withEmail(Email).withIcon(getResources().getDrawable(R.drawable.profile))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
