@@ -54,7 +54,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private int mTabViewLayoutId;
     private int mTabViewTextViewId;
     private boolean mDistributeEvenly;
-
+    private View oldSelection = null;
     private ViewPager mViewPager;
     private SparseArray<String> mContentDescriptions = new SparseArray<String>();
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
@@ -167,6 +167,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
     }
 
     private void populateTabStrip() {
+        removeOldSelection(); // add those two lines
+        oldSelection = null;
         final PagerAdapter adapter = mViewPager.getAdapter();
         final View.OnClickListener tabClickListener = new TabClickListener();
 
@@ -221,7 +223,39 @@ public class SlidingTabLayout extends HorizontalScrollView {
             scrollToTab(mViewPager.getCurrentItem(), 0);
         }
     }
+    // method to remove `selected` state from old one
+    private void removeOldSelection() {
+        if(oldSelection != null) {
+            oldSelection.setSelected(false);
+        }
+    }
+    // improve method scrollToTab() as follows
+    private void scrollToTab(int tabIndex, int positionOffset) {
+        final int tabStripChildCount = mTabStrip.getChildCount();
+        if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
+            return;
+        }
 
+        View selectedChild = mTabStrip.getChildAt(tabIndex);
+        if (selectedChild != null) {
+
+            if(positionOffset == 0 && selectedChild != oldSelection) { // added part
+                selectedChild.setSelected(true);
+                removeOldSelection();
+                oldSelection = selectedChild;
+            }
+
+            int targetScrollX = selectedChild.getLeft() + positionOffset;
+
+            if (tabIndex > 0 || positionOffset > 0) {
+                // If we're not at the first child and are mid-scroll, make sure we obey the offset
+                targetScrollX -= mTitleOffset;
+            }
+
+            scrollTo(targetScrollX, 0);
+        }
+    }
+    /*
     private void scrollToTab(int tabIndex, int positionOffset) {
         final int tabStripChildCount = mTabStrip.getChildCount();
         if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
@@ -239,7 +273,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
             scrollTo(targetScrollX, 0);
         }
-    }
+    }*/
 
     private class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
         private int mScrollState;
