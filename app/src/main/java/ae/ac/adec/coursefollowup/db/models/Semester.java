@@ -20,8 +20,10 @@ public class Semester extends BaseModel {
     @Column(name = "Name")
     public String Name;
 
+    @Column
     public Date StartDate;
 
+    @Column
     public Date EndDate;
 
     @Column(name = "Year_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
