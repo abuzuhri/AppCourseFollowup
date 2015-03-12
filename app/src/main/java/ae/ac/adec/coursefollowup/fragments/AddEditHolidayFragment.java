@@ -15,6 +15,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
+import ae.ac.adec.coursefollowup.services.BusinessRoleExcption;
 
 /**
  * Created by Tareq on 03/05/2015.
@@ -72,6 +73,8 @@ public class AddEditHolidayFragment extends BaseFragment {
             holiday.add(holidayName.getText().toString(), startDateMil, endDateMil);
             getActivity().finish();
             Toast.makeText(getActivity(),R.string.holiday_add_successfully,Toast.LENGTH_LONG).show();
+        }catch (BusinessRoleExcption exb){
+
         }catch (Exception ex){
 
         }

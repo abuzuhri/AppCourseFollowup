@@ -38,4 +38,7 @@
     <string name="tab_past">Past</string>
 
     <string name="font_fontFamily_medium">sans-serif</string>
+
+    <!-- BusinessRoleExcption  -->
+    <string name="BR_AUH_001">Start date can\'t be less than end date</string>
 </resources>

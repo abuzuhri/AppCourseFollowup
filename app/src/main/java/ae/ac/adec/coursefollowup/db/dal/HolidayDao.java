@@ -8,7 +8,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
+import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
+import ae.ac.adec.coursefollowup.services.BusinessRoleExcption;
 
 /**
  * Created by Tareq on 03/04/2015.
@@ -18,7 +20,7 @@ public class HolidayDao extends BaseDao {
         return Holiday.load(Holiday.class, Id);
     }
 
-    public  void  add(String Name,long startDate,long endDate){
+    public  void  add(String Name,long startDate,long endDate) throws BusinessRoleExcption {
         Holiday holiday=new Holiday();
         holiday.Name=Name;
 
@@ -29,6 +31,9 @@ public class HolidayDao extends BaseDao {
         Calendar endDateCalendar=Calendar.getInstance();
         endDateCalendar.setTimeInMillis(endDate);
         holiday.EndDate= endDateCalendar.getTime();
+
+        if(endDate < startDate)
+            throw new BusinessRoleExcption(R.string.BR_AUH_001);
 
         Log.i("tg","Name =>"+Name+" startDate=>"+holiday.StartDate.toString()+" endDate=>"+holiday.EndDate.toString());
         holiday.save();
