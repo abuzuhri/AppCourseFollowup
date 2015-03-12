@@ -13,6 +13,6 @@ public class ColorType extends BaseModel {
     @Column(name = "Name")
     public String Name;
 
-
+    @Column
     public String Code;
 }
