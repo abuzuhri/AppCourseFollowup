@@ -7,6 +7,7 @@ import com.activeandroid.query.Select;
 import java.util.Calendar;
 import java.util.List;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 
 /**
@@ -38,10 +39,22 @@ public class HolidayDao extends BaseDao {
         holiday.delete();
     }
 
-    public List<Holiday> getAll(){
-        return new Select()
-                .from(Holiday.class)
-                .orderBy("Name ASC")
-                .execute();
+    public List<Holiday> getAll(int position){
+
+        Calendar calendar = Calendar.getInstance();
+        long currentTimeInMillis= calendar.getTimeInMillis();
+        if(position == ConstantVariable.TimeFrame.Current.id) {
+            return new Select()
+                    .from(Holiday.class)
+                    .where("EndDate > ?",currentTimeInMillis)
+                    .orderBy("StartDate ASC")
+                    .execute();
+        }else {
+            return new Select()
+                    .from(Holiday.class)
+                    .where("EndDate <= ?",currentTimeInMillis)
+                    .orderBy("StartDate ASC")
+                    .execute();
+        }
     }
 }

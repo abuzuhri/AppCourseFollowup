@@ -14,9 +14,8 @@ import java.util.TimeZone;
 public class ConstantVariable {
 
     public enum TimeFrame {
-        Current(1),
-        Future(20),
-        Past(30);
+        Current(0),
+        Past(1);
         public int id;
         private TimeFrame(int id) {
             this.id = id;

@@ -1,13 +1,15 @@
 package ae.ac.adec.coursefollowup.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout;
 import ae.ac.adec.coursefollowup.R;
@@ -19,13 +21,39 @@ public class TabFragment extends BaseFragment {
 
     SlidingTabLayout mSlidingTabLayout;
     ViewPager mViewPager;
-
+    public  static final  String  FRAGMENT="FRAGMENT";
+    String FragmentName;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+        FragmentName = getArguments().getString(FRAGMENT);
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        fillData();
+    }
+
+    private void fillData(){
+        mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
+        mSlidingTabLayout.setContentDescription(1, getActivity().getString(R.string.tab_current));
+        mSlidingTabLayout.setContentDescription(2, getActivity().getString(R.string.tab_past));
+
+        //Resources res = getResources();
+        //res.getColor();
+        mSlidingTabLayout.setSelectedIndicatorColors(Color.WHITE);
+
+        mSlidingTabLayout.setDistributeEvenly(true);
+        FragmentManager fragmentManager = getChildFragmentManager();
+        String tabTitles[] = new String[] { getActivity().getString(R.string.tab_current), getActivity().getString(R.string.tab_past) };
+        mViewPager.setAdapter(new SampleFragmentPagerAdapter(fragmentManager,getActivity(),tabTitles, FragmentName));
+        mSlidingTabLayout.setViewPager(mViewPager);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -34,19 +62,10 @@ public class TabFragment extends BaseFragment {
         mViewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
 
-        mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
-        mSlidingTabLayout.setContentDescription(1, "Item1");
-        mSlidingTabLayout.setContentDescription(2, "Item2");
 
-        //Resources res = getResources();
-        //res.getColor();
-        mSlidingTabLayout.setSelectedIndicatorColors(Color.WHITE);
+        fillData();
 
-        mSlidingTabLayout.setDistributeEvenly(true);
-        mViewPager.setAdapter(new SamplePagerAdapter());
-        mSlidingTabLayout.setViewPager(mViewPager);
-
-
+/*
         if (mSlidingTabLayout != null) {
             mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
@@ -66,50 +85,45 @@ public class TabFragment extends BaseFragment {
                 }
             });
         }
+        */
 
         return rootView;
     }
 
-
-    class SamplePagerAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return 2;
+    public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+        final int PAGE_COUNT = 2;
+        private Context context;
+        private String tabTitles[];
+        private String FragmentName;
+        public SampleFragmentPagerAdapter(FragmentManager fm, Context context,String tabTitles[],String FragmentName) {
+            super(fm);
+            this.context = context;
+            this.tabTitles=tabTitles;
+            this.FragmentName=FragmentName;
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return o == view;
+        public int getCount() {
+            return tabTitles.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment= Fragment.instantiate(context,FragmentName);
+            //Fragment fragment=HolidayFragment.newInstance(position);
+            Bundle args = new Bundle();
+            args.putInt(BaseFragment.POSITION, position);
+            fragment.setArguments(args);
+
+            return fragment;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Item " + (position + 1);
+            // Generate title based on item position
+            return tabTitles[position];
         }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            // Inflate a new layout from our resources
-            View view = getActivity(). getLayoutInflater().inflate(R.layout.test_item, container, false);
-            TextView txt = (TextView) view.findViewById(R.id.item_subtitle);
-            txt.setText("Page:"+position);
-            // Add the newly created View to the ViewPager
-            container.addView(view);
-
-            // Return the View
-            return view;
-        }
-
-        /**
-         * Destroy the item from the {@link ViewPager}. In our case this is simply removing the
-         * {@link View}.
-         */
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
     }
+
 
 }

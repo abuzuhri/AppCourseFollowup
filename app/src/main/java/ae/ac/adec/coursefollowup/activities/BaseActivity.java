@@ -113,6 +113,7 @@ public class BaseActivity   extends ActionBarActivity {
     }
     public  void  selectItem(int filter){
         Fragment fragment = null;
+        Bundle args = new Bundle();
         Log.i("tg", "position=> " + filter);
 
 
@@ -140,7 +141,10 @@ public class BaseActivity   extends ActionBarActivity {
             fragment = new ProfileFragment();
         }else if (filter == ConstantVariable.Category.Test.id) {
             fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, HolidayFragment.class.getName());
         }
+
+        fragment.setArguments(args);
 
         if (fragment != null) {
             // Insert the fragment by replacing any existing fragment

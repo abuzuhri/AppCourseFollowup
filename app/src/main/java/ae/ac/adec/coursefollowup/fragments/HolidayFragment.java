@@ -27,11 +27,13 @@ public class HolidayFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private int position;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+        position= getArguments().getInt(POSITION,0);
     }
 
     @Override
@@ -46,8 +48,8 @@ public class HolidayFragment extends BaseFragment {
     }
 
     private void FillDate(){
-        HolidayDao holiday=new HolidayDao();
-        List<Holiday> holidayList= holiday.getAll();
+        HolidayDao holidayDao=new HolidayDao();
+        List<Holiday> holidayList= holidayDao.getAll(position);
         mAdapter = new HolidayAdapter(holidayList,getActivity());
         mRecyclerView.setAdapter(mAdapter);
     }

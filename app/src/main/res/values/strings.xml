@@ -33,5 +33,9 @@
     <string name="semester_end_date_hint">End Date</string>
     <!-- /ADD Edit  -->
 
+    <!-- Tab  -->
+    <string name="tab_current">Current</string>
+    <string name="tab_past">Past</string>
+
     <string name="font_fontFamily_medium">sans-serif</string>
 </resources>

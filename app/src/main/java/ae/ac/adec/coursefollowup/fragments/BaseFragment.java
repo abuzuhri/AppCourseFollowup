@@ -20,6 +20,7 @@ import ae.ac.adec.coursefollowup.fragments.Utils.TimePickerFragment;
  */
 public class BaseFragment extends Fragment  {
 
+    public static final String POSITION = "POSITION";
 
     public void setSubTitle(String txt){
         ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(txt);
