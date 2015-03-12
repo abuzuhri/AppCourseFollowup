@@ -17,14 +17,19 @@ public class Exam extends BaseModel {
         super();
     }
 
+    @Column
     public Date Date;
 
+    @Column
     public  Boolean IsResit;
 
+    @Column
     public int Duration;
 
+    @Column
     public String Seat;
 
+    @Column
     public String Room;
 
     @Column(name = "Course_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
