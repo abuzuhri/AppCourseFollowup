@@ -23,6 +23,26 @@ public class ConstantVariable {
         }
     }
 
+    public enum Category {
+        Dashboard(10),
+        Calender(20),
+        Tasks(30),
+        Notes(430),
+        Exams(50),
+        Semesters(60),
+        Classes(70),
+        Holiday(80),
+        Search(99),
+        Setting(100),
+        Test(1000),
+        Profile(101);
+
+        public int id;
+
+        private Category(int id) {
+            this.id = id;
+        }
+    }
 
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);

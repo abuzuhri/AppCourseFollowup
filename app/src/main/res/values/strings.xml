@@ -20,7 +20,7 @@
     <string name="category_setting">Settings</string>
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
-
+    <string name="category_test">Testing</string>
     <!-- ADD Edit  -->
     <!-- Holiday  -->
     <string name="holiday_add_successfully">Successfully add holiday</string>
@@ -32,4 +32,6 @@
     <string name="semester_start_date_hint">Start Date</string>
     <string name="semester_end_date_hint">End Date</string>
     <!-- /ADD Edit  -->
+
+    <string name="font_fontFamily_medium">sans-serif</string>
 </resources>
