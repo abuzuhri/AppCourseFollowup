@@ -160,7 +160,8 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
         }else if (filter == ConstantVariable.Category.Tasks.id) {
             fragment = new TaskFragment();
         }else if (filter == ConstantVariable.Category.Holiday.id) {
-            fragment = new HolidayFragment();
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, HolidayFragment.class.getName());
         }else if (filter == ConstantVariable.Category.Profile.id) {
             fragment = new ProfileFragment();
         }else if (filter == ConstantVariable.Category.Test.id) {
