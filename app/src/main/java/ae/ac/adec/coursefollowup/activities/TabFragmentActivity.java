@@ -9,7 +9,7 @@ import ae.ac.adec.coursefollowup.R;
 /**
  * Created by Tareq on 03/12/2015.
  */
-public class TabActivity extends BaseActivity {
+public class TabFragmentActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

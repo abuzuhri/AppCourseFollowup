@@ -1,5 +1,6 @@
 package ae.ac.adec.coursefollowup.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -33,22 +34,45 @@ import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
 import ae.ac.adec.coursefollowup.fragments.SettingFragment;
 import ae.ac.adec.coursefollowup.fragments.TabFragment;
 import ae.ac.adec.coursefollowup.fragments.TaskFragment;
+import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
 /**
  * Created by Tareq on 02/27/2015.
  */
-public class BaseActivity   extends ActionBarActivity {
+public class BaseActivity   extends ActionBarActivity implements IRemovableShadowToolBarShadow {
 
     public Toolbar toolbar=null;
     public Drawer.Result result;
     public AccountHeader.Result headerResult;
+    public View shadowView;
+    public View toolbarContainer;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
+
     }
 
+    public void SetupToolbarShadow(){
+        //Shadow View
+        shadowView=findViewById(R.id.shadow_main_activity);
+        toolbarContainer=findViewById(R.id.activity_main_toolbar_container);
+        // Solve Android bug in API < 21 by app custom shadow
+        SetToolbarShadow();
+    }
+
+    public void SetToolbarShadow()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            shadowView.setVisibility(View.GONE);
+            final float scale = getResources().getDisplayMetrics().density;
+            toolbarContainer.setElevation(5f*scale);
+        }else{
+            shadowView.setVisibility(View.VISIBLE);
+        }
+    }
 
     public void Drawable(){
         // Create the AccountHeader
@@ -152,6 +176,13 @@ public class BaseActivity   extends ActionBarActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_main, fragment)
                     .commit();
         }
+        SetToolbarShadow();
     }
 
+    @Override
+    public void RemoveToolBarShadow() {
+        shadowView.setVisibility(View.GONE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            toolbarContainer.setElevation(0);
+    }
 }

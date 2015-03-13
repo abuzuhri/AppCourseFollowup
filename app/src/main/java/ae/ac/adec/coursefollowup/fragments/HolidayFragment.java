@@ -80,7 +80,7 @@ public class HolidayFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), OneFragmentActivity.class);
-                intent.putExtra(OneFragmentActivity.FRAGMENT, AddEditHolidayFragment.class.getName());
+                intent.putExtra(OneFragmentActivity.FRAGMENT, HolidayFragmentAddEdit.class.getName());
                 startActivity(intent);
             }
         });

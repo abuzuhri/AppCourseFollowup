@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
 /**
  * Created by Tareq on 03/12/2015.
@@ -30,6 +31,7 @@ public class TabFragment extends BaseFragment {
 
         FragmentName = getArguments().getString(FRAGMENT);
 
+        ((IRemovableShadowToolBarShadow)getActivity()).RemoveToolBarShadow();
     }
 
     @Override
@@ -62,33 +64,13 @@ public class TabFragment extends BaseFragment {
         mViewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
 
+        removeShadowForNewApi21(rootView);
 
         fillData();
 
-/*
-        if (mSlidingTabLayout != null) {
-            mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset,
-                                           int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-        }
-        */
-
         return rootView;
     }
+
 
     public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
         final int PAGE_COUNT = 2;

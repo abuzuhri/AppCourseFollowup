@@ -18,6 +18,7 @@
                 android:paddingBottom="16dp"
                 android:paddingLeft="72dp"
                 android:paddingRight="16dp"
+                android:elevation="5dp"
                 android:paddingTop="16dp">
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -35,7 +36,7 @@
                     app:singleLineEllipsis="true" />
 
             </LinearLayout>
-            <include   layout="@layout/toolbar_shadow" />
+            <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
             <ScrollView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"

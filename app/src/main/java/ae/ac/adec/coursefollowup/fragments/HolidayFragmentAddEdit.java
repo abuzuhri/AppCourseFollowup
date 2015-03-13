@@ -16,13 +16,14 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.services.BusinessRoleExcption;
+import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by Tareq on 03/05/2015.
  */
-public class AddEditHolidayFragment extends BaseFragment {
+public class HolidayFragmentAddEdit extends BaseFragment {
 
     MaterialEditText holidayName=null;
     MaterialEditText startDate=null;
@@ -33,6 +34,7 @@ public class AddEditHolidayFragment extends BaseFragment {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
+        ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
     }
 
@@ -96,6 +98,7 @@ public class AddEditHolidayFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_add_edit_holiday, container, false);
+        removeShadowForNewApi21(rootView);
 
         //Holiday Name
         holidayName= (MaterialEditText) rootView.findViewById(R.id.txtholidayName);

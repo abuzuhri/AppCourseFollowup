@@ -1,5 +1,6 @@
 package ae.ac.adec.coursefollowup.fragments;
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -73,4 +74,10 @@ public class BaseFragment extends Fragment  {
 
     }
 
+    public void  removeShadowForNewApi21(View rootView){
+        View shadowView=rootView.findViewById(R.id.shadow_main_activity);
+        // Solve Android bug in API < 21 by app custom shadow
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            shadowView.setVisibility(View.GONE);
+    }
 }

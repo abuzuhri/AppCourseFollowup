@@ -18,17 +18,20 @@ import ae.ac.adec.coursefollowup.R;
 public class OneFragmentActivity extends BaseActivity {
 
     public  static final  String  FRAGMENT="FRAGMENT";
-    public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
+    //public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        SetupToolbarShadow();
         Intent intent = getIntent();
-        Boolean HaveToolbarShadow = intent.getBooleanExtra(HAVE_TOOLBAR_SHARDOW,false);
+        //Boolean HaveToolbarShadow = intent.getBooleanExtra(HAVE_TOOLBAR_SHARDOW,false);
 
         //Remove defult shadow in toolbar for use flexible space
-        if(!HaveToolbarShadow){
-            setContentView(R.layout.activity_without_toolbar_shadow);
-        }else setContentView(R.layout.activity_main);
+        //if(!HaveToolbarShadow){
+        //    setContentView(R.layout.activity_without_toolbar_shadow);
+        //}else setContentView(R.layout.activity_main);
 
 
 
