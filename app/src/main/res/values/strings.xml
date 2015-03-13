@@ -48,5 +48,10 @@
     <string name="font_fontFamily_medium">sans-serif</string>
 
     <!-- BusinessRoleExcption  -->
-    <string name="BR_AUH_001">Start date can\'t be less than end date</string>
+    <!-- Holiday  -->
+    <string name="BR_HLD_001">Start date can\'t be less than end date</string>
+    <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
+    <integer name="MaxHoildayPeriod">30</integer>
+    <string name="BR_HLD_003">Holiday name already exists</string>
+    <!--/ Holiday  -->
 </resources>

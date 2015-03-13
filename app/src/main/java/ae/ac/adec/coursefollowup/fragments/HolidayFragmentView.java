@@ -19,7 +19,7 @@ import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
-import ae.ac.adec.coursefollowup.services.dailogs.ConfirmationDialog;
+import ae.ac.adec.coursefollowup.services.dailogs.AppDialog;
 import ae.ac.adec.coursefollowup.views.event.IDialogClick;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -42,6 +42,7 @@ public class HolidayFragmentView extends BaseFragment {
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
 
+
     }
 
 
@@ -49,6 +50,7 @@ public class HolidayFragmentView extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        hideSoftKeyboard();
 
     }
 
@@ -67,7 +69,7 @@ public class HolidayFragmentView extends BaseFragment {
 
         switch (item.getItemId()) {
             case R.id.ic_menu_delete:
-                ConfirmationDialog.Delete(getActivity(),new IDialogClick() {
+                AppDialog.Delete(getActivity(), new IDialogClick() {
                     @Override
                     public void onConfirm() {
                         Delete();
@@ -122,14 +124,20 @@ public class HolidayFragmentView extends BaseFragment {
             Holiday holiday= Holiday.load(Holiday.class, ID);
             holidayName.setText(holiday.Name);
             holidayName.setEnabled(false);
+
             startDate.setText(ConstantVariable.getDateString(holiday.StartDate));
             startDate.setEnabled(false);
-            //startDate.setTag(holiday.StartDate.getTime());
+
             endDate.setText(ConstantVariable.getDateString(holiday.EndDate));
             endDate.setEnabled(false);
-            //endDate.setTag(holiday.EndDate.getTime());
+
+
+
         }
     }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

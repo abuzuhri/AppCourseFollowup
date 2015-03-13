@@ -8,6 +8,7 @@ import com.activeandroid.query.Select;
 import java.util.Calendar;
 import java.util.List;
 
+import ae.ac.adec.coursefollowup.Application.myApplication;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
@@ -23,10 +24,10 @@ public class HolidayDao extends BaseDao {
 
     public  void  Edit(long ID,String Name,long startDate,long endDate)  throws BusinessRoleError{
         Log.i("tg","Edit => "+ID );
-        AddEdit( ID, Name, startDate, endDate);
+        AddEdit(ID, Name, startDate, endDate);
     }
     public  void  Add(String Name,long startDate,long endDate)   throws BusinessRoleError{
-        AddEdit( null , Name, startDate, endDate);
+        AddEdit(null, Name, startDate, endDate);
     }
     private  void  AddEdit(Long ID,String Name,long startDate,long endDate) throws BusinessRoleError {
         Holiday holiday=null;
@@ -44,12 +45,25 @@ public class HolidayDao extends BaseDao {
         endDateCalendar.setTimeInMillis(endDate);
         holiday.EndDate= endDateCalendar.getTime();
 
+        // BR BR_AUH_001
         if(endDate < startDate)
-            throw new BusinessRoleError(R.string.BR_AUH_001);
+            throw new BusinessRoleError(R.string.BR_HLD_001);
 
-        Log.i("tg","Name =>"+Name+" startDate=>"+holiday.StartDate.toString()+" endDate=>"+holiday.EndDate.toString());
+        // BR BR_AUH_002
+        long diff = endDate - startDate;
+        long numOfDays = diff/(1000*60*60*24);
+        int MaxHoildayPeriod=  myApplication.getContext().getResources().getInteger(R.integer.MaxHoildayPeriod);
+        if(numOfDays >  MaxHoildayPeriod)
+            throw new BusinessRoleError(R.string.BR_HLD_002);
+
+        // BR BR_AUH_003
+        int countExist=new Select().from(Holiday.class).where("Name = ?", holiday.Name).count();
+        if(countExist>0)
+            throw new BusinessRoleError(R.string.BR_HLD_003);
+
+       Log.i("tg","Name =>"+Name+" startDate=>"+holiday.StartDate.toString()+" endDate=>"+holiday.EndDate.toString());
        Long id=  holiday.save();
-        Log.i("tg","Saved id= "+ id);
+       Log.i("tg","Saved id= "+ id);
     }
 
     public  void  delete(long Id) throws BusinessRoleError {

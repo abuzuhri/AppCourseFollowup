@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -59,6 +60,10 @@ public class BaseFragment extends Fragment  {
         newTime.show(getActivity().getSupportFragmentManager(), "timePicker", dateTimePickerResult);
     }
 
+    public void hideSoftKeyboard() {
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
 
     public void SetDateControl(final MaterialEditText dateControl){
         dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
