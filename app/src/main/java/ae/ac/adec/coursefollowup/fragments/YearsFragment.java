@@ -1,6 +1,5 @@
 package ae.ac.adec.coursefollowup.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,7 @@ import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
-import ae.ac.adec.coursefollowup.views.adapters.HolidayAdapter;
+import ae.ac.adec.coursefollowup.services.AppAction;
 
 /**
  * Created by Tareq on 03/13/2015.
@@ -50,8 +49,8 @@ public class YearsFragment  extends BaseFragment {
     private void FillDate(){
         HolidayDao holidayDao=new HolidayDao();
         List<Holiday> holidayList= holidayDao.getAll(position);
-        mAdapter = new HolidayAdapter(holidayList,getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+       // mAdapter = new HolidayAdapter(holidayList,getActivity());
+       // mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -79,9 +78,7 @@ public class YearsFragment  extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), OneFragmentActivity.class);
-                intent.putExtra(OneFragmentActivity.FRAGMENT, HolidayFragmentAddEdit.class.getName());
-                startActivity(intent);
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(),OneFragmentActivity.class,HolidayFragmentAddEdit.class.getName());
             }
         });
 

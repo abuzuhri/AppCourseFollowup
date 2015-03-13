@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "Years")
+@Table(name = "Years", id = "_ID")
 public class Year extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model

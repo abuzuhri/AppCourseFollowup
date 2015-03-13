@@ -3,7 +3,6 @@ package ae.ac.adec.coursefollowup.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,15 +17,18 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
+import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
+import ae.ac.adec.coursefollowup.services.dailogs.ConfirmationDialog;
+import ae.ac.adec.coursefollowup.views.event.IDialogClick;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
- * Created by Tareq on 03/05/2015.
+ * Created by Tareq on 03/13/2015.
  */
-public class HolidayFragmentAddEdit extends BaseFragment {
+public class HolidayFragmentView extends BaseFragment {
 
     MaterialEditText holidayName=null;
     MaterialEditText startDate=null;
@@ -39,6 +41,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
 
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
+
     }
 
 
@@ -46,9 +49,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(ID!=null && ID!=0)
-            setSubTitle(getString(R.string.holiday_add_subtitle));
-        else setSubTitle(getString(R.string.holiday_edit_subtitle));
+
     }
 
 
@@ -57,7 +58,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_save, menu);
+        inflater.inflate(R.menu.menu_edit_delete, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
@@ -65,30 +66,43 @@ public class HolidayFragmentAddEdit extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.ic_menu_save_menu:
-                AddEdit();
-                break;
+            case R.id.ic_menu_delete:
+                ConfirmationDialog.Delete(getActivity(),new IDialogClick() {
+                    @Override
+                    public void onConfirm() {
+                        Delete();
+                    }
+                });
+                return true;
+            case R.id.ic_menu_edit:
+                Edit();
+                return true;
             default:
                 break;
         }
-        return true;
+
+        return false;
     }
 
-    public void AddEdit(){
+    public void Edit(){
         try {
-            Log.i("tg","ID== >>> "+ID);
-            HolidayDao holiday = new HolidayDao();
-            long startDateMil = (long) startDate.getTag();
-            long endDateMil = (long) endDate.getTag();
+            AppAction.OpenActivityWithFRAGMENT(getActivity(), HolidayFragmentAddEdit.class.getName(), ID);
+            getActivity().finish();
+        }catch (Exception ex){
+            Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
+        }
+    }
 
-            if(ID!=null && ID!=0)
-                holiday.Edit(ID, holidayName.getText().toString(), startDateMil, endDateMil);
-            else
-                holiday.Add(holidayName.getText().toString(), startDateMil, endDateMil);
+    public void Delete(){
+        try {
+            HolidayDao holidayDao = new HolidayDao();
+            holidayDao.delete(ID);
 
             getActivity().finish();
-            Toast.makeText(getActivity(),R.string.holiday_add_successfully,Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),R.string.delete_successfully,Toast.LENGTH_LONG).show();
         }catch (BusinessRoleError ex){
+                Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
+        }catch (Exception ex){
             Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
         }
     }
@@ -107,13 +121,15 @@ public class HolidayFragmentAddEdit extends BaseFragment {
         if(ID!=null && ID!=0){
             Holiday holiday= Holiday.load(Holiday.class, ID);
             holidayName.setText(holiday.Name);
+            holidayName.setEnabled(false);
             startDate.setText(ConstantVariable.getDateString(holiday.StartDate));
-            startDate.setTag(holiday.StartDate.getTime());
+            startDate.setEnabled(false);
+            //startDate.setTag(holiday.StartDate.getTime());
             endDate.setText(ConstantVariable.getDateString(holiday.EndDate));
-            endDate.setTag(holiday.EndDate.getTime());
+            endDate.setEnabled(false);
+            //endDate.setTag(holiday.EndDate.getTime());
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -127,11 +143,13 @@ public class HolidayFragmentAddEdit extends BaseFragment {
         startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl(startDate);
 
+
         // End Date
         endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl(endDate);
 
         fillDate();
+
 
         return rootView;
     }

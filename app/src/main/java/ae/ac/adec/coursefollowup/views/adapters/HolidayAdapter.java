@@ -6,15 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
-import ae.ac.adec.coursefollowup.views.event.IHolidayViewHolderClicks;
+import ae.ac.adec.coursefollowup.views.event.IClickCardView;
 import ae.ac.adec.coursefollowup.views.view.HolidayViewHolder;
 
 /**
@@ -24,11 +22,13 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
 
     public List<Holiday> mDataset;
     private Context context;
+    private IClickCardView mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public HolidayAdapter(List<Holiday> myDataset,Context context) {
+    public HolidayAdapter(List<Holiday> myDataset,Context context,IClickCardView mListener) {
         mDataset = myDataset;
         this.context=context;
+        this.mListener=mListener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -38,24 +38,10 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_cardview_holiday, null);
 
         // create ViewHolder
-        HolidayViewHolder viewHolder = new HolidayViewHolder(itemLayoutView, new IHolidayViewHolderClicks() {
-
+        HolidayViewHolder viewHolder = new HolidayViewHolder(itemLayoutView, new IClickCardView() {
             @Override
-            public void onDelete(View v) {
-                Log.i("TG", "D E F");
-                Toast.makeText(v.getContext(), "on Delete Click", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onEdit(View v) {
-
-            }
-
-            @Override
-            public void onClick(View v) {
-                Log.i("TG","A B C");
-                Toast.makeText(v.getContext(), "on Click", Toast.LENGTH_LONG).show();
-
+            public void onClick(View v,long ID) {
+                mListener.onClick(v, ID);
             }
         });
         return viewHolder;
@@ -69,25 +55,14 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
         // - replace the contents of the view with that itemsData
         Holiday holiday= mDataset.get(position);
 
-        Calendar calendar = Calendar.getInstance();
-        //String startDate=holiday.StartDate.toString(); // SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(holiday.StartDate);
-
+        viewHolder.setID(holiday.getId());
         viewHolder.titleTextView.setText(holiday.Name);
 
-        String startDate= SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(holiday.StartDate);
+        String startDate= ConstantVariable.getDateString(holiday.StartDate);
         viewHolder.txtFromDate.setText(context.getString(R.string.holiday_start_date_hint) +": "+startDate);
 
-        String endDate= SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(holiday.EndDate);
+        String endDate= ConstantVariable.getDateString(holiday.EndDate);
         viewHolder.txtToDate.setText(context.getString(R.string.holiday_end_date_hint) +": "+endDate);
-
-        viewHolder.butEdit.setVisibility(View.VISIBLE);
-        viewHolder.btnDelete.setVisibility(View.VISIBLE);
-        viewHolder.butEdit.setText("Edit");
-        viewHolder.btnDelete.setText("Delete");
-        //butEdit
-        //if(holiday.StartDate!=null)
-        //    viewHolder.tvtinfo_text.setText(holiday.Name + holiday.StartDate.toString());
-        //+" Start Date= "
 
     }
 

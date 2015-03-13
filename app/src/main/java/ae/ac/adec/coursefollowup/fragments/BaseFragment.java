@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.fragments;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -8,20 +9,31 @@ import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.fragments.Utils.DatePickerFragment;
 import ae.ac.adec.coursefollowup.fragments.Utils.IDateTimePickerResult;
 import ae.ac.adec.coursefollowup.fragments.Utils.TimePickerFragment;
+import ae.ac.adec.coursefollowup.services.AppAction;
 
 /**
  * Created by Tareq on 02/28/2015.
  */
 public class BaseFragment extends Fragment  {
 
+    public Long ID;
     public static final String POSITION = "POSITION";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //set Item ID
+        if(getArguments()!=null) {
+            ID = getArguments().getLong(AppAction.IDEXTRA, 0);
+        }
+    }
 
     public void setSubTitle(String txt){
         ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(txt);
@@ -58,8 +70,8 @@ public class BaseFragment extends Fragment  {
                         public void onDatePickerSubmit(int year, int month, int day, String tag) {
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(year,month,day);
-                            dateControl.setText(SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(calendar.getTime()));
-                            dateControl.setTag(calendar.getTimeInMillis());
+                            dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
+                                    dateControl.setTag(calendar.getTimeInMillis());
                         }
 
                         @Override

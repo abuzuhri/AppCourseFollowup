@@ -2,6 +2,7 @@ package ae.ac.adec.coursefollowup.db.dal;
 
 import android.util.Log;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 
 import java.util.Calendar;
@@ -10,7 +11,7 @@ import java.util.List;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
-import ae.ac.adec.coursefollowup.services.BusinessRoleExcption;
+import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
  * Created by Tareq on 03/04/2015.
@@ -20,8 +21,19 @@ public class HolidayDao extends BaseDao {
         return Holiday.load(Holiday.class, Id);
     }
 
-    public  void  add(String Name,long startDate,long endDate) throws BusinessRoleExcption {
-        Holiday holiday=new Holiday();
+    public  void  Edit(long ID,String Name,long startDate,long endDate)  throws BusinessRoleError{
+        Log.i("tg","Edit => "+ID );
+        AddEdit( ID, Name, startDate, endDate);
+    }
+    public  void  Add(String Name,long startDate,long endDate)   throws BusinessRoleError{
+        AddEdit( null , Name, startDate, endDate);
+    }
+    private  void  AddEdit(Long ID,String Name,long startDate,long endDate) throws BusinessRoleError {
+        Holiday holiday=null;
+        if(ID!=null && ID!=0)
+            holiday=Holiday.load(Holiday.class,ID.longValue());
+        else holiday=new Holiday();
+
         holiday.Name=Name;
 
         Calendar startDateCalendar=Calendar.getInstance();
@@ -33,15 +45,27 @@ public class HolidayDao extends BaseDao {
         holiday.EndDate= endDateCalendar.getTime();
 
         if(endDate < startDate)
-            throw new BusinessRoleExcption(R.string.BR_AUH_001);
+            throw new BusinessRoleError(R.string.BR_AUH_001);
 
         Log.i("tg","Name =>"+Name+" startDate=>"+holiday.StartDate.toString()+" endDate=>"+holiday.EndDate.toString());
-        holiday.save();
+       Long id=  holiday.save();
+        Log.i("tg","Saved id= "+ id);
     }
 
-    public  void  delete(long Id){
+    public  void  delete(long Id) throws BusinessRoleError {
+
         Holiday holiday=Holiday.load(Holiday.class,Id);
-        holiday.delete();
+
+        ActiveAndroid.beginTransaction();
+        try {
+            DeleteSyncer(holiday);
+            holiday.delete();
+            ActiveAndroid.setTransactionSuccessful();
+        }
+        finally {
+            ActiveAndroid.endTransaction();
+        }
+
     }
 
     public List<Holiday> getAll(int position){

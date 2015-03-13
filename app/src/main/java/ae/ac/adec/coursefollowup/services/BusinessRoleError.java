@@ -5,12 +5,12 @@ import ae.ac.adec.coursefollowup.Application.myApplication;
 /**
  * Created by Tareq on 03/12/2015.
  */
-public class BusinessRoleExcption extends Exception {
+public class BusinessRoleError extends Exception {
 
-    public BusinessRoleExcption(String Message){
+    public BusinessRoleError(String Message){
         super(Message);
     }
-    public BusinessRoleExcption(int ResourceID){
+    public BusinessRoleError(int ResourceID){
         super(getName(ResourceID));
     }
     private static String getName(int ResourceID) {

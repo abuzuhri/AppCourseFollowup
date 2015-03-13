@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "Holidaies")
+@Table(name = "Holidaies", id = "_ID")
 public class Holiday extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model

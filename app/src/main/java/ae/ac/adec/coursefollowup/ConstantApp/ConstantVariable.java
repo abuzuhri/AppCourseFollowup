@@ -1,11 +1,8 @@
 package ae.ac.adec.coursefollowup.ConstantApp;
 
-import android.text.format.DateFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -44,11 +41,8 @@ public class ConstantVariable {
         }
     }
 
-    private String getDate(long time) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(time);
-        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
-        return date;
+    public static String getDateString(Date date) {
+        return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(date);
     }
 
     public static Date getCurrentDate() {

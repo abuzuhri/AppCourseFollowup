@@ -28,11 +28,23 @@
             android:textSize="28sp"
             tools:text="This is the title"/>
 
+
+        <View
+            android:id="@+id/cardDivider"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#D4D4D4"
+            android:layout_below="@+id/titleTextView"
+            android:layout_alignLeft="@+id/titleTextView"
+            android:layout_alignStart="@+id/titleTextView"
+            />
+
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtFromDate"
-            android:layout_below="@+id/titleTextView"
+            android:layout_below="@+id/cardDivider"
             android:textColor="#878787"
             android:padding="16dp"
             android:textSize="16sp"
@@ -48,45 +60,10 @@
             android:textSize="16sp"
             tools:text="And this is the description"/>
 
-        <View
-            android:id="@+id/cardDivider"
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:background="#D4D4D4"
-            android:layout_below="@+id/txtToDate"
-            android:layout_alignLeft="@+id/titleTextView"
-            android:layout_alignStart="@+id/titleTextView"
-            />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/butEdit"
-            android:layout_below="@+id/txtToDate"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:paddingRight="8dp"
-            android:maxLines="1"
-            android:clickable="true"
-            tools:text="LEFT BUTTON"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnDelete"
-            android:paddingLeft="8dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp"
-            android:layout_toRightOf="@+id/butEdit"
-            android:layout_alignTop="@+id/butEdit"
-            android:maxLines="1"
-            android:clickable="true"
-            tools:text="RIGHT BUTTON"/>
+
 
     </RelativeLayout>
 

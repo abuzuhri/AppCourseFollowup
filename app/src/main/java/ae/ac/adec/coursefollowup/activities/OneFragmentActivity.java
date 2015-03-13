@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.services.AppAction;
 
 /**
  * Created by Tareq on 03/05/2015.
@@ -17,7 +18,7 @@ import ae.ac.adec.coursefollowup.R;
 
 public class OneFragmentActivity extends BaseActivity {
 
-    public  static final  String  FRAGMENT="FRAGMENT";
+    //public  static final  String  FRAGMENT="FRAGMENT";
     //public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
 
     @Override
@@ -48,10 +49,19 @@ public class OneFragmentActivity extends BaseActivity {
         });
 
 
-        String FragmentName = intent.getStringExtra(FRAGMENT);
+        String FragmentName = intent.getStringExtra(AppAction.FRAGMENTEXTRA);
         Log.i("tg","FragmentName = > "+FragmentName);
 
+
+
         Fragment fragment= Fragment.instantiate(this,FragmentName);
+
+        //Pass Item  It to Fragment
+        long ItemID = intent.getLongExtra(AppAction.IDEXTRA,0);
+        Bundle args = new Bundle();
+        args.putLong(AppAction.IDEXTRA, ItemID);
+        fragment.setArguments(args);
+
         selectFragment(fragment);
     }
 

@@ -23,7 +23,14 @@
     <string name="category_technology">Technology</string>
     <string name="category_test">Testing</string>
     <!-- ADD Edit  -->
+    <string name="delete_confirmation">Are you sure you want to delete?</string>
+    <string name="delete_confirmation_title">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_successfully">Successfully Delete</string>
     <!-- Holiday  -->
+    <string name="holiday_add_subtitle">Add Holiday</string>
+    <string name="holiday_edit_subtitle">Edit Holiday</string>
     <string name="holiday_add_successfully">Successfully add holiday</string>
     <string name="holiday_name">Holiday Name</string>
     <string name="holiday_start_date_hint">Start Date</string>
