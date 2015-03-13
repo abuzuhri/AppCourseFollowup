@@ -20,9 +20,9 @@ import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.views.adapters.HolidayAdapter;
 
 /**
- * Created by Tareq on 03/03/2015.
+ * Created by Tareq on 03/13/2015.
  */
-public class HolidayFragment extends BaseFragment {
+public class YearsFragment  extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;

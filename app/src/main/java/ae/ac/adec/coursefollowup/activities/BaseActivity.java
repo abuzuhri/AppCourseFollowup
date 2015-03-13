@@ -34,6 +34,7 @@ import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
 import ae.ac.adec.coursefollowup.fragments.SettingFragment;
 import ae.ac.adec.coursefollowup.fragments.TabFragment;
 import ae.ac.adec.coursefollowup.fragments.TaskFragment;
+import ae.ac.adec.coursefollowup.fragments.YearsFragment;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
 /**
@@ -101,12 +102,15 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(ConstantVariable.Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_dashboard),
                         new PrimaryDrawerItem().withName(R.string.category_calender).withIdentifier(ConstantVariable.Category.Calender.id).withIcon(FontAwesome.Icon.faw_calendar),
+                        new PrimaryDrawerItem().withName(R.string.category_classes).withIdentifier(ConstantVariable.Category.Classes.id).withIcon(FontAwesome.Icon.faw_book),
                         // new SectionDrawerItem().withName("Sec"),
                         new PrimaryDrawerItem().withName(R.string.category_tasks).withIdentifier(ConstantVariable.Category.Tasks.id).withIcon(FontAwesome.Icon.faw_tasks),
                         new PrimaryDrawerItem().withName(R.string.category_notes).withIdentifier(ConstantVariable.Category.Notes.id).withIcon(FontAwesome.Icon.faw_comment),
                         new PrimaryDrawerItem().withName(R.string.category_exams).withIdentifier(ConstantVariable.Category.Exams.id).withIcon(FontAwesome.Icon.faw_edit),
                         new PrimaryDrawerItem().withName(R.string.category_semesters).withIdentifier(ConstantVariable.Category.Semesters.id).withIcon(FontAwesome.Icon.faw_cubes),
-                        new PrimaryDrawerItem().withName(R.string.category_classes).withIdentifier(ConstantVariable.Category.Classes.id).withIcon(FontAwesome.Icon.faw_book),
+                        new PrimaryDrawerItem().withName(R.string.category_year).withIdentifier(ConstantVariable.Category.Years.id).withIcon(FontAwesome.Icon.faw_university),
+
+
                         new PrimaryDrawerItem().withName(R.string.category_holidays).withIdentifier(ConstantVariable.Category.Holiday.id).withIcon(FontAwesome.Icon.faw_hotel),
                         new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(ConstantVariable.Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
                         new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(ConstantVariable.Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear),
@@ -144,21 +148,29 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
         if (filter == ConstantVariable.Category.Dashboard.id) {
             fragment = new DashboardFragment();
         }else  if (filter == ConstantVariable.Category.Notes.id) {
-            fragment = new NoteFragment();
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, NoteFragment.class.getName());
         }else if (filter == ConstantVariable.Category.Setting.id) {
             fragment = new SettingFragment();
         }else if (filter == ConstantVariable.Category.Search.id) {
             fragment = new SearchFragment();
         }else if (filter == ConstantVariable.Category.Classes.id) {
-            fragment = new CoursesFragment();
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, CoursesFragment.class.getName());
         }else if (filter == ConstantVariable.Category.Calender.id) {
             fragment = new CalenderFragment();
         }else if (filter == ConstantVariable.Category.Exams.id) {
-            fragment = new ExamFragment();
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, ExamFragment.class.getName());
         }else if (filter == ConstantVariable.Category.Semesters.id) {
-            fragment = new SemesterFragment();
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, SemesterFragment.class.getName());
+        }else if (filter == ConstantVariable.Category.Years.id) {
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, YearsFragment.class.getName());
         }else if (filter == ConstantVariable.Category.Tasks.id) {
-            fragment = new TaskFragment();
+            fragment = new TabFragment();
+            args.putString(TabFragment.FRAGMENT, TaskFragment.class.getName());
         }else if (filter == ConstantVariable.Category.Holiday.id) {
             fragment = new TabFragment();
             args.putString(TabFragment.FRAGMENT, HolidayFragment.class.getName());

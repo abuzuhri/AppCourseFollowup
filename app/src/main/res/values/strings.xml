@@ -15,6 +15,7 @@
     <string name="category_notes">Notes</string>
     <string name="category_exams">Exams</string>
     <string name="category_semesters">Semesters</string>
+    <string name="category_year">Academic Years</string>
     <string name="category_holidays">Holidays</string>
     <string name="category_search">Search</string>
     <string name="category_setting">Settings</string>

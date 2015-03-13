@@ -29,6 +29,7 @@ public class ConstantVariable {
         Notes(430),
         Exams(50),
         Semesters(60),
+        Years(65),
         Classes(70),
         Holiday(80),
         Search(99),
