@@ -3,7 +3,6 @@ package ae.ac.adec.coursefollowup.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
@@ -76,7 +76,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
 
     public void AddEdit(){
         try {
-            Log.i("tg","ID== >>> "+ID);
+            AppLog.i("ID== >>> " + ID);
             HolidayDao holiday = new HolidayDao();
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();

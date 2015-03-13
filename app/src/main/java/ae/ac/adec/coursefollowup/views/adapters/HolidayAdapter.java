@@ -2,13 +2,13 @@ package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
@@ -69,7 +69,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayViewHolder>  {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        Log.i("tg","mDataset ==> "+mDataset.size());
+        AppLog.i("mDataset ==> " + mDataset.size());
         return mDataset.size();
 
     }

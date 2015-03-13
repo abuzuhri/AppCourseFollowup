@@ -1,7 +1,6 @@
 package ae.ac.adec.coursefollowup.db.dal;
 
-import android.util.Log;
-
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.db.models.BaseModel;
 import ae.ac.adec.coursefollowup.db.models.SyncDeleted;
 
@@ -17,7 +16,7 @@ public class BaseDao  {
             SyncDeleted sync=new SyncDeleted();
             sync.ObjectID=obj.RemoteID;
             sync.ObjectName=obj.getClass().getName();
-            Log.i("tg","Delete from "+sync.ObjectName +" id=>"+sync.ObjectID);
+            AppLog.i( "Delete from " + sync.ObjectName + " id=>" + sync.ObjectID);
             sync.save();
         }
     }

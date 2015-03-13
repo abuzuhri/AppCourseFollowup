@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -20,6 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
@@ -142,7 +142,7 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
     public  void  selectItem(int filter){
         Fragment fragment = null;
         Bundle args = new Bundle();
-        Log.i("tg", "position=> " + filter);
+        AppLog.i("position=> " + filter);
 
 
         if (filter == ConstantVariable.Category.Dashboard.id) {

@@ -1,7 +1,5 @@
 package ae.ac.adec.coursefollowup.db.dal;
 
-import android.util.Log;
-
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 
@@ -9,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.Application.myApplication;
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
@@ -23,7 +22,7 @@ public class HolidayDao extends BaseDao {
     }
 
     public  void  Edit(long ID,String Name,long startDate,long endDate)  throws BusinessRoleError{
-        Log.i("tg","Edit => "+ID );
+        AppLog.i("Edit => "+ID );
         AddEdit(ID, Name, startDate, endDate);
     }
     public  void  Add(String Name,long startDate,long endDate)   throws BusinessRoleError{
@@ -61,9 +60,9 @@ public class HolidayDao extends BaseDao {
         if(countExist>0)
             throw new BusinessRoleError(R.string.BR_HLD_003);
 
-       Log.i("tg","Name =>"+Name+" startDate=>"+holiday.StartDate.toString()+" endDate=>"+holiday.EndDate.toString());
+       AppLog.i("Name =>" + Name + " startDate=>" + holiday.StartDate.toString() + " endDate=>" + holiday.EndDate.toString());
        Long id=  holiday.save();
-       Log.i("tg","Saved id= "+ id);
+        AppLog.i("Saved id= "+ id);
     }
 
     public  void  delete(long Id) throws BusinessRoleError {
