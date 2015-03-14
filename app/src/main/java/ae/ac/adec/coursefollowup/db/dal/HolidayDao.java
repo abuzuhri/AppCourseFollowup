@@ -91,10 +91,15 @@ public class HolidayDao extends BaseDao {
                     .where("EndDate > ?",currentTimeInMillis)
                     .orderBy("StartDate ASC")
                     .execute();
-        }else {
+        }else if(position == ConstantVariable.TimeFrame.Past.id) {
             return new Select()
                     .from(Holiday.class)
                     .where("EndDate <= ?",currentTimeInMillis)
+                    .orderBy("StartDate ASC")
+                    .execute();
+        } else {
+            return new Select()
+                    .from(Holiday.class)
                     .orderBy("StartDate ASC")
                     .execute();
         }

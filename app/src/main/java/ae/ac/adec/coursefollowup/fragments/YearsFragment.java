@@ -14,9 +14,11 @@ import java.util.List;
 
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
-import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
-import ae.ac.adec.coursefollowup.db.models.Holiday;
+import ae.ac.adec.coursefollowup.db.dal.YearDao;
+import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.AppAction;
+import ae.ac.adec.coursefollowup.views.adapters.YearAdapter;
+import ae.ac.adec.coursefollowup.views.event.IClickCardView;
 
 /**
  * Created by Tareq on 03/13/2015.
@@ -47,17 +49,22 @@ public class YearsFragment  extends BaseFragment {
     }
 
     private void FillDate(){
-        HolidayDao holidayDao=new HolidayDao();
-        List<Holiday> holidayList= holidayDao.getAll(position);
-       // mAdapter = new HolidayAdapter(holidayList,getActivity());
-       // mRecyclerView.setAdapter(mAdapter);
+        YearDao yearDao=new YearDao();
+        List<Year> yearList= yearDao.getAll(position);
+        mAdapter = new YearAdapter(yearList,getActivity(),new IClickCardView() {
+            @Override
+            public void onClick(View v, long ID) {
+                AppAction.OpenActivityWithFRAGMENT(getActivity(), YearFragmentView.class.getName(), ID);
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_holiday, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_year, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -78,10 +85,10 @@ public class YearsFragment  extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                AppAction.OpenActivityWithFRAGMENT(v.getContext(),OneFragmentActivity.class,HolidayFragmentAddEdit.class.getName());
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, YearFragmentAddEdit.class.getName());
+
             }
         });
-
 
         return rootView;
     }

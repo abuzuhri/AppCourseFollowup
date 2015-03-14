@@ -15,8 +15,8 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
-import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
-import ae.ac.adec.coursefollowup.db.models.Holiday;
+import ae.ac.adec.coursefollowup.db.dal.YearDao;
+import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.services.dailogs.AppDialog;
@@ -28,9 +28,9 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 /**
  * Created by Tareq on 03/13/2015.
  */
-public class HolidayFragmentView extends BaseFragment {
+public class YearFragmentView extends BaseFragment {
 
-    MaterialEditText holidayName=null;
+    MaterialEditText yearName=null;
     MaterialEditText startDate=null;
     MaterialEditText endDate=null;
 
@@ -88,7 +88,7 @@ public class HolidayFragmentView extends BaseFragment {
 
     public void Edit(){
         try {
-            AppAction.OpenActivityWithFRAGMENT(getActivity(), HolidayFragmentAddEdit.class.getName(), ID);
+            AppAction.OpenActivityWithFRAGMENT(getActivity(), YearFragmentAddEdit.class.getName(), ID);
             getActivity().finish();
         }catch (Exception ex){
             Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
@@ -97,8 +97,8 @@ public class HolidayFragmentView extends BaseFragment {
 
     public void Delete(){
         try {
-            HolidayDao holidayDao = new HolidayDao();
-            holidayDao.delete(ID);
+            YearDao yearDao = new YearDao();
+            yearDao.delete(ID);
 
             getActivity().finish();
             Toast.makeText(getActivity(),R.string.delete_successfully,Toast.LENGTH_LONG).show();
@@ -119,14 +119,14 @@ public class HolidayFragmentView extends BaseFragment {
 
     private  void fillDate(){
         if(ID!=null && ID!=0){
-            Holiday holiday= Holiday.load(Holiday.class, ID);
-            holidayName.setText(holiday.Name);
-            holidayName.setEnabled(false);
+            Year year= Year.load(Year.class, ID);
+            yearName.setText(year.Name);
+            yearName.setEnabled(false);
 
-            startDate.setText(ConstantVariable.getDateString(holiday.StartDate));
+            startDate.setText(ConstantVariable.getDateString(year.StartDate));
             startDate.setEnabled(false);
 
-            endDate.setText(ConstantVariable.getDateString(holiday.EndDate));
+            endDate.setText(ConstantVariable.getDateString(year.EndDate));
             endDate.setEnabled(false);
 
 
@@ -139,11 +139,11 @@ public class HolidayFragmentView extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_holiday_add_edit, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_year_add_edit, container, false);
         removeShadowForNewApi21(rootView);
 
-        //Holiday Name
-        holidayName= (MaterialEditText) rootView.findViewById(R.id.txtName);
+        //year Name
+        yearName= (MaterialEditText) rootView.findViewById(R.id.txtName);
 
         // Start Date
         startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);

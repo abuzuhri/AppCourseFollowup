@@ -12,7 +12,8 @@ public class ConstantVariable {
 
     public enum TimeFrame {
         Current(0),
-        Past(1);
+        Past(1),
+        All(2);
         public int id;
         private TimeFrame(int id) {
             this.id = id;

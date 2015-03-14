@@ -35,6 +35,15 @@
     <string name="holiday_name">Holiday Name</string>
     <string name="holiday_start_date_hint">Start Date</string>
     <string name="holiday_end_date_hint">End Date</string>
+
+    <!-- Year  -->
+    <string name="year_add_subtitle">Add Academic Year</string>
+    <string name="year_edit_subtitle">Edit Academic Year</string>
+    <string name="year_add_successfully">Successfully add academic year</string>
+    <string name="year_name">Year Name</string>
+    <string name="year_start_date_hint">Start Date</string>
+    <string name="year_end_date_hint">End Date</string>
+
         <!-- Semester  -->
         <string name="semester_name">Semester Name</string>
     <string name="semester_start_date_hint">Start Date</string>
@@ -44,6 +53,7 @@
     <!-- Tab  -->
     <string name="tab_current">Current</string>
     <string name="tab_past">Past</string>
+    <string name="tab_all">All</string>
 
     <string name="font_fontFamily_medium">sans-serif</string>
 
@@ -53,5 +63,10 @@
     <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
     <integer name="MaxHoildayPeriod">30</integer>
     <string name="BR_HLD_003">Holiday name already exists</string>
-    <!--/ Holiday  -->
+    <!--/ Year  -->
+    <string name="BR_YER_001">Start date can\'t be less than end date</string>
+    <string name="BR_YER_002">Academic Year name already exists</string>
+    <integer name="MaxYearPeriod">400</integer>
+    <string name="BR_YER_003">Can\'t add academic year with period more than 400 days</string>
+
 </resources>

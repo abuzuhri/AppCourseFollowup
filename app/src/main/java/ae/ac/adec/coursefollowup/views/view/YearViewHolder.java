@@ -9,16 +9,17 @@ import ae.ac.adec.coursefollowup.views.event.IClickCardView;
 /**
  * Created by Tareq on 03/04/2015.
  */
-public class HolidayViewHolder extends BaseRecyclerViewHolder implements View.OnClickListener
+public class YearViewHolder extends BaseRecyclerViewHolder implements View.OnClickListener
 {
 
     public TextView titleTextView;
     public TextView txtFromDate;
     public TextView txtToDate;
 
+
     public IClickCardView mListener;
 
-    public HolidayViewHolder(View itemLayoutView,IClickCardView listener) {
+    public YearViewHolder(View itemLayoutView, IClickCardView listener) {
         super(itemLayoutView);
         mListener=listener;
         titleTextView = (TextView) itemLayoutView.findViewById(R.id.titleTextView);

@@ -45,6 +45,7 @@ public class TabFragment extends BaseFragment {
         mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
         mSlidingTabLayout.setContentDescription(1, getActivity().getString(R.string.tab_current));
         mSlidingTabLayout.setContentDescription(2, getActivity().getString(R.string.tab_past));
+        mSlidingTabLayout.setContentDescription(2, getActivity().getString(R.string.tab_all));
 
         //Resources res = getResources();
         //res.getColor();
@@ -52,7 +53,7 @@ public class TabFragment extends BaseFragment {
 
         mSlidingTabLayout.setDistributeEvenly(true);
         FragmentManager fragmentManager = getChildFragmentManager();
-        String tabTitles[] = new String[] { getActivity().getString(R.string.tab_current), getActivity().getString(R.string.tab_past) };
+        String tabTitles[] = new String[] { getActivity().getString(R.string.tab_current), getActivity().getString(R.string.tab_past), getActivity().getString(R.string.tab_all) };
         mViewPager.setAdapter(new SampleFragmentPagerAdapter(fragmentManager,getActivity(),tabTitles, FragmentName));
         mSlidingTabLayout.setViewPager(mViewPager);
     }
@@ -73,7 +74,7 @@ public class TabFragment extends BaseFragment {
 
 
     public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
-        final int PAGE_COUNT = 2;
+        final int PAGE_COUNT = 3;
         private Context context;
         private String tabTitles[];
         private String FragmentName;

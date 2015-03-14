@@ -18,10 +18,9 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
+import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by Tareq on 03/05/2015.
@@ -47,8 +46,8 @@ public class HolidayFragmentAddEdit extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(ID!=null && ID!=0)
-            setSubTitle(getString(R.string.holiday_add_subtitle));
-        else setSubTitle(getString(R.string.holiday_edit_subtitle));
+            setSubTitle(getString(R.string.holiday_edit_subtitle));
+        else setSubTitle(getString(R.string.holiday_add_subtitle));
     }
 
 
@@ -89,7 +88,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
             getActivity().finish();
             Toast.makeText(getActivity(),R.string.holiday_add_successfully,Toast.LENGTH_LONG).show();
         }catch (BusinessRoleError ex){
-            Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
+            AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
 
@@ -121,7 +120,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         //Holiday Name
-        holidayName= (MaterialEditText) rootView.findViewById(R.id.txtholidayName);
+        holidayName= (MaterialEditText) rootView.findViewById(R.id.txtName);
 
         // Start Date
         startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);

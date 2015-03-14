@@ -25,7 +25,7 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/holiday_name"
+                android:hint="@string/year_name"
 
                 android:textCursorDrawable="@drawable/text_cursor"
                 android:textSize="34sp"
@@ -59,7 +59,7 @@
                     android:id="@+id/txtStartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/holiday_start_date_hint"
+                    android:hint="@string/year_start_date_hint"
                     app:iconLeft="@drawable/ic_today_white"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
@@ -68,7 +68,7 @@
                     android:id="@+id/txtEndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/holiday_end_date_hint"
+                    android:hint="@string/year_end_date_hint"
                     app:iconLeft="@drawable/ic_today_white"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />

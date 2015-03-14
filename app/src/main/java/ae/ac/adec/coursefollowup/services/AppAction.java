@@ -1,9 +1,12 @@
 package ae.ac.adec.coursefollowup.services;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by Tareq on 03/13/2015.
@@ -39,5 +42,9 @@ public class AppAction {
             intent.putExtra(IDEXTRA, ID);
 
         OpenActivityIntent(context,intent);
+    }
+
+    public static void DiaplayError(Activity activity, String msg){
+        Crouton.makeText(activity, msg, Style.ALERT).show();
     }
 }
