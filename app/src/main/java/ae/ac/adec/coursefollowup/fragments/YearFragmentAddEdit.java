@@ -51,9 +51,6 @@ public class YearFragmentAddEdit extends BaseFragment {
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save, menu);
