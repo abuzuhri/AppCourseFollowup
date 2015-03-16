@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Table;
 /**
  * Created by Tareq on 03/03/2015.
  */
-@Table(name = "CourseTimeDaies")
+@Table(name = "CourseTimeDaies", id = "_ID")
 public class CourseTimeDay extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
@@ -14,6 +14,7 @@ public class CourseTimeDay extends BaseModel {
         super();
     }
 
+    @Column
     public int DayOfWeek ;
 
     @Column(name = "CourseTime_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)

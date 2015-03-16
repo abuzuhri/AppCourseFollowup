@@ -7,12 +7,12 @@ import com.activeandroid.annotation.Table;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "ColorTypes")
+@Table(name = "ColorTypes", id = "_ID")
 public class ColorType extends BaseModel {
 
     @Column(name = "Name")
     public String Name;
 
-
+    @Column
     public String Code;
 }

@@ -1,21 +1,18 @@
 <resources>
     <!-- MaterialDrawerTheme.TranslucentStatus -->
-    <style name="BaseAppTheme" parent="MaterialDrawerTheme.TranslucentStatus">
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-
+    <style name="BaseAppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
 
     </style>
 
 
     <style name="AppTheme" parent="BaseAppTheme">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="WindowAnimationTransition">
-
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>

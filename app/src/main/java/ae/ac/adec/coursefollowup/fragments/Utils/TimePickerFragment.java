@@ -4,7 +4,6 @@ package ae.ac.adec.coursefollowup.fragments.Utils;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -22,11 +21,18 @@ public class TimePickerFragment extends DialogFragment
 
     IDateTimePickerResult DateTimePickerResult;
     String tag;
+    Calendar calendar = Calendar.getInstance();
 
     public void show(FragmentManager manager, String tag,IDateTimePickerResult DateTimePickerResult) {
         super.show(manager, tag);
         this.DateTimePickerResult=DateTimePickerResult;
         this.tag=tag;
+    }
+    public void show(FragmentManager manager, String tag,Calendar calendar,IDateTimePickerResult DateTimePickerResult) {
+        super.show(manager, tag);
+        this.DateTimePickerResult=DateTimePickerResult;
+        this.tag=tag;
+        this.calendar=calendar;
     }
 
     @Override
@@ -41,9 +47,9 @@ public class TimePickerFragment extends DialogFragment
         TimePickerDialog timePickerDialog= new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
 
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        }
+        //if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        //    timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+       // }
 
         return timePickerDialog;
     }

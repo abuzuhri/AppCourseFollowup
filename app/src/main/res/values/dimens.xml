@@ -1,15 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="general_text_size">18sp</dimen>
-    <!-- Login screen-->
-    <dimen name="login_logo_margin">20dp</dimen>
-    <dimen name="login_texts_padding">8dp</dimen>
-    <dimen name="login_title_marginTop">24dp</dimen>
-    <dimen name="login_ets_margins">8dp</dimen>
-    <dimen name="login_btnFG_margin">12dp</dimen>
-    <dimen name="login_btnEnter_margin">12dp</dimen>
-    <dimen name="login_layout_margin">28dp</dimen>
-    <dimen name="login_layout_CBtns_marginTop">22dp</dimen>
-    <dimen name="login_texts_drawable_padding">4dp</dimen>
 
+    <dimen name="RecyclerView_padding">8dp</dimen>
+
+    <!-- fab sizes -->
+    <dimen name="fab_small">40dp</dimen>
+    <dimen name="fab_normal">56dp</dimen>
+    <dimen name="fab_progress">72dp</dimen>
+
+    <!-- fab specific margins -->
+    <dimen name="fab_small_margin_right">24dp</dimen>
+    <dimen name="fab_small_margin_top">-20dp</dimen>
+    <dimen name="fab_normal_margin_right">16dp</dimen>
+    <dimen name="fab_normal_margin_top">-28dp</dimen>
+    <dimen name="fab_progress_margin_right">8dp</dimen>
+    <dimen name="fab_progress_margin_top">-36dp</dimen>
+
+    <!-- Toolbar Padding -->
+    <dimen name="tool_bar_top_padding">0dp</dimen>
+
+    <dimen name="parallax_image_height">180dp</dimen>
+    <dimen name="toolbar_margin_start">72dp</dimen>
 </resources>

@@ -1,11 +1,8 @@
 package ae.ac.adec.coursefollowup.ConstantApp;
 
-import android.text.format.DateFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -14,21 +11,39 @@ import java.util.TimeZone;
 public class ConstantVariable {
 
     public enum TimeFrame {
-        Current(1),
-        Future(20),
-        Past(30);
+        Current(0),
+        Past(1),
+        All(2);
         public int id;
         private TimeFrame(int id) {
             this.id = id;
         }
     }
 
+    public enum Category {
+        Dashboard(10),
+        Calender(20),
+        Tasks(30),
+        Notes(430),
+        Exams(50),
+        Semesters(60),
+        Years(65),
+        Classes(70),
+        Holiday(80),
+        Search(99),
+        Setting(100),
+        Test(1000),
+        Profile(101);
 
-    private String getDate(long time) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(time);
-        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
-        return date;
+        public int id;
+
+        private Category(int id) {
+            this.id = id;
+        }
+    }
+
+    public static String getDateString(Date date) {
+        return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(date);
     }
 
     public static Date getCurrentDate() {

@@ -7,7 +7,7 @@ import com.activeandroid.annotation.Table;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "TaskTypes")
+@Table(name = "TaskTypes", id = "_ID")
 public class TaskType extends  BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model

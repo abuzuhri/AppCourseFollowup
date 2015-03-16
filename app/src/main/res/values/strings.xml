@@ -21,15 +21,8 @@
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
 
-    <!-- Login values-->
-    <string name="login_title">LOGIN</string>
-    <string name="login_loading">Loading...</string>
-    <string name="login_username">Username</string>
-    <string name="login_pass">Password</string>
-
     <!-- ADD Edit  -->
         <!-- Semester  -->
         <string name="semester_name">العربي</string>
-    <string name="title_activity_login_">LOGIN</string>
     <!-- /ADD Edit  -->
 </resources>

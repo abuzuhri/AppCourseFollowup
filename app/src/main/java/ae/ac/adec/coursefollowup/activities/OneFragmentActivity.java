@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.services.AppAction;
 
 /**
  * Created by Tareq on 03/05/2015.
@@ -17,22 +18,25 @@ import ae.ac.adec.coursefollowup.R;
 
 public class OneFragmentActivity extends BaseActivity {
 
-    public  static final  String  FRAGMENT="FRAGMENT";
-    public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
+    //public  static final  String  FRAGMENT="FRAGMENT";
+    //public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        SetupToolbarShadow();
         Intent intent = getIntent();
-        Boolean HaveToolbarShadow = intent.getBooleanExtra(HAVE_TOOLBAR_SHARDOW,false);
+        //Boolean HaveToolbarShadow = intent.getBooleanExtra(HAVE_TOOLBAR_SHARDOW,false);
 
         //Remove defult shadow in toolbar for use flexible space
-        if(!HaveToolbarShadow){
-            setContentView(R.layout.activity_without_toolbar_shadow);
-        }else setContentView(R.layout.activity_main);
+        //if(!HaveToolbarShadow){
+        //    setContentView(R.layout.activity_without_toolbar_shadow);
+        //}else setContentView(R.layout.activity_main);
 
 
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,10 +49,19 @@ public class OneFragmentActivity extends BaseActivity {
         });
 
 
-        String FragmentName = intent.getStringExtra(FRAGMENT);
-        Log.i("tg","FragmentName = > "+FragmentName);
+        String FragmentName = intent.getStringExtra(AppAction.FRAGMENTEXTRA);
+        AppLog.i("FragmentName = > "+FragmentName);
+
+
 
         Fragment fragment= Fragment.instantiate(this,FragmentName);
+
+        //Pass Item  It to Fragment
+        long ItemID = intent.getLongExtra(AppAction.IDEXTRA,0);
+        Bundle args = new Bundle();
+        args.putLong(AppAction.IDEXTRA, ItemID);
+        fragment.setArguments(args);
+
         selectFragment(fragment);
     }
 

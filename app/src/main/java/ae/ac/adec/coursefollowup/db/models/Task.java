@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "Tasks")
+@Table(name = "Tasks", id = "_ID")
 public class Task extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
@@ -20,10 +20,13 @@ public class Task extends BaseModel {
     @Column(name = "Name")
     public String Name;
 
+    @Column
     public Date DueDate;
 
+    @Column
     public String Title;
 
+    @Column
     public String Detail;
 
     @Column(name = "TaskType_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)

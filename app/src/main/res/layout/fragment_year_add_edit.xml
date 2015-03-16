@@ -18,28 +18,30 @@
                 android:paddingBottom="16dp"
                 android:paddingLeft="72dp"
                 android:paddingRight="16dp"
+                android:elevation="5dp"
                 android:paddingTop="16dp">
 
                 <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/txtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/semester_name"
+                    android:hint="@string/year_name"
 
                     android:textCursorDrawable="@drawable/text_cursor"
                     android:textSize="34sp"
                     app:baseColor="@android:color/white"
                     app:floatingLabel="highlight"
                     app:maxCharacters="20"
-                    app:primaryColor="?colorAccent"
+                    app:primaryColor="@color/colorAccent"
                     app:singleLineEllipsis="true" />
 
             </LinearLayout>
-            <include   layout="@layout/toolbar_shadow" />
+            <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
             <ScrollView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbarStyle="outsideOverlay"
+                android:scrollbarStyle="outsideInset"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,47 +56,24 @@
 
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/txtStartDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Start Date"
-                        app:iconLeft="@drawable/ic_phone"
+                        android:hint="@string/year_start_date_hint"
+                        app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
-                        app:helperText="Term / Semester expected Start Date"
-                        app:iconPadding="10dp"
-                        app:maxCharacters="5" />
+                        app:iconPadding="10dp" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/txtEndDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="End Date"
-                        app:iconLeft="@drawable/ic_phone"
+                        android:hint="@string/year_end_date_hint"
+                        app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
-                        app:helperText="Term / Semester expected End Date"
-                        app:iconPadding="10dp"
-                        app:maxCharacters="5" />
+                        app:iconPadding="10dp" />
 
-                    <com.gc.materialdesign.views.ButtonRectangle
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?colorPrimary"
-                        android:text="Save" />
 
-                    <com.gc.materialdesign.views.ButtonRectangle
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?colorPrimary"
-                        android:text="Save" />
-
-                    <Button
-                        android:id="@+id/setErrorWithMinLines2Bt"
-                        android:layout_width="48dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/colorAccent"
-                        android:background="?colorPrimary"
-                        android:text="2" />
 
                 </LinearLayout>
              </ScrollView>

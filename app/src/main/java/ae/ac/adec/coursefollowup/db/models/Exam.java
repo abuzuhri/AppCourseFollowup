@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by Tareq on 03/03/2015.
  */
 
-@Table(name = "Semesters")
+@Table(name = "Exams", id = "_ID")
 public class Exam extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
@@ -17,14 +17,19 @@ public class Exam extends BaseModel {
         super();
     }
 
+    @Column
     public Date Date;
 
+    @Column
     public  Boolean IsResit;
 
+    @Column
     public int Duration;
 
+    @Column
     public String Seat;
 
+    @Column
     public String Room;
 
     @Column(name = "Course_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)

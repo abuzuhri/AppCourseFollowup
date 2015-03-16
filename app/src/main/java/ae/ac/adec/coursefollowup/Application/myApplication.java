@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.Application;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
@@ -10,13 +11,18 @@ import com.activeandroid.Configuration;
  */
 public class myApplication extends Application {
 
+    private static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mContext = this;
         initializeDB();
     }
 
+    public static Context getContext(){
+        return mContext;
+    }
 
     protected void initializeDB() {
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
