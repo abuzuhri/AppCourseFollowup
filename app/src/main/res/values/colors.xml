@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">@color/color_Indigo_700</color>
     <color name="colorAccent">#A7FFEB</color>
 
+    <color name="colorPrimary_FAB">#FFFFFFFF</color>
+    <color name="colorPrimaryDark_FAB">#FFFFFFFF</color>
+    <color name="colorAccent_FAB">#FFFFFFFF</color>
+
     <color name="textColorPrimary">#FFFFFFFF</color>
     <color name="navigationBarColor">#FF000000</color>
 
@@ -74,7 +78,7 @@
 
     <!-- Material Ibrahim -->
     <color name="color_Ibrahim_500">#a1455d</color>
-    <color name="color_Ibrahim_700">#81374a</color>
+    <color name="color_Ibrahim_700">#ff50100e</color>
     <color name="color_Ibrahim_100">#b9e1f8</color>
 
 </resources>

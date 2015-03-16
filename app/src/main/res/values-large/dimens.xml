@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="general_text_size">20sp</dimen>
+
+    <!-- Login screen-->
+    <dimen name="login_logo_margin">25dp</dimen>
+    <dimen name="login_texts_padding">12dp</dimen>
+    <dimen name="login_title_marginTop">28dp</dimen>
+    <dimen name="login_ets_margins">12dp</dimen>
+    <dimen name="login_btnFG_margin">16dp</dimen>
+    <dimen name="login_btnEnter_margin">16dp</dimen>
+    <dimen name="login_layout_margin">38dp</dimen>
+    <dimen name="login_layout_CBtns_marginTop">26dp</dimen>
+    <dimen name="login_texts_drawable_padding">6dp</dimen>
+</resources>

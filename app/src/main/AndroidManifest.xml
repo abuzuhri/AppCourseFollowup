@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ae.ac.adec.coursefollowup" >
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
     <application
-        android:allowBackup="true"
         android:name=".Application.myApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -16,21 +17,39 @@
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activities.Login_Activity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- add the following metadata for version and database name -->
-            <meta-data android:name="AA_DB_NAME" android:value="CourseFollowUp.db" />
-            <meta-data android:name="AA_DB_VERSION" android:value="1" />
-
         </activity>
-        <activity android:name=".activities.OneFragmentActivity" android:screenOrientation="portrait" ></activity>
-        <activity android:name="com.facebook.LoginActivity" android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".activities.OneFragmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:screenOrientation="portrait" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- add the following metadata for version and database name -->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="CourseFollowUp.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
     </application>
 
 </manifest>

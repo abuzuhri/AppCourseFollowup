@@ -1,3 +1,4 @@
-To reach to my update, search for the comment >> // update jma
--Facebook and Google login returns the username and user email (and if you want user profile image) to insert it into out database and application,
-beacuse the next time the user does not need to login again
+17/3/2015 Update:
+        Login activity ready to use, buttons get user's information without insert into database.
+        Its simply to implement inserting when the database ready to use.
+        Login API's returns USERNAME, EMAIL and PROFILE_IMAGE url.

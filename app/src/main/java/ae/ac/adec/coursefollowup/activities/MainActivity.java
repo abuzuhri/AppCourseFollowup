@@ -126,12 +126,7 @@ public class MainActivity extends BaseActivity {
         result.getListView().setVerticalScrollBarEnabled(false);
         selectItem(Category.Dashboard.id);
 
-        //Update jma
-        // test facebook login
-        //AppFacebookAuth test=new AppFacebookAuth(this);
 
-        //Test Google login
-        //googleApp = new AppGoogleAuth(this);
     }
 
 

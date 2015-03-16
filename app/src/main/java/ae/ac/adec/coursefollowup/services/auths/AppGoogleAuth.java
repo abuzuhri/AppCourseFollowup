@@ -42,8 +42,6 @@ public class AppGoogleAuth implements GoogleApiClient.ConnectionCallbacks, Googl
         signedInUser = false;
         String str = getProfileInformation();
         Toast.makeText(context, "Connected"+"\n"+str, Toast.LENGTH_LONG).show();
-
-
     }
 
     @Override
@@ -96,7 +94,7 @@ public class AppGoogleAuth implements GoogleApiClient.ConnectionCallbacks, Googl
         return result;
     }
     public void googlePlusLogin() {
-        if (!mGoogleApiClient.isConnected()) {
+        if (!mGoogleApiClient.isConnecting()) {
             signedInUser = true;
             resolveSignInError();
         }
