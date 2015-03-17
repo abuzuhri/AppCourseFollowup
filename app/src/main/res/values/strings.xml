@@ -15,14 +15,58 @@
     <string name="category_notes">Notes</string>
     <string name="category_exams">Exams</string>
     <string name="category_semesters">Semesters</string>
+    <string name="category_year">Academic Years</string>
     <string name="category_holidays">Holidays</string>
     <string name="category_search">Search</string>
     <string name="category_setting">Settings</string>
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
-
+    <string name="category_test">Testing</string>
     <!-- ADD Edit  -->
-        <!-- Semester  -->
-        <string name="semester_name">العربي</string>
+    <string name="delete_confirmation">Are you sure you want to delete?</string>
+    <string name="delete_confirmation_title">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_successfully">Successfully Delete</string>
+    <!-- Holiday  -->
+    <string name="holiday_add_subtitle">Add Holiday</string>
+    <string name="holiday_edit_subtitle">Edit Holiday</string>
+    <string name="holiday_add_successfully">Successfully add holiday</string>
+    <string name="holiday_name">Holiday Name</string>
+    <string name="holiday_start_date_hint">Start Date</string>
+    <string name="holiday_end_date_hint">End Date</string>
+
+    <!-- Year  -->
+    <string name="year_add_subtitle">Add Academic Year</string>
+    <string name="year_edit_subtitle">Edit Academic Year</string>
+    <string name="year_add_successfully">Successfully add academic year</string>
+    <string name="year_name">Year Name</string>
+    <string name="year_start_date_hint">Start Date</string>
+    <string name="year_end_date_hint">End Date</string>
+
+    <!-- Semester  -->
+    <string name="semester_name">Semester Name</string>
+    <string name="semester_start_date_hint">Start Date</string>
+    <string name="semester_end_date_hint">End Date</string>
     <!-- /ADD Edit  -->
+
+    <!-- Tab  -->
+    <string name="tab_current">Current</string>
+    <string name="tab_past">Past</string>
+    <string name="tab_all">All</string>
+
+    <string name="font_fontFamily_medium">sans-serif</string>
+
+    <!-- BusinessRoleExcption  -->
+    <!-- Holiday  -->
+    <string name="BR_HLD_001">Start date can\'t be less than end date</string>
+    <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
+    <integer name="MaxHoildayPeriod">30</integer>
+    <string name="BR_HLD_003">Holiday name already exists</string>
+    <!--/ Year  -->
+    <string name="BR_YER_001">Start date can\'t be less than end date</string>
+    <string name="BR_YER_002">Academic Year name already exists</string>
+    <integer name="MaxYearPeriod">400</integer>
+    <string name="BR_YER_003">Can\'t add academic year with period more than 400 days</string>
+
 </resources>
