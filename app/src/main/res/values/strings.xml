@@ -44,8 +44,8 @@
     <string name="year_start_date_hint">Start Date</string>
     <string name="year_end_date_hint">End Date</string>
 
-    <!-- Semester  -->
-    <string name="semester_name">Semester Name</string>
+        <!-- Semester  -->
+        <string name="semester_name">Semester Name</string>
     <string name="semester_start_date_hint">Start Date</string>
     <string name="semester_end_date_hint">End Date</string>
     <!-- /ADD Edit  -->
@@ -70,13 +70,10 @@
     <string name="BR_YER_003">Can\'t add academic year with period more than 400 days</string>
 
 
-    ضيف الي عليهم خطأ
-    وخلينا نشوف
-
-
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>
     <string name="login_username">Username</string>
     <string name="login_pass">Password</string>
+
 
 </resources>

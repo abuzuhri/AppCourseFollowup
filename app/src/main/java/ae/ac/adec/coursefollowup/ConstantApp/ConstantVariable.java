@@ -51,7 +51,7 @@ public class ConstantVariable {
         TimeZone tz = TimeZone.getDefault();
         calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        java.util.Date currenTimeZone=new java.util.Date((long)1379487711*1000);
+        Date currenTimeZone=new Date((long)1379487711*1000);
         return  currenTimeZone;
     }
 
