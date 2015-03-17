@@ -69,7 +69,7 @@
     <integer name="MaxYearPeriod">400</integer>
     <string name="BR_YER_003">Can\'t add academic year with period more than 400 days</string>
 
-<!--tests 2-->
+<!--tests 222-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>
     <string name="login_username">Username</string>
