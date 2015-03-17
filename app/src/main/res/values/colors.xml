@@ -8,7 +8,7 @@
     <color name="colorPrimary_FAB">#FFFFFFFF</color>
     <color name="colorPrimaryDark_FAB">#FFFFFFFF</color>
     <color name="colorAccent_FAB">#FFFFFFFF</color>
-    <!-- default theme colors -->
+
     <!-- default theme colors -->
     <!-- Material DEFAULT colors -->
     <color name="material_drawer_primary">@color/colorPrimary</color>
