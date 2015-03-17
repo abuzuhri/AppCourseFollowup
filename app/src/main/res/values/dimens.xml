@@ -2,6 +2,7 @@
 
     <dimen name="RecyclerView_padding">8dp</dimen>
 
+    <dimen name="text_size_small">16sp</dimen>
     <!-- fab sizes -->
     <dimen name="fab_small">40dp</dimen>
     <dimen name="fab_normal">56dp</dimen>
@@ -21,3 +22,4 @@
     <dimen name="parallax_image_height">180dp</dimen>
     <dimen name="toolbar_margin_start">72dp</dimen>
 </resources>
+
