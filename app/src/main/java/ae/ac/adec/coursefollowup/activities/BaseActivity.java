@@ -55,6 +55,7 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
 
 //test 1
         //test 2
+        //test 3
     }
 
     public void SetupToolbarShadow(){
