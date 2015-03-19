@@ -41,8 +41,6 @@ public class HolidayFragmentView extends BaseFragment {
 
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
-
-
     }
 
 
