@@ -17,14 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
 import com.facebook.Session;
 import com.facebook.android.Facebook;
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.dal.TestDao;
+import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.Semester;
+import ae.ac.adec.coursefollowup.db.models.Year;
+import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.services.auths.AppFacebookAuth;
 import ae.ac.adec.coursefollowup.services.auths.AppGoogleAuth;
 
@@ -74,8 +82,19 @@ public class Login_Activity extends ActionBarActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                startActivity(intent);
+                TestDao tst = new TestDao();
+                ///List<Course> courses = new Select().from(Course.class).where("_ID=?", "1").execute();
+                /*Course c = new Course();
+                c.save();
+                Year y = new Year();
+                y.save();
+                try {
+                    tst.addSemester("",Calendar.getInstance().getTime(),Calendar.getInstance().getTime(),y,10,10);
+                } catch (BusinessRoleError businessRoleError) {
+                    businessRoleError.printStackTrace();
+                }*/
+               Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+               startActivity(intent);
             }
         });
 

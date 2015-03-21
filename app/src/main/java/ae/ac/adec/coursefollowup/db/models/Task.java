@@ -13,7 +13,7 @@ import java.util.Date;
 public class Task extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
-    public Task(){
+    public Task() {
         super();
     }
 
@@ -24,19 +24,28 @@ public class Task extends BaseModel {
     public Date DueDate;
 
     @Column
+    public Date DateAdded;
+
+    @Column
     public String Title;
 
     @Column
     public String Detail;
 
-    @Column(name = "TaskType_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public TaskType taskType;
+    @Column
+    public int TaskType;
 
-    @Column(name = "Course_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public Course course;
+    @Column
+    public int Progress;
 
+    @Column(name = "Course", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
+    public Course Course;
 
+    @Column
+    public int Remote_Id;
 
+    @Column
+    public int Sync_status_typeID;
 
 
 }

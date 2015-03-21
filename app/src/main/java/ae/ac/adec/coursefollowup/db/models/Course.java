@@ -10,44 +10,44 @@ import java.util.Date;
  */
 
 @Table(name = "Courses", id = "_ID")
-public class Course extends BaseModel{
+public class Course extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
-    public Course(){
+    public Course() {
         super();
     }
 
     @Column(name = "Name")
     public String Name;
-    
+
     @Column
     public String Code;
-    
+
     @Column
     public String Room;
-    
+
     @Column
     public String Building;
-    
+
     @Column
     public String Teacher;
 
-    @Column(name = "colorType_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public ColorType colorType;
+    @Column
+    public String ColorCode;
+
+    @Column(name = "semester", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
+    public Semester Semester;
 
     @Column
     public Date StartDate;
-    
+
     @Column
     public Date EndDate;
 
     @Column
-    public int IsNotify;
+    public Boolean IsNotify;
+
 
     @Column
-    public int RepeatId;
-
-    @Column
-    public String Days;
-
+    public int Sync_Status_Id;
 }

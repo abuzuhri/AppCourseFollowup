@@ -25,4 +25,10 @@ public class Holiday extends BaseModel {
 
     @Column
     public Date EndDate;
+
+    @Column
+    public int Remote_Id;
+
+    @Column
+    public int Sync_status_typeID;
 }

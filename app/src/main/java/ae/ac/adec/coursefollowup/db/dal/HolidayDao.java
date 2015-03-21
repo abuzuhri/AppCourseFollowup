@@ -18,8 +18,8 @@ import ae.ac.adec.coursefollowup.services.BusinessRoleError;
  */
 public class HolidayDao extends BaseDao {
     public Holiday getById(long Id){
-        return Holiday.load(Holiday.class, Id);
-    }
+    return Holiday.load(Holiday.class, Id);
+}
 
     public  void  Edit(long ID,String Name,long startDate,long endDate)  throws BusinessRoleError{
         AppLog.i("Edit => "+ID );

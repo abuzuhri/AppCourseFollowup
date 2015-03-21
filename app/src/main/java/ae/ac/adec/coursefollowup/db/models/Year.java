@@ -14,7 +14,7 @@ import java.util.List;
 public class Year extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
-    public Year(){
+    public Year() {
         super();
     }
 
@@ -26,6 +26,10 @@ public class Year extends BaseModel {
 
     @Column
     public Date EndDate;
+    @Column
+    public int Remote_Id;
+    @Column
+    public int Sync_status_typeID;
 
     // Used to return items from another table based on the foreign key
     public List<Semester> Semesters() {

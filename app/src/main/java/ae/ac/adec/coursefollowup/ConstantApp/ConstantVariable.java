@@ -43,6 +43,8 @@ public class ConstantVariable {
     }
 
     public static String getDateString(Date date) {
+        if(date==null)
+            return "";
         return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(date);
     }
 

@@ -28,4 +28,9 @@ public class Semester extends BaseModel {
 
     @Column(name = "Year_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Year year;
+    @Column
+    public int Remote_Id;
+
+    @Column
+    public int Sync_status_typeID;
 }

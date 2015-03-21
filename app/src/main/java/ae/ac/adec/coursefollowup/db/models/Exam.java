@@ -13,18 +13,19 @@ import java.util.Date;
 public class Exam extends BaseModel {
 
     // Must have a default constructor for every ActiveAndroid model
-    public Exam(){
+    public Exam() {
         super();
     }
 
     @Column
-    public Date Date;
+    public Date StartDateTime;
+    @Column
+    public Date EndDateTime;
+    @Column
+    public Date DateAdded;
 
     @Column
-    public  Boolean IsResit;
-
-    @Column
-    public int Duration;
+    public Boolean IsResit;
 
     @Column
     public String Seat;
@@ -32,6 +33,12 @@ public class Exam extends BaseModel {
     @Column
     public String Room;
 
-    @Column(name = "Course_Id", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public Course course;
+    @Column(name = "Course", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
+    public Course Course;
+
+    @Column
+    public int Remote_Id;
+
+    @Column
+    public int Sync_status_typeID;
 }
