@@ -25,10 +25,10 @@ public class Notification extends BaseModel {
     public Course Course;
 
     @Column(name = "Task", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
-    public Course Task;
+    public Task Task;
 
     @Column(name = "Exam", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
-    public Course Exam;
+    public Exam Exam;
 
     @Column
     public Boolean IsHoliday;
