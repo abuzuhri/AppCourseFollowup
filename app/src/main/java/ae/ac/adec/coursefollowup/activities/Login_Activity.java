@@ -28,6 +28,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.TestDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Semester;
@@ -93,7 +94,14 @@ public class Login_Activity extends ActionBarActivity {
                 } catch (BusinessRoleError businessRoleError) {
                     businessRoleError.printStackTrace();
                 }*/
-               Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                SemesterDao sd = new SemesterDao();
+                Year y = (Year) new Select().from(Year.class).where("_ID=?","1").execute().get(0);
+                try {
+                    sd.Add("sdsdsdsdsd",Calendar.getInstance().getTimeInMillis(),Calendar.getInstance().getTimeInMillis(),y);
+                } catch (BusinessRoleError businessRoleError) {
+                    businessRoleError.printStackTrace();
+                }
+                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                startActivity(intent);
             }
         });

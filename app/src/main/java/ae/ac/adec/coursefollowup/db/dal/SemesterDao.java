@@ -28,7 +28,7 @@ public class SemesterDao extends BaseDao {
         AddEdit(ID, Name, startDate, endDate, year);
     }
 
-    public void Add(long ID, String Name, long startDate, long endDate, Year year) throws BusinessRoleError {
+    public void Add(String Name, long startDate, long endDate, Year year) throws BusinessRoleError {
         AddEdit(null, Name, startDate, endDate, year);
     }
 
@@ -61,9 +61,9 @@ public class SemesterDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_HLD_002);*/
 
         // BR BR_AUH_003
-        int countExist = new Select().from(Semester.class).where("Name = ?", semester.Name).count();
+        /*int countExist = new Select().from(Semester.class).where("Name = ?", semester.Name).count();
         if (countExist > 0)
-            throw new BusinessRoleError(R.string.BR_HLD_003);
+            throw new BusinessRoleError(R.string.BR_HLD_003);*/
 
         AppLog.i("Name =>" + Name + " startDate=>" + semester.StartDate.toString() + " endDate=>" + semester.EndDate.toString());
         Long id = semester.save();
