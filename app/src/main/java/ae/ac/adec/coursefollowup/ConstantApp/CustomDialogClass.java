@@ -66,11 +66,13 @@ public class CustomDialogClass<T> extends DialogFragment {
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User cancelled the dialog
+
             }
         });
 
         return builder.create();
     }
+
 
     private void populateListView(ListView lv) {
         lv.setAdapter(adapter);

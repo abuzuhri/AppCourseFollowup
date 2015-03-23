@@ -12,7 +12,6 @@
 
     card_view:cardCornerRadius="4dp"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     >
 
     <RelativeLayout
@@ -25,6 +24,7 @@
             android:id="@+id/titleTextView"
             android:padding="16dp"
             android:textColor="#3C3C3C"
+
             android:textSize="28sp"
             tools:text="This is the title"/>
 

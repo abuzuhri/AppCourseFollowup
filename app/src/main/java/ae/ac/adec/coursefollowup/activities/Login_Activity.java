@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -93,6 +94,11 @@ public class Login_Activity extends ActionBarActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+          /*      SemesterDao semesterDao=new SemesterDao();
+                List<Semester> semesterList= semesterDao.getAll(0);
+
+                Log.d("TAG", " : " + semesterList.get(0).year.equals(null));
+                */
                 /*List<Course> courses = new CourseDao().getAll(2);
                 List<Year> years = new YearDao().getAll(2);
                 CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(Login_Activity.this,courses);
