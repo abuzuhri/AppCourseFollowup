@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,20 +23,29 @@ import com.facebook.Session;
 import com.facebook.android.Facebook;
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
+import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.TestDao;
+import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Year;
+import ae.ac.adec.coursefollowup.fragments.HolidayFragmentAddEdit;
+import ae.ac.adec.coursefollowup.fragments.YearFragmentAddEdit;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.services.auths.AppFacebookAuth;
 import ae.ac.adec.coursefollowup.services.auths.AppGoogleAuth;
+import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Courses;
+import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Years;
 
 public class Login_Activity extends ActionBarActivity {
     TextView tv_title, tv_loading;
@@ -83,26 +93,21 @@ public class Login_Activity extends ActionBarActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestDao tst = new TestDao();
-                ///List<Course> courses = new Select().from(Course.class).where("_ID=?", "1").execute();
-                /*Course c = new Course();
-                c.save();
-                Year y = new Year();
-                y.save();
-                try {
-                    tst.addSemester("",Calendar.getInstance().getTime(),Calendar.getInstance().getTime(),y,10,10);
-                } catch (BusinessRoleError businessRoleError) {
-                    businessRoleError.printStackTrace();
-                }*/
-                SemesterDao sd = new SemesterDao();
-                Year y = (Year) new Select().from(Year.class).where("_ID=?","1").execute().get(0);
-                try {
-                    sd.Add("sdsdsdsdsd",Calendar.getInstance().getTimeInMillis(),Calendar.getInstance().getTimeInMillis(),y);
-                } catch (BusinessRoleError businessRoleError) {
-                    businessRoleError.printStackTrace();
-                }
+                /*List<Course> courses = new CourseDao().getAll(2);
+                List<Year> years = new YearDao().getAll(2);
+                CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(Login_Activity.this,courses);
+                final CustomDialogClass dialogClass = new CustomDialogClass(getBaseContext(),HolidayFragmentAddEdit.class.getName(),"Courses",
+                        adapter,new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        AppLog.i("jaffer "+position);
+                        finish();
+                    }
+                });
+                dialogClass.show(getFragmentManager(), "jmas");*/
+
                 Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-               startActivity(intent);
+                startActivity(intent);
             }
         });
 
@@ -216,7 +221,6 @@ public class Login_Activity extends ActionBarActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == googleAuth.RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 googleAuth.signedInUser = false;

@@ -44,6 +44,18 @@
     <string name="year_start_date_hint">Start Date</string>
     <string name="year_end_date_hint">End Date</string>
 
+    <!-- Year  -->
+    <string name="exam_add_subtitle">Add Exam</string>
+    <string name="exam_edit_subtitle">Edit Exam</string>
+    <string name="exam_add_successfully">Successfully add Exam</string>
+    <string name="exam_course_name">Course Name</string>
+    <string name="exam_start_date_hint">Start Date Time</string>
+    <string name="exam_isResit">Is Resit</string>
+    <string name="exam_seat_hint">seat</string>
+    <string name="exam_room_hint">Room</string>
+    <string name="exam_duration">Duration</string>
+    <string name="exam_end_date_hint">End Date Time</string>
+
         <!-- Semester  -->
         <string name="semester_name">Semester Name</string>
     <string name="semester_start_date_hint">Start Date</string>
