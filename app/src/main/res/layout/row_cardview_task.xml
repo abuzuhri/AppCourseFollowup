@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="25dp"
+    android:orientation="horizontal"
+    card_view:cardElevation="2sp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="4dp"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linerHorzTitle"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/colorTaskrow1"
+            android:layout_width="3dp"
+            android:layout_height="fill_parent"
+            android:background="#FF1F870F"
+            android:layout_alignLeft="@+id/titleTextView"
+            android:layout_alignStart="@+id/titleTextView"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTaskTitle"
+                android:layout_weight="0.3"
+                android:padding="10dp"
+                android:textColor="#3C3C3C"
+                android:textSize="20sp"
+                tools:text="Task Title"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTaskDueDate"
+                android:layout_weight="0.7"
+                android:textColor="#3C3C3C"
+                android:padding="10dp"
+                android:textSize="12sp"
+                tools:text="Mar 23 15"
+                android:gravity="right"
+                android:layout_gravity="right" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linerHorz"
+            android:orientation="horizontal"
+            android:layout_below="@+id/linerHorzTitle">
+
+            <View
+                android:id="@+id/colorTaskrow2"
+                android:layout_width="3dp"
+                android:layout_height="fill_parent"
+                android:background="#ff1f870f"
+                android:layout_below="@+id/linerHorz"
+                android:layout_alignLeft="@+id/titleTextView"
+                android:layout_alignStart="@+id/titleTextView"
+                />
+
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTaskSubject"
+                android:textColor="#3C3C3C"
+                android:padding="10dp"
+                android:textSize="16sp"
+                tools:text="Subject"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTaskType"
+                android:textColor="#3C3C3C"
+                android:padding="10dp"
+                android:textSize="14sp"
+                tools:text="Type"/>
+           </LinearLayout>
+        <View
+            android:id="@+id/cardDivider"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#878787"
+            android:layout_below="@+id/linerHorz"
+            android:layout_alignLeft="@+id/titleTextView"
+            android:layout_alignStart="@+id/titleTextView"
+            />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
