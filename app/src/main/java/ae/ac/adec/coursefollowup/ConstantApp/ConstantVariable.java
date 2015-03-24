@@ -10,6 +10,22 @@ import java.util.TimeZone;
  */
 public class ConstantVariable {
 
+    public enum TaskType {
+        Assignment(1),
+        Homework(1),
+        Reminder(2),
+        Revision(4),
+        Meeting(5);
+        public int id;
+
+        private TaskType(int id) {
+            this.id = id;
+        }
+
+
+
+    }
+
     public enum TimeFrame {
         Current(0),
         Past(1),

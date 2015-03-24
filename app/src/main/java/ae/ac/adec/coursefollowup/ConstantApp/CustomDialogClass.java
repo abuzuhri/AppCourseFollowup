@@ -59,6 +59,7 @@ public class CustomDialogClass<T> extends DialogFragment {
         populateListView(lv);
         lv.setOnItemClickListener(listener);
 
+        if(fragmentName!="")
         builder.setView(v).setPositiveButton("New", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), OneFragmentActivity.class, fragmentName);
@@ -69,6 +70,13 @@ public class CustomDialogClass<T> extends DialogFragment {
 
             }
         });
+        else
+            builder.setView(v).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User cancelled the dialog
+
+                }
+            });
 
         return builder.create();
     }
