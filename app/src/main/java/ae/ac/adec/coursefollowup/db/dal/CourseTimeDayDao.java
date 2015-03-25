@@ -47,6 +47,9 @@ public class CourseTimeDayDao extends BaseDao {
         endDateCal.setTimeInMillis(endTime);
         std.End_time = endDateCal.getTime();
 
+        std.IsRepeat=isRepeat;
+        std.DayOfWeek=DayOfWeek;
+
         if (endTime < startTime)
             throw new BusinessRoleError(R.string.BR_HLD_001);
 

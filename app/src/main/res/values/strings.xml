@@ -36,6 +36,21 @@
     <string name="holiday_start_date_hint">Start Date</string>
     <string name="holiday_end_date_hint">End Date</string>
 
+
+    <!-- Course  -->
+    <string name="course_add_subtitle">Add Course</string>
+    <string name="course_edit_subtitle">Edit Course</string>
+    <string name="course_add_successfully">Successfully add Course</string>
+    <string name="course_name">Course Name</string>
+    <string name="course_start_date_hint">Start Date</string>
+    <string name="course_end_date_hint">End Date</string>
+    <string name="course_seat_hint">Room</string>
+    <string name="course_building_hint">Building</string>
+    <string name="course_code_hint">Code</string>
+    <string name="course_teacher_hint">Teacher</string>
+    <string name="course_colorCode_hint">Color Code</string>
+
+
     <!-- Year  -->
     <string name="year_add_subtitle">Add Academic Year</string>
     <string name="year_edit_subtitle">Edit Academic Year</string>
@@ -44,7 +59,7 @@
     <string name="year_start_date_hint">Start Date</string>
     <string name="year_end_date_hint">End Date</string>
 
-    <!-- Year  -->
+    <!-- Exam  -->
     <string name="exam_add_subtitle">Add Exam</string>
     <string name="exam_edit_subtitle">Edit Exam</string>
     <string name="exam_add_successfully">Successfully add Exam</string>

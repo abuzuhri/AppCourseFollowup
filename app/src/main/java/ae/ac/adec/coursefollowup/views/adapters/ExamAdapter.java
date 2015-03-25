@@ -28,7 +28,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ExamAdapter(List<Exam> myDataset, Context context, IClickCardView mListener) {
-        mDataset = myDataset;
+        this.mDataset = myDataset;
         this.context = context;
         this.mListener = mListener;
     }

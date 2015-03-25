@@ -37,21 +37,22 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 /**
  * Created by MyLabtop on 3/21/2015.
  */
-public class SemesterFragmentAddEdit  extends BaseFragment {
+public class SemesterFragmentAddEdit extends BaseFragment {
 
-    MaterialEditText semesterName=null;
-    MaterialEditText startDate=null;
-    MaterialEditText endDate=null;
-    MaterialEditText selectYear=null;
-    Spinner s =null;
+    MaterialEditText semesterName = null;
+    MaterialEditText startDate = null;
+    MaterialEditText endDate = null;
+    MaterialEditText selectYear = null;
+    Spinner s = null;
     Year selectedYear = null;
     private int position;
-     CustomDialogClass dialogClass = null;
+    CustomDialogClass dialogClass = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        position= getArguments().getInt(POSITION,0);
+        position = getArguments().getInt(POSITION, 0);
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
     }
@@ -60,19 +61,16 @@ public class SemesterFragmentAddEdit  extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(ID!=null && ID!=0)
+        if (ID != null && ID != 0)
             setSubTitle(getString(R.string.semester_edit_subtitle));
         else setSubTitle(getString(R.string.semester_add_subtitle));
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class SemesterFragmentAddEdit  extends BaseFragment {
         return true;
     }
 
-    public void AddEdit(){
+    public void AddEdit() {
         try {
             AppLog.i("ID== >>> " + ID);
             SemesterDao semester = new SemesterDao();
@@ -96,15 +94,15 @@ public class SemesterFragmentAddEdit  extends BaseFragment {
             long endDateMil = (long) endDate.getTag();
             //ToDo
             //Check selectedYear not null
-AppLog.i("1 : "+selectedYear.Name);
-            if(ID!=null && ID!=0)
-                semester.Edit(ID,semesterName.getText().toString(), startDateMil, endDateMil,selectedYear);
+            AppLog.i("1 : " + selectedYear.Name);
+            if (ID != null && ID != 0)
+                semester.Edit(ID, semesterName.getText().toString(), startDateMil, endDateMil, selectedYear);
             else
-                semester.Add(semesterName.getText().toString(), startDateMil, endDateMil,selectedYear);
+                semester.Add(semesterName.getText().toString(), startDateMil, endDateMil, selectedYear);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.semester_add_successfully, Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
@@ -117,9 +115,9 @@ AppLog.i("1 : "+selectedYear.Name);
 
     }
 
-    private  void fillDate(){
-        if(ID!=null && ID!=0){
-            Semester semester= Semester.load(Semester.class, ID);
+    private void fillDate() {
+        if (ID != null && ID != 0) {
+            Semester semester = Semester.load(Semester.class, ID);
             semesterName.setText(semester.Name);
             startDate.setText(ConstantVariable.getDateString(semester.StartDate));
             startDate.setTag(semester.StartDate.getTime());
@@ -139,47 +137,46 @@ AppLog.i("1 : "+selectedYear.Name);
         removeShadowForNewApi21(rootView);
 
 
-        semesterName= (MaterialEditText) rootView.findViewById(R.id.txtName);
+        semesterName = (MaterialEditText) rootView.findViewById(R.id.txtName);
 
         // Start Date
-        startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
+        startDate = (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl(startDate);
 
         // End Date
-        endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
+        endDate = (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl(endDate);
 
-        selectYear=(MaterialEditText) rootView.findViewById(R.id.txtSelectYear);
+        selectYear = (MaterialEditText) rootView.findViewById(R.id.txtSelectYear);
         selectYear.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                                                @Override
-                                                public void onFocusChange(View v, boolean hasFocus) {
-                                                    if(!hasFocus) {
-                                                        List<Year> years = new YearDao().getAll(position);
-                                                        final CustomLVAdapter_Years adapter = new CustomLVAdapter_Years(getActivity(), years);
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    List<Year> years = new YearDao().getAll(position);
+                    final CustomLVAdapter_Years adapter = new CustomLVAdapter_Years(getActivity(), years);
 
-                                                          dialogClass = new CustomDialogClass(getActivity(), YearFragmentAddEdit.class.getName(), "Years",
-                                                                adapter, new AdapterView.OnItemClickListener() {
-                                                            @Override
-                                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    dialogClass = new CustomDialogClass(getActivity(), YearFragmentAddEdit.class.getName(), "Years",
+                            adapter, new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                                                selectYear.setText(((Year)adapter.getItem(position)).Name);
-                                                                selectedYear=((Year)adapter.getItem(position));
-                                                                AppLog.i("HHHHH : "+selectedYear.Name);
-                                                               // dialogClass.getActivity().finish();
-                                                                dialogClass.dismiss();
-                                                            }
-                                                        });
-                                                        dialogClass.show(getActivity().getFragmentManager(), "Iam here!");
-                                                    }
-                                                    v.clearFocus();
-                                                }
-                                            });
+                            selectYear.setText(((Year) adapter.getItem(position)).Name);
+                            selectedYear = ((Year) adapter.getItem(position));
+                            AppLog.i("HHHHH : " + selectedYear.Name);
+                            // dialogClass.getActivity().finish();
+                            dialogClass.dismiss();
+                        }
+                    });
+                    dialogClass.show(getActivity().getFragmentManager(), "Iam here!");
+                }
+                v.clearFocus();
+            }
+        });
 
-                fillDate();
+        fillDate();
 
         return rootView;
     }
-
 
 
 }

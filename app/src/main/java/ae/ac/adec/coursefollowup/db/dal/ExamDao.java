@@ -53,6 +53,11 @@ public class ExamDao extends BaseDao {
         endDateCal.setTimeInMillis(endDateTime);
         exam.EndDateTime = endDateCal.getTime();
 
+        exam.Room=room;
+        exam.Seat=seat;
+        exam.IsResit=isResit;
+        exam.Course=course;
+
         if (endDateTime < startDateTime)
             throw new BusinessRoleError(R.string.BR_HLD_001);
 

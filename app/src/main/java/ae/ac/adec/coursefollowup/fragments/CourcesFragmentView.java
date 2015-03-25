@@ -15,7 +15,9 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
+import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
@@ -30,9 +32,15 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  */
 public class CourcesFragmentView extends BaseFragment {
 
-    MaterialEditText holidayName=null;
+    MaterialEditText courseName=null;
     MaterialEditText startDate=null;
     MaterialEditText endDate=null;
+    MaterialEditText semester=null;
+    MaterialEditText code=null;
+    MaterialEditText building=null;
+    MaterialEditText room=null;
+    MaterialEditText teacher=null;
+    MaterialEditText colorCode=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +52,6 @@ public class CourcesFragmentView extends BaseFragment {
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -53,13 +60,10 @@ public class CourcesFragmentView extends BaseFragment {
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_edit_delete, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -84,28 +88,25 @@ public class CourcesFragmentView extends BaseFragment {
         return false;
     }
 
-    public void Edit(){
+    public void Edit() {
         try {
-            AppAction.OpenActivityWithFRAGMENT(getActivity(), HolidayFragmentAddEdit.class.getName(), ID);
+            AppAction.OpenActivityWithFRAGMENT(getActivity(), CourcesFragmentAddEdit.class.getName(), ID);
             getActivity().finish();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
         }
     }
 
-    public void Delete(){
+    public void Delete() {
         try {
-            HolidayDao holidayDao = new HolidayDao();
-            holidayDao.delete(ID);
-
+            CourseDao courseDao = new CourseDao();
+            courseDao.delete(ID);
             getActivity().finish();
-            Toast.makeText(getActivity(),R.string.delete_successfully,Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){
+            Toast.makeText(getActivity(), R.string.delete_successfully, Toast.LENGTH_LONG).show();
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
-
-
 
 
     @Override
@@ -115,49 +116,58 @@ public class CourcesFragmentView extends BaseFragment {
 
     }
 
-    private  void fillDate(){
-        if(ID!=null && ID!=0){
-            Holiday holiday= Holiday.load(Holiday.class, ID);
-            holidayName.setText(holiday.Name);
-            holidayName.setEnabled(false);
-
-            startDate.setText(ConstantVariable.getDateString(holiday.StartDate));
+    private void fillDate() {
+        if (ID != null && ID != 0) {
+            Course course= Course.load(Course.class, ID);
+            courseName.setText(course.Name);
+            courseName.setEnabled(false);
+            startDate.setText(ConstantVariable.getDateString(course.StartDate));
+            startDate.setTag(course.StartDate.getTime());
             startDate.setEnabled(false);
-
-            endDate.setText(ConstantVariable.getDateString(holiday.EndDate));
+            endDate.setText(ConstantVariable.getDateString(course.EndDate));
+            endDate.setTag(course.EndDate.getTime());
             endDate.setEnabled(false);
-
-
-
+            semester.setText(course.Semester.Name);
+            semester.setEnabled(false);
+            code.setText(course.Code);
+            code.setEnabled(false);
+            room.setText(course.Room);
+            room.setEnabled(false);
+            building.setText(course.Building);
+            building.setEnabled(false);
+            teacher.setText(course.Teacher);
+            teacher.setEnabled(false);
+            colorCode.setText(course.ColorCode);
+            colorCode.setEnabled(false);
         }
     }
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_holiday_add_edit, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_course_add_edit, container, false);
         removeShadowForNewApi21(rootView);
 
-        //Holiday Name
-        holidayName= (MaterialEditText) rootView.findViewById(R.id.txtName);
-
+        courseName = (MaterialEditText) rootView.findViewById(R.id.tv_course_nameCode);
         // Start Date
-        startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
+        startDate= (MaterialEditText) rootView.findViewById(R.id.tv_course_startDate);
         SetDateControl(startDate);
-
-
         // End Date
-        endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
+        endDate= (MaterialEditText) rootView.findViewById(R.id.tv_course_endDate);
         SetDateControl(endDate);
+
+        semester = (MaterialEditText) rootView.findViewById(R.id.tv_course_semmester);
+        code = (MaterialEditText) rootView.findViewById(R.id.tv_course_code);
+        building = (MaterialEditText) rootView.findViewById(R.id.tv_course_building);
+        room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
+        teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
+        colorCode = (MaterialEditText) rootView.findViewById(R.id.tv_course_colorCode);
 
         fillDate();
 
-
         return rootView;
     }
-
 
 
 }

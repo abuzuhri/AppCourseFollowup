@@ -50,6 +50,14 @@ public class CourseDao extends BaseDao {
         endDateCal.setTimeInMillis(endDate);
         course.EndDate = endDateCal.getTime();
 
+        course.Code=code;
+        course.Room=room;
+        course.Building=building;
+        course.Teacher=teacher;
+        course.ColorCode=colorCode;
+        course.Semester=semester;
+        course.IsNotify=isNotify;
+
         if (endDate < startDate)
             throw new BusinessRoleError(R.string.BR_HLD_001);
 

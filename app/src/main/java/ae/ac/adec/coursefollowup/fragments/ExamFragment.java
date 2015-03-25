@@ -80,7 +80,6 @@ public class ExamFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, ExamFragmentAddEdit.class.getName());
-
             }
         });
 

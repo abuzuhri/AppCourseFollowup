@@ -48,6 +48,8 @@ public class SemesterDao extends BaseDao {
         endDateCalendar.setTimeInMillis(endDate);
         semester.EndDate = endDateCalendar.getTime();
 
+        semester.year=year;
+
         // BR BR_AUH_001
         if (endDate < startDate)
             throw new BusinessRoleError(R.string.BR_HLD_001);
