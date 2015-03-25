@@ -17,13 +17,9 @@ public class ConstantVariable {
         Revision(4),
         Meeting(5);
         public int id;
-
         private TaskType(int id) {
             this.id = id;
         }
-
-
-
     }
 
     public enum TimeFrame {
@@ -56,6 +52,50 @@ public class ConstantVariable {
         private Category(int id) {
             this.id = id;
         }
+    }
+
+    public enum SystemNotificationType{
+        Course(1),
+        Exam(2),
+        Task(3);
+        public int id;
+        private SystemNotificationType(int id){this.id=id;}
+    }
+
+    public enum SyncStatus{
+        Normal(0),
+        New(1),
+        Updated(2);
+        public int id;
+        private SyncStatus(int id){this.id=id;}
+    }
+
+    public enum DayOfWeek{
+        Saturday(1),
+        Sunday(2),
+        Monday(3),
+        Tuesday(4),
+        Wednesday(5),
+        Thursday(6),
+        Friday(7);
+        public int id;
+        private DayOfWeek(int id){this.id=id;}
+    }
+
+    public enum NoteType{
+        Voice(1),
+        Text(2),
+        Video(3),
+        Image(4);
+        public int id;
+        private NoteType(int id){this.id=id;}
+    }
+    public enum CloudStatus{
+        Normal(0),
+        NeedUpload(1),
+        NeedDownload(2);
+        public int id;
+        private CloudStatus(int id){this.id=id;}
     }
 
     public static String getDateString(Date date) {
