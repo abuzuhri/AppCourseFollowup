@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
@@ -41,6 +43,8 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
  */
 public class TaskFragmentAddEdit extends BaseFragment {
 
+    Course selectedCourse = null;
+    int selectedType = -1;
     CustomDialogClass dialogClass =null;
     MaterialEditText txtTaskName=null;
     MaterialEditText txtTaskSubject=null;
@@ -99,16 +103,16 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
             long dueDateMil = (long) txtTaskDueDate.getTag();
 //ConstantVariable.Category.Dashboard.id
-            Course c = new Course();
-          //  if(ID!=null && ID!=0)
-            //    task.Edit(ID, txtTaskName.getText().toString() , dueDateMil, null,null, txtTaskDetail.getText().toString() , , 0, c);
-            //    task.Edit(ID, holidayName.getText().toString(), startDateMil, endDateMil);
-          //  else
-         //       task.Add(holidayName.getText().toString(), startDateMil, endDateMil);
+
+
+           if(ID!=null && ID!=0)
+                task.Edit(ID, txtTaskName.getText().toString() , dueDateMil, Calendar.getInstance().getTimeInMillis(),null, txtTaskDetail.getText().toString() ,selectedType , 0, selectedCourse);
+            else
+               task.Add( txtTaskName.getText().toString() , dueDateMil, Calendar.getInstance().getTimeInMillis(),null, txtTaskDetail.getText().toString() ,selectedType , 0, selectedCourse);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.task_add_successfully, Toast.LENGTH_LONG).show();
-        }catch (Error ex){ //catch (BusinessRoleError ex){
+        }catch (BusinessRoleError ex){ //catch (BusinessRoleError ex){
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
@@ -131,7 +135,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
             txtTaskName.setText(task.Name);
             txtTaskSubject.setText(task.Course.Name);
-            txtTaskType.setText(task.TaskType);
+            txtTaskType.setText(ConstantVariable.TaskType.fromInteger(task.TaskType));
             txtTaskDetail.setText(task.Detail);
 
 
@@ -174,9 +178,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                             txtTaskSubject.setText(((Course)adapter.getItem(position)).Name);
-                       //     selectedYear=((Year)adapter.getItem(position));
-
-
+                            selectedCourse=((Course)adapter.getItem(position));
                             dialogClass.dismiss();
                         }
                     });
@@ -196,6 +198,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                             @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 txtTaskType.setText(ad.getItem(position).toString());
+                                selectedType = position+1;
                             dialogClass.dismiss();
                         }
                     });

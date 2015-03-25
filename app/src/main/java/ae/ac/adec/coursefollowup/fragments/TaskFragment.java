@@ -55,8 +55,8 @@ public class TaskFragment extends BaseFragment {
         mAdapter = new TaskAdapter(taskList,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
-            //ToDo TaskFragmentView
-            //    AppAction.OpenActivityWithFRAGMENT(getActivity(), .class.getName(), ID);
+
+               AppAction.OpenActivityWithFRAGMENT(getActivity(), TaskFragmentView.class.getName(), ID);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -87,7 +87,7 @@ public class TaskFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                //TODO TaskFragmentAddEdit
+
                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, TaskFragmentAddEdit.class.getName());
 
             }

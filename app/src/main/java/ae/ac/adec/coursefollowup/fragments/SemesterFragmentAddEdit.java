@@ -103,9 +103,8 @@ public class SemesterFragmentAddEdit extends BaseFragment {
 
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();
-            //ToDo
             //Check selectedYear not null
-            AppLog.i("1 : " + selectedYear.Name);
+      //      AppLog.i("1 : " + selectedYear.Name);
             if (ID != null && ID != 0)
                 semester.Edit(ID, semesterName.getText().toString().trim(), startDateMil, endDateMil, selectedYear);
             else
@@ -135,8 +134,6 @@ public class SemesterFragmentAddEdit extends BaseFragment {
             endDate.setText(ConstantVariable.getDateString(semester.EndDate));
             endDate.setTag(semester.EndDate.getTime());
             selectYear.setText(semester.year.Name);
-
-
         }
     }
 

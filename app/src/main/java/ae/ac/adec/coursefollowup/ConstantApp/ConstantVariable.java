@@ -12,14 +12,32 @@ public class ConstantVariable {
 
     public enum TaskType {
         Assignment(1),
-        Homework(1),
-        Reminder(2),
+        Homework(2),
+        Reminder(3),
         Revision(4),
         Meeting(5);
         public int id;
         private TaskType(int id) {
             this.id = id;
         }
+
+
+        public static String fromInteger(int x) {
+            switch(x) {
+                case 1:
+                    return "Assignment";
+                case 2:
+                    return "Homework";
+                case 3:
+                    return "Reminder";
+                case 4:
+                    return "Revision";
+                case 5:
+                    return "Meeting";
+            }
+            return null;
+        }
+
     }
 
     public enum TimeFrame {

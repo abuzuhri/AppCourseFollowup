@@ -61,10 +61,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder>  {
         viewHolder.txtTaskTitle.setText(task.Name);
 
         String dueDate= ConstantVariable.getDateString(task.DueDate);
-        viewHolder.txtTaskDueDate.setText(context.getString(R.string.task_due_date_hint) + ": " + dueDate);
+        viewHolder.txtTaskDueDate.setText(dueDate);
 
         viewHolder.txtTaskSubject.setText(task.Course.Name);
-        viewHolder.txtTaskType.setText(task.TaskType);
+        viewHolder.txtTaskType.setText(ConstantVariable.TaskType.fromInteger(task.TaskType));
         viewHolder.colorTaskRow1.setBackgroundColor(Color.parseColor(task.Course.ColorCode));
         viewHolder.colorTaskRow2.setBackgroundColor(Color.parseColor(task.Course.ColorCode));
     }

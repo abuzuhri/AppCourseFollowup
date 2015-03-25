@@ -22,7 +22,7 @@
             android:paddingTop="16dp">
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/txtName"
+                android:id="@+id/txtTaskSubject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/task_subject_hint"
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0% complete"
-                    android:id="@+id/txtTaskProgrees"
+                    android:id="@+id/txtTaskProgress"
                     android:layout_gravity="left|center_horizontal"
                     android:paddingTop="10dp"
                     android:paddingLeft="25dp"

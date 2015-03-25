@@ -37,7 +37,9 @@
                 android:padding="10dp"
                 android:textColor="#3C3C3C"
                 android:textSize="20sp"
-                tools:text="Task Title"/>
+                tools:text="الحق"
+                android:layout_gravity="left"
+                android:gravity="left" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -78,17 +80,19 @@
                 android:id="@+id/txtTaskSubject"
                 android:textColor="#3C3C3C"
                 android:padding="10dp"
-                android:textSize="16sp"
-                tools:text="Subject"/>
+                android:textSize="18sp"
+                tools:text="Subject"
+               android:paddingRight="2dp" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtTaskType"
                 android:textColor="#3C3C3C"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:textSize="14sp"
-                tools:text="Type"/>
+                tools:text="Type"
+                android:paddingLeft="1dp" />
            </LinearLayout>
         <View
             android:id="@+id/cardDivider"
