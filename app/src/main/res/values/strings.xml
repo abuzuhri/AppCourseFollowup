@@ -71,6 +71,16 @@
     <string name="exam_duration">Duration</string>
     <string name="exam_end_date_hint">End Date Time</string>
 
+    <!-- Task  -->
+    <string name="task_add_subtitle">New Task</string>
+    <string name="task_edit_subtitle">Edit Task</string>
+    <string name="task_add_successfully">Successfully add Task</string>
+    <string name="task_subject_hint">Subject</string>
+    <string name="task_type_hint">Type</string>
+    <string name="task_due_date_hint">Due Date</string>
+    <string name="task_name">Task Name</string>
+    <string name="task_detail_hint">Detail</string>
+
         <!-- Semester  -->
     <string name="semester_name">Semester Name</string>
     <string name="semester_start_date_hint">Start Date</string>

@@ -25,6 +25,7 @@ public class TaskDao extends BaseDao {
     public void Edit(long ID, String name, long dueDate, long dateAdded, String title, String details, int taskType, int progress,
                      Course course) throws BusinessRoleError {
         AppLog.i("Edit => " + ID);
+        //ToDo Jaffer Delete title column ?! and dateAdded
         AddEdit(ID, name, dueDate, dateAdded, title, details, taskType, progress, course);
     }
 
