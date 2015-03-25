@@ -74,13 +74,21 @@ public class YearFragmentAddEdit extends BaseFragment {
         try {
             AppLog.i("ID== >>> " + ID);
             YearDao year = new YearDao();
+
+            // BR BR_YER_006
+            if (yearName.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_YER_006);
+            // BR BR_YER_005
+            if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_YER_005);
+
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();
 
             if(ID!=null && ID!=0)
-                year.Edit(ID, yearName.getText().toString(), startDateMil, endDateMil);
+                year.Edit(ID, yearName.getText().toString().trim(), startDateMil, endDateMil);
             else
-                year.Add(yearName.getText().toString(), startDateMil, endDateMil);
+                year.Add(yearName.getText().toString().trim(), startDateMil, endDateMil);
 
             getActivity().finish();
             Toast.makeText(getActivity(),R.string.year_add_successfully,Toast.LENGTH_LONG).show();

@@ -99,7 +99,6 @@ public class YearFragmentView extends BaseFragment {
         try {
             YearDao yearDao = new YearDao();
             yearDao.delete(ID);
-
             getActivity().finish();
             Toast.makeText(getActivity(),R.string.delete_successfully,Toast.LENGTH_LONG).show();
         }catch (BusinessRoleError ex){

@@ -12,6 +12,7 @@ import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Note;
+import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
@@ -91,5 +92,11 @@ public class NoteDao extends BaseDao {
                     .orderBy("DateAdded ASC")
                     .execute();
         }
+    }
+    public List<Note> getNotesWithinCourse(Course course) {
+        return new Select()
+                .from(Note.class)
+                .where("Course=?", course.getId())
+                .execute();
     }
 }

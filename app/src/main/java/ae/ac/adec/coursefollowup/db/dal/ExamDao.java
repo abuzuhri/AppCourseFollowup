@@ -12,6 +12,7 @@ import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Semester;
+import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
@@ -105,5 +106,11 @@ public class ExamDao extends BaseDao {
                     .orderBy("StartDateTime ASC")
                     .execute();
         }
+    }
+    public List<Exam> getExamsWithinCourse(Course course) {
+        return new Select()
+                .from(Exam.class)
+                .where("Course=?", course.getId())
+                .execute();
     }
 }

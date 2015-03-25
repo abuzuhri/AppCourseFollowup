@@ -77,13 +77,21 @@ public class HolidayFragmentAddEdit extends BaseFragment {
         try {
             AppLog.i("ID== >>> " + ID);
             HolidayDao holiday = new HolidayDao();
+
+            // BR BR_AUH_005
+            if (holidayName.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_HLD_005);
+            // BR BR_AUH_004
+            if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_HLD_004);
+
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();
 
             if(ID!=null && ID!=0)
-                holiday.Edit(ID, holidayName.getText().toString(), startDateMil, endDateMil);
+                holiday.Edit(ID, holidayName.getText().toString().trim(), startDateMil, endDateMil);
             else
-                holiday.Add(holidayName.getText().toString(), startDateMil, endDateMil);
+                holiday.Add(holidayName.getText().toString().trim(), startDateMil, endDateMil);
 
             getActivity().finish();
             Toast.makeText(getActivity(),R.string.holiday_add_successfully,Toast.LENGTH_LONG).show();

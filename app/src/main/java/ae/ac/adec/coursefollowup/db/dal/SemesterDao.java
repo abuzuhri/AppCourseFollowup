@@ -10,6 +10,7 @@ import ae.ac.adec.coursefollowup.Application.myApplication;
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Year;
@@ -28,7 +29,7 @@ public class SemesterDao extends BaseDao {
         AddEdit(ID, Name, startDate, endDate, year);
     }
 
-    public void Add( String Name, long startDate, long endDate, Year year) throws BusinessRoleError {
+    public void Add(String Name, long startDate, long endDate, Year year) throws BusinessRoleError {
         AddEdit(null, Name, startDate, endDate, year);
     }
 
@@ -48,21 +49,17 @@ public class SemesterDao extends BaseDao {
         endDateCalendar.setTimeInMillis(endDate);
         semester.EndDate = endDateCalendar.getTime();
 
-        semester.year=year;
+        semester.year = year;
 
-        // BR BR_AUH_001
+        // BR BR_SMR_004
         if (endDate < startDate)
-            throw new BusinessRoleError(R.string.BR_HLD_001);
+            throw new BusinessRoleError(R.string.BR_SMR_004);
 
-        // BR BR_AUH_002
+        // BR BR_SMR_002
+        if((startDate<year.StartDate.getTime()) || (endDate>year.EndDate.getTime()))
+            throw new BusinessRoleError(R.string.BR_SMR_002);
 
-        /*long diff = endDate - startDate;
-        long numOfDays = diff/(1000*60*60*24);
-        int MaxHoildayPeriod=  myApplication.getContext().getResources().getInteger(R.integer.MaxHoildayPeriod);
-        if(numOfDays >  MaxHoildayPeriod)
-            throw new BusinessRoleError(R.string.BR_HLD_002);*/
-
-        // BR BR_AUH_003
+        // BR BR_SMR_001
         int countExist = new Select().from(Semester.class).where("Name = ?", semester.Name).count();
         if (countExist > 0)
             throw new BusinessRoleError(R.string.BR_HLD_003);
@@ -74,33 +71,37 @@ public class SemesterDao extends BaseDao {
 
     public void delete(long Id) throws BusinessRoleError {
 
-        Semester holiday = Semester.load(Semester.class, Id);
-
+        Semester semester = Semester.load(Semester.class, Id);
+        List<Course> cList = new CourseDao().getCoursesWithinSemester(semester);
+        if (cList != null && cList.size() > 0)
+            throw new BusinessRoleError(R.string.BR_SMR_003);
         ActiveAndroid.beginTransaction();
         try {
-            DeleteSyncer(holiday);
-            holiday.delete();
+            DeleteSyncer(semester);
+            semester.delete();
             ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception ex) {
+            throw new BusinessRoleError(R.string.BR_GENERAL_001);
         } finally {
             ActiveAndroid.endTransaction();
         }
 
     }
 
-    public List<Semester> getAll(int position){
+    public List<Semester> getAll(int position) {
 
         Calendar calendar = Calendar.getInstance();
-        long currentTimeInMillis= calendar.getTimeInMillis();
-        if(position == ConstantVariable.TimeFrame.Current.id) {
+        long currentTimeInMillis = calendar.getTimeInMillis();
+        if (position == ConstantVariable.TimeFrame.Current.id) {
             return new Select()
                     .from(Semester.class)
-                    .where("EndDate > ?",currentTimeInMillis)
+                    .where("EndDate > ?", currentTimeInMillis)
                     .orderBy("StartDate ASC")
                     .execute();
-        }else if(position == ConstantVariable.TimeFrame.Past.id) {
+        } else if (position == ConstantVariable.TimeFrame.Past.id) {
             return new Select()
                     .from(Semester.class)
-                    .where("EndDate <= ?",currentTimeInMillis)
+                    .where("EndDate <= ?", currentTimeInMillis)
                     .orderBy("StartDate ASC")
                     .execute();
         } else {
@@ -109,5 +110,14 @@ public class SemesterDao extends BaseDao {
                     .orderBy("StartDate ASC")
                     .execute();
         }
+    }
+
+    public List<Semester> getSemestersWithinAYear(Year year) {
+
+        Calendar calendar = Calendar.getInstance();
+        return new Select()
+                .from(Semester.class)
+                .where("Year_Id=?", year.getId())
+                .execute();
     }
 }

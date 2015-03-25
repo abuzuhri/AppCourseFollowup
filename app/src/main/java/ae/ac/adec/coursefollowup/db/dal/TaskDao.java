@@ -102,4 +102,10 @@ public class TaskDao extends BaseDao {
                     .execute();
         }
     }
+    public List<Task> getTasksWithinCourse(Course course) {
+        return new Select()
+                .from(Task.class)
+                .where("Course=?", course.getId())
+                .execute();
+    }
 }

@@ -90,15 +90,26 @@ public class SemesterFragmentAddEdit extends BaseFragment {
         try {
             AppLog.i("ID== >>> " + ID);
             SemesterDao semester = new SemesterDao();
+
+            // BR BR_SMR_006
+            if (semesterName.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_SMR_006);
+            // BR BR_SMR_005
+            if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_SMR_005);
+            // BR BR_SMR_007
+            if (selectedYear == null)
+                throw new BusinessRoleError(R.string.BR_SMR_007);
+
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();
             //ToDo
             //Check selectedYear not null
             AppLog.i("1 : " + selectedYear.Name);
             if (ID != null && ID != 0)
-                semester.Edit(ID, semesterName.getText().toString(), startDateMil, endDateMil, selectedYear);
+                semester.Edit(ID, semesterName.getText().toString().trim(), startDateMil, endDateMil, selectedYear);
             else
-                semester.Add(semesterName.getText().toString(), startDateMil, endDateMil, selectedYear);
+                semester.Add(semesterName.getText().toString().trim(), startDateMil, endDateMil, selectedYear);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.semester_add_successfully, Toast.LENGTH_LONG).show();

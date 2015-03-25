@@ -93,28 +93,43 @@ public class CourcesFragmentAddEdit extends BaseFragment {
     }
 
     public void AddEdit() {
-        if (current_semester != null) {
-            try {
-                AppLog.i("ID== >>> " + ID);
-                CourseDao courseDao = new CourseDao();
-                long startDateMil = (long) startDate.getTag();
-                long endDateMil = (long) endDate.getTag();
 
-                if (ID != null && ID != 0)
-                    courseDao.Edit(ID, courseName.getText().toString(), code.getText().toString(), room.getText().toString(),
-                            building.getText().toString(), teacher.getText().toString(), colorCode.getText().toString(), current_semester
-                            , startDateMil, endDateMil, true);
-                else
-                    courseDao.Add(courseName.getText().toString(), code.getText().toString(), room.getText().toString(),
-                            building.getText().toString(), teacher.getText().toString(), colorCode.getText().toString(), current_semester
-                            , startDateMil, endDateMil, true);
+        try {
+            AppLog.i("ID== >>> " + ID);
+            CourseDao courseDao = new CourseDao();
 
-                getActivity().finish();
-                Toast.makeText(getActivity(), R.string.holiday_add_successfully, Toast.LENGTH_LONG).show();
-            } catch (BusinessRoleError ex) {
-                AppAction.DiaplayError(getActivity(), ex.getMessage());
 
+            // BR BR_CRS_009
+            if (courseName.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_CRS_009);
+            // BR BR_CRS_008
+            if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_CRS_008);
+            // BR BR_CRS_010
+            if (current_semester == null)
+                throw new BusinessRoleError(R.string.BR_CRS_010);
+            // BR BR_CRS_011
+            if (colorCode.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_CRS_011);
+
+
+            long startDateMil = (long) startDate.getTag();
+            long endDateMil = (long) endDate.getTag();
+
+            if (ID != null && ID != 0) {
+                courseDao.Edit(ID, courseName.getText().toString().trim(), code.getText().toString().trim(), room.getText().toString().trim(),
+                        building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.getText().toString().trim(), current_semester
+                        , startDateMil, endDateMil, true);
+            } else {
+                courseDao.Add(courseName.getText().toString().trim(), code.getText().toString().trim(), room.getText().toString().trim(),
+                        building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.getText().toString().trim(), current_semester
+                        , startDateMil, endDateMil, true);
             }
+            getActivity().finish();
+            Toast.makeText(getActivity(), R.string.holiday_add_successfully, Toast.LENGTH_LONG).show();
+        } catch (BusinessRoleError ex) {
+            AppAction.DiaplayError(getActivity(), ex.getMessage());
+
         }
     }
 

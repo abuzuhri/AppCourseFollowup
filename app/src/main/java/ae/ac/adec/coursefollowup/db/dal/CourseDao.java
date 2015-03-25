@@ -10,7 +10,10 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.Exam;
+import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Semester;
+import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
@@ -50,20 +53,26 @@ public class CourseDao extends BaseDao {
         endDateCal.setTimeInMillis(endDate);
         course.EndDate = endDateCal.getTime();
 
-        course.Code=code;
-        course.Room=room;
-        course.Building=building;
-        course.Teacher=teacher;
-        course.ColorCode=colorCode;
-        course.Semester=semester;
-        course.IsNotify=isNotify;
+        course.Code = code;
+        course.Room = room;
+        course.Building = building;
+        course.Teacher = teacher;
+        course.ColorCode = colorCode;
+        course.Semester = semester;
+        course.IsNotify = isNotify;
 
+        // BR_CRS_007
         if (endDate < startDate)
-            throw new BusinessRoleError(R.string.BR_HLD_001);
+            throw new BusinessRoleError(R.string.BR_CRS_007);
 
+        // BR_CRS_001
         int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
         if (countC > 0)
-            throw new BusinessRoleError(R.string.BR_HLD_003);
+            throw new BusinessRoleError(R.string.BR_CRS_001);
+
+        // BR_CRS_003
+        if ((startDate < semester.StartDate.getTime()) || (endDate > semester.EndDate.getTime()))
+            throw new BusinessRoleError(R.string.BR_CRS_003);
 
         long result = course.save();
         AppLog.i("Result: row " + name + " added, result id >" + result);
@@ -74,12 +83,24 @@ public class CourseDao extends BaseDao {
     public void delete(long Id) throws BusinessRoleError {
 
         Course course = Course.load(Course.class, Id);
+        List<Note> cNotes = new NoteDao().getNotesWithinCourse(course);
+        List<Exam> cExams = new ExamDao().getExamsWithinCourse(course);
+        List<Task> cTasks = new TaskDao().getTasksWithinCourse(course);
+
+        if (cNotes != null && cNotes.size() > 0)
+            throw new BusinessRoleError(R.string.BR_CRS_004);
+        else if (cExams != null && cExams.size() > 0)
+            throw new BusinessRoleError(R.string.BR_CRS_006);
+        else if (cTasks != null && cTasks.size() > 0)
+            throw new BusinessRoleError(R.string.BR_CRS_005);
 
         ActiveAndroid.beginTransaction();
         try {
             DeleteSyncer(course);
             course.delete();
             ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception ex) {
+            throw new BusinessRoleError(R.string.BR_GENERAL_001);
         } finally {
             ActiveAndroid.endTransaction();
         }
@@ -107,5 +128,12 @@ public class CourseDao extends BaseDao {
                     .orderBy("StartDate ASC")
                     .execute();
         }
+    }
+
+    public List<Course> getCoursesWithinSemester(Semester semester) {
+        return new Select()
+                .from(Course.class)
+                .where("semester=?", semester.getId())
+                .execute();
     }
 }

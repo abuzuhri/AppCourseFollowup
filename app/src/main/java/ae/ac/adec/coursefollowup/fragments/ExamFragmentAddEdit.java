@@ -88,15 +88,25 @@ public class ExamFragmentAddEdit extends BaseFragment {
         try {
             AppLog.i("ID== >>> " + ID);
             ExamDao examDao = new ExamDao();
+
+            // BR BR_EXM_002
+            if (current_course == null)
+                throw new BusinessRoleError(R.string.BR_EXM_002);
+            // BR BR_EXM_001
+            if (startDateTime.getText().toString().trim().equals("") || endDateTime.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_EXM_001);
+
+
             long startDateMil = (long) startDateTime.getTag();
             long endDateMil = (long) endDateTime.getTag();
 
-            if (ID != null && ID != 0)
-            examDao.Edit(ID, startDateMil, endDateMil, System.currentTimeMillis(), room.getText().toString(),
-                        seat.getText().toString(), isResit.isChecked(),current_course);
-            else
+            if (ID != null && ID != 0) {
+                examDao.Edit(ID, startDateMil, endDateMil, System.currentTimeMillis(), room.getText().toString(),
+                        seat.getText().toString(), isResit.isChecked(), current_course);
+            } else {
                 examDao.Add(startDateMil, endDateMil, System.currentTimeMillis(), room.getText().toString(),
-                        seat.getText().toString(), isResit.isChecked(),current_course);
+                        seat.getText().toString(), isResit.isChecked(), current_course);
+            }
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.exam_add_successfully, Toast.LENGTH_LONG).show();
@@ -143,8 +153,6 @@ public class ExamFragmentAddEdit extends BaseFragment {
         SetDateControl(endDateTime);
 
 
-
-
         courseName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +167,7 @@ public class ExamFragmentAddEdit extends BaseFragment {
                         dialog.dismiss();
                     }
                 });
-                dialog.show(getActivity().getFragmentManager(),"jma");
+                dialog.show(getActivity().getFragmentManager(), "jma");
             }
         });
 

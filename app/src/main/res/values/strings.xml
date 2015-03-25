@@ -99,17 +99,45 @@
     <string name="font_fontFamily_medium">sans-serif</string>
 
     <!-- BusinessRoleExcption  -->
+    <string name="BR_GENERAL_001">Error in deleting</string>
     <!-- Holiday  -->
     <string name="BR_HLD_001">Start date can\'t be less than end date</string>
     <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
     <integer name="MaxHoildayPeriod">30</integer>
     <string name="BR_HLD_003">Holiday name already exists</string>
+    <string name="BR_HLD_004">Holiday start and end date can\'t be null</string>
+    <string name="BR_HLD_005">Holiday name can\'t be null</string>
     <!--/ Year  -->
     <string name="BR_YER_001">Start date can\'t be less than end date</string>
     <string name="BR_YER_002">Academic Year name already exists</string>
     <integer name="MaxYearPeriod">400</integer>
-    <string name="BR_YER_003">Can\'t add academic year with period more than 400 days</string>
-
+    <string name="BR_YER_003">Can\'t delete academic year have semesters, you must delete semesters first</string>
+    <string name="BR_YER_004">Can\'t add academic year with period more than 400 days</string>
+    <string name="BR_YER_005">Academic year start and end date can\'t be null</string>
+    <string name="BR_YER_006">Academic year name can\'t be null</string>
+    <!--/ Semesters  -->
+    <string name="BR_SMR_001">Semester name already exists un this year</string>
+    <string name="BR_SMR_002">Semester start date and end date must be within a year\'s start and end date</string>
+    <string name="BR_SMR_003">Can\'t delete semester have a courses, you must delete courses before</string>
+    <string name="BR_SMR_004">Start date can\'t be less than end date</string>
+    <string name="BR_SMR_005">Semester start and end date can\'t be null</string>
+    <string name="BR_SMR_006">Semester name can\'t be null</string>
+    <string name="BR_SMR_007">Semester must be belong to a year</string>
+    <!--/ Courses  -->
+    <string name="BR_CRS_001">Course name already exists</string>
+    <string name="BR_CRS_002"></string>
+    <string name="BR_CRS_003">Course start date and end date must be within a semester\'s start and end date</string>
+    <string name="BR_CRS_004">Can\'t delete course have notes</string>
+    <string name="BR_CRS_005">Can\'t delete course have tasks</string>
+    <string name="BR_CRS_006">Can\'t delete course have exams</string>
+    <string name="BR_CRS_007">Start date can\'t be less than end date</string>
+    <string name="BR_CRS_008">Course start and end date can\'t be null</string>
+    <string name="BR_CRS_009">Course name can\'t be null</string>
+    <string name="BR_CRS_010">Course must be belong to a semester</string>
+    <string name="BR_CRS_011">Please select a color</string>
+    <!--/ Exams -->
+    <string name="BR_EXM_001">Exam start and end time can\'t be null</string>
+    <string name="BR_EXM_002">Exam must be belong to a course</string>
 <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>
