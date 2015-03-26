@@ -35,6 +35,15 @@
     <string name="holiday_name">Holiday Name</string>
     <string name="holiday_start_date_hint">Start Date</string>
     <string name="holiday_end_date_hint">End Date</string>
+    <!-- DaysTimes  -->
+    <string name="dt_add_subtitle">Add Time</string>
+    <string name="dt_edit_subtitle">Edit Time</string>
+    <string name="dt_add_successfully">Successfully add Time</string>
+    <string name="dt_start_time_hint">Start Time</string>
+    <string name="dt_end_time_hint">End Time</string>
+    <string name="dt_daysOfWeek_hint">Days of week</string>
+    <string name="dt_course_hint">Course name</string>
+    <string name="dt_isRepeat">Is Repeat</string>
 
 
     <!-- Course  -->
@@ -49,6 +58,7 @@
     <string name="course_code_hint">Code</string>
     <string name="course_teacher_hint">Teacher</string>
     <string name="course_colorCode_hint">Color Code</string>
+    <string name="course_times_hint">Course Times</string>
 
 
     <!-- Year  -->

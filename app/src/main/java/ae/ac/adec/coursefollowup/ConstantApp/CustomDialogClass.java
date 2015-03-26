@@ -37,14 +37,16 @@ public class CustomDialogClass<T> extends DialogFragment {
     Context activity;
     String fragmentName;
     long obj_id;
+    Boolean isMultiple;
     AdapterView.OnItemClickListener listener;
 
-    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter, AdapterView.OnItemClickListener listener) {
+    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter,Boolean isMultiple, AdapterView.OnItemClickListener listener) {
         this.title = title;
         this.adapter = adapter;
         this.activity = activity;
         this.fragmentName = fragmentName;
         this.listener=listener;
+        this.isMultiple=isMultiple;
     }
 
     @Override
@@ -54,6 +56,8 @@ public class CustomDialogClass<T> extends DialogFragment {
 
         TextView tv_title = (TextView) v.findViewById(R.id.tv_customDialog_title);
         ListView lv = (ListView) v.findViewById(R.id.lv_customDialog);
+        if(isMultiple)
+            lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         tv_title.setText(title);
         populateListView(lv);

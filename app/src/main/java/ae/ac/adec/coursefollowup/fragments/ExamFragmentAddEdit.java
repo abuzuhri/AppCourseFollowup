@@ -161,7 +161,7 @@ public class ExamFragmentAddEdit extends BaseFragment {
                 final List<Course> courses = new CourseDao().getAll(2);
                 final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
                 dialog = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(),
-                        "Courses", adapter, new AdapterView.OnItemClickListener() {
+                        "Courses", adapter,false, new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         current_course = (Course) adapter.getItem(position);

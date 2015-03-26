@@ -121,7 +121,14 @@
                         app:iconLeft="@drawable/color"
                         app:floatingLabel="highlight"
                         app:iconPadding="10dp" />
-
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/tv_course_times"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/course_times_hint"
+                        app:iconLeft="@drawable/time"
+                        app:floatingLabel="highlight"
+                        app:iconPadding="10dp" />
                 </LinearLayout>
              </ScrollView>
 

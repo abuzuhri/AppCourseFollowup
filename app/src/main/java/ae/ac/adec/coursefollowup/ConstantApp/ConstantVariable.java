@@ -98,6 +98,25 @@ public class ConstantVariable {
         Friday(7);
         public int id;
         private DayOfWeek(int id){this.id=id;}
+        public static String fromInteger(int x) {
+            switch(x) {
+                case 1:
+                    return "Saturday";
+                case 2:
+                    return "Sunday";
+                case 3:
+                    return "Monday";
+                case 4:
+                    return "Tuesday";
+                case 5:
+                    return "Wednesday";
+                case 6:
+                    return "Thursday";
+                case 7:
+                    return "Friday";
+            }
+            return null;
+        }
     }
 
     public enum NoteType{

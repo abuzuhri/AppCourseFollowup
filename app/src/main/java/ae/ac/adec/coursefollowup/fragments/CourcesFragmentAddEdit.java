@@ -21,16 +21,19 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
+import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Semesters;
+import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Times;
 import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Years;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
@@ -48,6 +51,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
     MaterialEditText room = null;
     MaterialEditText teacher = null;
     MaterialEditText colorCode = null;
+    MaterialEditText times = null;
 
     CustomDialogClass dialogClass = null;
     private Semester current_semester;
@@ -188,6 +192,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
         teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
         colorCode = (MaterialEditText) rootView.findViewById(R.id.tv_course_colorCode);
+        times = (MaterialEditText) rootView.findViewById(R.id.tv_course_times);
 
         semester.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -196,11 +201,31 @@ public class CourcesFragmentAddEdit extends BaseFragment {
                     final List<Semester> semesters = new SemesterDao().getAll(position);
                     final CustomLVAdapter_Semesters adapter = new CustomLVAdapter_Semesters(getActivity(), semesters);
                     dialogClass = new CustomDialogClass(getActivity(), SemesterFragmentAddEdit.class.getName(), "Semesters",
-                            adapter, new AdapterView.OnItemClickListener() {
+                            adapter,false, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             current_semester = ((Semester) adapter.getItem(position));
                             semester.setText(current_semester.Name);
+                            dialogClass.dismiss();
+                        }
+                    });
+                    dialogClass.show(getActivity().getFragmentManager(), "jma");
+                }
+                v.clearFocus();
+            }
+        });
+
+        times.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    final List<CourseTimeDay> tim = new CourseTimeDayDao().getAll(position);
+                    final CustomLVAdapter_Times adapter = new CustomLVAdapter_Times(getActivity(), tim);
+                    dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAddEdit.class.getName(), "Times",
+                            adapter,false, new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek+"");
                             dialogClass.dismiss();
                         }
                     });
