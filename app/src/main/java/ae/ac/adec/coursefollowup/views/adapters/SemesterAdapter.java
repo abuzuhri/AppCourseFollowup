@@ -61,9 +61,6 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterViewHolder>  {
 
         String endDate= ConstantVariable.getDateString(semester.EndDate);
         viewHolder.txtToDate.setText(context.getString(R.string.semester_end_date_hint) +": "+endDate);
-
-        viewHolder.txtSelectYear.setText("Year: "+semester.year.Name);
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

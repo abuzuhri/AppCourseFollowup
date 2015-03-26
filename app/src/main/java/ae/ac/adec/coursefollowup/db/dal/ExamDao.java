@@ -54,17 +54,17 @@ public class ExamDao extends BaseDao {
         endDateCal.setTimeInMillis(endDateTime);
         exam.EndDateTime = endDateCal.getTime();
 
-        exam.Room=room;
-        exam.Seat=seat;
-        exam.IsResit=isResit;
-        exam.Course=course;
+        exam.Room = room;
+        exam.Seat = seat;
+        exam.IsResit = isResit;
+        exam.Course = course;
 
         if (endDateTime < startDateTime)
-            throw new BusinessRoleError(R.string.BR_HLD_001);
+            throw new BusinessRoleError(R.string.BR_EXM_003);
 
-        /*int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
-        if (countC > 0)
-            throw new BusinessRoleError(R.string.BR_HLD_003);*/
+        // BR_EXM_012
+        if (getConflictExams(exam).size() > 0)
+            throw new BusinessRoleError(R.string.BR_EXM_004);
 
         long result = exam.save();
         AppLog.i("Result: row " + result + " added, result id >" + result);
@@ -107,10 +107,20 @@ public class ExamDao extends BaseDao {
                     .execute();
         }
     }
+
     public List<Exam> getExamsWithinCourse(Course course) {
         return new Select()
                 .from(Exam.class)
                 .where("Course=?", course.getId())
+                .execute();
+    }
+
+    public List<Exam> getConflictExams(Exam exam) {
+        return new Select()
+                .from(Exam.class)
+                .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))AND Course=?",
+                        exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),
+                        exam.StartDateTime.getTime(), exam.EndDateTime.getTime(), exam.Course.getId())
                 .execute();
     }
 }

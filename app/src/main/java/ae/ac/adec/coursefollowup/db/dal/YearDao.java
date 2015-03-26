@@ -10,6 +10,7 @@ import ae.ac.adec.coursefollowup.Application.myApplication;
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
@@ -50,6 +51,10 @@ public class YearDao extends BaseDao {
         // BR BR_YER_001
         if (endDate < startDate)
             throw new BusinessRoleError(R.string.BR_YER_001);
+
+        // BR_YER_007
+        if (getConflictYears(year).size() > 0)
+            throw new BusinessRoleError(R.string.BR_YER_007);
 
         // BR BR_YER_002
         int countExist = new Select().from(Year.class).where("Name = ?", year.Name).count();
@@ -109,5 +114,21 @@ public class YearDao extends BaseDao {
                     .orderBy("StartDate ASC")
                     .execute();
         }
+    }
+
+    public List<Year> getConflictYears(Year year) {
+        return new Select()
+                .from(Year.class)
+                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
+                        year.StartDate.getTime(), year.EndDate.getTime(),
+                        year.StartDate.getTime(), year.EndDate.getTime())
+                .execute();
+    }
+    public List<Year> getCurrentYear(long currentTime) {
+        return new Select()
+                .from(Year.class)
+                .where("((StartDate<=?)AND(EndDate>=?))",
+                        currentTime, currentTime)
+                .execute();
     }
 }

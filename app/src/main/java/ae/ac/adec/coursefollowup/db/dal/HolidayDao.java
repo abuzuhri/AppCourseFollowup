@@ -10,6 +10,7 @@ import ae.ac.adec.coursefollowup.Application.myApplication;
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
@@ -58,6 +59,10 @@ public class HolidayDao extends BaseDao {
         if (numOfDays > max_holiday_days)
             throw new BusinessRoleError(R.string.BR_HLD_002);
 
+        // BR_HLD_012
+        if (getConflictHolidays(holiday).size() > 0)
+            throw new BusinessRoleError(R.string.BR_HLD_006);
+
         // BR BR_AUH_003
         int countExist = new Select().from(Holiday.class).where("Name = ?", holiday.Name).count();
         if (countExist > 0)
@@ -105,5 +110,14 @@ public class HolidayDao extends BaseDao {
                     .orderBy("StartDate ASC")
                     .execute();
         }
+    }
+
+    public List<Holiday> getConflictHolidays(Holiday holiday) {
+        return new Select()
+                .from(Holiday.class)
+                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
+                        holiday.StartDate.getTime(), holiday.EndDate.getTime(),
+                        holiday.StartDate.getTime(), holiday.EndDate.getTime())
+                .execute();
     }
 }

@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/exam_seat_hint"
-                    app:iconLeft="@drawable/ic_today_white"
+                    app:iconLeft="@drawable/chair"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/exam_room_hint"
-                    app:iconLeft="@drawable/ic_today_white"
+                    app:iconLeft="@drawable/room"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
 

@@ -107,6 +107,7 @@
     <string name="BR_HLD_003">Holiday name already exists</string>
     <string name="BR_HLD_004">Holiday start and end date can\'t be null</string>
     <string name="BR_HLD_005">Holiday name can\'t be null</string>
+    <string name="BR_HLD_006">This Holiday conflicts with other holidays</string>
     <!--/ Year  -->
     <string name="BR_YER_001">Start date can\'t be less than end date</string>
     <string name="BR_YER_002">Academic Year name already exists</string>
@@ -115,6 +116,7 @@
     <string name="BR_YER_004">Can\'t add academic year with period more than 400 days</string>
     <string name="BR_YER_005">Academic year start and end date can\'t be null</string>
     <string name="BR_YER_006">Academic year name can\'t be null</string>
+    <string name="BR_YER_007">This Academic year conflicts with other Academic year</string>
     <!--/ Semesters  -->
     <string name="BR_SMR_001">Semester name already exists un this year</string>
     <string name="BR_SMR_002">Semester start date and end date must be within a year\'s start and end date</string>
@@ -123,6 +125,7 @@
     <string name="BR_SMR_005">Semester start and end date can\'t be null</string>
     <string name="BR_SMR_006">Semester name can\'t be null</string>
     <string name="BR_SMR_007">Semester must be belong to a year</string>
+    <string name="BR_SMR_008">This semester conflicts with other semesters</string>
     <!--/ Courses  -->
     <string name="BR_CRS_001">Course name already exists</string>
     <string name="BR_CRS_002"></string>
@@ -135,9 +138,12 @@
     <string name="BR_CRS_009">Course name can\'t be null</string>
     <string name="BR_CRS_010">Course must be belong to a semester</string>
     <string name="BR_CRS_011">Please select a color</string>
+    <string name="BR_CRS_012">This Course conflicts with other courses</string>
     <!--/ Exams -->
     <string name="BR_EXM_001">Exam start and end time can\'t be null</string>
     <string name="BR_EXM_002">Exam must be belong to a course</string>
+    <string name="BR_EXM_003">Start date can\'t be less than end date</string>
+    <string name="BR_EXM_004">This Exam conflicts with other exams</string>
 <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>

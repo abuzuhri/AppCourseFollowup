@@ -90,6 +90,8 @@ public class ExamFragmentAddEdit extends BaseFragment {
             ExamDao examDao = new ExamDao();
 
             // BR BR_EXM_002
+            if (ID != null && ID != 0)
+            current_course = Exam.load(Exam.class,ID).Course;
             if (current_course == null)
                 throw new BusinessRoleError(R.string.BR_EXM_002);
             // BR BR_EXM_001

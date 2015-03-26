@@ -65,6 +65,10 @@ public class CourseDao extends BaseDao {
         if (endDate < startDate)
             throw new BusinessRoleError(R.string.BR_CRS_007);
 
+        // BR_CRS_012
+        if (getConflictCourses(course).size() > 0)
+            throw new BusinessRoleError(R.string.BR_CRS_012);
+
         // BR_CRS_001
         int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
         if (countC > 0)
@@ -134,6 +138,15 @@ public class CourseDao extends BaseDao {
         return new Select()
                 .from(Course.class)
                 .where("semester=?", semester.getId())
+                .execute();
+    }
+
+    public List<Course> getConflictCourses(Course course) {
+        return new Select()
+                .from(Course.class)
+                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=?",
+                        course.StartDate.getTime(), course.EndDate.getTime(),
+                        course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId())
                 .execute();
     }
 }

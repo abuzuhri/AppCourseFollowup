@@ -15,7 +15,6 @@ public class SemesterViewHolder extends BaseRecyclerViewHolder implements View.O
     public TextView titleTextView;
     public TextView txtFromDate;
     public TextView txtToDate;
-    public TextView txtSelectYear;
 
     public IClickCardView mListener;
 
@@ -25,7 +24,6 @@ public class SemesterViewHolder extends BaseRecyclerViewHolder implements View.O
         titleTextView = (TextView) itemLayoutView.findViewById(R.id.titleTextView);
         txtFromDate = (TextView) itemLayoutView.findViewById(R.id.txtFromDate);
         txtToDate = (TextView) itemLayoutView.findViewById(R.id.txtToDate);
-        txtSelectYear = (TextView) itemLayoutView.findViewById(R.id.ttt);
 
         itemLayoutView.setOnClickListener(this);
 

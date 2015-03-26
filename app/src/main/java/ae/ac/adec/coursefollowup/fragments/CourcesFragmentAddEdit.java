@@ -105,6 +105,8 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             // BR BR_CRS_008
             if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_CRS_008);
+            if (ID != null && ID != 0)
+                current_semester = Course.load(Course.class, ID).Semester;
             // BR BR_CRS_010
             if (current_semester == null)
                 throw new BusinessRoleError(R.string.BR_CRS_010);
@@ -154,6 +156,15 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             building.setText(course.Building);
             teacher.setText(course.Teacher);
             colorCode.setText(course.ColorCode);
+        } else {
+            List<Year> years = new YearDao().getCurrentYear(System.currentTimeMillis());
+            if (years.size() > 0) {
+                List<Semester> sems = new SemesterDao().getCurrentSemesters(System.currentTimeMillis(), years.get(0));
+                if (sems.size() > 0) {
+                    current_semester = sems.get(0);
+                    semester.setText(current_semester.Name);
+                }
+            }
         }
     }
 

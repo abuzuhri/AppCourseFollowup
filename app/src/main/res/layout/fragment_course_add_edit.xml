@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/course_building_hint"
-                        app:iconLeft="@drawable/ic_today_white"
+                        app:iconLeft="@drawable/buil"
                         app:floatingLabel="highlight"
                         app:iconPadding="10dp" />
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/course_seat_hint"
-                    app:iconLeft="@drawable/ic_today_white"
+                    app:iconLeft="@drawable/room"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -110,7 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/course_teacher_hint"
-                        app:iconLeft="@drawable/ic_today_white"
+                        app:iconLeft="@drawable/teacher"
                         app:floatingLabel="highlight"
                         app:iconPadding="10dp" />
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -118,7 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/course_colorCode_hint"
-                        app:iconLeft="@drawable/ic_today_white"
+                        app:iconLeft="@drawable/color"
                         app:floatingLabel="highlight"
                         app:iconPadding="10dp" />
 

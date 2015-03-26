@@ -56,8 +56,12 @@ public class SemesterDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_SMR_004);
 
         // BR BR_SMR_002
-        if((startDate<year.StartDate.getTime()) || (endDate>year.EndDate.getTime()))
+        if ((startDate < year.StartDate.getTime()) || (endDate > year.EndDate.getTime()))
             throw new BusinessRoleError(R.string.BR_SMR_002);
+
+        // BR BR_SMR_008
+        if (getConflictSemesters(semester).size() > 0)
+            throw new BusinessRoleError(R.string.BR_SMR_008);
 
         // BR BR_SMR_001
         int countExist = new Select().from(Semester.class).where("Name = ?", semester.Name).count();
@@ -113,11 +117,26 @@ public class SemesterDao extends BaseDao {
     }
 
     public List<Semester> getSemestersWithinAYear(Year year) {
-
-        Calendar calendar = Calendar.getInstance();
         return new Select()
                 .from(Semester.class)
                 .where("Year_Id=?", year.getId())
+                .execute();
+    }
+
+    public List<Semester> getConflictSemesters(Semester semester) {
+        return new Select()
+                .from(Semester.class)
+                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND Year_Id=?",
+                        semester.StartDate.getTime(), semester.EndDate.getTime(),
+                        semester.StartDate.getTime(), semester.EndDate.getTime(), semester.year.getId())
+                .execute();
+    }
+
+    public List<Semester> getCurrentSemesters(long currentTime, Year year) {
+        return new Select()
+                .from(Semester.class)
+                .where("((StartDate<=?)AND(EndDate>=?))AND Year_Id=?",
+                        currentTime, currentTime, year.getId())
                 .execute();
     }
 }
