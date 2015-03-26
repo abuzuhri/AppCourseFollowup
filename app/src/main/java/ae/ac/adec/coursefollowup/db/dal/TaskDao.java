@@ -8,8 +8,10 @@ import java.util.List;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
+import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.Login_Activity;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
@@ -49,17 +51,18 @@ public class TaskDao extends BaseDao {
         Calendar dA = Calendar.getInstance();
         dA.setTimeInMillis(dateAdded);
         task.DateAdded = dA.getTime();
+        task.Name = name;
+        task.Title = title;
+        task.Detail = details;
+        task.TaskType = taskType;
+        task.Progress = progress;
+        task.Course = course;
 
-        task.Name=name;
-        task.Title=title;
-        task.Detail=details;
-        task.TaskType=taskType;
-        task.Progress=progress;
-        task.Course=course;
 
-        /*int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
-        if (countC > 0)
-            throw new BusinessRoleError(R.string.BR_HLD_003);*/
+        // BR_TSK_002
+        int countExist = new Select().from(Task.class).where("Name = ?", task.Name).count();
+        if (countExist > 0)
+            throw new BusinessRoleError(R.string.BR_TSK_002);
 
         long result = task.save();
         AppLog.i("Result: row " + name + " added, result id >" + result);
@@ -102,6 +105,7 @@ public class TaskDao extends BaseDao {
                     .execute();
         }
     }
+
     public List<Task> getTasksWithinCourse(Course course) {
         return new Select()
                 .from(Task.class)

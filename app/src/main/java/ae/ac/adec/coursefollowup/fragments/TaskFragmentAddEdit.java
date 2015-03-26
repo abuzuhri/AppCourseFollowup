@@ -45,41 +45,37 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
     Course selectedCourse = null;
     int selectedType = -1;
-    CustomDialogClass dialogClass =null;
-    MaterialEditText txtTaskName=null;
-    MaterialEditText txtTaskSubject=null;
-    MaterialEditText txtTaskType=null;
-    MaterialEditText txtTaskDueDate=null;
-    MaterialEditText txtTaskDetail=null;
+    CustomDialogClass dialogClass = null;
+    MaterialEditText txtTaskName = null;
+    MaterialEditText txtTaskSubject = null;
+    MaterialEditText txtTaskType = null;
+    MaterialEditText txtTaskDueDate = null;
+    MaterialEditText txtTaskDetail = null;
     private int position;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        position= getArguments().getInt(POSITION,0);
+        position = getArguments().getInt(POSITION, 0);
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(ID!=null && ID!=0)
+        if (ID != null && ID != 0)
             setSubTitle(getString(R.string.task_add_subtitle));
         else setSubTitle(getString(R.string.task_add_subtitle));
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -95,29 +91,35 @@ public class TaskFragmentAddEdit extends BaseFragment {
         return true;
     }
 
-    public void AddEdit(){
+    public void AddEdit() {
         try {
             AppLog.i("ID== >>> " + ID);
             TaskDao task = new TaskDao();
-
+            // BR_TSK_001
+            if (txtTaskName.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_TSK_001);
+            // BR_TSK_004
+            if (selectedCourse == null)
+                throw new BusinessRoleError(R.string.BR_TSK_004);
+            // BR_TSK_003
+            if (selectedType == -1)
+                throw new BusinessRoleError(R.string.BR_TSK_003);
+            // BR_TSK_005
+            if (txtTaskDueDate.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_TSK_005);
 
             long dueDateMil = (long) txtTaskDueDate.getTag();
-//ConstantVariable.Category.Dashboard.id
-
-
-           if(ID!=null && ID!=0)
-                task.Edit(ID, txtTaskName.getText().toString() , dueDateMil, Calendar.getInstance().getTimeInMillis(),null, txtTaskDetail.getText().toString() ,selectedType , 0, selectedCourse);
+            if (ID != null && ID != 0)
+                task.Edit(ID, txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, 0, selectedCourse);
             else
-               task.Add( txtTaskName.getText().toString() , dueDateMil, Calendar.getInstance().getTimeInMillis(),null, txtTaskDetail.getText().toString() ,selectedType , 0, selectedCourse);
+                task.Add(txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, 0, selectedCourse);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.task_add_successfully, Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){ //catch (BusinessRoleError ex){
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
-
-
 
 
     @Override
@@ -127,10 +129,9 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
     }
 
-    private  void fillDate(){
-        if(ID!=null && ID!=0){
-            Task task= Task.load(Task.class, ID);
-
+    private void fillDate() {
+        if (ID != null && ID != 0) {
+            Task task = Task.load(Task.class, ID);
 
 
             txtTaskName.setText(task.Name);
@@ -152,23 +153,21 @@ public class TaskFragmentAddEdit extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
 
+        txtTaskName = (MaterialEditText) rootView.findViewById(R.id.txtTaskName);
 
-
-        txtTaskName= (MaterialEditText) rootView.findViewById(R.id.txtTaskName);
-
-        txtTaskDueDate= (MaterialEditText) rootView.findViewById(R.id.txtTaskDueDate);
+        txtTaskDueDate = (MaterialEditText) rootView.findViewById(R.id.txtTaskDueDate);
         SetDateControl(txtTaskDueDate);
 
 
-        txtTaskDetail= (MaterialEditText) rootView.findViewById(R.id.txtTaskDetail);
+        txtTaskDetail = (MaterialEditText) rootView.findViewById(R.id.txtTaskDetail);
 
-        txtTaskType= (MaterialEditText) rootView.findViewById(R.id.txtTaskType);
+        txtTaskType = (MaterialEditText) rootView.findViewById(R.id.txtTaskType);
 
-        txtTaskSubject= (MaterialEditText) rootView.findViewById(R.id.txtTaskSubject);
+        txtTaskSubject = (MaterialEditText) rootView.findViewById(R.id.txtTaskSubject);
         txtTaskSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     List<Course> courses = new CourseDao().getAll(position);
                     final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
 
@@ -177,8 +176,8 @@ public class TaskFragmentAddEdit extends BaseFragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                            txtTaskSubject.setText(((Course)adapter.getItem(position)).Name);
-                            selectedCourse=((Course)adapter.getItem(position));
+                            txtTaskSubject.setText(((Course) adapter.getItem(position)).Name);
+                            selectedCourse = ((Course) adapter.getItem(position));
                             dialogClass.dismiss();
                         }
                     });
@@ -190,15 +189,15 @@ public class TaskFragmentAddEdit extends BaseFragment {
         txtTaskType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
 
-                    final BaseAdapter ad =    new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type",ad, new AdapterView.OnItemClickListener() {
+                    final BaseAdapter ad = new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
+                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad, new AdapterView.OnItemClickListener() {
 
-                            @Override
+                        @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                txtTaskType.setText(ad.getItem(position).toString());
-                                selectedType = position+1;
+                            txtTaskType.setText(ad.getItem(position).toString());
+                            selectedType = position + 1;
                             dialogClass.dismiss();
                         }
                     });
@@ -212,7 +211,6 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
         return rootView;
     }
-
 
 
 }

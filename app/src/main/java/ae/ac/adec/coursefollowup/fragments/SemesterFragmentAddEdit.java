@@ -135,8 +135,12 @@ public class SemesterFragmentAddEdit extends BaseFragment {
             endDate.setText(ConstantVariable.getDateString(semester.EndDate));
             endDate.setTag(semester.EndDate.getTime());
             selectYear.setText(semester.year.Name);
-
-
+        } else {
+            List<Year> years = new YearDao().getCurrentYear(System.currentTimeMillis());
+            if (years.size() > 0) {
+                selectedYear = years.get(0);
+                selectYear.setText(selectedYear.Name);
+            }
         }
     }
 

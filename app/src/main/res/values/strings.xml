@@ -144,6 +144,12 @@
     <string name="BR_EXM_002">Exam must be belong to a course</string>
     <string name="BR_EXM_003">Start date can\'t be less than end date</string>
     <string name="BR_EXM_004">This Exam conflicts with other exams</string>
+    <!--/ Tasks -->
+    <string name="BR_TSK_001">Task name can\'t be empty</string>
+    <string name="BR_TSK_002">Task name exists</string>
+    <string name="BR_TSK_003">Task must have a type</string>
+    <string name="BR_TSK_004">Task must belongs to a course</string>
+    <string name="BR_TSK_005">Task must have a specified date</string>
 <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>

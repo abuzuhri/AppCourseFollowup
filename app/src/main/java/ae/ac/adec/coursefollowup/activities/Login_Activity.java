@@ -35,10 +35,12 @@ import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
+import ae.ac.adec.coursefollowup.db.dal.TaskDao;
 import ae.ac.adec.coursefollowup.db.dal.TestDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Semester;
+import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.fragments.HolidayFragmentAddEdit;
 import ae.ac.adec.coursefollowup.fragments.YearFragmentAddEdit;
@@ -94,24 +96,6 @@ public class Login_Activity extends ActionBarActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          /*      SemesterDao semesterDao=new SemesterDao();
-                List<Semester> semesterList= semesterDao.getAll(0);
-
-                Log.d("TAG", " : " + semesterList.get(0).year.equals(null));
-                */
-                /*List<Course> courses = new CourseDao().getAll(2);
-                List<Year> years = new YearDao().getAll(2);
-                CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(Login_Activity.this,courses);
-                final CustomDialogClass dialogClass = new CustomDialogClass(getBaseContext(),HolidayFragmentAddEdit.class.getName(),"Courses",
-                        adapter,new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        AppLog.i("jaffer "+position);
-                        finish();
-                    }
-                });
-                dialogClass.show(getFragmentManager(), "jmas");*/
-
                 Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                 startActivity(intent);
             }
