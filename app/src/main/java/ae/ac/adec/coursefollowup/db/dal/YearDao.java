@@ -53,12 +53,16 @@ public class YearDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_YER_001);
 
         // BR_YER_007
-        if (getConflictYears(year).size() > 0)
+        if (getConflictYears(year, ID) > 0)
             throw new BusinessRoleError(R.string.BR_YER_007);
 
         // BR BR_YER_002
-        int countExist = new Select().from(Year.class).where("Name = ?", year.Name).count();
-        if (countExist > 0)
+        long cCount;
+        if (ID != null && ID != 0)
+            cCount = new Select().from(Year.class).where("Name=? AND _ID!=?", year.Name, year.getId()).count();
+        else
+            cCount = new Select().from(Year.class).where("Name=?", year.Name).count();
+        if (cCount > 0)
             throw new BusinessRoleError(R.string.BR_YER_002);
 
         // BR BR_YER_004
@@ -116,14 +120,23 @@ public class YearDao extends BaseDao {
         }
     }
 
-    public List<Year> getConflictYears(Year year) {
-        return new Select()
-                .from(Year.class)
-                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
-                        year.StartDate.getTime(), year.EndDate.getTime(),
-                        year.StartDate.getTime(), year.EndDate.getTime())
-                .execute();
+    public long getConflictYears(Year year, Long id) {
+        if (id != null && id != 0)
+            return new Select()
+                    .from(Year.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?)) AND _ID!=?",
+                            year.StartDate.getTime(), year.EndDate.getTime(),
+                            year.StartDate.getTime(), year.EndDate.getTime(), id)
+                    .count();
+        else
+            return new Select()
+                    .from(Year.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
+                            year.StartDate.getTime(), year.EndDate.getTime(),
+                            year.StartDate.getTime(), year.EndDate.getTime())
+                    .count();
     }
+
     public List<Year> getCurrentYear(long currentTime) {
         return new Select()
                 .from(Year.class)

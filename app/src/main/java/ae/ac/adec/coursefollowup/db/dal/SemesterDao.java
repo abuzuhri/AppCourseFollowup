@@ -60,12 +60,16 @@ public class SemesterDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_SMR_002);
 
         // BR BR_SMR_008
-        if (getConflictSemesters(semester).size() > 0)
+        if (getConflictSemesters(semester, ID) > 0)
             throw new BusinessRoleError(R.string.BR_SMR_008);
 
         // BR BR_SMR_001
-        int countExist = new Select().from(Semester.class).where("Name = ?", semester.Name).count();
-        if (countExist > 0)
+        long cCount;
+        if (ID != null && ID != 0)
+            cCount = new Select().from(Semester.class).where("Name=? AND _ID!=?", semester.Name, semester.getId()).count();
+        else
+            cCount = new Select().from(Semester.class).where("Name=?", semester.Name).count();
+        if (cCount > 0)
             throw new BusinessRoleError(R.string.BR_HLD_003);
 
         AppLog.i("Name =>" + Name + " startDate=>" + semester.StartDate.toString() + " endDate=>" + semester.EndDate.toString());
@@ -123,13 +127,21 @@ public class SemesterDao extends BaseDao {
                 .execute();
     }
 
-    public List<Semester> getConflictSemesters(Semester semester) {
-        return new Select()
-                .from(Semester.class)
-                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND Year_Id=?",
-                        semester.StartDate.getTime(), semester.EndDate.getTime(),
-                        semester.StartDate.getTime(), semester.EndDate.getTime(), semester.year.getId())
-                .execute();
+    public long getConflictSemesters(Semester semester, Long id) {
+        if (id != null && id != 0)
+            return new Select()
+                    .from(Semester.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND Year_Id=? AND _ID!=?",
+                            semester.StartDate.getTime(), semester.EndDate.getTime(),
+                            semester.StartDate.getTime(), semester.EndDate.getTime(), semester.year.getId(), id)
+                    .count();
+        else
+            return new Select()
+                    .from(Semester.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND Year_Id=?",
+                            semester.StartDate.getTime(), semester.EndDate.getTime(),
+                            semester.StartDate.getTime(), semester.EndDate.getTime(), semester.year.getId())
+                    .count();
     }
 
     public List<Semester> getCurrentSemesters(long currentTime, Year year) {

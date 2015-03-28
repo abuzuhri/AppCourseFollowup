@@ -60,12 +60,16 @@ public class HolidayDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_HLD_002);
 
         // BR_HLD_012
-        if (getConflictHolidays(holiday).size() > 0)
+        if (getConflictHolidays(holiday, ID) > 0)
             throw new BusinessRoleError(R.string.BR_HLD_006);
 
         // BR BR_AUH_003
-        int countExist = new Select().from(Holiday.class).where("Name = ?", holiday.Name).count();
-        if (countExist > 0)
+        long cCount;
+        if (ID != null && ID != 0)
+            cCount = new Select().from(Holiday.class).where("Name=? AND _ID!=?", holiday.Name, holiday.getId()).count();
+        else
+            cCount = new Select().from(Holiday.class).where("Name=?", holiday.Name).count();
+        if (cCount > 0)
             throw new BusinessRoleError(R.string.BR_HLD_003);
 
         AppLog.i("Name =>" + Name + " startDate=>" + holiday.StartDate.toString() + " endDate=>" + holiday.EndDate.toString());
@@ -112,12 +116,20 @@ public class HolidayDao extends BaseDao {
         }
     }
 
-    public List<Holiday> getConflictHolidays(Holiday holiday) {
-        return new Select()
-                .from(Holiday.class)
-                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
-                        holiday.StartDate.getTime(), holiday.EndDate.getTime(),
-                        holiday.StartDate.getTime(), holiday.EndDate.getTime())
-                .execute();
+    public long getConflictHolidays(Holiday holiday, Long id) {
+        if (id != null && id != 0)
+            return new Select()
+                    .from(Holiday.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?)) AND _ID!=?",
+                            holiday.StartDate.getTime(), holiday.EndDate.getTime(),
+                            holiday.StartDate.getTime(), holiday.EndDate.getTime(), id)
+                    .count();
+        else
+            return new Select()
+                    .from(Holiday.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
+                            holiday.StartDate.getTime(), holiday.EndDate.getTime(),
+                            holiday.StartDate.getTime(), holiday.EndDate.getTime())
+                    .count();
     }
 }

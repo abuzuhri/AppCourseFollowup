@@ -60,8 +60,12 @@ public class TaskDao extends BaseDao {
 
 
         // BR_TSK_002
-        int countExist = new Select().from(Task.class).where("Name = ?", task.Name).count();
-        if (countExist > 0)
+        long cCount;
+        if (ID != null && ID != 0)
+            cCount = new Select().from(Task.class).where("Name=? AND _ID!=?", task.Name, task.getId()).count();
+        else
+            cCount = new Select().from(Task.class).where("Name=?", task.Name).count();
+        if (cCount > 0)
             throw new BusinessRoleError(R.string.BR_TSK_002);
 
         long result = task.save();

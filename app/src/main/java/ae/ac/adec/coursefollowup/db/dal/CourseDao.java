@@ -43,6 +43,7 @@ public class CourseDao extends BaseDao {
             course = Course.load(Course.class, ID.longValue());
         else
             course = new Course();
+
         course.Name = name;
 
         Calendar startDateCal = Calendar.getInstance();
@@ -65,23 +66,31 @@ public class CourseDao extends BaseDao {
         if (endDate < startDate)
             throw new BusinessRoleError(R.string.BR_CRS_007);
 
-        // BR_CRS_012
-        if (getConflictCourses(course).size() > 0)
-            throw new BusinessRoleError(R.string.BR_CRS_012);
-
         // BR_CRS_001
-        int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
-        if (countC > 0)
+
+        // The problem occurred when executing select object with the same type of the saved object,
+        // because the object which we want to save is found in the result of select.
+
+        long cCount;
+        if (ID != null && ID != 0)
+            cCount = new Select().from(Course.class).where("Name=? AND _ID!=?", name, course.getId()).count();
+        else
+            cCount = new Select().from(Course.class).where("Name=?", name).count();
+        AppLog.i(cCount + " soso");
+        if (cCount > 0)
             throw new BusinessRoleError(R.string.BR_CRS_001);
+
+        // BR_CRS_012
+        cCount = getConflictCourses(course, ID);
+        if (cCount > 0)
+            throw new BusinessRoleError(R.string.BR_CRS_012);
 
         // BR_CRS_003
         if ((startDate < semester.StartDate.getTime()) || (endDate > semester.EndDate.getTime()))
             throw new BusinessRoleError(R.string.BR_CRS_003);
 
         long result = course.save();
-        AppLog.i("Result: row " + name + " added, result id >" + result);
-
-
+        AppLog.i("Result: row " + course.Name + " added, result id >" + result);
     }
 
     public void delete(long Id) throws BusinessRoleError {
@@ -141,12 +150,20 @@ public class CourseDao extends BaseDao {
                 .execute();
     }
 
-    public List<Course> getConflictCourses(Course course) {
-        return new Select()
-                .from(Course.class)
-                .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=?",
-                        course.StartDate.getTime(), course.EndDate.getTime(),
-                        course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId())
-                .execute();
+    public long getConflictCourses(Course course, Long id) {
+        if (id != null && id != 0)
+            return new Select()
+                    .from(Course.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=? AND _ID!=?",
+                            course.StartDate.getTime(), course.EndDate.getTime(),
+                            course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId(), id)
+                    .count();
+        else
+            return new Select()
+                    .from(Course.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=?",
+                            course.StartDate.getTime(), course.EndDate.getTime(),
+                            course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId())
+                    .count();
     }
 }

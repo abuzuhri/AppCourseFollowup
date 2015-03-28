@@ -63,7 +63,7 @@ public class ExamDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_EXM_003);
 
         // BR_EXM_012
-        if (getConflictExams(exam).size() > 0)
+        if (getConflictExams(exam,ID) > 0)
             throw new BusinessRoleError(R.string.BR_EXM_004);
 
         long result = exam.save();
@@ -115,12 +115,20 @@ public class ExamDao extends BaseDao {
                 .execute();
     }
 
-    public List<Exam> getConflictExams(Exam exam) {
-        return new Select()
-                .from(Exam.class)
-                .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))AND Course=?",
-                        exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),
-                        exam.StartDateTime.getTime(), exam.EndDateTime.getTime(), exam.Course.getId())
-                .execute();
+    public long getConflictExams(Exam exam, Long id) {
+        if (id != null && id != 0)
+            return new Select()
+                    .from(Exam.class)
+                    .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))AND Course=? AND _ID!=?",
+                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),
+                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(), exam.Course.getId(),id)
+                    .count();
+        else
+            return new Select()
+                    .from(Exam.class)
+                    .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))AND Course=?",
+                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),
+                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(), exam.Course.getId())
+                    .count();
     }
 }
