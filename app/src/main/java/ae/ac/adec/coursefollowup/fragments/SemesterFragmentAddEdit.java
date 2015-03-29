@@ -171,7 +171,7 @@ public class SemesterFragmentAddEdit extends BaseFragment {
                     final CustomLVAdapter_Years adapter = new CustomLVAdapter_Years(getActivity(), years);
 
                     dialogClass = new CustomDialogClass(getActivity(), YearFragmentAddEdit.class.getName(), "Years",
-                            adapter,false, new AdapterView.OnItemClickListener() {
+                            adapter,false,-1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

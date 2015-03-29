@@ -1,5 +1,6 @@
 package ae.ac.adec.coursefollowup.ConstantApp;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,13 +18,14 @@ public class ConstantVariable {
         Revision(4),
         Meeting(5);
         public int id;
+
         private TaskType(int id) {
             this.id = id;
         }
 
 
         public static String fromInteger(int x) {
-            switch(x) {
+            switch (x) {
                 case 1:
                     return "Assignment";
                 case 2:
@@ -45,6 +47,7 @@ public class ConstantVariable {
         Past(1),
         All(2);
         public int id;
+
         private TimeFrame(int id) {
             this.id = id;
         }
@@ -72,23 +75,29 @@ public class ConstantVariable {
         }
     }
 
-    public enum SystemNotificationType{
+    public enum SystemNotificationType {
         Course(1),
         Exam(2),
         Task(3);
         public int id;
-        private SystemNotificationType(int id){this.id=id;}
+
+        private SystemNotificationType(int id) {
+            this.id = id;
+        }
     }
 
-    public enum SyncStatus{
+    public enum SyncStatus {
         Normal(0),
         New(1),
         Updated(2);
         public int id;
-        private SyncStatus(int id){this.id=id;}
+
+        private SyncStatus(int id) {
+            this.id = id;
+        }
     }
 
-    public enum DayOfWeek{
+    public enum DayOfWeek {
         Saturday(1),
         Sunday(2),
         Monday(3),
@@ -97,9 +106,13 @@ public class ConstantVariable {
         Thursday(6),
         Friday(7);
         public int id;
-        private DayOfWeek(int id){this.id=id;}
+
+        private DayOfWeek(int id) {
+            this.id = id;
+        }
+
         public static String fromInteger(int x) {
-            switch(x) {
+            switch (x) {
                 case 1:
                     return "Saturday";
                 case 2:
@@ -119,26 +132,40 @@ public class ConstantVariable {
         }
     }
 
-    public enum NoteType{
+    public enum NoteType {
         Voice(1),
         Text(2),
         Video(3),
         Image(4);
         public int id;
-        private NoteType(int id){this.id=id;}
+
+        private NoteType(int id) {
+            this.id = id;
+        }
     }
-    public enum CloudStatus{
+
+    public enum CloudStatus {
         Normal(0),
         NeedUpload(1),
         NeedDownload(2);
         public int id;
-        private CloudStatus(int id){this.id=id;}
+
+        private CloudStatus(int id) {
+            this.id = id;
+        }
     }
 
     public static String getDateString(Date date) {
-        if(date==null)
+        if (date == null)
             return "";
         return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(date);
+    }
+
+    public static String getTimeString(Date date) {
+        if (date == null)
+            return "";
+        DateFormat formatter = new SimpleDateFormat("hh:mm: aa");
+        return formatter.format(date);
     }
 
     public static Date getCurrentDate() {
@@ -146,8 +173,8 @@ public class ConstantVariable {
         TimeZone tz = TimeZone.getDefault();
         calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date currenTimeZone=new Date((long)1379487711*1000);
-        return  currenTimeZone;
+        Date currenTimeZone = new Date((long) 1379487711 * 1000);
+        return currenTimeZone;
     }
 
     public static int getCurrentDayOfWeek() {
@@ -155,6 +182,6 @@ public class ConstantVariable {
         TimeZone tz = TimeZone.getDefault();
         calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-        return  day;
+        return day;
     }
 }

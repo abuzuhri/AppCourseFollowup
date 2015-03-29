@@ -88,7 +88,7 @@ public class TaskFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 
-               AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, TaskFragmentAddEdit.class.getName());
+               AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, TaskFragmentAddEdit.class.getName(),-1);
 
             }
         });

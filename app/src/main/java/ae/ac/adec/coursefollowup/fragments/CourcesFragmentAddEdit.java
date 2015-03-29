@@ -201,7 +201,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
                     final List<Semester> semesters = new SemesterDao().getAll(position);
                     final CustomLVAdapter_Semesters adapter = new CustomLVAdapter_Semesters(getActivity(), semesters);
                     dialogClass = new CustomDialogClass(getActivity(), SemesterFragmentAddEdit.class.getName(), "Semesters",
-                            adapter,false, new AdapterView.OnItemClickListener() {
+                            adapter, false, -1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             current_semester = ((Semester) adapter.getItem(position));
@@ -219,14 +219,17 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    final List<CourseTimeDay> tim = new CourseTimeDayDao().getAll(position);
-                    final CustomLVAdapter_Times adapter = new CustomLVAdapter_Times(getActivity(), tim);
+                    final CustomLVAdapter_Times adapter;
+                    if (ID != null && ID != 0)
+                        adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
+                    else
+                        adapter = new CustomLVAdapter_Times(getActivity(), new Long(0), ConstantVariable.DayOfWeek.values());
                     dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAddEdit.class.getName(), "Times",
-                            adapter,false, new AdapterView.OnItemClickListener() {
+                            adapter, false, ID, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek+"");
-                            dialogClass.dismiss();
+                            //times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek + "");
+                            //dialogClass.dismiss();
                         }
                     });
                     dialogClass.show(getActivity().getFragmentManager(), "jma");

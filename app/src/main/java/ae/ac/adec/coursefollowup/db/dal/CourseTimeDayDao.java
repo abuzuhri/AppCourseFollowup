@@ -22,22 +22,22 @@ public class CourseTimeDayDao extends BaseDao {
         return CourseTimeDay.load(CourseTimeDay.class, id);
     }
 
-    public void Edit(long ID,Course course, long startTime, long endTime, Boolean isRepeat,int dayOfWeek) throws BusinessRoleError {
+    public void Edit(long ID, Course course, long startTime, long endTime, Boolean isRepeat, int dayOfWeek) throws BusinessRoleError {
         AppLog.i("Edit => " + ID);
-        AddEdit(ID,course,startTime,endTime,isRepeat,dayOfWeek);
+        AddEdit(ID, course, startTime, endTime, isRepeat, dayOfWeek);
     }
 
-    public void Add(Course course, long startTime, long endTime, Boolean isRepeat,int dayOfWeek) throws BusinessRoleError {
-        AddEdit(null,course,startTime,endTime,isRepeat,dayOfWeek);
+    public void Add(Course course, long startTime, long endTime, Boolean isRepeat, int dayOfWeek) throws BusinessRoleError {
+        AddEdit(null, course, startTime, endTime, isRepeat, dayOfWeek);
     }
 
-    private void AddEdit(Long ID,Course course, long startTime, long endTime, Boolean isRepeat,int DayOfWeek) throws BusinessRoleError {
+    private void AddEdit(Long ID, Course course, long startTime, long endTime, Boolean isRepeat, int DayOfWeek) throws BusinessRoleError {
         CourseTimeDay std = null;
         if (ID != null && ID != 0)
             std = CourseTimeDay.load(CourseTimeDay.class, ID.longValue());
         else
             std = new CourseTimeDay();
-        std.Course=course;
+        std.Course = course;
 
         Calendar startDateCal = Calendar.getInstance();
         startDateCal.setTimeInMillis(startTime);
@@ -47,8 +47,8 @@ public class CourseTimeDayDao extends BaseDao {
         endDateCal.setTimeInMillis(endTime);
         std.End_time = endDateCal.getTime();
 
-        std.IsRepeat=isRepeat;
-        std.DayOfWeek=DayOfWeek;
+        std.IsRepeat = isRepeat;
+        std.DayOfWeek = DayOfWeek;
 
         if (endTime < startTime)
             throw new BusinessRoleError(R.string.BR_HLD_001);
@@ -95,5 +95,13 @@ public class CourseTimeDayDao extends BaseDao {
                     .orderBy("Start_time ASC")
                     .execute();
         }
+    }
+
+    public List<CourseTimeDay> getTimesByDay(int dayOfWeek) {
+        return new Select()
+                .from(CourseTimeDay.class)
+                .where("DayOfWeek=?", dayOfWeek)
+                .orderBy("Start_time ASC")
+                .execute();
     }
 }

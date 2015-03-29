@@ -172,7 +172,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                     final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
 
                     dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), "Select Subject",
-                            adapter,false, new AdapterView.OnItemClickListener() {
+                            adapter,false,-1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -192,7 +192,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                 if (!hasFocus) {
 
                     final BaseAdapter ad = new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad,false, new AdapterView.OnItemClickListener() {
+                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad,false,-1, new AdapterView.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

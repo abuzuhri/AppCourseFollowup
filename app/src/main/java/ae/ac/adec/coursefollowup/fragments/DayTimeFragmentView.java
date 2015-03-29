@@ -34,7 +34,6 @@ public class DayTimeFragmentView extends BaseFragment {
 
     MaterialEditText startTime = null;
     MaterialEditText endTime = null;
-    MaterialEditText course = null;
     MaterialEditText daysOfWeek = null;
     CheckBox isRepeat = null;
     Course currentCourse;
@@ -124,9 +123,6 @@ public class DayTimeFragmentView extends BaseFragment {
             endTime.setText(ConstantVariable.getDateString(ctd.End_time));
             endTime.setEnabled(false);
 
-            course.setText(ctd.Course.Name);
-            course.setEnabled(false);
-
             daysOfWeek.setText("21");
             daysOfWeek.setEnabled(false);
 
@@ -143,7 +139,6 @@ public class DayTimeFragmentView extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         isRepeat = (CheckBox) rootView.findViewById(R.id.cb_dt_isRepeat);
-        course = (MaterialEditText) rootView.findViewById(R.id.tv_dt_courseName);
         daysOfWeek = (MaterialEditText) rootView.findViewById(R.id.tv_dt_daysOfWeek);
         startTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_startTime1);
         SetDateControl(startTime);

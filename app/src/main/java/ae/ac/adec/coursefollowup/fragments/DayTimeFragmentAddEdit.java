@@ -38,7 +38,6 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
 
     MaterialEditText startTime = null;
     MaterialEditText endTime = null;
-    MaterialEditText course = null;
     MaterialEditText daysOfWeek = null;
     CheckBox isRepeat = null;
     Course currentCourse;
@@ -86,21 +85,26 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
         try {
             AppLog.i("ID== >>> " + ID);
             CourseTimeDayDao ctd = new CourseTimeDayDao();
-/*
-            // BR BR_AUH_005
-            if (holidayName.getText().toString().trim().equals(""))
-                throw new BusinessRoleError(R.string.BR_HLD_005);
-            // BR BR_AUH_004
-            if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals(""))
-                throw new BusinessRoleError(R.string.BR_HLD_004);
-*/
+            long crs_id = getActivity().getIntent().getExtras().getLong(AppAction.COURSE_ID);
+            currentCourse = Course.load(Course.class, crs_id);
+
+            // BR BR_DT_001
+            if (startTime.getText().toString().trim().equals("") || endTime.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_DT_001);
+            // BR BR_DT_002
+            if (daysOfWeek.getText().toString().trim().equals(""))
+                throw new BusinessRoleError(R.string.BR_DT_002);
+            // BR BR_DT_003
+            if (currentCourse == null)
+                throw new BusinessRoleError(R.string.BR_DT_003);
+
             long startDateMil = (long) startTime.getTag();
             long endDateMil = (long) endTime.getTag();
 
             if (ID != null && ID != 0)
-                ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), 0);
+                ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), 1);
             else
-                ctd.Add(currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), 0);
+                ctd.Add(currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), 1);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.dt_add_successfully, Toast.LENGTH_LONG).show();
@@ -125,7 +129,6 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
             endTime.setText(ConstantVariable.getDateString(courseTimeDay.End_time));
             endTime.setTag(courseTimeDay.End_time.getTime());
             daysOfWeek.setText("11");
-            course.setText(courseTimeDay.Course.Name);
             isRepeat.setChecked(courseTimeDay.IsRepeat);
         }
     }
@@ -138,7 +141,6 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
 
 
         isRepeat = (CheckBox) rootView.findViewById(R.id.cb_dt_isRepeat);
-        course = (MaterialEditText) rootView.findViewById(R.id.tv_dt_courseName);
         daysOfWeek = (MaterialEditText) rootView.findViewById(R.id.tv_dt_daysOfWeek);
         startTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_startTime1);
         SetDateControl(startTime);
@@ -150,7 +152,7 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     final BaseAdapter ad = new ArrayAdapter<ConstantVariable.DayOfWeek>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.DayOfWeek.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Days", ad,true, new AdapterView.OnItemClickListener() {
+                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Days", ad, true,-1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             daysOfWeek.setText(ad.getItem(position).toString());

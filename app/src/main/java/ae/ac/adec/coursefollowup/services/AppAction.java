@@ -13,38 +13,45 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  */
 public class AppAction {
 
-    public  static final  String  IDEXTRA="IDEXTRA";
-    public  static final  String  FRAGMENTEXTRA="FRAGMENT";
-    public  static void OpenActivityIntent(Context context,Intent intent){
+    public static final String IDEXTRA = "IDEXTRA";
+    public static final String FRAGMENTEXTRA = "FRAGMENT";
+    public static final String COURSE_ID = "COURSE_ID";
+
+    public static void OpenActivityIntent(Context context, Intent intent) {
         context.startActivity(intent);
     }
 
-    public static void OpenActivity(Context context,Class<?> cls){
+    public static void OpenActivity(Context context, Class<?> cls) {
 
     }
-    public static void OpenActivityWithID(Context context,Class<?> cls, Long ID){
+
+    public static void OpenActivityWithID(Context context, Class<?> cls, Long ID) {
         Intent intent = new Intent(context, cls);
-        if(ID!=null)
+        if (ID != null)
             intent.putExtra(IDEXTRA, ID);
-        OpenActivityIntent(context,intent);
-    }
-    public static void OpenActivityWithFRAGMENT(Context context,Class<?> cls, String name){
-        Intent intent = new Intent(context, cls);
-        if(name!=null)
-            intent.putExtra(FRAGMENTEXTRA, name);
         OpenActivityIntent(context, intent);
     }
-    public static void OpenActivityWithFRAGMENT(Context context, String name, Long ID){
-        Intent intent = new Intent(context, OneFragmentActivity.class);
-        if(name!=null)
-            intent.putExtra(FRAGMENTEXTRA, name);
-        if(ID!=null)
-            intent.putExtra(IDEXTRA, ID);
 
-        OpenActivityIntent(context,intent);
+    public static void OpenActivityWithFRAGMENT(Context context, Class<?> cls, String name, long id) {
+        Intent intent = new Intent(context, cls);
+        if (name != null)
+            intent.putExtra(FRAGMENTEXTRA, name);
+        if (id != -1)
+            intent.putExtra(COURSE_ID, id);
+        OpenActivityIntent(context, intent);
     }
 
-    public static void DiaplayError(Activity activity, String msg){
+    public static void OpenActivityWithFRAGMENT(Context context, String name, Long ID) {
+        Intent intent = new Intent(context, OneFragmentActivity.class);
+        if (name != null)
+            intent.putExtra(FRAGMENTEXTRA, name);
+        if (ID != null)
+            intent.putExtra(IDEXTRA, ID);
+
+        OpenActivityIntent(context, intent);
+    }
+
+    public static void DiaplayError(Activity activity, String msg) {
         Crouton.makeText(activity, msg, Style.ALERT).show();
     }
 }

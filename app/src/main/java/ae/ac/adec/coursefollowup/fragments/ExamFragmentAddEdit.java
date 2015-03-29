@@ -150,9 +150,9 @@ public class ExamFragmentAddEdit extends BaseFragment {
         room = (MaterialEditText) rootView.findViewById(R.id.tv_exam_room);
         isResit = (CheckBox) rootView.findViewById(R.id.cb_exam_isResit);
         startDateTime = (MaterialEditText) rootView.findViewById(R.id.tv_exam_startTime);
-        SetDateControl(startDateTime);
+        SetTimeControl(startDateTime);
         endDateTime = (MaterialEditText) rootView.findViewById(R.id.tv_exam_endTime);
-        SetDateControl(endDateTime);
+        SetTimeControl(endDateTime);
 
 
         courseName.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,7 @@ public class ExamFragmentAddEdit extends BaseFragment {
                 final List<Course> courses = new CourseDao().getAll(2);
                 final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
                 dialog = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(),
-                        "Courses", adapter,false, new AdapterView.OnItemClickListener() {
+                        "Courses", adapter,false,-1, new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         current_course = (Course) adapter.getItem(position);

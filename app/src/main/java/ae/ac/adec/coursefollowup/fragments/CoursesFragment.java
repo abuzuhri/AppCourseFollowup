@@ -78,7 +78,7 @@ public class CoursesFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, CourcesFragmentAddEdit.class.getName());
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, CourcesFragmentAddEdit.class.getName(),-1);
             }
         });
 

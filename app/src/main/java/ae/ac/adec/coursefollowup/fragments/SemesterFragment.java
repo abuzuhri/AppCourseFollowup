@@ -64,7 +64,7 @@ public class SemesterFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, SemesterFragmentAddEdit.class.getName());
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, SemesterFragmentAddEdit.class.getName(),-1);
               //  Toast.makeText(getActivity(),"Hello",Toast.LENGTH_LONG).show();
             }
         });

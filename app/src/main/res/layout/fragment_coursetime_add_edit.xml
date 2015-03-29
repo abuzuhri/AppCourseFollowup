@@ -41,7 +41,7 @@
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/emptytxt"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"/>
+                        android:layout_height="wrap_content"/>
 
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/tv_dt_startTime1"
@@ -50,7 +50,8 @@
                         android:hint="@string/dt_start_time_hint"
                         app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
-                        app:iconPadding="10dp" />
+                        app:iconPadding="10dp"
+                        />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/tv_dt_endTime1"
@@ -65,15 +66,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/dt_daysOfWeek_hint"
-                        app:iconLeft="@drawable/ic_today_white"
-                        app:floatingLabel="highlight"
-                        app:iconPadding="10dp" />
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/tv_dt_courseName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/dt_course_hint"
                         app:iconLeft="@drawable/ic_today_white"
                         app:floatingLabel="highlight"
                         app:iconPadding="10dp" />

@@ -36,17 +36,18 @@ public class CustomDialogClass<T> extends DialogFragment {
     BaseAdapter adapter;
     Context activity;
     String fragmentName;
-    long obj_id;
+    long course_id;
     Boolean isMultiple;
     AdapterView.OnItemClickListener listener;
 
-    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter,Boolean isMultiple, AdapterView.OnItemClickListener listener) {
+    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter,Boolean isMultiple,long course_id, AdapterView.OnItemClickListener listener) {
         this.title = title;
         this.adapter = adapter;
         this.activity = activity;
         this.fragmentName = fragmentName;
         this.listener=listener;
         this.isMultiple=isMultiple;
+        this.course_id=course_id;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class CustomDialogClass<T> extends DialogFragment {
         if(fragmentName!="")
         builder.setView(v).setPositiveButton("New", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                AppAction.OpenActivityWithFRAGMENT(getActivity(), OneFragmentActivity.class, fragmentName);
+                AppAction.OpenActivityWithFRAGMENT(getActivity(), OneFragmentActivity.class, fragmentName,course_id);
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

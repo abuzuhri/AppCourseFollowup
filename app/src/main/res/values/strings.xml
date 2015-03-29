@@ -110,6 +110,7 @@
 
     <!-- BusinessRoleExcption  -->
     <string name="BR_GENERAL_001">Error in deleting</string>
+    <string name="BR_GENERAL_002">You must be in the same course to edit times, Only colored times can be editted</string>
     <!-- Holiday  -->
     <string name="BR_HLD_001">Start date can\'t be less than end date</string>
     <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
@@ -160,6 +161,10 @@
     <string name="BR_TSK_003">Task must have a type</string>
     <string name="BR_TSK_004">Task must belongs to a course</string>
     <string name="BR_TSK_005">Task must have a specified date</string>
+    <!--/ Tasks -->
+    <string name="BR_DT_001">Start and End time can\'t be empty</string>
+    <string name="BR_DT_002">Day of Week can\'t be empty</string>
+    <string name="BR_DT_003">Time must be to a course</string>
 <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>

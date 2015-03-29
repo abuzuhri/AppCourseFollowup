@@ -92,7 +92,35 @@ public class BaseFragment extends Fragment {
         });
 
     }
+    public void SetTimeControl(final MaterialEditText dateControl) {
+        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    OpenTimePicker(new IDateTimePickerResult() {
+                        @Override
+                        public void onDatePickerSubmit(int year, int month, int day, String tag) {
+                            /*Calendar calendar = Calendar.getInstance();
+                            calendar.set(year, month, day);
+                            dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
+                            dateControl.setTag(calendar.getTimeInMillis());*/
+                        }
 
+                        @Override
+                        public void onTimePickerSubmit(int hourOfDay, int minute, String tag) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                            calendar.set(Calendar.MINUTE,minute);
+                            dateControl.setText(ConstantVariable.getTimeString(calendar.getTime()));
+                            dateControl.setTag(calendar.getTimeInMillis());
+                        }
+                    });
+                }
+                v.clearFocus();
+            }
+        });
+
+    }
     public void removeShadowForNewApi21(View rootView) {
         View shadowView = rootView.findViewById(R.id.shadow_main_activity);
         // Solve Android bug in API < 21 by app custom shadow

@@ -85,7 +85,7 @@ public class HolidayFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, HolidayFragmentAddEdit.class.getName());
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, HolidayFragmentAddEdit.class.getName(),-1);
 
             }
         });

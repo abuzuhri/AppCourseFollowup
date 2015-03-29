@@ -85,7 +85,7 @@ public class YearsFragment  extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, YearFragmentAddEdit.class.getName());
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, YearFragmentAddEdit.class.getName(),-1);
 
             }
         });
