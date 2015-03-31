@@ -93,6 +93,14 @@
     <string name="task_name">Task Name</string>
     <string name="task_detail_hint">Detail</string>
 
+    <!-- Task  -->
+    <string name="note_add_subtitle">New Note</string>
+    <string name="note_edit_subtitle">Edit Note</string>
+    <string name="note_add_successfully">Successfully add Note</string>
+    <string name="note_due_date_hint">Due Date</string>
+    <string name="note_name">Note Name</string>
+    <string name="note_detail_hint">Detail</string>
+
         <!-- Semester  -->
     <string name="semester_name">Semester Name</string>
     <string name="semester_start_date_hint">Start Date</string>

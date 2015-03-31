@@ -1,5 +1,6 @@
 package ae.ac.adec.coursefollowup.activities;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;

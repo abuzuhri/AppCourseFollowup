@@ -1,5 +1,7 @@
 package ae.ac.adec.coursefollowup.ConstantApp;
 
+import android.os.Environment;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,6 +12,8 @@ import java.util.TimeZone;
  * Created by JMA on 3/8/2015.
  */
 public class ConstantVariable {
+
+
 
     public enum TaskType {
         Assignment(1),

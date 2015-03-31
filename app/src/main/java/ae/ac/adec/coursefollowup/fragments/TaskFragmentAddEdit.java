@@ -53,9 +53,9 @@ public class TaskFragmentAddEdit extends BaseFragment {
     MaterialEditText txtTaskType = null;
     MaterialEditText txtTaskDueDate = null;
     MaterialEditText txtTaskDetail = null;
+    int progressValue = 0;
     TextView txtTaskProgress = null;
-    SeekBar seekBar = null;
-    private int currentSeekValue = 0;
+    SeekBar seekProgressBar = null;
     private int position;
 
     @Override
@@ -100,11 +100,9 @@ public class TaskFragmentAddEdit extends BaseFragment {
         try {
             AppLog.i("ID== >>> " + ID);
             TaskDao task = new TaskDao();
-
             // BR_TSK_001
             if (txtTaskName.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_TSK_001);
-
             // BR_TSK_004
             if (selectedCourse == null)
                 throw new BusinessRoleError(R.string.BR_TSK_004);
@@ -117,9 +115,9 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
             long dueDateMil = (long) txtTaskDueDate.getTag();
             if (ID != null && ID != 0)
-                task.Edit(ID, txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, currentSeekValue, selectedCourse);
+                task.Edit(ID, txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, progressValue, selectedCourse);
             else
-                task.Add(txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, currentSeekValue, selectedCourse);
+                task.Add(txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, progressValue, selectedCourse);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.task_add_successfully, Toast.LENGTH_LONG).show();
@@ -140,17 +138,15 @@ public class TaskFragmentAddEdit extends BaseFragment {
         if (ID != null && ID != 0) {
             Task task = Task.load(Task.class, ID);
 
-            selectedCourse = task.Course;
-            selectedType = task.TaskType;
 
             txtTaskName.setText(task.Name);
             txtTaskSubject.setText(task.Course.Name);
             txtTaskType.setText(ConstantVariable.TaskType.fromInteger(task.TaskType));
             txtTaskDetail.setText(task.Detail);
-            txtTaskDueDate.setText(ConstantVariable.getTimeString(task.DueDate));
+            txtTaskDueDate.setText(ConstantVariable.getDateString(task.DueDate));
             txtTaskDueDate.setTag(task.DueDate.getTime());
-            txtTaskProgress.setText(task.Progress+"% complete");
-            seekBar.setProgress(task.Progress);
+            txtTaskProgress.setText("Task Progress: "+task.Progress+"% complete");
+            seekProgressBar.setProgress(task.Progress);
         }
     }
 
@@ -172,18 +168,15 @@ public class TaskFragmentAddEdit extends BaseFragment {
         txtTaskType = (MaterialEditText) rootView.findViewById(R.id.txtTaskType);
 
         txtTaskSubject = (MaterialEditText) rootView.findViewById(R.id.txtTaskSubject);
-        txtTaskProgress = (TextView) rootView.findViewById(R.id.txtTaskProgress);
-        seekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
-
         txtTaskSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    List<Course> courses = new CourseDao().getAll(2);
+                    List<Course> courses = new CourseDao().getAll(position);
                     final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
 
                     dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), "Select Subject",
-                            adapter, false, -1, new AdapterView.OnItemClickListener() {
+                            adapter,false,-1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -203,7 +196,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                 if (!hasFocus) {
 
                     final BaseAdapter ad = new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad, false, -1, new AdapterView.OnItemClickListener() {
+                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad,false,-1, new AdapterView.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -217,20 +210,34 @@ public class TaskFragmentAddEdit extends BaseFragment {
                 v.clearFocus();
             }
         });
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                currentSeekValue = progress;
-                txtTaskProgress.setText(currentSeekValue+"% complete");
+
+        txtTaskProgress = (TextView) rootView.findViewById(R.id.txtTaskProgress);
+        seekProgressBar = (SeekBar) rootView.findViewById(R.id.seekBar);
+        if(ID==null || ID==0) {
+            txtTaskProgress.setVisibility(View.GONE);
+            seekProgressBar.setVisibility(View.GONE);
+            progressValue=0;
+
+
+        }
+        //  seekProgressBar.incrementProgressBy(5);
+        seekProgressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressFinal = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+
+                progress = progress / 5;
+                progress = progress * 5;
+                progressFinal = progress;
+                txtTaskProgress.setText(progress+"% Complete");
             }
 
-            @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
-            @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                progressValue = progressFinal;
 
             }
         });

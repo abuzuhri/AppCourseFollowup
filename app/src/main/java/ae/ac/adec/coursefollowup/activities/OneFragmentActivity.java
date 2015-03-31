@@ -21,6 +21,27 @@ public class OneFragmentActivity extends BaseActivity {
     //public  static final  String  FRAGMENT="FRAGMENT";
     //public  static final  String  HAVE_TOOLBAR_SHARDOW="HAVE_TOOLBAR_SHARDOW";
 
+
+    static private String filePath = null;
+    static private String noteType = null;
+
+
+    public static void setNoteType(String noteType) {
+        OneFragmentActivity.noteType = noteType;
+    }
+
+    public static String getNoteType() {
+        return noteType;
+    }
+
+
+public static void setFilePath(String newFilePath){
+  filePath = newFilePath;
+}
+    public static String getFilePath(){
+        return filePath;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
