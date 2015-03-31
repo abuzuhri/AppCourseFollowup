@@ -25,12 +25,12 @@
     android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="0.6"
             android:layout_height="fill_parent"
             android:id="@+id/tv_exam_card_courseName"
             android:padding="16dp"
             android:textColor="#3C3C3C"
-            android:textSize="28sp"
+            android:textSize="22sp"
             tools:text="This is the title"/>
 
     <TextView
@@ -38,9 +38,10 @@
         android:layout_height="fill_parent"
         android:text="10 min"
         android:padding="16dp"
-        android:textSize="28sp"
+        android:textSize="18sp"
+        android:layout_gravity="right"
         android:id="@+id/tv_exam_card_duration"
-        android:layout_weight="0.2" />
+        android:layout_weight="0.4" />
 </LinearLayout>
 
         <View

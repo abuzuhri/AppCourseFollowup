@@ -104,4 +104,11 @@ public class CourseTimeDayDao extends BaseDao {
                 .orderBy("Start_time ASC")
                 .execute();
     }
+    public List<CourseTimeDay> getTimesByCourse(Course course) {
+        return new Select()
+                .from(CourseTimeDay.class)
+                .where("Course=?", course.getId())
+                .orderBy("Start_time ASC")
+                .execute();
+    }
 }

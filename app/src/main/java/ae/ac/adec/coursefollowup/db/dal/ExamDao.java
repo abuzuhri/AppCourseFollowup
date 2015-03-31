@@ -119,16 +119,16 @@ public class ExamDao extends BaseDao {
         if (id != null && id != 0)
             return new Select()
                     .from(Exam.class)
-                    .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))AND Course=? AND _ID!=?",
+                    .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?)) AND _ID!=?",
                             exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),
-                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(), exam.Course.getId(),id)
+                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),id)
                     .count();
         else
             return new Select()
                     .from(Exam.class)
-                    .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))AND Course=?",
+                    .where("((StartDateTime<=? OR StartDateTime<=?)AND(EndDateTime>=? OR EndDateTime>=?))",
                             exam.StartDateTime.getTime(), exam.EndDateTime.getTime(),
-                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime(), exam.Course.getId())
+                            exam.StartDateTime.getTime(), exam.EndDateTime.getTime())
                     .count();
     }
 }

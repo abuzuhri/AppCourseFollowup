@@ -160,6 +160,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             building.setText(course.Building);
             teacher.setText(course.Teacher);
             colorCode.setText(course.ColorCode);
+            times.setText(R.string.click_to_show_times);
         } else {
             List<Year> years = new YearDao().getCurrentYear(System.currentTimeMillis());
             if (years.size() > 0) {
@@ -220,6 +221,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     final CustomLVAdapter_Times adapter;
+                    AppLog.i("jma "+ID.longValue());
                     if (ID != null && ID != 0)
                         adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
                     else

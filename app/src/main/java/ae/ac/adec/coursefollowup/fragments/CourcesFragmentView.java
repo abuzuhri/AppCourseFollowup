@@ -9,11 +9,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
+import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
@@ -22,6 +24,7 @@ import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.services.dailogs.AppDialog;
+import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Times;
 import ae.ac.adec.coursefollowup.views.event.IDialogClick;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -41,6 +44,8 @@ public class CourcesFragmentView extends BaseFragment {
     MaterialEditText room=null;
     MaterialEditText teacher=null;
     MaterialEditText colorCode=null;
+    MaterialEditText times = null;
+    CustomDialogClass dialogClass = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,6 +147,8 @@ public class CourcesFragmentView extends BaseFragment {
             teacher.setEnabled(false);
             colorCode.setText(course.ColorCode);
             colorCode.setEnabled(false);
+            times.setText(R.string.click_to_show_times);
+            times.setVisibility(View.GONE);
         }
     }
 
@@ -166,6 +173,7 @@ public class CourcesFragmentView extends BaseFragment {
         room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
         teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
         colorCode = (MaterialEditText) rootView.findViewById(R.id.tv_course_colorCode);
+        times = (MaterialEditText) rootView.findViewById(R.id.tv_course_times);
 
         fillDate();
 

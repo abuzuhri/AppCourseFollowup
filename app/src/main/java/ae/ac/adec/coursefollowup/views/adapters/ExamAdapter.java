@@ -65,8 +65,9 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamViewHolder> {
         long diff = (ed-sd)/(1000*60);
         viewHolder.exam_duration.setText(diff+" Min");
 
+        String startTime = ConstantVariable.getTimeString(exam.StartDateTime);
         String startDate = ConstantVariable.getDateString(exam.StartDateTime);
-        viewHolder.exam_startTime.setText(context.getString(R.string.exam_start_date_hint) + ": " + startDate);
+        viewHolder.exam_startTime.setText(context.getString(R.string.exam_start_date_hint) + ": " + startTime+" On: "+startDate);
 
     }
 

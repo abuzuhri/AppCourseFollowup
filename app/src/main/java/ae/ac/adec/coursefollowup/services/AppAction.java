@@ -41,6 +41,18 @@ public class AppAction {
         OpenActivityIntent(context, intent);
     }
 
+    public static void OpenActivityWithFRAGMENT(Context context, String name, Long ID, Long course_id) {
+        Intent intent = new Intent(context, OneFragmentActivity.class);
+        if (name != null)
+            intent.putExtra(FRAGMENTEXTRA, name);
+        if (ID != null)
+            intent.putExtra(IDEXTRA, ID);
+        if (course_id != -1)
+            intent.putExtra(COURSE_ID, course_id);
+
+        OpenActivityIntent(context, intent);
+    }
+
     public static void OpenActivityWithFRAGMENT(Context context, String name, Long ID) {
         Intent intent = new Intent(context, OneFragmentActivity.class);
         if (name != null)

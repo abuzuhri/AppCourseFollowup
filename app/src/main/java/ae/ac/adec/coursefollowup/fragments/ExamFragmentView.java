@@ -39,6 +39,7 @@ public class ExamFragmentView extends BaseFragment {
     MaterialEditText room=null;
     MaterialEditText startDateTime=null;
     MaterialEditText endDateTime=null;
+    MaterialEditText examDate=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,14 +137,15 @@ public class ExamFragmentView extends BaseFragment {
             room.setText(exam.Room);
             room.setEnabled(false);
 
-            startDateTime.setText(ConstantVariable.getDateString(exam.StartDateTime));
+            startDateTime.setText(ConstantVariable.getTimeString(exam.StartDateTime));
             startDateTime.setEnabled(false);
 
-            endDateTime.setText(ConstantVariable.getDateString(exam.EndDateTime));
+            endDateTime.setText(ConstantVariable.getTimeString(exam.EndDateTime));
             endDateTime.setEnabled(false);
 
-
-
+            examDate.setText(ConstantVariable.getDateString(exam.EndDateTime));
+            examDate.setTag(exam.EndDateTime.getTime());
+            examDate.setEnabled(false);
         }
     }
 
@@ -160,12 +162,15 @@ public class ExamFragmentView extends BaseFragment {
         room = (MaterialEditText) rootView.findViewById(R.id.tv_exam_room);
         isResit = (CheckBox) rootView.findViewById(R.id.cb_exam_isResit);
 
-        // End Date
+        examDate = (MaterialEditText) rootView.findViewById(R.id.tv_exam_date);
+        SetDateControl(examDate);
+
         startDateTime= (MaterialEditText) rootView.findViewById(R.id.tv_exam_startTime);
         SetDateControl(startDateTime);
 
         endDateTime= (MaterialEditText) rootView.findViewById(R.id.tv_exam_endTime);
         SetDateControl(endDateTime);
+
 
         fillDate();
 

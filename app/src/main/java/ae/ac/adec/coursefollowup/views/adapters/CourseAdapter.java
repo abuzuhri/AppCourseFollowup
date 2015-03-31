@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder> {
         viewHolder.course_nameCode.setText(course.Name + "(" + course.Code + ")");
         viewHolder.course_room.setText(course.Room);
         viewHolder.course_building.setText(course.Building);
+        viewHolder.img_course_color.setBackgroundColor(Color.parseColor(course.ColorCode));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

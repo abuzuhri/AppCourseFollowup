@@ -82,6 +82,20 @@
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0% complete"
+                    android:id="@+id/txtTaskProgress"
+                    android:gravity="left" />
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="0"
+                    android:id="@+id/seekBar" />
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/txtTaskDetail"
                     android:layout_width="match_parent"

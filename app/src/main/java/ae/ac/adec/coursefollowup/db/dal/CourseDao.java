@@ -10,6 +10,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Semester;
@@ -107,9 +108,14 @@ public class CourseDao extends BaseDao {
         else if (cTasks != null && cTasks.size() > 0)
             throw new BusinessRoleError(R.string.BR_CRS_005);
 
+
         ActiveAndroid.beginTransaction();
         try {
             DeleteSyncer(course);
+            List<CourseTimeDay> ctd = new CourseTimeDayDao().getTimesByCourse(course);
+            for (int i = 0; i < ctd.size(); i++) {
+                ctd.get(i).delete();
+            }
             course.delete();
             ActiveAndroid.setTransactionSuccessful();
         } catch (Exception ex) {

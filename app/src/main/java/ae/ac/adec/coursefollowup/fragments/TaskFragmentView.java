@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
+import ae.ac.adec.coursefollowup.db.dal.TaskDao;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.services.AppAction;
@@ -37,8 +39,9 @@ public class TaskFragmentView extends BaseFragment {
     MaterialEditText txtTaskSubject=null;
     MaterialEditText txtTaskType=null;
     MaterialEditText txtTaskDueDate=null;
-    TextView txtTaskDetail=null;
+    MaterialEditText txtTaskDetail=null;
     TextView txtTaskProgress = null;
+    SeekBar seekBar= null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,8 +101,8 @@ public class TaskFragmentView extends BaseFragment {
 
     public void Delete(){
         try {
-            SemesterDao semesterDao = new SemesterDao();
-            semesterDao.delete(ID);
+            TaskDao taskDao = new TaskDao();
+            taskDao.delete(ID);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.delete_successfully, Toast.LENGTH_LONG).show();
@@ -131,11 +134,14 @@ public class TaskFragmentView extends BaseFragment {
             txtTaskDetail.setText(task.Detail);
             txtTaskDetail.setEnabled(false);
 
-            txtTaskDueDate.setText(ConstantVariable.getDateString(task.DueDate));
+            txtTaskDueDate.setText(ConstantVariable.getTimeString(task.DueDate));
             txtTaskDueDate.setEnabled(false);
 
             txtTaskProgress.setText(task.Progress+"% complete");
             txtTaskProgress.setEnabled(false);
+
+            seekBar.setProgress(task.Progress);
+            seekBar.setEnabled(false);
 
 
         }
@@ -160,10 +166,10 @@ public class TaskFragmentView extends BaseFragment {
         SetDateControl(txtTaskDueDate);
 
         txtTaskType = (MaterialEditText) rootView.findViewById(R.id.txtTaskType);
-        txtTaskDetail = (TextView) rootView.findViewById(R.id.txtTaskDetail);
+        txtTaskDetail = (MaterialEditText) rootView.findViewById(R.id.txtTaskDetail);
 
         txtTaskProgress = (TextView) rootView.findViewById(R.id.txtTaskProgress);
-      //ToDo Progress Seek
+        seekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
 
         fillDate();
 

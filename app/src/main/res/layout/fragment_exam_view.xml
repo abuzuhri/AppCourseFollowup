@@ -32,7 +32,8 @@
                 app:floatingLabel="highlight"
                 app:maxCharacters="20"
                 app:primaryColor="@color/colorAccent"
-                app:singleLineEllipsis="true" />
+                app:singleLineEllipsis="true"
+                android:focusable="false"/>
 
         </LinearLayout>
         <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
@@ -75,7 +76,14 @@
                     android:text="@string/exam_isResit"
                     android:id="@+id/cb_exam_isResit"
                     android:checked="false"/>
-
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/tv_exam_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/exam_date_hint"
+                    app:iconLeft="@drawable/ic_today_white"
+                    app:floatingLabel="highlight"
+                    app:iconPadding="10dp" />
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_exam_startTime"
                     android:layout_width="match_parent"

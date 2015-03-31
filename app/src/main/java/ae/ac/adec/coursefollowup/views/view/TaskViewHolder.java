@@ -1,6 +1,8 @@
 package ae.ac.adec.coursefollowup.views.view;
 
+import android.media.Image;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import ae.ac.adec.coursefollowup.R;
@@ -9,10 +11,9 @@ import ae.ac.adec.coursefollowup.views.event.IClickCardView;
 /**
  * Created by MyLabtop on 3/24/2015.
  */
-public class TaskViewHolder extends BaseRecyclerViewHolder implements View.OnClickListener
-{
+public class TaskViewHolder extends BaseRecyclerViewHolder implements View.OnClickListener {
 
-    public View colorTaskRow1,colorTaskRow2;
+    public ImageView img_task_color;
     public TextView txtTaskTitle;
     public TextView txtTaskDueDate;
     public TextView txtTaskSubject;
@@ -20,11 +21,10 @@ public class TaskViewHolder extends BaseRecyclerViewHolder implements View.OnCli
 
     public IClickCardView mListener;
 
-    public TaskViewHolder(View itemLayoutView,IClickCardView listener) {
+    public TaskViewHolder(View itemLayoutView, IClickCardView listener) {
         super(itemLayoutView);
-        mListener=listener;
-        colorTaskRow1 = (View) itemLayoutView.findViewById(R.id.colorTaskrow1);
-        colorTaskRow2 = (View) itemLayoutView.findViewById(R.id.colorTaskrow2);
+        mListener = listener;
+        img_task_color = (ImageView) itemLayoutView.findViewById(R.id.img_task_color);
         txtTaskTitle = (TextView) itemLayoutView.findViewById(R.id.txtTaskTitle);
         txtTaskDueDate = (TextView) itemLayoutView.findViewById(R.id.txtTaskDueDate);
         txtTaskSubject = (TextView) itemLayoutView.findViewById(R.id.txtTaskSubject);
@@ -34,10 +34,9 @@ public class TaskViewHolder extends BaseRecyclerViewHolder implements View.OnCli
     }
 
 
-
     @Override
     public void onClick(View v) {
-        mListener.onClick(v,getID());
+        mListener.onClick(v, getID());
     }
 
 

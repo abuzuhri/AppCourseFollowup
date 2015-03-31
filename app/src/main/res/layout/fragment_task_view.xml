@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <LinearLayout
 
-        android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@android:color/white">
 
         <LinearLayout
@@ -14,16 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorPrimary"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingBottom="16dp"
-            android:paddingLeft="45dp"
+            android:paddingLeft="72dp"
             android:paddingRight="16dp"
             android:elevation="5dp"
             android:paddingTop="16dp">
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/txtTaskSubject"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/task_subject_hint"
                 android:textCursorDrawable="@drawable/text_cursor"
@@ -34,27 +36,15 @@
                 app:primaryColor="@color/colorAccent"
                 app:singleLineEllipsis="true" />
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/txtTaskType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/task_type_hint"
-                android:textCursorDrawable="@drawable/text_cursor"
-                android:textSize="30sp"
-                app:baseColor="@android:color/white"
-                app:floatingLabel="highlight"
-                app:maxCharacters="20"
-                app:primaryColor="@color/colorAccent"
-                app:singleLineEllipsis="true" />
 
         </LinearLayout>
-        <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
+
+        <include
+            android:id="@+id/shadow_main_activity"
+            layout="@layout/toolbar_shadow" />
 
 
-
-
-        <ScrollView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbarStyle="outsideInset">
@@ -71,13 +61,19 @@
                 android:paddingTop="@dimen/activity_vertical_margin">
 
 
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/txtTaskType"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/task_type_hint"
+                    app:floatingLabel="highlight" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/txtTaskName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/task_name"
-                    app:floatingLabel="highlight"/>
+                    app:floatingLabel="highlight" />
 
                 <View
                     android:id="@+id/viewDivider1"
@@ -86,8 +82,8 @@
                     android:background="#878787"
                     android:layout_below="@+id/txtTaskName"
                     android:layout_alignLeft="@+id/titleTextView"
-                    android:layout_alignStart="@+id/titleTextView"
-                    />
+                    android:layout_alignStart="@+id/titleTextView" />
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/txtTaskDueDate"
                     android:layout_width="match_parent"
@@ -105,18 +101,19 @@
                     android:layout_below="@+id/txtTaskDueDate"
                     android:layout_alignLeft="@+id/titleTextView"
                     android:layout_alignStart="@+id/titleTextView" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0% complete"
                     android:id="@+id/txtTaskProgress"
-                    android:layout_gravity="left|center_horizontal"
-                    android:paddingTop="10dp"
-                    android:paddingLeft="25dp"
                     android:gravity="left" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="0"
                     android:id="@+id/seekBar" />
 
                 <View
@@ -126,24 +123,21 @@
                     android:background="#878787"
                     android:layout_below="@+id/txtTaskName"
                     android:layout_alignLeft="@+id/titleTextView"
-                    android:layout_alignStart="@+id/titleTextView"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/titleTextView" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/txtTaskDetail"
-                    android:layout_gravity="left|center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/task_detail_hint"
-                    android:paddingTop="7dp"
-                    android:paddingLeft="10dp"
-                    android:gravity="left" />
+                    app:iconLeft="@drawable/ic_today_white"
+                    app:floatingLabel="highlight"
+                    app:iconPadding="10dp" />
 
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

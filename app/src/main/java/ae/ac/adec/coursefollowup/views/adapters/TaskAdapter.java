@@ -65,8 +65,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder>  {
 
         viewHolder.txtTaskSubject.setText(task.Course.Name);
         viewHolder.txtTaskType.setText(ConstantVariable.TaskType.fromInteger(task.TaskType));
-        viewHolder.colorTaskRow1.setBackgroundColor(Color.parseColor(task.Course.ColorCode));
-        viewHolder.colorTaskRow2.setBackgroundColor(Color.parseColor(task.Course.ColorCode));
+        viewHolder.img_task_color.setBackgroundColor(Color.parseColor(task.Course.ColorCode));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

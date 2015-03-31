@@ -2,6 +2,7 @@ package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,7 +48,7 @@ public class CustomLVAdapter_Courses extends BaseAdapter {
         ImageView img_color = (ImageView) view.findViewById(R.id.img_custom_course_row);
 
         tv.setText(((Course) dataset.get(position)).Name);
-        //img_color.setBackgroundColor(Color.parseColor(courses.get(position).ColorCode));
+        img_color.setBackgroundColor(Color.parseColor(dataset.get(position).ColorCode));
 
         return view;
     }

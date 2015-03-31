@@ -35,8 +35,8 @@ public class DayTimeFragmentView extends BaseFragment {
     MaterialEditText startTime = null;
     MaterialEditText endTime = null;
     MaterialEditText daysOfWeek = null;
+    MaterialEditText oneDayDate = null;
     CheckBox isRepeat = null;
-    Course currentCourse;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,10 +117,10 @@ public class DayTimeFragmentView extends BaseFragment {
         if (ID != null && ID != 0) {
             CourseTimeDay ctd = CourseTimeDay.load(CourseTimeDay.class, ID);
 
-            startTime.setText(ConstantVariable.getDateString(ctd.Start_time));
+            startTime.setText(ConstantVariable.getTimeString(ctd.Start_time));
             startTime.setEnabled(false);
 
-            endTime.setText(ConstantVariable.getDateString(ctd.End_time));
+            endTime.setText(ConstantVariable.getTimeString(ctd.End_time));
             endTime.setEnabled(false);
 
             daysOfWeek.setText("21");
@@ -144,7 +144,13 @@ public class DayTimeFragmentView extends BaseFragment {
         SetDateControl(startTime);
         endTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_endTime1);
         SetDateControl(endTime);
+        oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
+        SetDateControl(oneDayDate);
 
+        if(!isRepeat.isChecked())
+            oneDayDate.setVisibility(View.VISIBLE);
+        else
+            oneDayDate.setVisibility(View.GONE);
 
         fillDate();
 

@@ -41,6 +41,7 @@
     <string name="dt_add_successfully">Successfully add Time</string>
     <string name="dt_start_time_hint">Start Time</string>
     <string name="dt_end_time_hint">End Time</string>
+    <string name="dt_oneDate_hint">One Time Date</string>
     <string name="dt_daysOfWeek_hint">Days of week</string>
     <string name="dt_course_hint">Course name</string>
     <string name="dt_isRepeat">Is Repeat</string>
@@ -73,13 +74,14 @@
     <string name="exam_add_subtitle">Add Exam</string>
     <string name="exam_edit_subtitle">Edit Exam</string>
     <string name="exam_add_successfully">Successfully add Exam</string>
-    <string name="exam_course_name">Course Name</string>
-    <string name="exam_start_date_hint">Start Date Time</string>
+    <string name="exam_course_name">Select Course</string>
+    <string name="exam_start_date_hint">Start Time</string>
+    <string name="exam_date_hint">Exam Date</string>
     <string name="exam_isResit">Is Resit</string>
     <string name="exam_seat_hint">seat</string>
     <string name="exam_room_hint">Room</string>
     <string name="exam_duration">Duration</string>
-    <string name="exam_end_date_hint">End Date Time</string>
+    <string name="exam_end_date_hint">End Time</string>
 
     <!-- Task  -->
     <string name="task_add_subtitle">New Task</string>
@@ -111,6 +113,7 @@
     <!-- BusinessRoleExcption  -->
     <string name="BR_GENERAL_001">Error in deleting</string>
     <string name="BR_GENERAL_002">You must be in the same course to edit times, Only colored times can be editted</string>
+    <string name="BR_GENERAL_003">You must firstly select exam date</string>
     <!-- Holiday  -->
     <string name="BR_HLD_001">Start date can\'t be less than end date</string>
     <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
@@ -170,6 +173,7 @@
     <string name="login_title">LOGIN</string>
     <string name="login_username">Username</string>
     <string name="login_pass">Password</string>
+    <string name="click_to_show_times" >Click to show times</string>
 
 
 </resources>

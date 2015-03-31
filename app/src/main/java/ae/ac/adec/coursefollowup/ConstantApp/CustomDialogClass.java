@@ -27,6 +27,7 @@ import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.fragments.HolidayFragmentAddEdit;
 import ae.ac.adec.coursefollowup.services.AppAction;
+import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Times;
 
 /**
  * Created by JMA on 3/23/2015.
@@ -37,44 +38,62 @@ public class CustomDialogClass<T> extends DialogFragment {
     Context activity;
     String fragmentName;
     long course_id;
-    Boolean isMultiple;
+    Boolean isMultiple, isDays = false;
     AdapterView.OnItemClickListener listener;
+    DialogInterface.OnClickListener clickListener;
+    public ListView lv;
 
-    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter,Boolean isMultiple,long course_id, AdapterView.OnItemClickListener listener) {
+    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter, Boolean isMultiple, long course_id, AdapterView.OnItemClickListener listener) {
         this.title = title;
         this.adapter = adapter;
         this.activity = activity;
         this.fragmentName = fragmentName;
-        this.listener=listener;
-        this.isMultiple=isMultiple;
-        this.course_id=course_id;
+        this.listener = listener;
+        this.isMultiple = isMultiple;
+        this.course_id = course_id;
+    }
+
+    public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter, Boolean isMultiple,
+                             long course_id, Boolean isDays) {
+        this.title = title;
+        this.adapter = adapter;
+        this.activity = activity;
+        this.fragmentName = fragmentName;
+        this.isMultiple = isMultiple;
+        this.course_id = course_id;
+        this.isDays = isDays;
+    }
+    public void setClickListener(DialogInterface.OnClickListener clickListener){
+        this.clickListener=clickListener;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View v = getActivity().getLayoutInflater().inflate(R.layout.custom_courses_dialoge, null);
 
         TextView tv_title = (TextView) v.findViewById(R.id.tv_customDialog_title);
-        ListView lv = (ListView) v.findViewById(R.id.lv_customDialog);
-        if(isMultiple)
+        lv = (ListView) v.findViewById(R.id.lv_customDialog);
+        if (isMultiple)
             lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         tv_title.setText(title);
         populateListView(lv);
         lv.setOnItemClickListener(listener);
 
-        if(fragmentName!="")
-        builder.setView(v).setPositiveButton("New", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                AppAction.OpenActivityWithFRAGMENT(getActivity(), OneFragmentActivity.class, fragmentName,course_id);
-            }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
+        if (isDays)
+            builder.setView(v).setPositiveButton("Ok", clickListener);
+        else if (fragmentName != "")
+            builder.setView(v).setPositiveButton("New", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    AppAction.OpenActivityWithFRAGMENT(getActivity(), OneFragmentActivity.class, fragmentName, course_id);
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User cancelled the dialog
 
-            }
-        });
+                }
+            });
         else
             builder.setView(v).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
