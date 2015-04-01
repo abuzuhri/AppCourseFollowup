@@ -190,6 +190,9 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         colorCode = (MaterialEditText) rootView.findViewById(R.id.tv_course_colorCode);
         times = (MaterialEditText) rootView.findViewById(R.id.tv_course_times);
 
+        if (ID == null || ID == 0)
+            times.setVisibility(View.GONE);
+
         semester.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -216,7 +219,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     final CustomLVAdapter_Times adapter;
-                    AppLog.i("jma "+ID.longValue());
+                    AppLog.i("jma " + ID.longValue());
                     if (ID != null && ID != 0)
                         adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
                     else
@@ -234,6 +237,8 @@ public class CourcesFragmentAddEdit extends BaseFragment {
                 v.clearFocus();
             }
         });
+
+
         fillDate();
 
         return rootView;
