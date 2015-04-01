@@ -21,20 +21,15 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
-import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
-import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
-import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
-import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Semesters;
 import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Times;
-import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Years;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
 /**
@@ -226,7 +221,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
                         adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
                     else
                         adapter = new CustomLVAdapter_Times(getActivity(), new Long(0), ConstantVariable.DayOfWeek.values());
-                    dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAddEdit.class.getName(), "Times",
+                    dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAdd.class.getName(), "Times",
                             adapter, false, ID, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -82,9 +82,9 @@ public class CourseDao extends BaseDao {
             throw new BusinessRoleError(R.string.BR_CRS_001);
 
         // BR_CRS_012
-        cCount = getConflictCourses(course, ID);
-        if (cCount > 0)
-            throw new BusinessRoleError(R.string.BR_CRS_012);
+//        cCount = getConflictCourses(course, ID);
+//        if (cCount > 0)
+//            throw new BusinessRoleError(R.string.BR_CRS_012);
 
         // BR_CRS_003
         if ((startDate < semester.StartDate.getTime()) || (endDate > semester.EndDate.getTime()))
@@ -156,20 +156,20 @@ public class CourseDao extends BaseDao {
                 .execute();
     }
 
-    public long getConflictCourses(Course course, Long id) {
-        if (id != null && id != 0)
-            return new Select()
-                    .from(Course.class)
-                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=? AND _ID!=?",
-                            course.StartDate.getTime(), course.EndDate.getTime(),
-                            course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId(), id)
-                    .count();
-        else
-            return new Select()
-                    .from(Course.class)
-                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=?",
-                            course.StartDate.getTime(), course.EndDate.getTime(),
-                            course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId())
-                    .count();
-    }
+//    public long getConflictCourses(Course course, Long id) {
+//        if (id != null && id != 0)
+//            return new Select()
+//                    .from(Course.class)
+//                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=? AND _ID!=?",
+//                            course.StartDate.getTime(), course.EndDate.getTime(),
+//                            course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId(), id)
+//                    .count();
+//        else
+//            return new Select()
+//                    .from(Course.class)
+//                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=?",
+//                            course.StartDate.getTime(), course.EndDate.getTime(),
+//                            course.StartDate.getTime(), course.EndDate.getTime(), course.Semester.getId())
+//                    .count();
+//    }
 }

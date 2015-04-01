@@ -194,7 +194,6 @@ public class TaskFragmentAddEdit extends BaseFragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-
                     final BaseAdapter ad = new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
                     dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad,false,-1, new AdapterView.OnItemClickListener() {
 

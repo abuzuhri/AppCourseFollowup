@@ -11,6 +11,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
+import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
@@ -52,6 +53,11 @@ public class CourseTimeDayDao extends BaseDao {
 
         if (endTime < startTime)
             throw new BusinessRoleError(R.string.BR_HLD_001);
+
+        // BR_TIM_001
+        long cCount = getConflictTimes(std, ID);
+        if (cCount > 0)
+            throw new BusinessRoleError(R.string.BR_TIM_001);
 
         long result = std.save();
         AppLog.i("Result: row " + result + " added, result id >" + result);
@@ -104,11 +110,46 @@ public class CourseTimeDayDao extends BaseDao {
                 .orderBy("Start_time ASC")
                 .execute();
     }
+
     public List<CourseTimeDay> getTimesByCourse(Course course) {
         return new Select()
                 .from(CourseTimeDay.class)
                 .where("Course=?", course.getId())
                 .orderBy("Start_time ASC")
                 .execute();
+    }
+
+    public long getConflictTimes(CourseTimeDay ctd, Long id) {
+        if (id != null && id != 0) {
+            if (ctd.IsRepeat)
+                return new Select()
+                        .from(CourseTimeDay.class)
+                        .where("((Start_time<=? OR Start_time<=?)AND(End_time>=? OR End_time>=?)) AND DayOfWeek=? AND _ID!=?",
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(),
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(), ctd.DayOfWeek, id)
+                        .count();
+            else
+                return new Select()
+                        .from(CourseTimeDay.class)
+                        .where("((Start_time<=? OR Start_time<=?)AND(End_time>=? OR End_time>=?)) AND _ID!=?",
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(),
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(), id)
+                        .count();
+        } else {
+            if (ctd.IsRepeat)
+                return new Select()
+                        .from(CourseTimeDay.class)
+                        .where("((Start_time<=? OR Start_time<=?)AND(End_time>=? OR End_time>=?)) AND DayOfWeek=?",
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(),
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(), ctd.DayOfWeek)
+                        .count();
+            else
+                return new Select()
+                        .from(CourseTimeDay.class)
+                        .where("((Start_time<=? OR Start_time<=?)AND(End_time>=? OR End_time>=?))",
+                                ctd.Start_time.getTime(), ctd.End_time.getTime(),
+                                ctd.Start_time.getTime(), ctd.End_time.getTime())
+                        .count();
+        }
     }
 }

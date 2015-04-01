@@ -86,7 +86,7 @@ public class DayTimeFragmentView extends BaseFragment {
 
     public void Edit() {
         try {
-            AppAction.OpenActivityWithFRAGMENT(getActivity(), DayTimeFragmentAddEdit.class.getName(), ID);
+            AppAction.OpenActivityWithFRAGMENT(getActivity(), DayTimeFragmentEdit.class.getName(), ID);
             getActivity().finish();
         } catch (Exception ex) {
             Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
@@ -123,7 +123,7 @@ public class DayTimeFragmentView extends BaseFragment {
             endTime.setText(ConstantVariable.getTimeString(ctd.End_time));
             endTime.setEnabled(false);
 
-            daysOfWeek.setText("21");
+            daysOfWeek.setText(ConstantVariable.DayOfWeek.fromInteger(ctd.DayOfWeek));
             daysOfWeek.setEnabled(false);
 
             isRepeat.setChecked(ctd.IsRepeat);
@@ -147,7 +147,7 @@ public class DayTimeFragmentView extends BaseFragment {
         oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
         SetDateControl(oneDayDate);
 
-        if(!isRepeat.isChecked())
+        if (!isRepeat.isChecked())
             oneDayDate.setVisibility(View.VISIBLE);
         else
             oneDayDate.setVisibility(View.GONE);

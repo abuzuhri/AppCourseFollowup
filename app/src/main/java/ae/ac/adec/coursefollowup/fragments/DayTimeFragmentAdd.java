@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.Calendar;
@@ -41,7 +42,7 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 /**
  * Created by Tareq on 03/05/2015.
  */
-public class DayTimeFragmentAddEdit extends BaseFragment {
+public class DayTimeFragmentAdd extends BaseFragment {
 
     MaterialEditText startTime = null;
     MaterialEditText endTime = null;
@@ -50,6 +51,7 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
     CheckBox isRepeat = null;
     Course currentCourse;
     CustomDialogClass dialogClass;
+    List<Integer> ad_days_inner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,13 +97,14 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
             CourseTimeDayDao ctd = new CourseTimeDayDao();
             long crs_id = getActivity().getIntent().getExtras().getLong(AppAction.COURSE_ID);
             // AppLog.i("ID s== >>> " + ID);
-            currentCourse = Course.load(Course.class, crs_id);
+            if (ID == null || ID == 0)
+                currentCourse = Course.load(Course.class, crs_id);
 
             // BR BR_DT_001
             if (startTime.getText().toString().trim().equals("") || endTime.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_DT_001);
             // BR BR_DT_002
-            if (daysOfWeek.getText().toString().trim().equals(""))
+            if (daysOfWeek.getVisibility() == View.VISIBLE && daysOfWeek.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_DT_002);
             // BR BR_DT_003
             if (currentCourse == null)
@@ -109,11 +112,22 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
 
             long startDateMil = (long) startTime.getTag();
             long endDateMil = (long) endTime.getTag();
+            int d = 0;
+            if (daysOfWeek.getTag() != null)
+                d = (int) daysOfWeek.getTag();
 
-            if (ID != null && ID != 0)
-                ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), 1);
-            else
-                ctd.Add(currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), 1);
+            if (daysOfWeek.getVisibility() == View.VISIBLE) {
+                ActiveAndroid.beginTransaction();
+                try {
+                    for (int i = 0; i < ad_days_inner.size(); i++) {
+                        ctd.Add(currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), ad_days_inner.get(i));
+                    }
+                    ActiveAndroid.setTransactionSuccessful();
+                } finally {
+                    ActiveAndroid.endTransaction();
+                }
+
+            }
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.dt_add_successfully, Toast.LENGTH_LONG).show();
@@ -133,13 +147,18 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
     private void fillDate() {
         if (ID != null && ID != 0) {
             CourseTimeDay courseTimeDay = CourseTimeDay.load(CourseTimeDay.class, ID);
+
+            currentCourse = courseTimeDay.Course;
             startTime.setText(ConstantVariable.getTimeString(courseTimeDay.Start_time));
             startTime.setTag(courseTimeDay.Start_time.getTime());
             endTime.setText(ConstantVariable.getTimeString(courseTimeDay.End_time));
             endTime.setTag(courseTimeDay.End_time.getTime());
-            oneDayDate.setText(ConstantVariable.getDateString(courseTimeDay.Start_time));
-            oneDayDate.setTag(courseTimeDay.Start_time.getTime());
-            daysOfWeek.setText("11");
+
+            //oneDayDate.setText(ConstantVariable.getDateString(courseTimeDay.Start_time));
+
+            daysOfWeek.setText(ConstantVariable.DayOfWeek.fromInteger(courseTimeDay.DayOfWeek));
+            daysOfWeek.setTag(courseTimeDay.DayOfWeek);
+
             isRepeat.setChecked(courseTimeDay.IsRepeat);
         }
     }
@@ -173,7 +192,7 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String res = "";
-                            List<Integer> ad_days_inner = ad.days;
+                            ad_days_inner = ad.days;
                             for (int i = 0; i < ad_days_inner.size(); i++) {
                                 res += ConstantVariable.DayOfWeek.fromInteger(ad_days_inner.get(i));
                                 if (i != ad_days_inner.size() - 1)
@@ -190,18 +209,34 @@ public class DayTimeFragmentAddEdit extends BaseFragment {
         });
 
         if (isRepeat.isChecked()) {
+            daysOfWeek.setVisibility(View.VISIBLE);
             oneDayDate.setVisibility(View.GONE);
             SetTimeControl(startTime);
             SetTimeControl(endTime);
+        } else {
+            daysOfWeek.setVisibility(View.GONE);
+            oneDayDate.setText("");
+            oneDayDate.setTag(null);
+            oneDayDate.setVisibility(View.VISIBLE);
+            SetTimeControl(startTime, oneDayDate);
+            SetTimeControl(endTime, oneDayDate);
         }
         isRepeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
+                    daysOfWeek.setVisibility(View.GONE);
+                    oneDayDate.setText("");
+                    oneDayDate.setTag(null);
+                    startTime.setText("");
+                    startTime.setTag(null);
+                    endTime.setText("");
+                    endTime.setTag(null);
                     oneDayDate.setVisibility(View.VISIBLE);
                     SetTimeControl(startTime, oneDayDate);
                     SetTimeControl(endTime, oneDayDate);
                 } else {
+                    daysOfWeek.setVisibility(View.VISIBLE);
                     oneDayDate.setVisibility(View.GONE);
                     SetTimeControl(startTime);
                     SetTimeControl(endTime);

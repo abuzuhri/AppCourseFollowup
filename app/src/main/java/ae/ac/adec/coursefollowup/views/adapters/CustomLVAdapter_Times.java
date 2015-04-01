@@ -10,23 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
-import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
-import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
-import ae.ac.adec.coursefollowup.db.models.Semester;
-import ae.ac.adec.coursefollowup.fragments.CourcesFragmentAddEdit;
-import ae.ac.adec.coursefollowup.fragments.DayTimeFragmentAddEdit;
 import ae.ac.adec.coursefollowup.fragments.DayTimeFragmentView;
-import ae.ac.adec.coursefollowup.fragments.ExamFragmentAddEdit;
-import ae.ac.adec.coursefollowup.fragments.ExamFragmentView;
 import ae.ac.adec.coursefollowup.services.AppAction;
-import ae.ac.adec.coursefollowup.services.BusinessRoleError;
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class CustomLVAdapter_Times extends BaseAdapter {
     Long course_id;

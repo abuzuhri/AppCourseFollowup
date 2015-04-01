@@ -39,6 +39,7 @@
     <string name="dt_add_subtitle">Add Time</string>
     <string name="dt_edit_subtitle">Edit Time</string>
     <string name="dt_add_successfully">Successfully add Time</string>
+    <string name="dt_edit_successfully">Successfully Edit Time</string>
     <string name="dt_start_time_hint">Start Time</string>
     <string name="dt_end_time_hint">End Time</string>
     <string name="dt_oneDate_hint">One Time Date</string>
@@ -176,6 +177,9 @@
     <string name="BR_DT_001">Start and End time can\'t be empty</string>
     <string name="BR_DT_002">Day of Week can\'t be empty</string>
     <string name="BR_DT_003">Time must be to a course</string>
+    <!-- Times -->
+    <string name="BR_TIM_001">This Time conflicts with other times</string>
+
 <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>
