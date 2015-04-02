@@ -3,6 +3,7 @@ package ae.ac.adec.coursefollowup.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
+import ae.ac.adec.coursefollowup.ConstantApp.ColorPicker;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
@@ -45,8 +47,11 @@ public class CourcesFragmentAddEdit extends BaseFragment {
     MaterialEditText building = null;
     MaterialEditText room = null;
     MaterialEditText teacher = null;
-    MaterialEditText colorCode = null;
+    String colorCode = null;
     MaterialEditText times = null;
+    Display display;
+
+    ColorPicker picker = null;
 
     CustomDialogClass dialogClass = null;
     private Semester current_semester;
@@ -59,6 +64,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(POSITION, 0);
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
+        display = getActivity().getWindowManager().getDefaultDisplay();
 
     }
 
@@ -74,7 +80,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_save, menu);
+        inflater.inflate(R.menu.menu_save_color, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -85,10 +91,23 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             case R.id.ic_menu_save_menu:
                 AddEdit();
                 break;
+            case R.id.ic_menu_color_menu:
+                openColorPicker();
+                break;
             default:
                 break;
         }
         return true;
+    }
+
+    private void openColorPicker() {
+        picker = new ColorPicker(getActivity(), display.getWidth(), display.getHeight(), new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                colorCode  = picker.dialog.colors[position];
+                picker.dialog.dismiss();
+            }
+        });
     }
 
     public void AddEdit() {
@@ -110,7 +129,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             if (current_semester == null)
                 throw new BusinessRoleError(R.string.BR_CRS_010);
             // BR BR_CRS_011
-            if (colorCode.getText().toString().trim().equals(""))
+            if (colorCode == null || colorCode.toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_CRS_011);
 
 
@@ -119,11 +138,11 @@ public class CourcesFragmentAddEdit extends BaseFragment {
 
             if (ID != null && ID != 0) {
                 courseDao.Edit(ID, courseName.getText().toString().trim(), code.getText().toString().trim(), room.getText().toString().trim(),
-                        building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.getText().toString().trim(), current_semester
+                        building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.toString().trim(), current_semester
                         , startDateMil, endDateMil, true);
             } else {
                 courseDao.Add(courseName.getText().toString().trim(), code.getText().toString().trim(), room.getText().toString().trim(),
-                        building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.getText().toString().trim(), current_semester
+                        building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.toString().trim(), current_semester
                         , startDateMil, endDateMil, true);
             }
             getActivity().finish();
@@ -154,7 +173,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             room.setText(course.Room);
             building.setText(course.Building);
             teacher.setText(course.Teacher);
-            colorCode.setText(course.ColorCode);
+            colorCode = course.ColorCode;
             times.setText(R.string.click_to_show_times);
         } else {
             List<Year> years = new YearDao().getCurrentYear(System.currentTimeMillis());
@@ -187,7 +206,9 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         building = (MaterialEditText) rootView.findViewById(R.id.tv_course_building);
         room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
         teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
-        colorCode = (MaterialEditText) rootView.findViewById(R.id.tv_course_colorCode);
+
+        colorCode = getResources().getStringArray(R.array.colors)[0];
+
         times = (MaterialEditText) rootView.findViewById(R.id.tv_course_times);
 
         if (ID == null || ID == 0)

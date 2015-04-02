@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import com.melnykov.fab.FloatingActionButton;
 
 import java.util.List;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ColorPicker;
+import ae.ac.adec.coursefollowup.ConstantApp.CustomColorDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
@@ -37,7 +40,7 @@ public class CoursesFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        position= getArguments().getInt(POSITION,0);
+        position = getArguments().getInt(POSITION, 0);
     }
 
     @Override
@@ -50,10 +53,11 @@ public class CoursesFragment extends BaseFragment {
             }
         }, 500);
     }
-    private void FillDate(){
-        CourseDao courseDao =new CourseDao();
+
+    private void FillDate() {
+        CourseDao courseDao = new CourseDao();
         List<Course> courses = courseDao.getAll(position);
-        mAdapter = new CourseAdapter(courses,getActivity(),new IClickCardView() {
+        mAdapter = new CourseAdapter(courses, getActivity(), new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), CourcesFragmentView.class.getName(), ID);
@@ -61,6 +65,7 @@ public class CoursesFragment extends BaseFragment {
         });
         mRecyclerView.setAdapter(mAdapter);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -78,7 +83,7 @@ public class CoursesFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, CourcesFragmentAddEdit.class.getName(),-1);
+               AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, CourcesFragmentAddEdit.class.getName(),-1);
             }
         });
 

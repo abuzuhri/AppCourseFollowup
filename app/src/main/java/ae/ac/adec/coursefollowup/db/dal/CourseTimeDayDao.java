@@ -120,6 +120,9 @@ public class CourseTimeDayDao extends BaseDao {
     }
 
     public long getConflictTimes(CourseTimeDay ctd, Long id) {
+
+        //ToDo get conflict times in non repeated times
+
         if (id != null && id != 0) {
             if (ctd.IsRepeat)
                 return new Select()

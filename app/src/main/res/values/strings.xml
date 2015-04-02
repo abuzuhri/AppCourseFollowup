@@ -187,5 +187,16 @@
     <string name="login_pass">Password</string>
     <string name="click_to_show_times" >Click to show times</string>
 
-
+<string-array name="colors">
+    <item>#f5f522</item>
+    <item>#FF4081</item>
+    <item>#1687ca</item>
+    <item>#b2b222</item>
+    <item>#81374a</item>
+    <item>#E64A19</item>
+    <item>#FBC02D</item>
+    <item>#4CAF50</item>
+    <item>#222222</item>
+    <item>#D32F2F</item>
+</string-array>
 </resources>

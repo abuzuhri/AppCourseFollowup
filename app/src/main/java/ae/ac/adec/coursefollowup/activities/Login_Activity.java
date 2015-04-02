@@ -31,6 +31,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
+import ae.ac.adec.coursefollowup.ConstantApp.CustomColorDialogClass;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;

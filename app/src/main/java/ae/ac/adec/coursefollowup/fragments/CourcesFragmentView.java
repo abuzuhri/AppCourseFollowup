@@ -67,7 +67,7 @@ public class CourcesFragmentView extends BaseFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_edit_delete_color, menu);
+        inflater.inflate(R.menu.menu_edit_delete, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -85,9 +85,6 @@ public class CourcesFragmentView extends BaseFragment {
                 return true;
             case R.id.ic_menu_edit:
                 Edit();
-                return true;
-            case R.id.ic_menu_color:
-                //open color chooser
                 return true;
             default:
                 break;
