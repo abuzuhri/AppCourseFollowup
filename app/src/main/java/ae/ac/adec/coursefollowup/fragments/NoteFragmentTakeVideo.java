@@ -19,7 +19,9 @@ import android.view.ViewGroup;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
@@ -37,7 +39,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
  * Created by MyLabtop on 3/28/2015.
  */
 public class NoteFragmentTakeVideo extends BaseFragment {
-    String videoPath = "";
+    String outputFile = null;
     boolean successRecord = false;
     private static final int VIDEO_CAPTURE = 101;
     private Uri fileUri;
@@ -50,10 +52,19 @@ public class NoteFragmentTakeVideo extends BaseFragment {
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
     }
-    public void startRecording(View view)
+    public void startRecording()
     {
-        videoPath = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/myvideo.mp4";
-        File mediaFile = new File(videoPath);
+
+        String s_directory = ConstantVariable.NOTES_VIDEO_DIRECTORY;
+        String s_time= ConstantVariable.getTimeString(Calendar.getInstance().getTime()).toString();
+        String s_date= ConstantVariable.getDateString(Calendar.getInstance().getTime()).toString();
+        String s_courseName= OneFragmentActivity.getCourseName();
+
+
+         outputFile = s_directory + "/VID_" +s_courseName+"_"+ s_date+ "_" + s_time +".mp4";
+
+
+        File mediaFile = new File(outputFile);
 
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         fileUri = Uri.fromFile(mediaFile);
@@ -66,7 +77,7 @@ public class NoteFragmentTakeVideo extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         setSubTitle("Capture Video");
-        startRecording(null);
+        startRecording();
     }
 
     @Override
@@ -92,7 +103,7 @@ public class NoteFragmentTakeVideo extends BaseFragment {
         //   OneFragmentActivity.setFilePath(outputFile);
 
         if(successRecord) {
-            OneFragmentActivity.setFilePath(videoPath);
+            OneFragmentActivity.setFilePath(outputFile);
             OneFragmentActivity.setNoteType("I have a Video note");
         }else{
             OneFragmentActivity.setFilePath(null);

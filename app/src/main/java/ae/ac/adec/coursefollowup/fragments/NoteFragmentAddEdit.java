@@ -3,6 +3,7 @@ package ae.ac.adec.coursefollowup.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
@@ -60,6 +62,28 @@ public class NoteFragmentAddEdit  extends BaseFragment {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(POSITION, 0);
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
+        hideSoftKeyboard();
+        File NotesDirectory = new File( ConstantVariable.NOTES_DIRECTORY);
+        File voiceDirectory = new File( ConstantVariable.NOTES_VOICE_DIRECTORY);
+        File imageDirectory = new File( ConstantVariable.NOTES_IMAGE_DIRECTORY);
+        File textDirectory  = new File( ConstantVariable.NOTES_TEXT_DIRECTORY);
+        File videoDirectory = new File( ConstantVariable.NOTES_VIDEO_DIRECTORY);
+
+        if (!NotesDirectory.exists())
+            NotesDirectory.mkdirs();
+
+        if (!voiceDirectory.exists())
+            voiceDirectory.mkdirs();
+
+        if (!imageDirectory.exists())
+            imageDirectory.mkdirs();
+
+        if (!textDirectory.exists())
+            textDirectory.mkdirs();
+
+        if (!videoDirectory.exists())
+            videoDirectory.mkdirs();
+
 
     }
 
@@ -77,6 +101,7 @@ public class NoteFragmentAddEdit  extends BaseFragment {
         super.onResume();
         txtNoteFilePath.setText(OneFragmentActivity.getNoteType());
         filePath = OneFragmentActivity.getFilePath();
+
     }
 
     @Override
@@ -206,23 +231,42 @@ public class NoteFragmentAddEdit  extends BaseFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
 
-                    if(txtNoteType.getText().toString()!=null){
-                        if(txtNoteType.getText().toString().equals("Voice")){
-                           AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentRecordSound.class.getName(),-1);
-                        }
-                        else if(txtNoteType.getText().toString().equals("Image")){
-                            AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentTakeImage.class.getName(),-1);
+                    // create a File object for the parent directory
 
-                        }
-                        else if(txtNoteType.getText().toString().equals("Video")){
-                            AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentTakeVideo.class.getName(),-1);
 
-                        }
 
+
+               //     File outputFile = new File(wallpaperDirectory, filename);
+
+                //    FileOutputStream fos = new FileOutputStream(outputFile);
+
+                    if(txtNoteSubject.getText().toString()!=null && !txtNoteSubject.getText().toString().equals("")) {
+
+                        OneFragmentActivity.setCourseName(txtNoteSubject.getText().toString());
+
+                        if (txtNoteType.getText().toString() != null && !txtNoteType.getText().toString().equals("")) {
+                            if (txtNoteType.getText().toString().equals("Voice")) {
+                                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentRecordSound.class.getName(), -1);
+                            } else if (txtNoteType.getText().toString().equals("Image")) {
+                                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentTakeImage.class.getName(), -1);
+                            } else if (txtNoteType.getText().toString().equals("Video")) {
+                                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentTakeVideo.class.getName(), -1);
+                            } else if (txtNoteType.getText().toString().equals("Text")) {
+                                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentText.class.getName(), -1);
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), "Select Note Type First", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+
+                        Toast.makeText(getActivity(), "Select Subject First", Toast.LENGTH_LONG).show();
                     }
 
                     v.clearFocus();
                 }
+
+
 
             }
         });
@@ -230,53 +274,5 @@ public class NoteFragmentAddEdit  extends BaseFragment {
 
         return rootView;
     }
-
-
-/*
-        txtNoteType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-
-                    final BaseAdapter ad = new ArrayAdapter<ConstantVariable.NoteType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.NoteType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad,false,-1, new AdapterView.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            txtNoteType.setText(ad.getItem(position).toString());
-                            selectedType = position + 1;
-                            dialogClass.dismiss();
-                        }
-                    });
-                    dialogClass.show(getActivity().getFragmentManager(), "Iam here!");
-                }
-                v.clearFocus();
-            }
-        });
-
-        txtNoteFilePath.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-
-                    if(txtNoteType.getText()!=null){
-                        if(txtNoteType.getText().toString()=="Voice"){
-                            AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentRecordSound.class.getName(),-1);
-
-                        }
-                    }
-
-
-                }
-                v.clearFocus();
-            }
-        });
-
-
-        fillDate();
-*/
-
-
-
 
 }

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -58,8 +59,14 @@ public class NoteFragmentRecordSound extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
             setSubTitle("Sound Record");
+        String s_directory = ConstantVariable.NOTES_VOICE_DIRECTORY;
+        String s_time= ConstantVariable.getTimeString(Calendar.getInstance().getTime()).toString();
+        String s_date= ConstantVariable.getDateString(Calendar.getInstance().getTime()).toString();
+        String s_courseName= OneFragmentActivity.getCourseName();
 
-        outputFile =  Environment.getExternalStorageDirectory().getAbsolutePath()+"/myrecording.3gp";
+        outputFile = s_directory + "/VIC_" +s_courseName+"_"+ s_date+ "_" + s_time +".3gp";
+
+
         myAudioRecorder = new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -151,8 +158,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
                 myAudioRecorder  = null;
                 stopRecord.setEnabled(false);
                 playRecord.setEnabled(true);
-                Toast.makeText(getActivity(), "Audio recorded successfully",
-                        Toast.LENGTH_LONG).show();
+
 
                 OneFragmentActivity.setFilePath(outputFile);
                 OneFragmentActivity.setNoteType("I have a Note Voice!");

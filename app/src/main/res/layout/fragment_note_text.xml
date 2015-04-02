@@ -3,20 +3,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
+
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button1" />
+            android:id="@+id/editText"
+            android:textColor="#ff0b8700"
+            android:hint="Subject : " />
+
         </LinearLayout>
     <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
 
@@ -31,14 +31,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/compoundView">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/editText" />
+
 
 
     </LinearLayout>

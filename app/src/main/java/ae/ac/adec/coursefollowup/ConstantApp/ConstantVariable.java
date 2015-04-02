@@ -13,7 +13,12 @@ import java.util.TimeZone;
  */
 public class ConstantVariable {
 
-
+    public static String MAIN_APP_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup" ;
+    public static String NOTES_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes" ;
+    public static String NOTES_TEXT_DIRECTORY  = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Text" ;
+    public static String NOTES_IMAGE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Image" ;
+    public static String NOTES_VOICE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Voice" ;
+    public static String NOTES_VIDEO_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Video" ;
 
     public enum TaskType {
         Assignment(1),
@@ -146,6 +151,22 @@ public class ConstantVariable {
         private NoteType(int id) {
             this.id = id;
         }
+
+        public static String fromInteger(int x) {
+            switch (x) {
+                case 1:
+                    return "Voice";
+                case 2:
+                    return "Text";
+                case 3:
+                    return "Video";
+                case 4:
+                    return "Image";
+
+            }
+            return null;
+        }
+
     }
 
     public enum CloudStatus {

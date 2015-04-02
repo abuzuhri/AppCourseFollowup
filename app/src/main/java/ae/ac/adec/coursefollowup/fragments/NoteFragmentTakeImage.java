@@ -20,7 +20,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Calendar;
+import java.util.Date;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
@@ -40,7 +43,7 @@ public class NoteFragmentTakeImage extends BaseFragment {
     boolean successRecord = false;
 
     ImageView imgFavorite;
-    String imagePath = "";
+      String outputFile = null;
     private Uri fileUri;
     private static final int IMAGE_CAPTURE = 100;
     @Override
@@ -84,7 +87,7 @@ public class NoteFragmentTakeImage extends BaseFragment {
 
 
         if(successRecord) {
-            OneFragmentActivity.setFilePath(imagePath);
+            OneFragmentActivity.setFilePath(outputFile);
             OneFragmentActivity.setNoteType("I have an image note");
         }else{
             OneFragmentActivity.setFilePath(null);
@@ -134,7 +137,15 @@ public class NoteFragmentTakeImage extends BaseFragment {
 
     public void open(){
 
-        File mediaFile = new File( Environment.getExternalStorageDirectory().getAbsolutePath()+ "/cap.jpg");
+        String s_directory = ConstantVariable.NOTES_IMAGE_DIRECTORY;
+        String s_time= ConstantVariable.getTimeString(Calendar.getInstance().getTime()).toString();
+        String s_date= ConstantVariable.getDateString(Calendar.getInstance().getTime()).toString();
+        String s_courseName= OneFragmentActivity.getCourseName();
+
+
+        outputFile = s_directory + "/IMG_" +s_courseName+"_"+ s_date+ "_" + s_time +".jpg";
+
+        File mediaFile = new File( outputFile);
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
          fileUri = Uri.fromFile(mediaFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
