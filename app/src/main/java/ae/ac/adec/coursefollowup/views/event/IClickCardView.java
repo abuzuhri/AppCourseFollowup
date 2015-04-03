@@ -7,4 +7,5 @@ import android.view.View;
  */
 public interface IClickCardView {
     public void onClick(View v, long ID);
+
 }

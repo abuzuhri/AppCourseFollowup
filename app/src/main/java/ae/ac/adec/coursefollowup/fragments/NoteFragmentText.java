@@ -51,12 +51,15 @@ public class NoteFragmentText extends BaseFragment {
     CustomEditText customEditText = null;
     String outputFile  = null;
     boolean success = false;
+    String tempS =null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
+     //   Toast.makeText(getActivity(),"onActivity",Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -64,6 +67,7 @@ public class NoteFragmentText extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         setSubTitle("Text Note");
+
 
     }
 
@@ -82,7 +86,9 @@ public class NoteFragmentText extends BaseFragment {
 
 
         outputFile = s_directory+"/TXT_" +s_courseName+"_"+ s_date+ "_" + s_time +".txt";
-    //    File outputFilex = new File(outputFile);
+
+
+        //    File outputFilex = new File(outputFile);
 
         //    FileOutputStream fos = new FileOutputStream(outputFile);
 
@@ -131,6 +137,7 @@ public class NoteFragmentText extends BaseFragment {
         if(success) {
             OneFragmentActivity.setFilePath(outputFile);
             OneFragmentActivity.setNoteType("I have an Text note");
+            OneFragmentActivity.temp = customEditText.getText().toString();
         }else{
             OneFragmentActivity.setFilePath(null);
             OneFragmentActivity.setNoteType("Failed to create Text Note!");
@@ -158,6 +165,9 @@ public class NoteFragmentText extends BaseFragment {
         customEditText.setLines(30);
         customEditText.setGravity(Gravity.LEFT | Gravity.TOP);
         v.addView(customEditText);
+
+        if(OneFragmentActivity.temp!=null)
+            customEditText.setText(OneFragmentActivity.temp);
         return rootView;
     }
 

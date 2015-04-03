@@ -26,6 +26,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
     public List<Note> mDataset;
     private Context context;
     private IClickCardView mListener;
+    private int posList=-1;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public NoteAdapter(List<Note> myDataset,Context context,IClickCardView mListener) {
@@ -69,15 +70,25 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
 
         viewHolder.img_note_color.setBackgroundColor(Color.parseColor(note.Course.ColorCode));
 
+        setposList(position);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        AppLog.i("mDataset ==> " + mDataset.size());
-        return mDataset.size();
+    //    AppLog.i("mDataset ==> " + mDataset.size());
+       return mDataset.size();
+      //  return posList;
 
     }
 
 
+
+    private void setposList(int i){
+        posList = i;
+    }
+
+public int getPosition(){
+    return posList;
+}
 }

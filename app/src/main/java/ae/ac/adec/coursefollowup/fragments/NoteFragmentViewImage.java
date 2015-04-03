@@ -106,6 +106,7 @@ public class NoteFragmentViewImage extends BaseFragment {
     public void Delete(){
         try {
             NoteDao noteDao = new NoteDao();
+
             noteDao.delete(ID);
             if(imgFile!=null)
             if(imgFile.exists()){
@@ -128,13 +129,14 @@ public class NoteFragmentViewImage extends BaseFragment {
 
     private  void fillDate(){
         if(ID!=null && ID!=0){
+
             Note note= Note.load(Note.class, ID);
 
             txtNoteAddDate.setText(ConstantVariable.getDateString(note.DateAdded));
             txtNoteSubject.setText(note.Course.Name);
             txtNoteDetail.setText(note.Details);
 
-             imgFile = new  File(note.FilePath);
+            imgFile = new  File(note.FilePath);
             if(imgFile.exists()){
 
                 final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -165,11 +167,8 @@ public class NoteFragmentViewImage extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_note_image2, container, false);
         removeShadowForNewApi21(rootView);
 
-
-
-        //Semester Name
         txtNoteAddDate= (TextView) rootView.findViewById(R.id.txtNoteAddDate);
-        // Start Date
+
         txtNoteSubject= (TextView) rootView.findViewById(R.id.txtNoteSubject);
 
         txtNoteDetail = (TextView) rootView.findViewById(R.id.txtNoteDetail);

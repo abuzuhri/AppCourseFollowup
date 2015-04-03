@@ -35,7 +35,9 @@ import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
+import ae.ac.adec.coursefollowup.services.dailogs.AppDialog;
 import ae.ac.adec.coursefollowup.views.adapters.CustomLVAdapter_Courses;
+import ae.ac.adec.coursefollowup.views.event.IDialogClick;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
 /**
@@ -117,10 +119,33 @@ public class NoteFragmentAddEdit  extends BaseFragment {
             case R.id.ic_menu_save_menu:
                 AddEdit();
                 break;
+            case R.id.ic_menu_delete:
+                AppDialog.Delete(getActivity(), new IDialogClick() {
+                    @Override
+                    public void onConfirm() {
+                        Delete();
+                    }
+                });
+                return true;
             default:
                 break;
         }
         return true;
+    }
+
+    public void Delete(){
+
+
+            if(filePath!=null){
+                File f = new File(filePath);
+                if(f!=null)
+                    if(f.exists()){
+                        f.delete();
+                        OneFragmentActivity.setNoteType(null);
+                    }
+            }
+            getActivity().finish();
+
     }
 
     public void AddEdit(){
@@ -141,8 +166,13 @@ public class NoteFragmentAddEdit  extends BaseFragment {
 
     }
 
-
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        OneFragmentActivity.setNoteType(null);
+        OneFragmentActivity.setCourseName(null);
+        OneFragmentActivity.temp = null;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -230,15 +260,6 @@ public class NoteFragmentAddEdit  extends BaseFragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-
-                    // create a File object for the parent directory
-
-
-
-
-               //     File outputFile = new File(wallpaperDirectory, filename);
-
-                //    FileOutputStream fos = new FileOutputStream(outputFile);
 
                     if(txtNoteSubject.getText().toString()!=null && !txtNoteSubject.getText().toString().equals("")) {
 

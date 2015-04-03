@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
@@ -51,34 +53,41 @@ public class NoteFragment extends BaseFragment {
                 FillDate();
             }
         }, 500);
+
     }
 
     private void FillDate() {
         NoteDao noteDao = new NoteDao();
         final List<Note> noteList= noteDao.getAll(position);
+
+
         mAdapter = new NoteAdapter(noteList,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
 
-                if(noteList.get(((int)ID)-1).NoteType==1){//Voice
+                Note note= Note.load(Note.class, ID);
 
-                    //   AppAction.OpenActivityWithFRAGMENT(getActivity(), TaskFragmentView.class.getName(), ID);
+                if(note.NoteType==1){//Voice
 
-                }else if(noteList.get(((int)ID)-1).NoteType==2){//Text
+                       AppAction.OpenActivityWithFRAGMENT(getActivity(), NoteFragmentViewVoice.class.getName(), ID);
 
-                    //   AppAction.OpenActivityWithFRAGMENT(getActivity(), TaskFragmentView.class.getName(), ID);
+                }else if(note.NoteType==2){//Text
 
-                }else if(noteList.get(((int)ID)-1).NoteType==3){//Video
+                    AppAction.OpenActivityWithFRAGMENT(getActivity(), NoteFragmentViewText.class.getName(), ID);
 
-                    //   AppAction.OpenActivityWithFRAGMENT(getActivity(), TaskFragmentView.class.getName(), ID);
 
-                }else if(noteList.get(((int)ID)-1).NoteType==4){//Image
+                }else if(note.NoteType==3){//Video
 
-                      AppAction.OpenActivityWithFRAGMENT(getActivity(), NoteFragmentViewImage.class.getName(), ID);
+                    AppAction.OpenActivityWithFRAGMENT(getActivity(), NoteFragmentViewVideo.class.getName(), ID);
+
+                }else if(note.NoteType==4){//Image
+
+                    AppAction.OpenActivityWithFRAGMENT(getActivity(), NoteFragmentViewImage.class.getName(), ID);
 
                 }
-         //      Toast.makeText(getActivity(),"ID = "+ID+"   Pos = "+noteList.get(((int)ID)-1).NoteType+"",Toast.LENGTH_LONG).show();
+
               }
+
         });
         mRecyclerView.setAdapter(mAdapter);
 

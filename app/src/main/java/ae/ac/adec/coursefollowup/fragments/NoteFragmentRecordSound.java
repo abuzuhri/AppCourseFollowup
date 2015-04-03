@@ -1,11 +1,9 @@
 package ae.ac.adec.coursefollowup.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,17 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
-import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
-import ae.ac.adec.coursefollowup.db.dal.NoteDao;
-import ae.ac.adec.coursefollowup.db.models.Course;
-import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 
 /**
@@ -37,7 +30,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
     private String outputFile = null;
 
     private Button startRecord    = null;
-    private Button playRecord   = null;
+  //  private Button playRecord   = null;
     private Button stopRecord     = null;
 
 
@@ -100,8 +93,14 @@ public class NoteFragmentRecordSound extends BaseFragment {
     }
 
     public void AddEdit(){
+        try{
+            stopRecord.performClick();
+        }catch(Exception e){
+
+        }
         OneFragmentActivity.setFilePath(outputFile);
         OneFragmentActivity.setNoteType("I have a Note Voice!");
+
    getActivity().finish();
     }
 
@@ -118,7 +117,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_note_sound, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_note_voice, container, false);
         removeShadowForNewApi21(rootView);
 
 //"/AppCourseFollowup/Note" +
@@ -128,12 +127,12 @@ public class NoteFragmentRecordSound extends BaseFragment {
 
         stopRecord=(Button) rootView.findViewById(R.id.stopRecord);
 
-        playRecord=(Button) rootView.findViewById(R.id.playRecord);
+        //playRecord=(Button) rootView.findViewById(R.id.playRecord);
 
         stopRecord.setEnabled(false);
      //   play.setEnabled(false);
 
-
+/*
         playRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +148,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
 
             }
         });
-
+*/
         stopRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +156,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
                 myAudioRecorder.release();
                 myAudioRecorder  = null;
                 stopRecord.setEnabled(false);
-                playRecord.setEnabled(true);
+                //playRecord.setEnabled(true);
 
 
                 OneFragmentActivity.setFilePath(outputFile);

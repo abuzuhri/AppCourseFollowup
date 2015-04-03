@@ -25,6 +25,7 @@ public class OneFragmentActivity extends BaseActivity {
     static private String filePath = null;
     static private String noteType = null;
     static private String courseName = null;
+    static public String temp = null;
 
     public static String getCourseName() {
         return courseName;
