@@ -12,6 +12,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="calender_view">
+        <item name="android:textColor">@color/colorAccent_FAB</item>
+        <item name="android:textColorSecondary">@color/color_Blue_700</item>
+    </style>
+
+    <style name="calender_view_title">
+        <item name="android:textColor">@color/colorAccent_FAB</item>
+        <item name="android:textColorSecondary">@color/color_Blue_700</item>
+        <item name="android:textSize">26dp</item>
+    </style>
+
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>

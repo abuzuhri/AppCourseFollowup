@@ -11,6 +11,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.Login_Activity;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Task;
@@ -114,6 +115,13 @@ public class TaskDao extends BaseDao {
         return new Select()
                 .from(Task.class)
                 .where("Course=?", course.getId())
+                .execute();
+    }
+    public List<Task> getTasksOnDate(long startDate, long endDate) {
+        return new Select()
+                .from(Task.class)
+                .where("DueDate>=? AND DueDate<?", startDate, endDate)
+                .orderBy("DueDate ASC")
                 .execute();
     }
 }

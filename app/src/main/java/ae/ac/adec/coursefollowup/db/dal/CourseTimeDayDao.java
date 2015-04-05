@@ -13,6 +13,7 @@ import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Semester;
+import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
@@ -154,5 +155,21 @@ public class CourseTimeDayDao extends BaseDao {
                                 ctd.Start_time.getTime(), ctd.End_time.getTime())
                         .count();
         }
+    }
+    public List<CourseTimeDay> getCoursesOnDate(long startDate, long endDate, int dayOfWeek) {
+        return new Select()
+                .from(CourseTimeDay.class)
+                .where("(Start_time>=? AND Start_time<? AND IsRepeat=?)" +
+                        " OR (DayOfWeek=? AND IsRepeat=?)", startDate, endDate,false,dayOfWeek,true)
+                .orderBy("Start_time ASC")
+                .execute();
+    }
+    public List<CourseTimeDay> getCoursesOnMonth(long startDate, long endDate) {
+        return new Select()
+                .from(CourseTimeDay.class)
+                .where("(Start_time>=? AND Start_time<? AND IsRepeat=?)" +
+                        " OR (IsRepeat=?)", startDate, endDate,false,true)
+                .orderBy("Start_time ASC")
+                .execute();
     }
 }

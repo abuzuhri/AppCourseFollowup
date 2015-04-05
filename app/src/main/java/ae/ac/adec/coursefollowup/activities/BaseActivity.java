@@ -54,13 +54,6 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
-//test 1  يسلم ايديك
-        //test 2 iwant to show you
-        //test 3
-        //test 4
-        //Holiday & year working ...  BY
-
-        //OK it work no .. check all your work exist ...
     }
 
     public void SetupToolbarShadow(){

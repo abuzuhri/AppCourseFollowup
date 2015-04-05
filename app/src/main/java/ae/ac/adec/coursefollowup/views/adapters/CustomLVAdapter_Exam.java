@@ -46,7 +46,6 @@ public class CustomLVAdapter_Exam extends BaseAdapter {
         TextView tv = (TextView) view.findViewById(R.id.tv_custom_exam_row);
 
         tv.setText(((Exam) dataset.get(position)).Course.Name);
-        //img_color.setBackgroundColor(Color.parseColor(courses.get(position).ColorCode));
 
         return view;
     }

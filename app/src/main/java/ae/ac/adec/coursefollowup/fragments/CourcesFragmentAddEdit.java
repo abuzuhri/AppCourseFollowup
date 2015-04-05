@@ -196,10 +196,10 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         courseName = (MaterialEditText) rootView.findViewById(R.id.tv_course_nameCode);
         // Start Date
         startDate = (MaterialEditText) rootView.findViewById(R.id.tv_course_startDate);
-        SetDateControl(startDate);
+        SetDateControl_New(startDate);
         // End Date
         endDate = (MaterialEditText) rootView.findViewById(R.id.tv_course_endDate);
-        SetDateControl(endDate);
+        SetDateControl_New(endDate);
 
         semester = (MaterialEditText) rootView.findViewById(R.id.tv_course_semmester);
         code = (MaterialEditText) rootView.findViewById(R.id.tv_course_code);

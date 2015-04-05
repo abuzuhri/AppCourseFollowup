@@ -23,8 +23,8 @@ public class DashboardFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        setText(rootView,"DashboardFragment");
+        View rootView = inflater.inflate(R.layout.fragment_note_add_edit, container, false);
+
         return rootView;
     }
 

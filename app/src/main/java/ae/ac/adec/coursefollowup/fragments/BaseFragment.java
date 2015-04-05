@@ -8,9 +8,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.sleepbot.datetimepicker.time.RadialPickerLayout;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
@@ -26,6 +30,7 @@ public class BaseFragment extends Fragment {
 
     public Long ID;
     public static final String POSITION = "POSITION";
+    public static final String DATE = "SELECTED_DATE";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,12 +44,6 @@ public class BaseFragment extends Fragment {
     public void setSubTitle(String txt) {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setSubtitle(txt);
     }
-
-    public void setText(View rootView, String item) {
-        TextView view = (TextView) rootView.findViewById(R.id.section_label);
-        view.setText(item);
-    }
-
 
     @Override
     public void onDestroyView() {
@@ -86,6 +85,53 @@ public class BaseFragment extends Fragment {
                             //Toast.makeText(getActivity(),tag,Toast.LENGTH_LONG).show();;
                         }
                     });
+                }
+                v.clearFocus();
+            }
+        });
+
+    }
+
+    public void SetDateControl_New(final MaterialEditText dateControl) {
+        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Calendar calendar = Calendar.getInstance();
+                    DatePickerDialog pickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(i, i2, i3);
+                            dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
+                            dateControl.setTag(calendar.getTimeInMillis());
+                        }
+                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
+                    pickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
+                }
+                v.clearFocus();
+            }
+        });
+
+    }
+
+    public void SetTimeControl_New(final MaterialEditText dateControl) {
+        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Calendar calendar = Calendar.getInstance();
+                    TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.HOUR_OF_DAY, i);
+                            calendar.set(Calendar.MINUTE, i2);
+                            dateControl.setText(ConstantVariable.getTimeString(calendar.getTime()));
+                            dateControl.setTag(calendar.getTimeInMillis());
+                        }
+                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
+                    timePickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
                 }
                 v.clearFocus();
             }

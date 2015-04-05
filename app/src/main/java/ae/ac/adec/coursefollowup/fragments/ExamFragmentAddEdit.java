@@ -155,7 +155,7 @@ public class ExamFragmentAddEdit extends BaseFragment {
         isResit = (CheckBox) rootView.findViewById(R.id.cb_exam_isResit);
 
         examDate = (MaterialEditText) rootView.findViewById(R.id.tv_exam_date);
-        SetDateControl(examDate);
+        SetDateControl_New(examDate);
 
         startDateTime = (MaterialEditText) rootView.findViewById(R.id.tv_exam_startTime);
         SetTimeControl(startDateTime, examDate);

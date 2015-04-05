@@ -160,7 +160,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
         txtTaskName = (MaterialEditText) rootView.findViewById(R.id.txtTaskName);
 
         txtTaskDueDate = (MaterialEditText) rootView.findViewById(R.id.txtTaskDueDate);
-        SetDateControl(txtTaskDueDate);
+        SetDateControl_New(txtTaskDueDate);
 
 
         txtTaskDetail = (MaterialEditText) rootView.findViewById(R.id.txtTaskDetail);

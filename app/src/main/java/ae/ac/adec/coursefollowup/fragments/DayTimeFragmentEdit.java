@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.activeandroid.ActiveAndroid;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.Calendar;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
@@ -109,8 +110,16 @@ public class DayTimeFragmentEdit extends BaseFragment {
             if (daysOfWeek.getTag() != null)
                 d = (int) daysOfWeek.getTag();
 
-            if (ID != null && ID != 0)
-                ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(),d);
+            if (ID != null && ID != 0) {
+                if (isRepeat.isChecked())
+                    ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), d);
+                else{
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(startDateMil);
+                    int _dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+                    ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(),_dayOfWeek);
+                }
+            }
 
 
             getActivity().finish();
@@ -158,7 +167,7 @@ public class DayTimeFragmentEdit extends BaseFragment {
         daysOfWeek = (MaterialEditText) rootView.findViewById(R.id.tv_dt_daysOfWeek);
 
         oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
-        SetDateControl(oneDayDate);
+        SetDateControl_New(oneDayDate);
 
         startTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_startTime1);
         endTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_endTime1);
@@ -187,8 +196,8 @@ public class DayTimeFragmentEdit extends BaseFragment {
         if (isRepeat.isChecked()) {
             daysOfWeek.setVisibility(View.VISIBLE);
             oneDayDate.setVisibility(View.GONE);
-            SetTimeControl(startTime);
-            SetTimeControl(endTime);
+            SetTimeControl_New(startTime);
+            SetTimeControl_New(endTime);
         } else {
             daysOfWeek.setVisibility(View.GONE);
             oneDayDate.setText("");
@@ -214,8 +223,8 @@ public class DayTimeFragmentEdit extends BaseFragment {
                 } else {
                     daysOfWeek.setVisibility(View.VISIBLE);
                     oneDayDate.setVisibility(View.GONE);
-                    SetTimeControl(startTime);
-                    SetTimeControl(endTime);
+                    SetTimeControl_New(startTime);
+                    SetTimeControl_New(endTime);
                 }
             }
         });

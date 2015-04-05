@@ -23,7 +23,7 @@ public class SearchFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        setText(rootView,"SearchFragment");
+
         return rootView;
     }
 }

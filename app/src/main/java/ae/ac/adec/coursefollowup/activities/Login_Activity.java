@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.facebook.Session;
@@ -35,11 +36,13 @@ import ae.ac.adec.coursefollowup.ConstantApp.CustomColorDialogClass;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
+import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.TaskDao;
 import ae.ac.adec.coursefollowup.db.dal.TestDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.db.models.Year;
@@ -69,6 +72,8 @@ public class Login_Activity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         activity = this;
         // initialize Google Auth, Facebook does not need to initialize, it makes login directly
         googleAuth = new AppGoogleAuth(activity);

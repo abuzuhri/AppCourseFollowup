@@ -129,11 +129,11 @@ public class YearFragmentAddEdit extends BaseFragment {
 
         // Start Date
         startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
-        SetDateControl(startDate);
+        SetDateControl_New(startDate);
 
         // End Date
         endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
-        SetDateControl(endDate);
+        SetDateControl_New(endDate);
 
         fillDate();
 

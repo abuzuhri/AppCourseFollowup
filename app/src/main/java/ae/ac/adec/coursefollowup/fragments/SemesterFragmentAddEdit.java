@@ -156,11 +156,11 @@ public class SemesterFragmentAddEdit extends BaseFragment {
 
         // Start Date
         startDate = (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
-        SetDateControl(startDate);
+        SetDateControl_New(startDate);
 
         // End Date
         endDate = (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
-        SetDateControl(endDate);
+        SetDateControl_New(endDate);
 
         selectYear = (MaterialEditText) rootView.findViewById(R.id.txtSelectYear);
         selectYear.setOnFocusChangeListener(new View.OnFocusChangeListener() {

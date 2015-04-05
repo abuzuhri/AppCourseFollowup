@@ -112,9 +112,6 @@ public class DayTimeFragmentAdd extends BaseFragment {
 
             long startDateMil = (long) startTime.getTag();
             long endDateMil = (long) endTime.getTag();
-            int d = 0;
-            if (daysOfWeek.getTag() != null)
-                d = (int) daysOfWeek.getTag();
 
             if (daysOfWeek.getVisibility() == View.VISIBLE) {
                 ActiveAndroid.beginTransaction();
@@ -127,6 +124,12 @@ public class DayTimeFragmentAdd extends BaseFragment {
                     ActiveAndroid.endTransaction();
                 }
 
+            }
+            else {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(startDateMil);
+                int _dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+                ctd.Add(currentCourse, startDateMil, endDateMil, isRepeat.isChecked(),_dayOfWeek);
             }
 
             getActivity().finish();
@@ -174,7 +177,7 @@ public class DayTimeFragmentAdd extends BaseFragment {
         daysOfWeek = (MaterialEditText) rootView.findViewById(R.id.tv_dt_daysOfWeek);
 
         oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
-        SetDateControl(oneDayDate);
+        SetDateControl_New(oneDayDate);
 
         startTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_startTime1);
         endTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_endTime1);
@@ -211,8 +214,8 @@ public class DayTimeFragmentAdd extends BaseFragment {
         if (isRepeat.isChecked()) {
             daysOfWeek.setVisibility(View.VISIBLE);
             oneDayDate.setVisibility(View.GONE);
-            SetTimeControl(startTime);
-            SetTimeControl(endTime);
+            SetTimeControl_New(startTime);
+            SetTimeControl_New(endTime);
         } else {
             daysOfWeek.setVisibility(View.GONE);
             oneDayDate.setText("");
@@ -238,8 +241,8 @@ public class DayTimeFragmentAdd extends BaseFragment {
                 } else {
                     daysOfWeek.setVisibility(View.VISIBLE);
                     oneDayDate.setVisibility(View.GONE);
-                    SetTimeControl(startTime);
-                    SetTimeControl(endTime);
+                    SetTimeControl_New(startTime);
+                    SetTimeControl_New(endTime);
                 }
             }
         });
