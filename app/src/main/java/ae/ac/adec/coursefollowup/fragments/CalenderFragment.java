@@ -1,24 +1,15 @@
 package ae.ac.adec.coursefollowup.fragments;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.disegnator.robotocalendar.RobotoCalendarView;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,10 +21,10 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.BaseActivity;
+import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.ExamDao;
 import ae.ac.adec.coursefollowup.db.dal.TaskDao;
-import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Task;
@@ -92,7 +83,7 @@ public class CalenderFragment extends BaseFragment {
 
     private void markCalenderWithDots(long date) {
         Calendar c_nxtMonth = Calendar.getInstance();
-        Calendar c_today = Calendar.getInstance();
+        Calendar c_currentMonth = Calendar.getInstance();
 
         c_nxtMonth.setTimeInMillis(date);
         c_nxtMonth.add(Calendar.MONTH, 1);
@@ -101,24 +92,59 @@ public class CalenderFragment extends BaseFragment {
         c_nxtMonth.set(Calendar.MINUTE, 0);
         c_nxtMonth.set(Calendar.SECOND, 0);
 
-        c_today.setTimeInMillis(date);
-        c_today.set(Calendar.HOUR_OF_DAY, 0);
-        c_today.set(Calendar.MINUTE, 0);
-        c_today.set(Calendar.SECOND, 0);
-        c_today.set(Calendar.DAY_OF_MONTH, 1);
+        c_currentMonth.setTimeInMillis(date);
+        c_currentMonth.set(Calendar.HOUR_OF_DAY, 0);
+        c_currentMonth.set(Calendar.MINUTE, 0);
+        c_currentMonth.set(Calendar.SECOND, 0);
+        c_currentMonth.set(Calendar.DAY_OF_MONTH, 1);
 
-        long monthStartDate = c_today.getTimeInMillis();
+        long monthStartDate = c_currentMonth.getTimeInMillis();
         long monthEndDate = c_nxtMonth.getTimeInMillis();
 
         List<Exam> exams_list = new ExamDao().getExamsOnDate(monthStartDate, monthEndDate);
         List<Task> tasks_list = new TaskDao().getTasksOnDate(monthStartDate, monthEndDate);
-        List<CourseTimeDay> ctd_list = new CourseTimeDayDao().getCoursesOnMonth(monthStartDate, monthEndDate);
-        List<Course> courses_list = new ArrayList<Course>();
-        for (CourseTimeDay c : ctd_list)
-            courses_list.add(c.Course);
+        List<CourseTimeDay> ctd_list = new CourseTimeDayDao().getTimesWithinPeriod(monthStartDate, monthEndDate);
 
-        AppLog.i(exams_list.size() + " Exam, " + tasks_list.size() + " Task, " + courses_list.size() + " Course");
+        AppLog.i(exams_list.size() + " Exam, " + tasks_list.size() + " Task, " + ctd_list.size() + " Course");
 
+        Calendar calendar = Calendar.getInstance();
+        for (CourseTimeDay ctd : ctd_list) {
+            if (ctd.IsRepeat) {
+                // loop for five weeks to select repeated days overall course
+                for (int i = 0; i < 6; i++) {
+                    calendar.setTimeInMillis(date); // becaues clear statement deleted year and month
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.DAY_OF_WEEK, ctd.DayOfWeek);
+                    calendar.add(Calendar.DATE, i * 7);
+                    if ((calendar.getTime().getTime() >= ctd.Course.StartDate.getTime()) &&
+                            (calendar.getTime().getTime() < ctd.Course.EndDate.getTime()))
+                        calendarView.markDayWithStyle(RobotoCalendarView.BLUE_CIRCLE, calendar.getTime());
+                    calendar.clear();
+                }
+            } else {
+                calendar.setTime(ctd.Start_time);
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendarView.markDayWithStyle(RobotoCalendarView.BLUE_CIRCLE, calendar.getTime());
+            }
+        }
+        for (Task task : tasks_list) {
+            calendar.setTime(task.DueDate);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendarView.markDayWithStyle(RobotoCalendarView.GREEN_CIRCLE, calendar.getTime());
+        }
+        for (Exam exam : exams_list) {
+            calendar.setTime(exam.StartDateTime);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendarView.markDayWithStyle(RobotoCalendarView.RED_CIRCLE, calendar.getTime());
+        }
 
     }
 

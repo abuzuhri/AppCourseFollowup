@@ -3,6 +3,7 @@ package ae.ac.adec.coursefollowup.db.dal;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -156,19 +157,41 @@ public class CourseTimeDayDao extends BaseDao {
                         .count();
         }
     }
-    public List<CourseTimeDay> getCoursesOnDate(long startDate, long endDate, int dayOfWeek) {
+
+    public List<CourseTimeDay> getCoursesTimesOnDate(long startDate, long endDate, int dayOfWeek) {
         return new Select()
                 .from(CourseTimeDay.class)
                 .where("(Start_time>=? AND Start_time<? AND IsRepeat=?)" +
-                        " OR (DayOfWeek=? AND IsRepeat=?)", startDate, endDate,false,dayOfWeek,true)
+                        " OR (DayOfWeek=? AND IsRepeat=?)", startDate, endDate, false, dayOfWeek, true)
                 .orderBy("Start_time ASC")
                 .execute();
     }
-    public List<CourseTimeDay> getCoursesOnMonth(long startDate, long endDate) {
+
+    public List<CourseTimeDay> getTimesWithinPeriod(long startDate, long endDate) {
+        List<Course> courses = new CourseDao().getCoursesWithinPeriod(startDate, endDate);
+
+        List<CourseTimeDay> ctd_list = new ArrayList<CourseTimeDay>();
+        List<CourseTimeDay> ct = new ArrayList<CourseTimeDay>();
+        for (int i = 0; i < courses.size(); i++) {
+            ct = new Select()
+                    .from(CourseTimeDay.class)
+                    .where("(Start_time>=? AND Start_time<? AND IsRepeat=?)" +
+                            " OR (IsRepeat=?) AND Course=?", startDate, endDate, false, true, courses.get(i).getId())
+                    .orderBy("Start_time ASC")
+                    .execute();
+            for (int j = 0; j < ct.size(); j++)
+                ctd_list.add(ct.get(j));
+        }
+
+        return ctd_list;
+    }
+
+    public List<CourseTimeDay> getTimes(int dayOfWeek, long startDate_oneTime, long endDate_oneTime, Course course) {
         return new Select()
                 .from(CourseTimeDay.class)
                 .where("(Start_time>=? AND Start_time<? AND IsRepeat=?)" +
-                        " OR (IsRepeat=?)", startDate, endDate,false,true)
+                        " OR (DayOfWeek=? AND IsRepeat=?) AND Course=?", startDate_oneTime, endDate_oneTime, false, dayOfWeek
+                        , true, course.getId())
                 .orderBy("Start_time ASC")
                 .execute();
     }

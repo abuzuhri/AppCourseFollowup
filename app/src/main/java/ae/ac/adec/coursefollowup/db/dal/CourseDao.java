@@ -156,6 +156,29 @@ public class CourseDao extends BaseDao {
                 .execute();
     }
 
+    public List<Course> getCoursesWithinPeriod(long startDate, long endDate) {
+        List<Year> years = new YearDao().getCurrentYear(startDate);
+        List<Semester> semesters = null;
+        if (years.size() > 0)
+            semesters = new SemesterDao().getCurrentSemesters(startDate, years.get(0));
+        if (semesters != null && semesters.size() > 0)
+            return new Select()
+                    .from(Course.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))AND semester=?",
+                            startDate, endDate,
+                            startDate, endDate, semesters.get(0).getId())
+                    .orderBy("StartDate ASC")
+                    .execute();
+        else
+            return new Select()
+                    .from(Course.class)
+                    .where("((StartDate<=? OR StartDate<=?)AND(EndDate>=? OR EndDate>=?))",
+                            startDate, endDate,
+                            startDate, endDate)
+                    .orderBy("StartDate ASC")
+                    .execute();
+    }
+
 //    public long getConflictCourses(Course course, Long id) {
 //        if (id != null && id != 0)
 //            return new Select()
