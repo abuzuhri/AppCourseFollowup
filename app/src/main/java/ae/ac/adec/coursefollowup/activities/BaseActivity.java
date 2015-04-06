@@ -81,10 +81,10 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
         String Email="Jafar@Edit.com";
         headerResult = new AccountHeader()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.blueheader)
-                .addProfiles(
-                        new ProfileDrawerItem().withName(Name).withEmail(Email).withIcon(getResources().getDrawable(R.drawable.profile))
-                )
+                .withHeaderBackground(R.drawable.redheader)
+//                .addProfiles(
+//                        new ProfileDrawerItem().withName(Name).withEmail(Email).withIcon(getResources().getDrawable(R.drawable.profile))
+//                )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public void onProfileChanged(View view, IProfile profile) {
@@ -111,11 +111,11 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
                         new PrimaryDrawerItem().withName(R.string.category_year).withIdentifier(ConstantVariable.Category.Years.id).withIcon(FontAwesome.Icon.faw_university),
 
 
-                        new PrimaryDrawerItem().withName(R.string.category_holidays).withIdentifier(ConstantVariable.Category.Holiday.id).withIcon(FontAwesome.Icon.faw_hotel),
-                        new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(ConstantVariable.Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
-                        new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(ConstantVariable.Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear),
+                        new PrimaryDrawerItem().withName(R.string.category_holidays).withIdentifier(ConstantVariable.Category.Holiday.id).withIcon(FontAwesome.Icon.faw_hotel)
+                        //,new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(ConstantVariable.Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
+                        //new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(ConstantVariable.Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear),
                         // For Test Only
-                        new PrimaryDrawerItem().withName(R.string.category_test).withIdentifier(ConstantVariable.Category.Test.id).withIcon(FontAwesome.Icon.faw_exchange)
+                       // new PrimaryDrawerItem().withName(R.string.category_test).withIdentifier(ConstantVariable.Category.Test.id).withIcon(FontAwesome.Icon.faw_exchange)
                 )
                 .withSelectedItem(0)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {

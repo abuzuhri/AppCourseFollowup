@@ -57,7 +57,7 @@ public class TestDao extends BaseDao {
         ctd.IsRepeat = isRepeat;
         ctd.Course = course;
         ctd.DayOfWeek = dayOfWeek;
-        ctd.Remote_Id = remoteID;
+        //ctd.Remote_Id = remoteID;
         ctd.Sync_status_typeID = syncStatusID;
 
         long result = ctd.save();
@@ -76,7 +76,7 @@ public class TestDao extends BaseDao {
         task.DateAdded = DateAdded;
         task.DueDate = dueDate;
         task.Progress = progress;
-        task.Remote_Id = remoteID;
+        //task.Remote_Id = remoteID;
         task.Sync_status_typeID = syncStatusID;
         task.TaskType = taskType;
 
@@ -94,7 +94,7 @@ public class TestDao extends BaseDao {
         note.NoteType=noteType;
         note.FilePath=filePath;
         note.Details=details;
-        note.Remote_Id=remoteID;
+        //note.Remote_Id=remoteID;
         note.Sync_status_typeID=syncStatusID;
 
         long result = note.save();
@@ -114,7 +114,7 @@ public class TestDao extends BaseDao {
         exam.Seat=seat;
         exam.Room=room;
         exam.Course=course;
-        exam.Remote_Id=remoteID;
+        //exam.Remote_Id=remoteID;
         exam.Sync_status_typeID=syncStatusID;
 
         long result = exam.save();
@@ -129,7 +129,7 @@ public class TestDao extends BaseDao {
         semester.StartDate=startDate;
         semester.EndDate=endDate;
         semester.year = year;
-        semester.Remote_Id=remoteID;
+        //semester.Remote_Id=remoteID;
         semester.Sync_status_typeID=syncStatusID;
 
         long result = semester.save();

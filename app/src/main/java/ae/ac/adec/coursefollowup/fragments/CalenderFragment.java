@@ -21,7 +21,6 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.BaseActivity;
-import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.ExamDao;
 import ae.ac.adec.coursefollowup.db.dal.TaskDao;
@@ -53,7 +52,7 @@ public class CalenderFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_calender, container, false);
 
         ((BaseActivity) getActivity()).RemoveToolBarShadow();
         populateFragments();

@@ -27,8 +27,6 @@ public class CourseTimeDay extends BaseModel {
     @Column(name = "Course",onUpdate = Column.ForeignKeyAction.CASCADE,onDelete = Column.ForeignKeyAction.NO_ACTION)
     public Course Course;
     @Column
-    public int Remote_Id;
-    @Column
     public int Sync_status_typeID;
 
 }

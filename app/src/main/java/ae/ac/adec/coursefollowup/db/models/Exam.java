@@ -37,8 +37,5 @@ public class Exam extends BaseModel {
     public Course Course;
 
     @Column
-    public int Remote_Id;
-
-    @Column
     public int Sync_status_typeID;
 }

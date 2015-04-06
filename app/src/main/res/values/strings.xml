@@ -180,6 +180,13 @@
     <!-- Times -->
     <string name="BR_TIM_001">This Time conflicts with other times</string>
 
+
+    <string name="dashboard_note">Note</string>
+    <string name="dashboard_task">Task</string>
+    <string name="dashboard_class">Class</string>
+    <string name="dashboard_exam">Exam</string>
+
+
 <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>

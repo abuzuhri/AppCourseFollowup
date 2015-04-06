@@ -71,8 +71,12 @@ public class Login_Activity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
+        Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
+        setContentView(R.layout.activity_login);
 
         activity = this;
         // initialize Google Auth, Facebook does not need to initialize, it makes login directly

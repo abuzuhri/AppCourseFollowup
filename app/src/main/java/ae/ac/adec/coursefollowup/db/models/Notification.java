@@ -40,9 +40,6 @@ public class Notification extends BaseModel {
     public Boolean IsNoNeedNothing;
 
     @Column
-    public int Remote_Id;
-
-    @Column
     public int Sync_status_typeID;
 
 }
