@@ -75,4 +75,9 @@
     <color name="color_Ibrahim_700">#81374a</color>
     <color name="color_Ibrahim_100">#b9e1f8</color>
 
+    <!-- Dashboard -->
+    <color name="color_tasks">#ddad3b</color>
+    <color name="color_classes">#f1654c</color>
+    <color name="color_exams">#7ea53b</color>
+
 </resources>

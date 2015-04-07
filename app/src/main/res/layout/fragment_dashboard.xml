@@ -13,7 +13,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="8dp">
+            android:layout_margin="4dp"
+            android:padding="16dp"
+            android:background="@color/color_tasks">
+
             <TextView
                 android:id="@+id/tv_task_title"
                 android:layout_width="0dp"
@@ -21,6 +24,7 @@
                 android:layout_weight="0.7"
                 android:gravity="center"
                 android:textSize="22dp"
+                android:textColor="#ffffff"
                 android:text="ddd" />
 
             <ImageView
@@ -28,14 +32,17 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.3"
-                android:background="@drawable/notes_card" />
+                android:src="@drawable/tasks_card" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="8dp">
+            android:layout_margin="4dp"
+            android:padding="16dp"
+            android:background="@color/color_classes">
+
             <TextView
                 android:id="@+id/tv_class_title"
                 android:layout_width="0dp"
@@ -43,6 +50,7 @@
                 android:gravity="center"
                 android:layout_weight="0.7"
                 android:textSize="22dp"
+                android:textColor="#ffffff"
                 android:text="ddd" />
 
             <ImageView
@@ -50,14 +58,17 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.3"
-                android:background="@drawable/notes_card" />
+                android:src="@drawable/class_card" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="8dp">
+            android:layout_margin="4dp"
+            android:padding="16dp"
+            android:background="@color/color_exams">
+
             <TextView
                 android:id="@+id/tv_exam_title"
                 android:layout_width="0dp"
@@ -65,6 +76,7 @@
                 android:layout_weight="0.7"
                 android:gravity="center"
                 android:textSize="22dp"
+                android:textColor="#ffffff"
                 android:text="ddd" />
 
             <ImageView
@@ -72,7 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.3"
-                android:background="@drawable/notes_card" />
+                android:src="@drawable/exams_card" />
         </LinearLayout>
 
     </LinearLayout>

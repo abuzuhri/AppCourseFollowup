@@ -81,7 +81,7 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
         String Email="Jafar@Edit.com";
         headerResult = new AccountHeader()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.redheader)
+                .withHeaderBackground(R.drawable.blueheader)
 //                .addProfiles(
 //                        new ProfileDrawerItem().withName(Name).withEmail(Email).withIcon(getResources().getDrawable(R.drawable.profile))
 //                )
