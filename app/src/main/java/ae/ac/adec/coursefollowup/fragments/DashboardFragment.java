@@ -10,15 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.BaseActivity;
+import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.ExamDao;
 import ae.ac.adec.coursefollowup.db.dal.NoteDao;
@@ -28,6 +31,7 @@ import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Task;
+import ae.ac.adec.coursefollowup.services.AppAction;
 
 
 /**
@@ -36,6 +40,7 @@ import ae.ac.adec.coursefollowup.db.models.Task;
 public class DashboardFragment extends BaseFragment {
     TextView tv_tasks, tv_classes, tv_exams;
     ImageView img_tasks, img_classes, img_exams;
+    LinearLayout ll_tasks, ll_classes, ll_exams;
     ViewPager mViewPager;
     SlidingTabLayout mSlidingTabLayout;
     SampleFragmentPagerAdapter pagerAdapter;
@@ -62,6 +67,10 @@ public class DashboardFragment extends BaseFragment {
         img_classes = (ImageView) rootView.findViewById(R.id.img_class);
         img_exams = (ImageView) rootView.findViewById(R.id.img_exam);
 
+        ll_tasks = (LinearLayout) rootView.findViewById(R.id.ll_tasks);
+        ll_classes = (LinearLayout) rootView.findViewById(R.id.ll_classes);
+        ll_exams = (LinearLayout) rootView.findViewById(R.id.ll_exams);
+
         fillCards();
         populateFragments();
 
@@ -70,6 +79,27 @@ public class DashboardFragment extends BaseFragment {
         pagerAdapter = new SampleFragmentPagerAdapter(getChildFragmentManager(), tabs);
         mViewPager.setAdapter(pagerAdapter);
         fillTabs();
+
+        ll_tasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).selectItem(ConstantVariable.Category.Tasks.id);
+            }
+        });
+
+        ll_classes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).selectItem(ConstantVariable.Category.Classes.id);
+            }
+        });
+
+        ll_exams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).selectItem(ConstantVariable.Category.Exams.id);
+            }
+        });
 
         return rootView;
     }
