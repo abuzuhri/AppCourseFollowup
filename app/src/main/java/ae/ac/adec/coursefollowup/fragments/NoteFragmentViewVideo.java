@@ -1,19 +1,18 @@
 package ae.ac.adec.coursefollowup.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +22,9 @@ import com.gc.materialdesign.widgets.ProgressDialog;
 
 import java.io.File;
 
-import ae.ac.adec.coursefollowup.Application.myApplication;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.FullScreenVideoActivity;
 import ae.ac.adec.coursefollowup.db.dal.NoteDao;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.services.AppAction;
@@ -51,11 +50,13 @@ public class NoteFragmentViewVideo extends BaseFragment {
      private TextView txtNoteDetail          =null;
 
     File videoFile =null;
-
+    int dC = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+
 
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
@@ -76,6 +77,7 @@ public class NoteFragmentViewVideo extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         hideSoftKeyboard();
 
     }
@@ -166,7 +168,7 @@ public class NoteFragmentViewVideo extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_note_video, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_note_video, container, false);//fragment_note_video
         removeShadowForNewApi21(rootView);
 
         txtNoteAddDate= (TextView) rootView.findViewById(R.id.txtNoteAddDate);
@@ -174,6 +176,7 @@ public class NoteFragmentViewVideo extends BaseFragment {
         txtNoteSubject= (TextView) rootView.findViewById(R.id.txtNoteSubject);
 
         txtNoteDetail = (TextView) rootView.findViewById(R.id.txtNoteDetail);
+
 
         	        myVideoView = (VideoView) rootView.findViewById(R.id.video_view);
                      fillDate();
@@ -194,21 +197,49 @@ public class NoteFragmentViewVideo extends BaseFragment {
             	            e.printStackTrace();
             	        }
 
+        myVideoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                dC++;
+                Handler handler = new Handler();
+                Runnable r = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        dC = 0;
+                    }
+                };
+
+                if (dC == 1) {
+                    //Single click
+                    handler.postDelayed(r, 250);
+                } else if (dC == 2) {
+                    //Double click
+                    dC = 0;
+
+                    Intent i = new Intent(getActivity(), FullScreenVideoActivity.class);
+                    i.putExtra("typeView","video");
+                    i.putExtra("position", myVideoView.getCurrentPosition());
+                    i.putExtra("videoPath", videoFile.getPath());
+
+
+                    getActivity().startActivity(i);
+
+                }
+
+                return false;
+            }
+        });
         	        myVideoView.requestFocus();
         	          myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
                                 public void onPrepared(MediaPlayer mediaPlayer) {
                 	                 progressDialog.dismiss();
                 	                   myVideoView.seekTo(position);
-                	                if (position == 0) {
-                    	                    myVideoView.start();
-                    	                } else {
-                    	                     myVideoView.pause();
-                    	                }
+
                 	            }
             	        });
-
-
 
 
 

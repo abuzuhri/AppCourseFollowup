@@ -21,18 +21,19 @@
             android:elevation="5dp"
             android:paddingTop="16dp">
 
+
+
+
+
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/txtTaskName"
+                android:id="@+id/txtNoteName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Note"
+                android:hint="New Note"
                 android:textSize="34sp"
                 app:baseColor="@android:color/white"
-                app:floatingLabel="highlight"
                 app:maxCharacters="20"
-                app:primaryColor="@color/colorAccent"
                 app:singleLineEllipsis="true" />
-
 
         </LinearLayout>
         <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />

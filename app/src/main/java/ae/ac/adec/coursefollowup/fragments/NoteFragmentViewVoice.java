@@ -12,10 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 import android.widget.VideoView;
 
 
@@ -49,7 +52,8 @@ public class NoteFragmentViewVoice extends BaseFragment {
     private TextView txtNoteAddDate         =null;
     private TextView txtNoteSubject         =null;
     private TextView txtNoteDetail          =null;
-    private Button playPauseVoiceBtn,stopVoiceBtn = null;
+    private ToggleButton playPauseVoiceBtn =null;
+    private ImageButton stopVoiceBtn = null;
     File voiceFile =null;
 
     @Override
@@ -182,80 +186,77 @@ public class NoteFragmentViewVoice extends BaseFragment {
 
         //  m.prepare();
       //  m.start();
-        playPauseVoiceBtn = (Button) rootView.findViewById(R.id.playPauseVoiceBtn);
-        stopVoiceBtn = (Button) rootView.findViewById(R.id.stopVoiceBtn);
+        playPauseVoiceBtn = (ToggleButton) rootView.findViewById(R.id.playPauseVoiceBtn);
+        stopVoiceBtn = (ImageButton) rootView.findViewById(R.id.stopVoiceBtn);
         stopVoiceBtn.setEnabled(false);
-         playPauseVoiceBtn.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
 
-                 if (mediaPlayer == null) {
+         playPauseVoiceBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                 if (isChecked) {
 
+                     if (mediaPlayer == null) {
+                         try {
+                             mediaPlayer = new MediaPlayer();
+                             mediaPlayer.setDataSource(voiceFile.getPath());
+                             mediaPlayer.prepare();
 
-                     try {
-                         mediaPlayer = new MediaPlayer();
-                         mediaPlayer.setDataSource(voiceFile.getPath());
-                         mediaPlayer.prepare();
-
-                         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                             @Override
-                             public void onCompletion(MediaPlayer mp) {
-                                 stopVoiceBtn.setEnabled(false);
-                                 if(mediaPlayer!= null)
-                                     mediaPlayer=null;
-                                 playPauseVoiceBtn.setText("Play");
-                             }
-                         });
-                     } catch (IOException e) {
-                         e.printStackTrace();
-                         getActivity().finish();
+                             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                 @Override
+                                 public void onCompletion(MediaPlayer mp) {
+                                     stopVoiceBtn.setEnabled(false);
+                                     if (mediaPlayer != null)
+                                         mediaPlayer = null;
+                                     //        playPauseVoiceBtn.setText("Play");
+                                 }
+                             });
+                         } catch (IOException e) {
+                             e.printStackTrace();
+                             getActivity().finish();
+                         }
+                         //    MediaPlayer m = new MediaPlayer();
                      }
-                     //    MediaPlayer m = new MediaPlayer();
-                 }
 
-                     Toast.makeText(getActivity(), "Playing audio", Toast.LENGTH_LONG).show();
-              
-                     if (mediaPlayer.isPlaying()) {
-                         mediaPlayer.pause();
-                         //    playPauseVoiceBtn.setLa
-                         playPauseVoiceBtn.setText("Play");
-                         //        RemoteViews remoteViews = new RemoteViews(getActivity().getPackageName(), R.layout.fragment_note_voice_view);
-                         //       remoteViews.setTextViewText(v.getId(), "Play");
-                     } else {
-                             mediaPlayer.start();
-                             playPauseVoiceBtn.setText("Pause");
-                             stopVoiceBtn.setEnabled(true);
+                     if (!mediaPlayer.isPlaying()) {
+                         mediaPlayer.start();
+                         stopVoiceBtn.setEnabled(true);
+                     }
+                 } else {
+                     if (mediaPlayer != null) {
+                         if (mediaPlayer.isPlaying()) {
+                             mediaPlayer.pause();
+                         }
+                     }else{
+                         playPauseVoiceBtn.setChecked(false);
                      }
                  }
+
+             }
 
          });
 
 
-        stopVoiceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mediaPlayer!=null){
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    mediaPlayer=null;
-                    stopVoiceBtn.setEnabled(false);
-                }
+             stopVoiceBtn.setOnClickListener(new View.OnClickListener()
 
-            }
-        });
-        fillDate();
+             {
+                 @Override
+                 public void onClick (View v){
+                 if (mediaPlayer != null) {
+                     mediaPlayer.stop();
+                     mediaPlayer.release();
+                     mediaPlayer = null;
+                     stopVoiceBtn.setEnabled(false);
+                 }
 
+             }
+             }
 
+             );
 
-
-
-
-
+             fillDate();
 
 
+             return rootView;
+         }
 
-        return rootView;
     }
-
-}
 

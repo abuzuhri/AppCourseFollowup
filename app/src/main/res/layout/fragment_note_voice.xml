@@ -21,14 +21,16 @@
             android:elevation="5dp"
             android:paddingTop="16dp">
 
-            <TextView
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/txtRecordVoice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:hint="Record Voice"
                 android:textSize="34sp"
-                android:id="@+id/textView"
-                android:hint="record voice"/>
-
+                app:baseColor="@android:color/white"
+                app:maxCharacters="20"
+                app:singleLineEllipsis="true" />
 
 
         </LinearLayout>
@@ -46,21 +48,20 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
+                android:layout_gravity="center"
                 android:gravity="center">
 
 
-
-                <Button
+                <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start Record"
-                    android:id="@+id/startRecord" />
+                    android:background="@drawable/start_record_button_style"
+                    android:textOff=" "
+                    android:textOn=" "
+                    android:id="@+id/startRecord"
+                    android:layout_gravity="center" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Stop Record"
-                    android:id="@+id/stopRecord" />
+
 
 
             </LinearLayout>

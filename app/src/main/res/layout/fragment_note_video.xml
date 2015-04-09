@@ -21,6 +21,7 @@
             android:textSize="25sp"
             android:text="Subject"
             android:paddingRight="35dp"
+            android:textColor="@android:color/white"
             android:layout_gravity="bottom|left"
             android:id="@+id/txtNoteSubject" />
 
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:text="Date"
+            android:textColor="@android:color/white"
             android:layout_gravity="bottom"
             android:id="@+id/txtNoteAddDate" />
 
@@ -43,7 +45,11 @@
     	   android:layout_width="fill_parent"
     	   android:layout_height="match_parent"
     	   android:layout_gravity="center"
-        android:layout_weight="0.3">
+         android:layout_weight="0.3"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
     	     <VideoView
     	        android:id="@+id/video_view"
@@ -51,6 +57,7 @@
     	        android:layout_height="wrap_content"
     	        android:layout_gravity="center"/>
     </FrameLayout>
+    <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -65,7 +72,8 @@
                 android:text="New Text"
                 android:textSize="25sp"
                 android:id="@+id/txtNoteDetail"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp" />
         </ScrollView>
 
 

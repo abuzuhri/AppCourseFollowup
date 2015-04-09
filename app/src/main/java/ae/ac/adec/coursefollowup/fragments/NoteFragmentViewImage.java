@@ -3,12 +3,16 @@ package ae.ac.adec.coursefollowup.fragments;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,11 +24,11 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.FullScreenImageActivity;
+import ae.ac.adec.coursefollowup.activities.FullScreenVideoActivity;
 import ae.ac.adec.coursefollowup.db.dal.NoteDao;
-import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
@@ -44,8 +48,8 @@ public class NoteFragmentViewImage extends BaseFragment {
     TextView txtNoteSubject         =null;
     TextView txtNoteDetail          =null;
     ImageView txtNoteImageView      =null;
-    String filepath = null;
     File imgFile =null;
+    private int dC=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,10 +65,6 @@ public class NoteFragmentViewImage extends BaseFragment {
         hideSoftKeyboard();
 
     }
-
-
-
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -142,21 +142,13 @@ public class NoteFragmentViewImage extends BaseFragment {
                 final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 8;
 
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(),options);
-                txtNoteImageView.setImageBitmap(myBitmap);
+               Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(),options);
+                Drawable d = new BitmapDrawable(getResources(),myBitmap);
+                txtNoteImageView.setImageDrawable(d);
                 txtNoteImageView.setRotation(90);
-                txtNoteImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        txtNoteImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                        txtNoteImageView.invalidate();
-                    }
-                });
 
             }
-
-
         }
     }
 
@@ -164,7 +156,7 @@ public class NoteFragmentViewImage extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_note_image2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_note_image, container, false);
         removeShadowForNewApi21(rootView);
 
         txtNoteAddDate= (TextView) rootView.findViewById(R.id.txtNoteAddDate);
@@ -175,7 +167,38 @@ public class NoteFragmentViewImage extends BaseFragment {
 
         txtNoteImageView = (ImageView) rootView.findViewById(R.id.txtNoteImageView);
 
+        txtNoteImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
+                dC++;
+                Handler handler = new Handler();
+                Runnable r = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        dC = 0;
+                    }
+                };
+
+                if (dC == 1) {
+                    //Single click
+                    handler.postDelayed(r, 250);
+                } else if (dC == 2) {
+                    //Double click
+                    dC = 0;
+
+                    Intent i = new Intent(getActivity(), FullScreenImageActivity.class);
+                    i.putExtra("imagePath", imgFile.getPath());
+
+
+                    getActivity().startActivity(i);
+
+                }
+
+                return false;
+            }
+        });
 
 
         fillDate();

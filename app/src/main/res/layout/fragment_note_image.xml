@@ -21,6 +21,7 @@
             android:textSize="25sp"
             android:text="Subject"
             android:paddingRight="35dp"
+            android:textColor="@android:color/white"
             android:layout_gravity="bottom|left"
             android:id="@+id/txtNoteSubject" />
 
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:text="Date"
+            android:textColor="@android:color/white"
             android:layout_gravity="bottom"
             android:id="@+id/txtNoteAddDate" />
 
@@ -39,11 +41,7 @@
 
     <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_weight="0.3">
+
 
 
         <ImageView
@@ -52,23 +50,31 @@
             android:id="@+id/txtNoteImageView"
             android:src="@drawable/ic_launcher"
             android:layout_gravity="center_vertical"
-            android:adjustViewBounds="true" />
-    </ScrollView>
+            android:layout_weight="0.3"
+            android:padding="5dp"/>
 
+
+
+    <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView2"
-        android:layout_weight="0.7">
+        android:layout_gravity="bottom"
+        android:layout_weight="0.7"
+        android:padding="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="New Text"
             android:textSize="25sp"
             android:id="@+id/txtNoteDetail"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp" />
     </ScrollView>
+
+
 
 </LinearLayout>
