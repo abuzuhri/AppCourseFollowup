@@ -39,6 +39,9 @@ public class Notification extends BaseModel {
     @Column
     public Boolean IsNoNeedNothing;
 
+    @Column(name = "CourseTime", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
+    public CourseTimeDay CourseTime;
+
     @Column
     public int Sync_status_typeID;
 

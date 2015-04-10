@@ -12,9 +12,6 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
-import ae.ac.adec.coursefollowup.db.models.Exam;
-import ae.ac.adec.coursefollowup.db.models.Semester;
-import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
@@ -32,6 +29,46 @@ public class CourseTimeDayDao extends BaseDao {
 
     public void Add(Course course, long startTime, long endTime, Boolean isRepeat, int dayOfWeek) throws BusinessRoleError {
         AddEdit(null, course, startTime, endTime, isRepeat, dayOfWeek);
+    }
+
+    public void buildNotifications(CourseTimeDay courseTime, Boolean isRepeat, Course course, long startTime, int dayOfWeek) throws BusinessRoleError {
+        NotificationDao notificationDao = new NotificationDao();
+        // remove old related with this time if found
+        notificationDao.deleteRelatedWithCourseTime(courseTime);
+
+        HolidayDao holidayDao = new HolidayDao();
+        if (isRepeat) {
+            Calendar startCal = Calendar.getInstance();
+            startCal.setTime(course.StartDate);
+            Calendar endCal = Calendar.getInstance();
+            endCal.setTime(course.EndDate);
+
+            Calendar temp = Calendar.getInstance();
+            temp.setTimeInMillis(startTime);
+            startCal.set(Calendar.HOUR_OF_DAY, temp.get(Calendar.HOUR_OF_DAY));
+            startCal.set(Calendar.MINUTE, temp.get(Calendar.MINUTE));
+
+            int day;
+            while (startCal.compareTo(endCal) != 1) {
+                day = startCal.get(Calendar.DAY_OF_WEEK);
+                if (day == dayOfWeek) {
+                    if (holidayDao.getHolidaysOnDate(startCal.getTimeInMillis()).size() > 0)
+                        notificationDao.Add(startCal.getTimeInMillis(), startCal.getTimeInMillis() - (15 * 60 * 1000), course,
+                                courseTime, null, null, true, false, false);
+                    else
+                        notificationDao.Add(startCal.getTimeInMillis(), startCal.getTimeInMillis() - (15 * 60 * 1000), course,
+                                courseTime, null, null, false, false, false);
+                }
+                startCal.add(Calendar.DATE, 1);
+            }
+
+        } else {
+
+            if (holidayDao.getHolidaysOnDate(startTime).size() > 0)
+                notificationDao.Add(startTime, startTime - (15 * 60 * 1000), course, courseTime, null, null, true, false, false);
+            else
+                notificationDao.Add(startTime, startTime - (15 * 60 * 1000), course, courseTime, null, null, false, false, false);
+        }
     }
 
     private void AddEdit(Long ID, Course course, long startTime, long endTime, Boolean isRepeat, int DayOfWeek) throws BusinessRoleError {
@@ -64,6 +101,7 @@ public class CourseTimeDayDao extends BaseDao {
         long result = std.save();
         AppLog.i("Result: row " + result + " added, result id >" + result);
 
+        buildNotifications(CourseTimeDay.load(CourseTimeDay.class, result), isRepeat, course, startTime, DayOfWeek);
 
     }
 
@@ -73,6 +111,7 @@ public class CourseTimeDayDao extends BaseDao {
 
         ActiveAndroid.beginTransaction();
         try {
+            new NotificationDao().deleteRelatedWithCourseTime(ctd);
             DeleteSyncer(ctd);
             ctd.delete();
             ActiveAndroid.setTransactionSuccessful();

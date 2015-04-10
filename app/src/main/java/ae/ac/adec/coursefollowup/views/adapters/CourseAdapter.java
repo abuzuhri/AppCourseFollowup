@@ -2,6 +2,7 @@ package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +27,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder> {
     public List<Course> mDataset;
     private Context context;
     private IClickCardView mListener;
+    private Typeface tf;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CourseAdapter(List<Course> myDataset, Context context, IClickCardView mListener) {
+    public CourseAdapter(List<Course> myDataset,Typeface tf, Context context, IClickCardView mListener) {
         this.mDataset = myDataset;
         this.context = context;
         this.mListener = mListener;
+        this.tf=tf;
     }
 
     // Create new views (invoked by the layout manager)
@@ -41,7 +44,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder> {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_cardview_course, null);
 
         // create ViewHolder
-        CourseViewHolder viewHolder = new CourseViewHolder(itemLayoutView, new IClickCardView() {
+        CourseViewHolder viewHolder = new CourseViewHolder(itemLayoutView,tf, new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 mListener.onClick(v, ID);

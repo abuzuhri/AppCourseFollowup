@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +21,17 @@ import ae.ac.adec.coursefollowup.views.view.YearViewHolder;
  */
 public class YearAdapter extends RecyclerView.Adapter<YearViewHolder>  {
 
+    private final Typeface tf;
     public List<Year> mDataset;
     private Context context;
     private IClickCardView mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public YearAdapter(List<Year> myDataset, Context context, IClickCardView mListener) {
+    public YearAdapter(List<Year> myDataset,Typeface tf, Context context, IClickCardView mListener) {
         mDataset = myDataset;
         this.context=context;
         this.mListener=mListener;
+        this.tf=tf;
     }
 
     // Create new views (invoked by the layout manager)
@@ -57,12 +60,15 @@ public class YearAdapter extends RecyclerView.Adapter<YearViewHolder>  {
 
         viewHolder.setID(year.getId());
         viewHolder.titleTextView.setText(year.Name);
+        viewHolder.titleTextView.setTypeface(tf);
 
         String startDate= ConstantVariable.getDateString(year.StartDate);
         viewHolder.txtFromDate.setText(context.getString(R.string.holiday_start_date_hint) +": "+startDate);
+        viewHolder.txtFromDate.setTypeface(tf);
 
         String endDate= ConstantVariable.getDateString(year.EndDate);
         viewHolder.txtToDate.setText(context.getString(R.string.holiday_end_date_hint) +": "+endDate);
+        viewHolder.txtToDate.setTypeface(tf);
 
     }
 

@@ -193,8 +193,9 @@
     <string name="login_username">Username</string>
     <string name="login_pass">Password</string>
     <string name="click_to_show_times" >Click to show times</string>
+    <string name="click_to_edit_times">Click edit to edit times</string>
 
-<string-array name="colors">
+    <string-array name="colors">
     <item>#f5f522</item>
     <item>#FF4081</item>
     <item>#1687ca</item>

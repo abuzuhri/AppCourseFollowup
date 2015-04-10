@@ -132,4 +132,20 @@ public class HolidayDao extends BaseDao {
                             holiday.StartDate.getTime(), holiday.EndDate.getTime())
                     .count();
     }
+
+    public List<Holiday> getHolidaysOnDate(long startDate) {
+        Calendar startCal = Calendar.getInstance();
+        startCal.setTimeInMillis(startDate);
+        startCal.set(Calendar.HOUR_OF_DAY, 0);
+        startCal.set(Calendar.MINUTE, 0);
+        startCal.set(Calendar.SECOND, 0);
+
+        Calendar endCal = (Calendar) startCal.clone();
+        endCal.add(Calendar.DATE, 1);
+        return new Select()
+                .from(Holiday.class)
+                .where("StartDate>=? AND StartDate<?",
+                        startCal.getTime().getTime(), endCal.getTime().getTime())
+                .execute();
+    }
 }

@@ -7,7 +7,7 @@
     <color name="info_cirle">#ffe5d708</color>
     <color name="silver">#C0C0C0</color>
     <color name="black">#3b4144</color>
-    <color name="calendarBackgroundColor">#2196F3</color>
+    <color name="calendarBackgroundColor">#00b5b5</color>
 
     <!-- Fonts -->
     <color name="monthTitleColor">#ffffff</color>

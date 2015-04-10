@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.db.dal;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.Calendar;
@@ -9,6 +10,7 @@ import java.util.List;
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Notification;
@@ -23,18 +25,18 @@ public class NotificationDao extends BaseDao {
         return Notification.load(Notification.class, id);
     }
 
-    public void Edit(long ID, long calenderDateTime, long notificationDateTime, Course course,
+    public void Edit(long ID, long calenderDateTime, long notificationDateTime, Course course, CourseTimeDay courseTime,
                      Task task, Exam exam, Boolean isHoliday, Boolean isDone, Boolean isNoNeedNothing) throws BusinessRoleError {
         AppLog.i("Edit => " + ID);
-        AddEdit(ID, calenderDateTime, notificationDateTime, course, task, exam, isHoliday, isDone, isNoNeedNothing);
+        AddEdit(ID, calenderDateTime, notificationDateTime, course, courseTime, task, exam, isHoliday, isDone, isNoNeedNothing);
     }
 
-    public void Add(long calenderDateTime, long notificationDateTime, Course course,
+    public void Add(long calenderDateTime, long notificationDateTime, Course course, CourseTimeDay courseTime,
                     Task task, Exam exam, Boolean isHoliday, Boolean isDone, Boolean isNoNeedNothing) throws BusinessRoleError {
-        AddEdit(null, calenderDateTime, notificationDateTime, course, task, exam, isHoliday, isDone, isNoNeedNothing);
+        AddEdit(null, calenderDateTime, notificationDateTime, course, courseTime, task, exam, isHoliday, isDone, isNoNeedNothing);
     }
 
-    private void AddEdit(Long ID, long calenderDateTime, long notificationDateTime, Course course,
+    private void AddEdit(Long ID, long calenderDateTime, long notificationDateTime, Course course, CourseTimeDay courseTime,
                          Task task, Exam exam, Boolean isHoliday, Boolean isDone, Boolean isNoNeedNothing) throws BusinessRoleError {
         Notification note = null;
         if (ID != null && ID != 0)
@@ -53,9 +55,10 @@ public class NotificationDao extends BaseDao {
         note.Course = course;
         note.Task = task;
         note.Exam = exam;
-        note.isDone=isDone;
-        note.IsHoliday=isHoliday;
-        note.IsNoNeedNothing=isNoNeedNothing;
+        note.isDone = isDone;
+        note.IsHoliday = isHoliday;
+        note.IsNoNeedNothing = isNoNeedNothing;
+        note.CourseTime = courseTime;
 
         /*int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
         if (countC > 0)
@@ -101,5 +104,15 @@ public class NotificationDao extends BaseDao {
                     .orderBy("NotificationDateTime ASC")
                     .execute();
         }
+    }
+
+    public void deleteRelatedWithCourseTime(CourseTimeDay courseTime) {
+        new Delete().from(Notification.class).where("CourseTime=?", courseTime.getId()).execute();
+    }
+    public void deleteRelatedWithExam(Exam exam) {
+        new Delete().from(Notification.class).where("Exam=?", exam.getId()).execute();
+    }
+    public void deleteRelatedWithTask(Task task) {
+        new Delete().from(Notification.class).where("Task=?", task.getId()).execute();
     }
 }

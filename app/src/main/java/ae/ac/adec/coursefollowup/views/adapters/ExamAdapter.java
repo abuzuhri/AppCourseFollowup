@@ -1,6 +1,8 @@
 package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +24,17 @@ import ae.ac.adec.coursefollowup.views.view.HolidayViewHolder;
  */
 public class ExamAdapter extends RecyclerView.Adapter<ExamViewHolder> {
 
+    private Typeface tf;
     public List<Exam> mDataset;
     private Context context;
     private IClickCardView mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ExamAdapter(List<Exam> myDataset, Context context, IClickCardView mListener) {
+    public ExamAdapter(List<Exam> myDataset,Typeface tf, Context context, IClickCardView mListener) {
         this.mDataset = myDataset;
         this.context = context;
         this.mListener = mListener;
+        this.tf=tf;
     }
 
     // Create new views (invoked by the layout manager)
@@ -59,15 +63,19 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamViewHolder> {
 
         viewHolder.setID(exam.getId());
         viewHolder.course_name.setText(exam.Course.Name);
+        viewHolder.course_name.setTypeface(tf);
+        viewHolder.exam_color.setBackgroundColor(Color.parseColor(exam.Course.ColorCode));
 
         long sd = exam.StartDateTime.getTime();
         long ed = exam.EndDateTime.getTime();
-        long diff = (ed-sd)/(1000*60);
-        viewHolder.exam_duration.setText(diff+" Min");
+        long diff = (ed - sd) / (1000 * 60);
+        viewHolder.exam_duration.setText(diff + " Min");
+        viewHolder.exam_duration.setTypeface(tf);
 
         String startTime = ConstantVariable.getTimeString(exam.StartDateTime);
         String startDate = ConstantVariable.getDateString(exam.StartDateTime);
-        viewHolder.exam_startTime.setText(context.getString(R.string.exam_start_date_hint) + ": " + startTime+" On: "+startDate);
+        viewHolder.exam_startTime.setText(context.getString(R.string.exam_start_date_hint) + ": " + startTime + " On: " + startDate);
+        viewHolder.exam_startTime.setTypeface(tf);
 
     }
 

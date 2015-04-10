@@ -16,6 +16,7 @@ import java.util.List;
 import ae.ac.adec.coursefollowup.ConstantApp.ColorPicker;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomColorDialogClass;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
@@ -57,7 +58,7 @@ public class CoursesFragment extends BaseFragment {
     private void FillDate() {
         CourseDao courseDao = new CourseDao();
         List<Course> courses = courseDao.getAll(position);
-        mAdapter = new CourseAdapter(courses, getActivity(), new IClickCardView() {
+        mAdapter = new CourseAdapter(courses,tf_roboto_light, getActivity(), new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), CourcesFragmentView.class.getName(), ID);
@@ -83,7 +84,7 @@ public class CoursesFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-               AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, CourcesFragmentAddEdit.class.getName(),-1);
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, CourcesFragmentAddEdit.class.getName(), -1);
             }
         });
 

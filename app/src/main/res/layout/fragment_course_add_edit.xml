@@ -32,7 +32,7 @@
                     app:baseColor="@android:color/white"
                     app:floatingLabel="highlight"
                     app:maxCharacters="20"
-                    app:primaryColor="@color/colorAccent"
+                    app:primaryColor="@color/white"
                     app:singleLineEllipsis="true" />
 
             </LinearLayout>
@@ -113,22 +113,16 @@
                         app:iconLeft="@drawable/teacher"
                         app:floatingLabel="highlight"
                         app:iconPadding="10dp" />
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/tv_course_colorCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/course_colorCode_hint"
-                        app:iconLeft="@drawable/color"
-                        app:floatingLabel="highlight"
-                        app:iconPadding="10dp" />
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <Button
                         android:id="@+id/tv_course_times"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/course_times_hint"
-                        app:iconLeft="@drawable/time"
-                        app:floatingLabel="highlight"
-                        app:iconPadding="10dp" />
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:background="@color/colorPrimary"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/white"
+                        android:hint="@string/course_times_hint" />
                 </LinearLayout>
              </ScrollView>
 

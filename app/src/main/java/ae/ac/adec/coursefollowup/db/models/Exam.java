@@ -37,5 +37,8 @@ public class Exam extends BaseModel {
     public Course Course;
 
     @Column
+    public Boolean IsNotify;
+
+    @Column
     public int Sync_status_typeID;
 }

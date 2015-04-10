@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <LinearLayout
 
-        android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@android:color/white">
 
         <LinearLayout
@@ -33,16 +35,19 @@
                 app:maxCharacters="20"
                 app:primaryColor="@color/colorAccent"
                 app:singleLineEllipsis="true"
-                android:focusable="false"/>
+                android:focusable="false" />
 
         </LinearLayout>
-        <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
-        <ScrollView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <include
+            android:id="@+id/shadow_main_activity"
+            layout="@layout/toolbar_shadow" />
+
+        <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbarStyle="outsideInset"
-            >
+            android:scrollbarStyle="outsideInset">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,6 +66,7 @@
                     app:iconLeft="@drawable/chair"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_exam_room"
                     android:layout_width="match_parent"
@@ -70,12 +76,6 @@
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
 
-                <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/exam_isResit"
-                    android:id="@+id/cb_exam_isResit"
-                    android:checked="false"/>
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_exam_date"
                     android:layout_width="match_parent"
@@ -84,6 +84,7 @@
                     app:iconLeft="@drawable/ic_today_white"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_exam_startTime"
                     android:layout_width="match_parent"
@@ -103,13 +104,19 @@
                     app:iconPadding="10dp" />
 
 
+                <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exam_isResit"
+                    android:id="@+id/cb_exam_isResit"
+                    android:layout_marginLeft="8dp"
+                    android:checked="false" />
+
 
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
@@ -72,7 +73,7 @@ public class Calender_CourseFragment extends BaseFragment {
                     (endDate < c.Course.EndDate.getTime()))
                 courses.add(c.Course);
         }
-        CourseAdapter courses_adapter = new CourseAdapter(courses, getActivity(), new IClickCardView() {
+        CourseAdapter courses_adapter = new CourseAdapter(courses,tf_roboto_light, getActivity(), new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), CourcesFragmentView.class.getName(), ID);

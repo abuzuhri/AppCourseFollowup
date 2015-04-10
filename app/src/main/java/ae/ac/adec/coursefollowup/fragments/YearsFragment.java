@@ -51,7 +51,7 @@ public class YearsFragment  extends BaseFragment {
     private void FillDate(){
         YearDao yearDao=new YearDao();
         List<Year> yearList= yearDao.getAll(position);
-        mAdapter = new YearAdapter(yearList,getActivity(),new IClickCardView() {
+        mAdapter = new YearAdapter(yearList,tf_roboto_light,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), YearFragmentView.class.getName(), ID);

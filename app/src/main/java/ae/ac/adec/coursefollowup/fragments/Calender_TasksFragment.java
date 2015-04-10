@@ -66,7 +66,7 @@ public class Calender_TasksFragment extends BaseFragment {
 
     public void populateTasksList(long startDate, long endDate) {
         List<Task> tasks = new TaskDao().getTasksOnDate(startDate, endDate);
-        TaskAdapter tasks_adapter = new TaskAdapter(tasks, getActivity(), new IClickCardView() {
+        TaskAdapter tasks_adapter = new TaskAdapter(tasks,tf_roboto_light, getActivity(), new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), TaskFragmentView.class.getName(), ID);

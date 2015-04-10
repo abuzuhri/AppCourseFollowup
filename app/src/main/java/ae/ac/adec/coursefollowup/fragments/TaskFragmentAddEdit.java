@@ -104,6 +104,11 @@ public class TaskFragmentAddEdit extends BaseFragment {
             if (txtTaskName.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_TSK_001);
             // BR_TSK_004
+            if (ID != null && ID != 0) {
+                Task t = Task.load(Task.class, ID);
+                selectedType = t.TaskType;
+                selectedCourse = t.Course;
+            }
             if (selectedCourse == null)
                 throw new BusinessRoleError(R.string.BR_TSK_004);
             // BR_TSK_003
@@ -145,7 +150,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
             txtTaskDetail.setText(task.Detail);
             txtTaskDueDate.setText(ConstantVariable.getDateString(task.DueDate));
             txtTaskDueDate.setTag(task.DueDate.getTime());
-            txtTaskProgress.setText("Task Progress: "+task.Progress+"% complete");
+            txtTaskProgress.setText("Task Progress: " + task.Progress + "% complete");
             seekProgressBar.setProgress(task.Progress);
         }
     }
@@ -176,7 +181,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                     final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
 
                     dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), "Select Subject",
-                            adapter,false,-1, new AdapterView.OnItemClickListener() {
+                            adapter, false, -1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -195,7 +200,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     final BaseAdapter ad = new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad,false,-1, new AdapterView.OnItemClickListener() {
+                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad, false, -1, new AdapterView.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -212,10 +217,10 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
         txtTaskProgress = (TextView) rootView.findViewById(R.id.txtTaskProgress);
         seekProgressBar = (SeekBar) rootView.findViewById(R.id.seekBar);
-        if(ID==null || ID==0) {
+        if (ID == null || ID == 0) {
             txtTaskProgress.setVisibility(View.GONE);
             seekProgressBar.setVisibility(View.GONE);
-            progressValue=0;
+            progressValue = 0;
 
 
         }
@@ -223,12 +228,12 @@ public class TaskFragmentAddEdit extends BaseFragment {
         seekProgressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressFinal = 0;
 
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                 progress = progress / 5;
                 progress = progress * 5;
                 progressFinal = progress;
-                txtTaskProgress.setText(progress+"% Complete");
+                txtTaskProgress.setText(progress + "% Complete");
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {

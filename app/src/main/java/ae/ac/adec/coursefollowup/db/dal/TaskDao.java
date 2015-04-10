@@ -71,6 +71,7 @@ public class TaskDao extends BaseDao {
 
         long result = task.save();
         AppLog.i("Result: row " + name + " added, result id >" + result);
+        buildNotifications(Task.load(Task.class, result));
     }
 
     public void delete(long Id) throws BusinessRoleError {
@@ -79,6 +80,7 @@ public class TaskDao extends BaseDao {
 
         ActiveAndroid.beginTransaction();
         try {
+            new NotificationDao().deleteRelatedWithTask(task);
             DeleteSyncer(task);
             task.delete();
             ActiveAndroid.setTransactionSuccessful();
@@ -117,11 +119,20 @@ public class TaskDao extends BaseDao {
                 .where("Course=?", course.getId())
                 .execute();
     }
+
     public List<Task> getTasksOnDate(long startDate, long endDate) {
         return new Select()
                 .from(Task.class)
                 .where("DueDate>=? AND DueDate<?", startDate, endDate)
                 .orderBy("DueDate ASC")
                 .execute();
+    }
+
+    public void buildNotifications(Task task) throws BusinessRoleError {
+        NotificationDao notificationDao = new NotificationDao();
+        // remove old related with this time if found
+        notificationDao.deleteRelatedWithTask(task);
+        notificationDao.Add(task.DueDate.getTime(), task.DueDate.getTime() - (24 * 60 * 60 * 1000),
+                null, null, task, null, false, false, false);
     }
 }

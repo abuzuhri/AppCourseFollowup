@@ -122,19 +122,19 @@ public class ConstantVariable {
 
         public static String fromInteger(int x) {
             switch (x) {
-                case 1:
-                    return "Saturday";
-                case 2:
-                    return "Sunday";
-                case 3:
-                    return "Monday";
-                case 4:
-                    return "Tuesday";
-                case 5:
-                    return "Wednesday";
-                case 6:
-                    return "Thursday";
                 case 7:
+                    return "Saturday";
+                case 1:
+                    return "Sunday";
+                case 2:
+                    return "Monday";
+                case 3:
+                    return "Tuesday";
+                case 4:
+                    return "Wednesday";
+                case 5:
+                    return "Thursday";
+                case 6:
                     return "Friday";
             }
             return null;

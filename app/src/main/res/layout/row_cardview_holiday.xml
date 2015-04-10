@@ -8,19 +8,13 @@
     android:orientation="horizontal"
     card_view:cardElevation="2sp"
     card_view:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="0dp"
     android:clickable="true">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.05"
-            android:background="@color/colorAccent" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -31,10 +25,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/titleTextView"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:textColor="#3C3C3C"
-
-                android:textSize="28sp"
+                android:textSize="20sp"
                 tools:text="This is the title" />
 
 
@@ -54,7 +47,7 @@
                 android:id="@+id/txtFromDate"
                 android:layout_below="@+id/cardDivider"
                 android:textColor="#878787"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:textSize="16sp"
                 tools:text="And this is the description" />
 
@@ -64,7 +57,7 @@
                 android:id="@+id/txtToDate"
                 android:layout_below="@+id/txtFromDate"
                 android:textColor="#878787"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:textSize="16sp"
                 tools:text="And this is the description" />
 

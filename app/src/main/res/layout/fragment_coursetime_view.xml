@@ -78,11 +78,7 @@
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/cb_dt_view_isRepeat"
-                    android:text="@string/dt_isRepeat"/>
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_dt_onceDate"
                     android:layout_width="match_parent"
@@ -91,7 +87,12 @@
                     app:iconLeft="@drawable/ic_today_white"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
-
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_dt_view_isRepeat"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/dt_isRepeat"/>
             </LinearLayout>
         </ScrollView>
 

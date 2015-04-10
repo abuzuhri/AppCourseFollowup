@@ -32,7 +32,7 @@
                 app:baseColor="@android:color/white"
                 app:floatingLabel="highlight"
                 app:maxCharacters="20"
-                app:primaryColor="@color/colorAccent"
+                app:primaryColor="@color/white"
                 app:singleLineEllipsis="true" />
 
         </LinearLayout>

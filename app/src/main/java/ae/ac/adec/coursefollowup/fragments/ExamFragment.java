@@ -53,7 +53,7 @@ public class ExamFragment extends BaseFragment {
     private void FillDate() {
         ExamDao examDao = new ExamDao();
         List<Exam> examList = examDao.getAll(position);
-        mAdapter = new ExamAdapter(examList, getActivity(), new IClickCardView() {
+        mAdapter = new ExamAdapter(examList,tf_roboto_light, getActivity(), new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), ExamFragmentView.class.getName(), ID);

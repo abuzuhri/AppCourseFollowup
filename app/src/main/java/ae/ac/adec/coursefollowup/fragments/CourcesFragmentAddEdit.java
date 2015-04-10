@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -48,7 +49,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
     MaterialEditText room = null;
     MaterialEditText teacher = null;
     String colorCode = null;
-    MaterialEditText times = null;
+    Button times = null;
     Display display;
 
     ColorPicker picker = null;
@@ -209,7 +210,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
 
         colorCode = getResources().getStringArray(R.array.colors)[0];
 
-        times = (MaterialEditText) rootView.findViewById(R.id.tv_course_times);
+        times = (Button) rootView.findViewById(R.id.tv_course_times);
 
         if (ID == null || ID == 0)
             times.setVisibility(View.GONE);
@@ -235,27 +236,24 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             }
         });
 
-        times.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        times.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    final CustomLVAdapter_Times adapter;
-                    AppLog.i("jma " + ID.longValue());
-                    if (ID != null && ID != 0)
-                        adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
-                    else
-                        adapter = new CustomLVAdapter_Times(getActivity(), new Long(0), ConstantVariable.DayOfWeek.values());
-                    dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAdd.class.getName(), "Times",
-                            adapter, false, ID, new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek + "");
-                            //dialogClass.dismiss();
-                        }
-                    });
-                    dialogClass.show(getActivity().getFragmentManager(), "jma");
-                }
-                v.clearFocus();
+            public void onClick(View v) {
+                final CustomLVAdapter_Times adapter;
+                AppLog.i("jma " + ID.longValue());
+                if (ID != null && ID != 0)
+                    adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
+                else
+                    adapter = new CustomLVAdapter_Times(getActivity(), new Long(0), ConstantVariable.DayOfWeek.values());
+                dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAdd.class.getName(), "Times",
+                        adapter, false, ID, new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek + "");
+                        //dialogClass.dismiss();
+                    }
+                });
+                dialogClass.show(getActivity().getFragmentManager(), "jma");
             }
         });
 

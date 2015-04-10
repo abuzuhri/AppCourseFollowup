@@ -2,6 +2,7 @@ package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +22,17 @@ import ae.ac.adec.coursefollowup.views.view.TaskViewHolder;
  */
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder>  {
 
+    private Typeface tf;
     public List<Task> mDataset;
     private Context context;
     private IClickCardView mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TaskAdapter(List<Task> myDataset,Context context,IClickCardView mListener) {
+    public TaskAdapter(List<Task> myDataset,Typeface tf,Context context,IClickCardView mListener) {
         mDataset = myDataset;
         this.context=context;
         this.mListener=mListener;
+        this.tf=tf;
     }
 
     // Create new views (invoked by the layout manager)
@@ -59,12 +62,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder>  {
         viewHolder.setID(task.getId());
 
         viewHolder.txtTaskTitle.setText(task.Name);
+        viewHolder.txtTaskTitle.setTypeface(tf);
 
         String dueDate= ConstantVariable.getDateString(task.DueDate);
         viewHolder.txtTaskDueDate.setText(dueDate);
+        viewHolder.txtTaskDueDate.setTypeface(tf);
 
-        viewHolder.txtTaskSubject.setText(task.Course.Name);
+        viewHolder.txtTaskSubject.setText(task.Course.Name+":");
+        viewHolder.txtTaskSubject.setTypeface(tf);
+
         viewHolder.txtTaskType.setText(ConstantVariable.TaskType.fromInteger(task.TaskType));
+        viewHolder.txtTaskType.setTypeface(tf);
         viewHolder.img_task_color.setBackgroundColor(Color.parseColor(task.Course.ColorCode));
     }
 

@@ -51,7 +51,7 @@
             android:value="CourseFollowUp.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="13" />
+            android:value="14" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.activities;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -53,7 +54,6 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-
     }
 
     public void SetupToolbarShadow(){

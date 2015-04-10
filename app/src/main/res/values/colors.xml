@@ -1,9 +1,11 @@
 <resources>
 
-    <color name="colorPrimary">@color/color_Blue_500</color>
-    <color name="colorPrimaryDark">@color/color_Blue_700</color>
-    <color name="colorPrimaryLight">#BBDEFB</color>
+    <color name="colorPrimary">@color/color_IBR_500</color>
+    <color name="colorPrimaryDark">@color/color_IBR_500</color>
+    <color name="colorPrimaryLight">@color/color_IBR_700</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorTab">#e1e1e1</color>
 
     <color name="colorPrimary_FAB">#FFFFFFFF</color>
     <color name="colorPrimaryDark_FAB">#FFFFFFFF</color>
@@ -42,6 +44,11 @@
     <color name="color_Blue_500">#2196F3</color>
     <color name="color_Blue_700">#1976D2</color>
     <color name="color_Blue_100">#BBDEFB</color>
+
+    <!-- Material IBR -->
+    <color name="color_IBR_500">#00b5b5</color>
+    <color name="color_IBR_700">#ff00d7d7</color>
+    <color name="color_IBR_100">#ff00e5e5</color>
 
     <!-- Material Green -->
     <color name="color_Green_500">#4CAF50</color>

@@ -1,5 +1,6 @@
 package ae.ac.adec.coursefollowup.fragments;
 
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,10 +32,13 @@ public class BaseFragment extends Fragment {
     public Long ID;
     public static final String POSITION = "POSITION";
     public static final String DATE = "SELECTED_DATE";
+    public Typeface tf_roboto_light,getTf_roboto_medium;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tf_roboto_light = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto-Light.ttf");
+        getTf_roboto_medium = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto-Medium.ttf");
         //set Item ID
         if (getArguments() != null) {
             ID = getArguments().getLong(AppAction.IDEXTRA, 0);

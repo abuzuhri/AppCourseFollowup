@@ -21,12 +21,12 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="0.05"
+            android:layout_weight="0.025"
             android:id="@+id/img_task_color"
             android:background="@color/colorAccent"/>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="0.95"
+            android:layout_weight="0.975"
             android:layout_height="wrap_content"
             android:orientation="vertical">
         <LinearLayout
@@ -39,24 +39,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtTaskTitle"
-                android:layout_weight="0.6"
+                android:layout_weight="0.65"
                 android:padding="10dp"
                 android:textColor="#3C3C3C"
                 android:textSize="20sp"
                 tools:text="Task"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical|left"
                 android:gravity="left" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtTaskDueDate"
-                android:layout_weight="0.4"
-                android:textColor="#3C3C3C"
+                android:layout_weight="0.35"
+                android:textColor="@color/white"
                 android:padding="10dp"
                 android:textSize="12sp"
                 tools:text="Mar 23 15"
                 android:gravity="right"
+                android:background="@color/colorPrimary"
                 android:layout_gravity="center_vertical" />
 
         </LinearLayout>
@@ -79,12 +80,13 @@
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:id="@+id/txtTaskType"
                 android:textColor="#3C3C3C"
-                android:padding="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="14sp"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 tools:text="Type"
                 android:paddingLeft="1dp" />
         </LinearLayout>

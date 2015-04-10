@@ -37,12 +37,14 @@ import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
+import ae.ac.adec.coursefollowup.db.dal.NotificationDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.TaskDao;
 import ae.ac.adec.coursefollowup.db.dal.TestDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
+import ae.ac.adec.coursefollowup.db.models.Notification;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.db.models.Year;
@@ -71,6 +73,15 @@ public class Login_Activity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        NotificationDao n = new NotificationDao();
+//        List<Notification> notifications = n.getAll(2);
+//        Toast.makeText(getBaseContext(), notifications.size() + " Notification", Toast.LENGTH_LONG).show();
+//        for (Notification notification : notifications) {
+//            Calendar c = Calendar.getInstance();
+//            Toast.makeText(getBaseContext(), notification.Course.Name + " ON: " + notification.CalenderDateTime.toGMTString()
+//                    +" IsHoliday: "+notification.IsHoliday, Toast.LENGTH_LONG).show();
+//        }
 
         Intent intent = new Intent(Login_Activity.this, MainActivity.class);
         startActivity(intent);

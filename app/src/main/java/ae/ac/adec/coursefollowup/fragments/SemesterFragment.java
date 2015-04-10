@@ -88,7 +88,7 @@ public class SemesterFragment extends BaseFragment {
         SemesterDao semesterDao=new SemesterDao();
         List<Semester> semesterList= semesterDao.getAll(position);
       //  Log.d("TAG ","N : "+semesterList.size());
-        mAdapter = new SemesterAdapter(semesterList,getActivity(),new IClickCardView() {
+        mAdapter = new SemesterAdapter(semesterList,tf_roboto_light,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), SemesterFragmentView.class.getName(), ID);

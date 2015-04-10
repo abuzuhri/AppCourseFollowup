@@ -160,7 +160,7 @@ public class CalenderFragment extends BaseFragment {
         mSlidingTabLayout.setContentDescription(2, tabs[1]);
         mSlidingTabLayout.setContentDescription(2, tabs[2]);
 
-        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.primary));
+        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
 
         mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setViewPager(mViewPager);

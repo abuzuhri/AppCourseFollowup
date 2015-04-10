@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +20,17 @@ import ae.ac.adec.coursefollowup.views.view.SemesterViewHolder;
  * Created by Mohamaed El-lada on 3/21/2015.
  */
 public class SemesterAdapter extends RecyclerView.Adapter<SemesterViewHolder>  {
+    private final Typeface tf;
     public List<Semester> mDataset;
     private Context context;
     private IClickCardView mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public SemesterAdapter(List<Semester> myDataset,Context context,IClickCardView mListener) {
+    public SemesterAdapter(List<Semester> myDataset,Typeface tf,Context context,IClickCardView mListener) {
         mDataset = myDataset;
         this.context=context;
         this.mListener=mListener;
+        this.tf=tf;
     }
 
     // Create new views (invoked by the layout manager)
@@ -55,12 +58,15 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterViewHolder>  {
 
         viewHolder.setID(semester.getId());
         viewHolder.titleTextView.setText(semester.Name);
+        viewHolder.titleTextView.setTypeface(tf);
 
         String startDate= ConstantVariable.getDateString(semester.StartDate);
         viewHolder.txtFromDate.setText(context.getString(R.string.semester_start_date_hint) +": "+startDate);
+        viewHolder.txtFromDate.setTypeface(tf);
 
         String endDate= ConstantVariable.getDateString(semester.EndDate);
         viewHolder.txtToDate.setText(context.getString(R.string.semester_end_date_hint) +": "+endDate);
+        viewHolder.txtToDate.setTypeface(tf);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

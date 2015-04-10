@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -43,8 +44,7 @@ public class CourcesFragmentView extends BaseFragment {
     MaterialEditText building=null;
     MaterialEditText room=null;
     MaterialEditText teacher=null;
-    MaterialEditText colorCode=null;
-    MaterialEditText times = null;
+    Button times = null;
     CustomDialogClass dialogClass = null;
 
     @Override
@@ -142,10 +142,8 @@ public class CourcesFragmentView extends BaseFragment {
             building.setEnabled(false);
             teacher.setText(course.Teacher);
             teacher.setEnabled(false);
-            colorCode.setText(course.ColorCode);
-            colorCode.setEnabled(false);
-            times.setText(R.string.click_to_show_times);
-            times.setVisibility(View.GONE);
+            times.setText(R.string.click_to_edit_times);
+            times.setEnabled(false);
         }
     }
 
@@ -169,8 +167,7 @@ public class CourcesFragmentView extends BaseFragment {
         building = (MaterialEditText) rootView.findViewById(R.id.tv_course_building);
         room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
         teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
-        colorCode = (MaterialEditText) rootView.findViewById(R.id.tv_course_colorCode);
-        times = (MaterialEditText) rootView.findViewById(R.id.tv_course_times);
+        times = (Button) rootView.findViewById(R.id.tv_course_times);
 
         fillDate();
 

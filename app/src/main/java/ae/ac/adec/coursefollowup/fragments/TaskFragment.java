@@ -52,7 +52,7 @@ public class TaskFragment extends BaseFragment {
     private void FillDate(){
         TaskDao taskDao=new TaskDao();
         List<Task> taskList= taskDao.getAll(position);
-        mAdapter = new TaskAdapter(taskList,getActivity(),new IClickCardView() {
+        mAdapter = new TaskAdapter(taskList,tf_roboto_light,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
 

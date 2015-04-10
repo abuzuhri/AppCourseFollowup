@@ -11,8 +11,6 @@ import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.Exam;
-import ae.ac.adec.coursefollowup.db.models.Semester;
-import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
@@ -68,7 +66,17 @@ public class ExamDao extends BaseDao {
 
         long result = exam.save();
         AppLog.i("Result: row " + result + " added, result id >" + result);
+        buildNotifications(Exam.load(Exam.class, result));
     }
+
+    public void buildNotifications(Exam exam) throws BusinessRoleError {
+        NotificationDao notificationDao = new NotificationDao();
+        // remove old related with this time if found
+        notificationDao.deleteRelatedWithExam(exam);
+        notificationDao.Add(exam.StartDateTime.getTime(), exam.StartDateTime.getTime() - (4 * 60 * 60 * 1000),
+                null, null, null, exam, false, false, false);
+    }
+
 
     public void delete(long Id) throws BusinessRoleError {
 
@@ -76,6 +84,7 @@ public class ExamDao extends BaseDao {
 
         ActiveAndroid.beginTransaction();
         try {
+            new NotificationDao().deleteRelatedWithExam(exam);
             DeleteSyncer(exam);
             exam.delete();
             ActiveAndroid.setTransactionSuccessful();

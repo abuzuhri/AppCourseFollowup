@@ -10,7 +10,7 @@
         android:text="Title"
         android:padding="16dp"
         android:textColor="@color/colorAccent_FAB"
-        android:background="@color/color_Ibrahim_700"
+        android:background="@color/colorPrimary"
         android:id="@+id/tv_customDialog_title" />
 
     <GridView

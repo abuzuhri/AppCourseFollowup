@@ -46,7 +46,7 @@ public class CustomLVAdapter_Times extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        if (view == null) {
+        //if (view == null) {
             view = context.getLayoutInflater().inflate(R.layout.custom_times_dialog_row, parent, false);
 
             final List<CourseTimeDay> cTDays = new CourseTimeDayDao().getTimesByDay(days[position].id);
@@ -61,7 +61,7 @@ public class CustomLVAdapter_Times extends BaseAdapter {
                 tv_details.setText('\t' + ctd.Course.Name + " -> " + ConstantVariable.getTimeString(ctd.Start_time) + " - " +
                         ConstantVariable.getTimeString(ctd.End_time));
                 if (ctd.Course.getId().longValue() == course_id.longValue())
-                    tv_details.setTextColor(Color.GREEN);
+                    tv_details.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 ll_timesDetails.addView(tv_details);
                 tv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -85,7 +85,7 @@ public class CustomLVAdapter_Times extends BaseAdapter {
                     }
                 });
             }
-        }
+        //}
         return view;
     }
 }

@@ -51,7 +51,7 @@ public class HolidayFragment extends BaseFragment {
     private void FillDate(){
         HolidayDao holidayDao=new HolidayDao();
         List<Holiday> holidayList= holidayDao.getAll(position);
-        mAdapter = new HolidayAdapter(holidayList,getActivity(),new IClickCardView() {
+        mAdapter = new HolidayAdapter(holidayList,tf_roboto_light,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), HolidayFragmentView.class.getName(), ID);

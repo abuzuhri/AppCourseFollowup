@@ -60,8 +60,11 @@ public class DashboardFragment extends BaseFragment {
         ((BaseActivity) getActivity()).RemoveToolBarShadow();
 
         tv_tasks = (TextView) rootView.findViewById(R.id.tv_task_title);
+        tv_tasks.setTypeface(tf_roboto_light);
         tv_classes = (TextView) rootView.findViewById(R.id.tv_class_title);
+        tv_classes.setTypeface(tf_roboto_light);
         tv_exams = (TextView) rootView.findViewById(R.id.tv_exam_title);
+        tv_exams.setTypeface(tf_roboto_light);
 
         img_tasks = (ImageView) rootView.findViewById(R.id.img_task);
         img_classes = (ImageView) rootView.findViewById(R.id.img_class);
@@ -124,9 +127,9 @@ public class DashboardFragment extends BaseFragment {
         List<Course> courses = getTodayCourses(start, end, c_today.get(Calendar.DAY_OF_WEEK));
         List<Exam> exams = new ExamDao().getExamsOnDate(start, end);
 
-        tv_tasks.setText(tasks.size() + getString(R.string.dashboard_task));
-        tv_classes.setText(courses.size() + getString(R.string.dashboard_class));
-        tv_exams.setText(exams.size() + getString(R.string.dashboard_exam));
+        tv_tasks.setText(tasks.size()+" " + getString(R.string.dashboard_task));
+        tv_classes.setText(courses.size()+" " + getString(R.string.dashboard_class));
+        tv_exams.setText(exams.size()+" " + getString(R.string.dashboard_exam));
     }
 
     private List<Course> getTodayCourses(long startDate, long endDate, int dayOfWeek) {
@@ -148,12 +151,12 @@ public class DashboardFragment extends BaseFragment {
     }
 
     private void fillTabs() {
-        mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
+        mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator_dashboard, android.R.id.text1);
         mSlidingTabLayout.setContentDescription(1, tabs[0]);
         mSlidingTabLayout.setContentDescription(2, tabs[1]);
         mSlidingTabLayout.setContentDescription(2, tabs[2]);
 
-        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.primary));
+        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.colorPrimary));
 
         mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setViewPager(mViewPager);

@@ -14,8 +14,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="4dp"
-            android:padding="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/color_tasks">
 
             <TextView
@@ -23,16 +24,18 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.7"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:textSize="22dp"
+                android:layout_margin="16dp"
+                android:paddingLeft="16dp"
                 android:textColor="#ffffff"
                 android:text="ddd" />
 
             <ImageView
                 android:id="@+id/img_task"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/tasks_card" />
         </LinearLayout>
 
@@ -41,25 +44,28 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="4dp"
-            android:padding="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/color_classes">
 
             <TextView
                 android:id="@+id/tv_class_title"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:gravity="center"
                 android:layout_weight="0.7"
+                android:gravity="left|center_vertical"
                 android:textSize="22dp"
+                android:paddingLeft="16dp"
                 android:textColor="#ffffff"
+                android:layout_margin="16dp"
                 android:text="ddd" />
 
             <ImageView
                 android:id="@+id/img_class"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/class_card" />
         </LinearLayout>
 
@@ -68,8 +74,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="4dp"
-            android:padding="16dp"
+            android:layout_margin="8dp"
             android:background="@color/color_exams">
 
             <TextView
@@ -77,16 +82,18 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.7"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:textSize="22dp"
                 android:textColor="#ffffff"
+                android:layout_margin="16dp"
+                android:paddingLeft="16dp"
                 android:text="ddd" />
 
             <ImageView
                 android:id="@+id/img_exam"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/exams_card" />
         </LinearLayout>
 
@@ -97,20 +104,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:elevation="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:background="@color/colorPrimary">
 
 
         <ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout
-            android:background="@color/colorPrimary"
+            android:background="@color/colorTab"
             android:id="@+id/sliding_tabs_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <include
+    <!--<include
         android:id="@+id/shadow_main_activity"
-        layout="@layout/toolbar_shadow" />
+        layout="@layout/toolbar_shadow" /> -->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_dashboard"
