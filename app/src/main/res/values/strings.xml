@@ -180,6 +180,12 @@
     <!-- Times -->
     <string name="BR_TIM_001">This Time conflicts with other times</string>
 
+    <!-- Notes  -->
+    <string name="BR_NOT_001">Note can\'t be empty</string>
+    <string name="BR_NOT_002">Select Note Type First</string>
+    <string name="BR_NOT_003">Select Subject First</string>
+    <string name="BR_NOT_004">Text Note Can\'t be empty</string>
+
 
     <string name="dashboard_note">Note</string>
     <string name="dashboard_task">Task</string>
