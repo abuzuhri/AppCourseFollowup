@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -29,9 +31,10 @@ public class NoteFragmentRecordSound extends BaseFragment {
     private MediaRecorder myAudioRecorder;
     private String outputFile = null;
 
-    private Button startRecord    = null;
+    private ToggleButton startRecord    = null;
   //  private Button playRecord   = null;
     private Button stopRecord     = null;
+    boolean isRecording=false;
 
 
 
@@ -120,67 +123,39 @@ public class NoteFragmentRecordSound extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_note_voice, container, false);
         removeShadowForNewApi21(rootView);
 
-//"/AppCourseFollowup/Note" +
+
+        startRecord= (ToggleButton) rootView.findViewById(R.id.startRecord);
 
 
-        startRecord= (Button) rootView.findViewById(R.id.startRecord);
+        startRecord.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    try {
+                        myAudioRecorder.prepare();
+                        myAudioRecorder.start();
+                    } catch (IllegalStateException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
-        stopRecord=(Button) rootView.findViewById(R.id.stopRecord);
+                 //   startRecord.setText("Stop Recording");
+                    //       stopRecord.setEnabled(true);
+                    isRecording = true;
+                } else {
 
-        //playRecord=(Button) rootView.findViewById(R.id.playRecord);
+                    myAudioRecorder.stop();
+                    myAudioRecorder.release();
+                    myAudioRecorder = null;
+                    OneFragmentActivity.setFilePath(outputFile);
+                    OneFragmentActivity.setNoteType("I have a Note Voice!");
+                    getActivity().finish();
 
-        stopRecord.setEnabled(false);
-     //   play.setEnabled(false);
-
-/*
-        playRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    MediaPlayer m = new MediaPlayer();
-                    m.setDataSource(outputFile);
-                    m.prepare();
-                    m.start();
-                    Toast.makeText(getActivity(), "Playing audio", Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
 
-            }
-        });
-*/
-        stopRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myAudioRecorder.stop();
-                myAudioRecorder.release();
-                myAudioRecorder  = null;
-                stopRecord.setEnabled(false);
-                //playRecord.setEnabled(true);
 
-
-                OneFragmentActivity.setFilePath(outputFile);
-                OneFragmentActivity.setNoteType("I have a Note Voice!");
-
-            }
-        });
-
-        startRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                try {
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
-                } catch (IllegalStateException e  ) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                startRecord.setEnabled(false);
-                stopRecord.setEnabled(true);
             }
         });
 

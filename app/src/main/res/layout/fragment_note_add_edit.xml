@@ -30,7 +30,7 @@
                 app:baseColor="@android:color/white"
                 app:floatingLabel="highlight"
                 app:maxCharacters="20"
-                app:primaryColor="@color/white"
+                app:primaryColor="@color/colorAccent"
                 app:singleLineEllipsis="true" />
 
 

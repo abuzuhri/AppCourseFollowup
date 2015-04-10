@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -56,7 +57,7 @@ public class NoteFragmentAddEdit  extends BaseFragment {
     MaterialEditText txtNoteType = null;
     MaterialEditText txtNoteFilePath = null;
     MaterialEditText txtNoteDetail = null;
-
+boolean touched = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -180,17 +181,7 @@ public class NoteFragmentAddEdit  extends BaseFragment {
 
     }
 
-    private  void fillDate(){
-    /*    if(ID!=null && ID!=0){
-            Holiday holiday= Holiday.load(Holiday.class, ID);
-            holidayName.setText(holiday.Name);
-            startDate.setText(ConstantVariable.getDateString(holiday.StartDate));
-            startDate.setTag(holiday.StartDate.getTime());
-            endDate.setText(ConstantVariable.getDateString(holiday.EndDate));
-            endDate.setTag(holiday.EndDate.getTime());
-        }
-        */
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -210,7 +201,8 @@ public class NoteFragmentAddEdit  extends BaseFragment {
 
 
 
-        txtNoteSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+         txtNoteSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -228,11 +220,14 @@ public class NoteFragmentAddEdit  extends BaseFragment {
                         }
                     });
                     dialogClass.show(getActivity().getFragmentManager(), "Iam here!");
+
                     v.clearFocus();
                 }
 
             }
         });
+
+
 
         txtNoteType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -261,6 +256,7 @@ public class NoteFragmentAddEdit  extends BaseFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
 
+                    try{
                     if(txtNoteSubject.getText().toString()!=null && !txtNoteSubject.getText().toString().equals("")) {
 
                         OneFragmentActivity.setCourseName(txtNoteSubject.getText().toString());
@@ -277,11 +273,18 @@ public class NoteFragmentAddEdit  extends BaseFragment {
                             }
 
                         } else {
-                            Toast.makeText(getActivity(), "Select Note Type First", Toast.LENGTH_LONG).show();
+
+                           //ToDo Classification Error in R.String
+                                throw new BusinessRoleError("Select Note Type First");
+                      //      Toast.makeText(getActivity(), "Select Note Type First", Toast.LENGTH_LONG).show();
                         }
                     }else{
+                           //ToDo Classification Error in R.String
+                        throw new BusinessRoleError( "Select Subject First");
 
-                        Toast.makeText(getActivity(), "Select Subject First", Toast.LENGTH_LONG).show();
+                    }
+                    } catch (BusinessRoleError ex) {
+                        AppAction.DiaplayError(getActivity(), ex.getMessage());
                     }
 
                     v.clearFocus();
