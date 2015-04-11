@@ -48,6 +48,10 @@ public class NoteFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
+        OneFragmentActivity.temp=null;
+        OneFragmentActivity.setCourseName(null);
+        OneFragmentActivity.setNoteType(null);
+        OneFragmentActivity.setFilePath(null);
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 FillDate();

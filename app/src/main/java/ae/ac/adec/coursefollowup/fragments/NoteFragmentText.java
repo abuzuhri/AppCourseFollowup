@@ -30,6 +30,8 @@ import java.util.Calendar;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
+import ae.ac.adec.coursefollowup.services.AppAction;
+import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 import android.graphics.Bitmap;
 
@@ -98,6 +100,9 @@ public class NoteFragmentText extends BaseFragment {
          //   if (!root.exists()) {
          //       root.mkdirs();
         //    }
+
+
+
             File gpxfile = new File(outputFile);
             if(!gpxfile.exists()){
                 gpxfile.createNewFile();
@@ -107,15 +112,12 @@ public class NoteFragmentText extends BaseFragment {
             writer.flush();
             writer.close();
             success = true;
-       //     Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
 
-        }
-        catch(IOException e)
+
+        }       catch(IOException e)
         {
             AppLog.i( "File write failed: " + e.toString());
         }
-
-
     }
 
     @Override
@@ -123,10 +125,18 @@ public class NoteFragmentText extends BaseFragment {
 
         switch (item.getItemId()) {
             case R.id.ic_menu_save_menu:
-                AddEdit();
+                try {
+                    if (customEditText.getText().toString().trim().equals(""))
+                        throw new BusinessRoleError(R.string.BR_NOT_004);
+                    AddEdit();
+                } catch (BusinessRoleError businessRoleError) {
+                    AppAction.DiaplayError(getActivity(), businessRoleError.getMessage());
+                }
                 break;
             default:
                 break;
+
+
         }
         return true;
     }

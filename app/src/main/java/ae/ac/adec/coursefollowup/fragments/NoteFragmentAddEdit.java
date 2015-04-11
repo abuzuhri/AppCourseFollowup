@@ -154,7 +154,11 @@ boolean touched = false;
             AppLog.i("ID== >>> " + ID);
             NoteDao Note = new NoteDao();
 
-                if(ID!=null && ID!=0)
+            if(filePath==null || filePath.equals(""))
+                throw new BusinessRoleError(R.string.BR_NOT_001);
+
+
+            if(ID!=null && ID!=0)
                 Note.Edit(ID, selectedCourse, selectedType , txtNoteDetail.getText().toString() ,filePath , Calendar.getInstance().getTimeInMillis() );
             else
                 Note.Add(selectedCourse, selectedType , txtNoteDetail.getText().toString() ,filePath , Calendar.getInstance().getTimeInMillis() );
@@ -274,13 +278,12 @@ boolean touched = false;
 
                         } else {
 
-                           //ToDo Classification Error in R.String
-                                throw new BusinessRoleError("Select Note Type First");
-                      //      Toast.makeText(getActivity(), "Select Note Type First", Toast.LENGTH_LONG).show();
-                        }
+
+                                throw new BusinessRoleError(R.string.BR_NOT_002);
+                           }
                     }else{
-                           //ToDo Classification Error in R.String
-                        throw new BusinessRoleError( "Select Subject First");
+
+                        throw new BusinessRoleError( R.string.BR_NOT_003);
 
                     }
                     } catch (BusinessRoleError ex) {
