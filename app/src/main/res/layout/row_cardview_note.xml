@@ -21,13 +21,13 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="0.05"
+                android:layout_weight="0.025"
                 android:id="@+id/img_note_color"
                 android:background="@color/colorAccent"/>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="0.95"
+                android:layout_weight="0.975"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
@@ -40,13 +40,27 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtNoteSubject"
-                        android:layout_weight="0.6"
+                        android:layout_weight="0.65"
                         android:padding="10dp"
                         android:textColor="#3C3C3C"
                         android:textSize="20sp"
                         tools:text="Subject"
                         android:layout_gravity="center_vertical"
                         android:gravity="left" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/txtNoteAddDate"
+                        android:textColor="@color/colorInnerBlockText"
+                        android:padding="5dp"
+                        android:layout_margin="4dp"
+                        android:textSize="14sp"
+                        android:layout_weight=".35"
+                        android:gravity="center"
+                        android:background="@color/colorInnerBlockBG"
+                        android:layout_gravity="center_vertical"
+                        tools:text="Add Date"
+                        android:paddingLeft="1dp" />
 
 
                 </LinearLayout>
@@ -67,16 +81,7 @@
                         tools:text="Type"
                         android:paddingRight="2dp" />
 
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/txtNoteAddDate"
-                        android:textColor="#3C3C3C"
-                        android:padding="5dp"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_vertical"
-                        tools:text="Add Date"
-                        android:paddingLeft="1dp" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -65,7 +65,7 @@ public class NoteFragment extends BaseFragment {
         final List<Note> noteList= noteDao.getAll(position);
 
 
-        mAdapter = new NoteAdapter(noteList,getActivity(),new IClickCardView() {
+        mAdapter = new NoteAdapter(noteList,tf_roboto_light,getActivity(),new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
 

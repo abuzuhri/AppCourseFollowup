@@ -2,6 +2,7 @@ package ae.ac.adec.coursefollowup.views.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
     private Context context;
     private IClickCardView mListener;
     private int posList=-1;
+    private Typeface tf;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NoteAdapter(List<Note> myDataset,Context context,IClickCardView mListener) {
+    public NoteAdapter(List<Note> myDataset,Typeface tf,Context context,IClickCardView mListener) {
         mDataset = myDataset;
         this.context=context;
         this.mListener=mListener;
+        this.tf=tf;
     }
 
     // Create new views (invoked by the layout manager)
@@ -62,11 +65,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
         viewHolder.setID(note.getId());
 
         viewHolder.txtNoteSubject.setText(note.Course.Name);
+        viewHolder.txtNoteSubject.setTypeface(tf);
 
         String addDate= ConstantVariable.getDateString(note.DateAdded);
         viewHolder.txtNoteAddDate.setText(addDate);
+        viewHolder.txtNoteAddDate.setTypeface(tf);
 
         viewHolder.txtNoteType.setText(ConstantVariable.NoteType.fromInteger(note.NoteType));
+        viewHolder.txtNoteType.setTypeface(tf);
 
         viewHolder.img_note_color.setBackgroundColor(Color.parseColor(note.Course.ColorCode));
 

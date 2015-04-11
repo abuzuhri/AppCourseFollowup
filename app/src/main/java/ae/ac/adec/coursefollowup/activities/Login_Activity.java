@@ -37,6 +37,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
+import ae.ac.adec.coursefollowup.db.dal.NoteDao;
 import ae.ac.adec.coursefollowup.db.dal.NotificationDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.TaskDao;
@@ -44,6 +45,7 @@ import ae.ac.adec.coursefollowup.db.dal.TestDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
+import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Notification;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Task;
@@ -73,7 +75,6 @@ public class Login_Activity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 //        NotificationDao n = new NotificationDao();
 //        List<Notification> notifications = n.getAll(2);
 //        Toast.makeText(getBaseContext(), notifications.size() + " Notification", Toast.LENGTH_LONG).show();
