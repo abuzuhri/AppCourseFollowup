@@ -52,12 +52,13 @@
                     android:layout_height="fill_parent"
                     android:text="10 min"
                     android:padding="12dp"
-                    android:textSize="18sp"
+                    android:textSize="13sp"
                     android:gravity="center"
                     android:id="@+id/tv_exam_card_duration"
                     android:layout_weight="0.3"
-                    android:textColor="@color/white"
-                    android:background="@color/colorPrimary"/>
+                    android:layout_margin="4dp"
+                    android:textColor="@color/colorInnerBlockText"
+                    android:background="@color/colorInnerBlockBG"/>
             </LinearLayout>
             <View
                 android:id="@+id/cardDivider"

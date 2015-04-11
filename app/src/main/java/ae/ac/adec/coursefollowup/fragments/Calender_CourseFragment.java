@@ -43,6 +43,9 @@ public class Calender_CourseFragment extends BaseFragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         lv_courses.setLayoutManager(mLayoutManager);
 
+        Calendar calendar = Calendar.getInstance();
+        populateCoursesList(calendar.getTime().getTime(),calendar.get(Calendar.DAY_OF_WEEK));
+
         return rootView;
     }
 

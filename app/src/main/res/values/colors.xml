@@ -6,6 +6,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorTab">#e1e1e1</color>
+    <color name="colorInnerBlockBG">#e4e4e4</color>
+    <color name="colorInnerBlockText">#666666</color>
 
     <color name="colorPrimary_FAB">#FFFFFFFF</color>
     <color name="colorPrimaryDark_FAB">#FFFFFFFF</color>

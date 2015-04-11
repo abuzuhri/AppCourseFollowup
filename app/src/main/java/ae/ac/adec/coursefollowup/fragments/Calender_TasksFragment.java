@@ -42,6 +42,9 @@ public class Calender_TasksFragment extends BaseFragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         lv_tasks.setLayoutManager(mLayoutManager);
 
+        Calendar calendar = Calendar.getInstance();
+        populateTasksList(calendar.getTime().getTime());
+
         return rootView;
     }
 

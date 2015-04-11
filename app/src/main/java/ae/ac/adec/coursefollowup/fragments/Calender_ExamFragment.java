@@ -48,6 +48,9 @@ public class Calender_ExamFragment extends BaseFragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         lv_exams.setLayoutManager(mLayoutManager);
 
+        Calendar calendar = Calendar.getInstance();
+        populateExamsList(calendar.getTime().getTime());
+
         return rootView;
     }
 
@@ -72,7 +75,7 @@ public class Calender_ExamFragment extends BaseFragment {
 
     public void populateExamsList(long startDate, long endDate) {
         List<Exam> exams = new ExamDao().getExamsOnDate(startDate, endDate);
-        ExamAdapter exams_adapter = new ExamAdapter(exams,tf_roboto_light, getActivity(), new IClickCardView() {
+        ExamAdapter exams_adapter = new ExamAdapter(exams, tf_roboto_light, getActivity(), new IClickCardView() {
             @Override
             public void onClick(View v, long ID) {
                 AppAction.OpenActivityWithFRAGMENT(getActivity(), ExamFragmentView.class.getName(), ID);

@@ -60,9 +60,8 @@ public class NotificationDao extends BaseDao {
         note.IsNoNeedNothing = isNoNeedNothing;
         note.CourseTime = courseTime;
 
-        /*int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
-        if (countC > 0)
-            throw new BusinessRoleError(R.string.BR_HLD_003);*/
+        if (notificationDateTime < System.currentTimeMillis())
+            note.isDone = true;
 
         long result = note.save();
         AppLog.i("Result: row " + result + " added, result id >" + result);
@@ -83,19 +82,37 @@ public class NotificationDao extends BaseDao {
 
     }
 
+    public List<Notification> getCurrent() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+
+        Calendar calendar_1 = (Calendar) calendar.clone();
+        calendar_1.add(Calendar.MINUTE, 1);
+
+        return new Select()
+                .from(Notification.class)
+                .where("(NotificationDateTime >= ? AND NotificationDateTime < ?) AND IsHoliday=? " +
+                                "AND isDone=? AND IsNoNeedNothing=?", calendar.getTime().getTime(),
+                        calendar_1.getTime().getTime(), false, false, false)
+                .orderBy("NotificationDateTime ASC")
+                .execute();
+    }
+
     public List<Notification> getAll(int position) {
         Calendar calendar = Calendar.getInstance();
         long currentTimeInMillis = calendar.getTimeInMillis();
         if (position == ConstantVariable.TimeFrame.Current.id) {
             return new Select()
                     .from(Notification.class)
-                    .where("NotificationDateTime > ?", currentTimeInMillis)
+                    .where("NotificationDateTime > ? AND IsHoliday=?" +
+                            "AND isDone=? AND IsNoNeedNothing=?", currentTimeInMillis, false, false, false)
                     .orderBy("NotificationDateTime ASC")
                     .execute();
         } else if (position == ConstantVariable.TimeFrame.Past.id) {
             return new Select()
                     .from(Notification.class)
-                    .where("NotificationDateTime <= ?", currentTimeInMillis)
+                    .where("NotificationDateTime <= ? AND IsHoliday=?" +
+                            "AND isDone=? AND IsNoNeedNothing=?", currentTimeInMillis, false, false, false)
                     .orderBy("NotificationDateTime ASC")
                     .execute();
         } else {
@@ -109,9 +126,11 @@ public class NotificationDao extends BaseDao {
     public void deleteRelatedWithCourseTime(CourseTimeDay courseTime) {
         new Delete().from(Notification.class).where("CourseTime=?", courseTime.getId()).execute();
     }
+
     public void deleteRelatedWithExam(Exam exam) {
         new Delete().from(Notification.class).where("Exam=?", exam.getId()).execute();
     }
+
     public void deleteRelatedWithTask(Task task) {
         new Delete().from(Notification.class).where("Task=?", task.getId()).execute();
     }

@@ -81,26 +81,27 @@ public class DashboardFragment extends BaseFragment {
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs_dashboard);
         pagerAdapter = new SampleFragmentPagerAdapter(getChildFragmentManager(), tabs);
         mViewPager.setAdapter(pagerAdapter);
+
         fillTabs();
 
         ll_tasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).selectItem(ConstantVariable.Category.Tasks.id);
+                ((BaseActivity) getActivity()).selectItem(ConstantVariable.Category.Tasks.id);
             }
         });
 
         ll_classes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).selectItem(ConstantVariable.Category.Classes.id);
+                ((BaseActivity) getActivity()).selectItem(ConstantVariable.Category.Classes.id);
             }
         });
 
         ll_exams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).selectItem(ConstantVariable.Category.Exams.id);
+                ((BaseActivity) getActivity()).selectItem(ConstantVariable.Category.Exams.id);
             }
         });
 
@@ -127,9 +128,9 @@ public class DashboardFragment extends BaseFragment {
         List<Course> courses = getTodayCourses(start, end, c_today.get(Calendar.DAY_OF_WEEK));
         List<Exam> exams = new ExamDao().getExamsOnDate(start, end);
 
-        tv_tasks.setText(tasks.size()+" " + getString(R.string.dashboard_task));
-        tv_classes.setText(courses.size()+" " + getString(R.string.dashboard_class));
-        tv_exams.setText(exams.size()+" " + getString(R.string.dashboard_exam));
+        tv_tasks.setText(tasks.size() + " " + getString(R.string.dashboard_task));
+        tv_classes.setText(courses.size() + " " + getString(R.string.dashboard_class));
+        tv_exams.setText(exams.size() + " " + getString(R.string.dashboard_exam));
     }
 
     private List<Course> getTodayCourses(long startDate, long endDate, int dayOfWeek) {
@@ -200,6 +201,7 @@ public class DashboardFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
+            Calendar calendar = Calendar.getInstance();
             Fragment fragment = frags.get(position);
             return fragment;
         }
