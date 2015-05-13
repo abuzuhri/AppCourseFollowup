@@ -17,8 +17,9 @@ public class CourseViewHolder extends BaseRecyclerViewHolder implements View.OnC
 
     public TextView course_nameCode;
     public TextView course_room;
-    public TextView course_building;
+    public TextView course_teacher;
     public ImageView img_course_color;
+    public TextView course_time;
 
     public IClickCardView mListener;
 
@@ -29,8 +30,12 @@ public class CourseViewHolder extends BaseRecyclerViewHolder implements View.OnC
         course_nameCode.setTypeface(tf);
 
         course_room = (TextView) itemLayoutView.findViewById(R.id.tv_course_card_room);
-        course_building = (TextView) itemLayoutView.findViewById(R.id.tv_course_card_building);
+        course_room.setTypeface(tf);
+        course_teacher = (TextView) itemLayoutView.findViewById(R.id.tv_course_card_teacher);
+        course_teacher.setTypeface(tf);
         img_course_color = (ImageView)itemLayoutView.findViewById(R.id.img_course_color);
+        course_time = (TextView) itemLayoutView.findViewById(R.id.tv_course_card_courseTime);
+        course_time.setTypeface(tf);
         itemLayoutView.setOnClickListener(this);
 
     }

@@ -158,18 +158,24 @@ public class ExamFragmentView extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         courseName= (MaterialEditText) rootView.findViewById(R.id.tv_exam_course_name);
+        courseName.setTypeface(tf_roboto_light);
         seat = (MaterialEditText) rootView.findViewById(R.id.tv_exam_seat);
+        seat.setTypeface(tf_roboto_light);
         room = (MaterialEditText) rootView.findViewById(R.id.tv_exam_room);
+        room.setTypeface(tf_roboto_light);
         isResit = (CheckBox) rootView.findViewById(R.id.cb_exam_isResit);
 
         examDate = (MaterialEditText) rootView.findViewById(R.id.tv_exam_date);
         SetDateControl(examDate);
+        examDate.setTypeface(tf_roboto_light);
 
         startDateTime= (MaterialEditText) rootView.findViewById(R.id.tv_exam_startTime);
         SetDateControl(startDateTime);
+        startDateTime.setTypeface(tf_roboto_light);
 
         endDateTime= (MaterialEditText) rootView.findViewById(R.id.tv_exam_endTime);
         SetDateControl(endDateTime);
+        endDateTime.setTypeface(tf_roboto_light);
 
 
         fillDate();

@@ -24,7 +24,7 @@ public class CourseTimeDay extends BaseModel {
     public int DayOfWeek ;
     @Column
     public Boolean IsRepeat;
-    @Column(name = "Course",onUpdate = Column.ForeignKeyAction.CASCADE,onDelete = Column.ForeignKeyAction.NO_ACTION)
+    @Column(name = "Course",onUpdate = Column.ForeignKeyAction.CASCADE,onDelete = Column.ForeignKeyAction.CASCADE)
     public Course Course;
     @Column
     public int Sync_status_typeID;

@@ -1,24 +1,36 @@
 package ae.ac.adec.coursefollowup.ConstantApp;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Environment;
+import android.view.View;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
+
+import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.BaseActivity;
+import ae.ac.adec.coursefollowup.services.AppAction;
 
 /**
  * Created by JMA on 3/8/2015.
  */
 public class ConstantVariable {
 
-    public static String MAIN_APP_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup" ;
-    public static String NOTES_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes" ;
-    public static String NOTES_TEXT_DIRECTORY  = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Text" ;
-    public static String NOTES_IMAGE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Image" ;
-    public static String NOTES_VOICE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Voice" ;
-    public static String NOTES_VIDEO_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/CourseFollowup/Notes/Video" ;
+    public static String MAIN_APP_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup";
+    public static String NOTES_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes";
+    public static String NOTES_TEXT_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Text";
+    public static String NOTES_IMAGE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Image";
+    public static String NOTES_VOICE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Voice";
+    public static String NOTES_VIDEO_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Video";
+    public static String lang = "en";
+    public static Boolean isValidPause=true,isTimesDialog=false;
 
     public enum TaskType {
         Assignment(1),
@@ -32,21 +44,20 @@ public class ConstantVariable {
             this.id = id;
         }
 
-
-        public static String fromInteger(int x) {
+        public static int fromInteger(int x) {
             switch (x) {
                 case 1:
-                    return "Assignment";
+                    return R.string.task_ass;
                 case 2:
-                    return "Homework";
+                    return R.string.task_hw;
                 case 3:
-                    return "Reminder";
+                    return R.string.task_rem;
                 case 4:
-                    return "Revision";
+                    return R.string.task_rev;
                 case 5:
-                    return "Meeting";
+                    return R.string.task_meet;
             }
-            return null;
+            return 0;
         }
 
     }
@@ -58,6 +69,17 @@ public class ConstantVariable {
         public int id;
 
         private TimeFrame(int id) {
+            this.id = id;
+        }
+    }
+    public enum NoteType_Tabs {
+        Text(0),
+        Image(1),
+        Voice(2),
+        Video(3);
+        public int id;
+
+        private NoteType_Tabs(int id) {
             this.id = id;
         }
     }
@@ -75,7 +97,8 @@ public class ConstantVariable {
         Search(99),
         Setting(100),
         Test(1000),
-        Profile(101);
+        Profile(101),
+        Language(102);
 
         public int id;
 
@@ -120,24 +143,43 @@ public class ConstantVariable {
             this.id = id;
         }
 
-        public static String fromInteger(int x) {
+        public static int fromInteger(int x) {
             switch (x) {
                 case 7:
-                    return "Saturday";
+                    return R.string.saturday;
                 case 1:
-                    return "Sunday";
+                    return R.string.sunday;
                 case 2:
-                    return "Monday";
+                    return R.string.monday;
                 case 3:
-                    return "Tuesday";
+                    return R.string.tuesday;
                 case 4:
-                    return "Wednesday";
+                    return R.string.wednesday;
                 case 5:
-                    return "Thursday";
+                    return R.string.thursday;
                 case 6:
-                    return "Friday";
+                    return R.string.friday;
             }
-            return null;
+            return 0;
+        }
+        public static int fromInteger_shortcut(int x) {
+            switch (x) {
+                case 7:
+                    return R.string.sat;
+                case 1:
+                    return R.string.sun;
+                case 2:
+                    return R.string.mon;
+                case 3:
+                    return R.string.tue;
+                case 4:
+                    return R.string.wed;
+                case 5:
+                    return R.string.thu;
+                case 6:
+                    return R.string.fri;
+            }
+            return 0;
         }
     }
 
@@ -152,19 +194,18 @@ public class ConstantVariable {
             this.id = id;
         }
 
-        public static String fromInteger(int x) {
+        public static int fromInteger(int x) {
             switch (x) {
                 case 1:
-                    return "Voice";
+                    return R.string.voice;
                 case 2:
-                    return "Text";
+                    return R.string.text;
                 case 3:
-                    return "Video";
+                    return R.string.video;
                 case 4:
-                    return "Image";
-
+                    return R.string.image;
             }
-            return null;
+            return 0;
         }
 
     }
@@ -183,13 +224,20 @@ public class ConstantVariable {
     public static String getDateString(Date date) {
         if (date == null)
             return "";
-        return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, java.util.Locale.getDefault()).format(date);
+        if (lang.equals("ar"))
+            return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ar")).format(date);
+        else
+            return SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("en")).format(date);
     }
 
     public static String getTimeString(Date date) {
         if (date == null)
             return "";
-        DateFormat formatter = new SimpleDateFormat("hh:mm: aa");
+        DateFormat formatter = null;
+        if (lang.equals("ar"))
+            formatter = new SimpleDateFormat("hh:mm: aa", new Locale("ar"));
+        else
+            formatter = new SimpleDateFormat("hh:mm: aa", new Locale("en"));
         return formatter.format(date);
     }
 
@@ -208,5 +256,13 @@ public class ConstantVariable {
         calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         return day;
+    }
+
+    public static Boolean isVersionUnder21() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

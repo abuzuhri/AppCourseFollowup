@@ -16,6 +16,7 @@ public class AppAction {
     public static final String IDEXTRA = "IDEXTRA";
     public static final String FRAGMENTEXTRA = "FRAGMENT";
     public static final String COURSE_ID = "COURSE_ID";
+    public static final String NOTETYPE = "NOTETYPE";
 
     public static void OpenActivityIntent(Context context, Intent intent) {
         context.startActivity(intent);
@@ -38,6 +39,16 @@ public class AppAction {
             intent.putExtra(FRAGMENTEXTRA, name);
         if (id != -1)
             intent.putExtra(COURSE_ID, id);
+        OpenActivityIntent(context, intent);
+    }
+
+    public static void OpenActivityWithFRAGMENT(Context context, Class<?> cls, String name, long id, int noteType) {
+        Intent intent = new Intent(context, cls);
+        if (name != null)
+            intent.putExtra(FRAGMENTEXTRA, name);
+        if (id != -1)
+            intent.putExtra(COURSE_ID, id);
+        intent.putExtra(NOTETYPE, noteType);
         OpenActivityIntent(context, intent);
     }
 

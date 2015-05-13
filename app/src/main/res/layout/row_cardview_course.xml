@@ -42,14 +42,26 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="0.8"
+                android:layout_weight="0.65"
                 android:layout_height="fill_parent"
                 android:id="@+id/tv_course_card_courseNameCode"
                 android:padding="12dp"
                 android:textColor="#3C3C3C"
                 android:textSize="20sp"
                 tools:text="This is the title" />
-
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/tv_course_card_courseTime"
+                android:layout_weight="0.35"
+                android:textColor="@color/colorInnerBlockText"
+                android:padding="10dp"
+                android:textSize="13sp"
+                tools:text="Mar 23 15"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:background="@color/colorInnerBlockBG"
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
         <View
             android:id="@+id/cardDivider"
@@ -69,8 +81,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_course_card_building"
-                android:drawableLeft="@drawable/buil"
+                android:id="@+id/tv_course_card_teacher"
+                android:drawableLeft="@drawable/teacher"
                 android:drawablePadding="4dp"
                 android:textColor="#878787"
                 android:padding="12dp"

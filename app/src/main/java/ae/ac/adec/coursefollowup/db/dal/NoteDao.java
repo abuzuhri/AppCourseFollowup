@@ -23,16 +23,16 @@ public class NoteDao extends BaseDao {
         return Note.load(Note.class, id);
     }
 
-    public void Edit(long ID, Course course, int noteType, String details, String filePath, long dateAdded) throws BusinessRoleError {
+    public void Edit(long ID, Course course,String noteName, int noteType, String details, String filePath, long dateAdded) throws BusinessRoleError {
         AppLog.i("Edit => " + ID);
-        AddEdit(ID, course, noteType, details, filePath, dateAdded);
+        AddEdit(ID, course,noteName, noteType, details, filePath, dateAdded);
     }
 
-    public void Add(Course course, int noteType, String details, String filePath, long dateAdded) throws BusinessRoleError {
-        AddEdit(null, course, noteType, details, filePath, dateAdded);
+    public void Add(Course course,String noteName, int noteType, String details, String filePath, long dateAdded) throws BusinessRoleError {
+        AddEdit(null, course,noteName, noteType, details, filePath, dateAdded);
     }
 
-    private void AddEdit(Long ID, Course course, int noteType, String details, String filePath, long dateAdded) throws BusinessRoleError {
+    private void AddEdit(Long ID, Course course,String noteName, int noteType, String details, String filePath, long dateAdded) throws BusinessRoleError {
         Note note = null;
         if (ID != null && ID != 0)
             note = Note.load(Note.class, ID.longValue());
@@ -43,10 +43,11 @@ public class NoteDao extends BaseDao {
         dA.setTimeInMillis(dateAdded);
         note.DateAdded = dA.getTime();
 
-        note.Course=course;
-        note.NoteType=noteType;
-        note.Details=details;
-        note.FilePath=filePath;
+        note.Course = course;
+        note.NoteName=noteName;
+        note.NoteType = noteType;
+        note.Details = details;
+        note.FilePath = filePath;
 
         /*int countC = new Select().from(Course.class).where("Name=?", course.Name).count();
         if (countC > 0)
@@ -72,27 +73,33 @@ public class NoteDao extends BaseDao {
     }
 
     public List<Note> getAll(int position) {
-        Calendar calendar = Calendar.getInstance();
-        long currentTimeInMillis = calendar.getTimeInMillis();
-        if (position == ConstantVariable.TimeFrame.Current.id) {
+        if (position == ConstantVariable.NoteType_Tabs.Text.id) {
             return new Select()
                     .from(Note.class)
-                    .where("DateAdded > ?", currentTimeInMillis)
-                    .orderBy("DateAdded ASC")
+                    .where("NoteType = ?", ConstantVariable.NoteType.Text.id)
+                    .orderBy("DateAdded DESC")
                     .execute();
-        } else if (position == ConstantVariable.TimeFrame.Past.id) {
+        } else if (position == ConstantVariable.NoteType_Tabs.Image.id) {
             return new Select()
                     .from(Note.class)
-                    .where("DateAdded <= ?", currentTimeInMillis)
-                    .orderBy("DateAdded ASC")
+                    .where("NoteType = ?", ConstantVariable.NoteType.Image.id)
+                    .orderBy("DateAdded DESC")
+                    .execute();
+        } else if (position == ConstantVariable.NoteType_Tabs.Voice.id) {
+            return new Select()
+                    .from(Note.class)
+                    .where("NoteType = ?", ConstantVariable.NoteType.Voice.id)
+                    .orderBy("DateAdded DESC")
                     .execute();
         } else {
             return new Select()
                     .from(Note.class)
-                    .orderBy("DateAdded ASC")
+                    .where("NoteType = ?", ConstantVariable.NoteType.Video.id)
+                    .orderBy("DateAdded DESC")
                     .execute();
         }
     }
+
     public List<Note> getNotesWithinCourse(Course course) {
         return new Select()
                 .from(Note.class)

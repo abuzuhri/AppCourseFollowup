@@ -27,9 +27,9 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
  */
 public class YearFragmentAddEdit extends BaseFragment {
 
-    MaterialEditText yearName=null;
-    MaterialEditText startDate=null;
-    MaterialEditText endDate=null;
+    MaterialEditText yearName = null;
+    MaterialEditText startDate = null;
+    MaterialEditText endDate = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,10 @@ public class YearFragmentAddEdit extends BaseFragment {
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(ID!=null && ID!=0)
+        if (ID != null && ID != 0)
             setSubTitle(getString(R.string.year_edit_subtitle));
         else setSubTitle(getString(R.string.year_add_subtitle));
     }
@@ -54,7 +53,7 @@ public class YearFragmentAddEdit extends BaseFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class YearFragmentAddEdit extends BaseFragment {
         return true;
     }
 
-    public void AddEdit(){
+    public void AddEdit() {
         try {
             AppLog.i("ID== >>> " + ID);
             YearDao year = new YearDao();
@@ -85,19 +84,19 @@ public class YearFragmentAddEdit extends BaseFragment {
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();
 
-            if(ID!=null && ID!=0)
+            if (ID != null && ID != 0) {
                 year.Edit(ID, yearName.getText().toString().trim(), startDateMil, endDateMil);
-            else
+                Toast.makeText(getActivity(), R.string.year_edit_successfully, Toast.LENGTH_LONG).show();
+            } else {
                 year.Add(yearName.getText().toString().trim(), startDateMil, endDateMil);
+                Toast.makeText(getActivity(), R.string.year_add_successfully, Toast.LENGTH_LONG).show();
+            }
 
             getActivity().finish();
-            Toast.makeText(getActivity(),R.string.year_add_successfully,Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
-
-
 
 
     @Override
@@ -107,9 +106,9 @@ public class YearFragmentAddEdit extends BaseFragment {
 
     }
 
-    private  void fillDate(){
-        if(ID!=null && ID!=0){
-            Year year= Year.load(Year.class, ID);
+    private void fillDate() {
+        if (ID != null && ID != 0) {
+            Year year = Year.load(Year.class, ID);
             yearName.setText(year.Name);
             startDate.setText(ConstantVariable.getDateString(year.StartDate));
             startDate.setTag(year.StartDate.getTime());
@@ -125,21 +124,23 @@ public class YearFragmentAddEdit extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         //year Name
-        yearName= (MaterialEditText) rootView.findViewById(R.id.txtName);
+        yearName = (MaterialEditText) rootView.findViewById(R.id.txtName);
+        yearName.setTypeface(tf_roboto_light);
 
         // Start Date
-        startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
+        startDate = (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl_New(startDate);
+        startDate.setTypeface(tf_roboto_light);
 
         // End Date
-        endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
+        endDate = (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl_New(endDate);
+        endDate.setTypeface(tf_roboto_light);
 
         fillDate();
 
         return rootView;
     }
-
 
 
 }

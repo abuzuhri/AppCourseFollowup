@@ -22,6 +22,7 @@ import ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
+import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.ExamDao;
 import ae.ac.adec.coursefollowup.db.dal.NoteDao;
@@ -30,7 +31,9 @@ import ae.ac.adec.coursefollowup.db.models.Course;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.models.Note;
+import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Task;
+import ae.ac.adec.coursefollowup.db.models.Year;
 import ae.ac.adec.coursefollowup.services.AppAction;
 
 
@@ -45,7 +48,7 @@ public class DashboardFragment extends BaseFragment {
     SlidingTabLayout mSlidingTabLayout;
     SampleFragmentPagerAdapter pagerAdapter;
     List<Fragment> frags;
-    String[] tabs = {"Exams", "Courses", "Tasks"};
+    String[] tabs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class DashboardFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ((BaseActivity) getActivity()).RemoveToolBarShadow();
 
+        tabs = getResources().getStringArray(R.array.cats);
         tv_tasks = (TextView) rootView.findViewById(R.id.tv_task_title);
         tv_tasks.setTypeface(tf_roboto_light);
         tv_classes = (TextView) rootView.findViewById(R.id.tv_class_title);
@@ -137,7 +141,7 @@ public class DashboardFragment extends BaseFragment {
         List<CourseTimeDay> ctd = new CourseTimeDayDao().getCoursesTimesOnDate(startDate, endDate, dayOfWeek);
         List<Course> courses = new ArrayList<Course>();
         for (CourseTimeDay c : ctd) {
-            if ((startDate >= c.Course.StartDate.getTime()) &&
+            if (c.Course != null && (startDate >= c.Course.StartDate.getTime()) &&
                     (endDate < c.Course.EndDate.getTime()))
                 courses.add(c.Course);
         }

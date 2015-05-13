@@ -113,11 +113,11 @@ public class DayTimeFragmentEdit extends BaseFragment {
             if (ID != null && ID != 0) {
                 if (isRepeat.isChecked())
                     ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), d);
-                else{
+                else {
                     Calendar cal = Calendar.getInstance();
                     cal.setTimeInMillis(startDateMil);
                     int _dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-                    ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(),_dayOfWeek);
+                    ctd.Edit(ID, currentCourse, startDateMil, endDateMil, isRepeat.isChecked(), _dayOfWeek);
                 }
             }
 
@@ -147,7 +147,10 @@ public class DayTimeFragmentEdit extends BaseFragment {
             endTime.setText(ConstantVariable.getTimeString(courseTimeDay.End_time));
             endTime.setTag(courseTimeDay.End_time.getTime());
 
-            //oneDayDate.setText(ConstantVariable.getDateString(courseTimeDay.Start_time));
+            if (!courseTimeDay.IsRepeat) {
+                oneDayDate.setText(ConstantVariable.getDateString(courseTimeDay.Start_time));
+                oneDayDate.setTag(courseTimeDay.Start_time.getTime());
+            }
 
             daysOfWeek.setText(ConstantVariable.DayOfWeek.fromInteger(courseTimeDay.DayOfWeek));
             daysOfWeek.setTag(courseTimeDay.DayOfWeek);
@@ -164,13 +167,18 @@ public class DayTimeFragmentEdit extends BaseFragment {
 
 
         isRepeat = (CheckBox) rootView.findViewById(R.id.cb_dt_isRepeat);
+        isRepeat.setTypeface(tf_roboto_light);
         daysOfWeek = (MaterialEditText) rootView.findViewById(R.id.tv_dt_daysOfWeek);
-
-        oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
-        SetDateControl_New(oneDayDate);
+        daysOfWeek.setTypeface(tf_roboto_light);
 
         startTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_startTime1);
+        startTime.setTypeface(tf_roboto_light);
         endTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_endTime1);
+        endTime.setTypeface(tf_roboto_light);
+
+        oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
+        oneDayDate.setTypeface(tf_roboto_light);
+        SetDateControl_New(oneDayDate, startTime, endTime);
 
 
         daysOfWeek.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -200,8 +208,6 @@ public class DayTimeFragmentEdit extends BaseFragment {
             SetTimeControl_New(endTime);
         } else {
             daysOfWeek.setVisibility(View.GONE);
-            oneDayDate.setText("");
-            oneDayDate.setTag(null);
             oneDayDate.setVisibility(View.VISIBLE);
             SetTimeControl(startTime, oneDayDate);
             SetTimeControl(endTime, oneDayDate);
@@ -211,12 +217,6 @@ public class DayTimeFragmentEdit extends BaseFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
                     daysOfWeek.setVisibility(View.GONE);
-                    oneDayDate.setText("");
-                    oneDayDate.setTag(null);
-                    startTime.setText("");
-                    startTime.setTag(null);
-                    endTime.setText("");
-                    endTime.setTag(null);
                     oneDayDate.setVisibility(View.VISIBLE);
                     SetTimeControl(startTime, oneDayDate);
                     SetTimeControl(endTime, oneDayDate);

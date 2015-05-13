@@ -17,11 +17,11 @@ public class ColorPicker {
     Activity context;
     public CustomColorDialogClass dialog;
 
-    public ColorPicker(Activity context, int screenWidth, int screenHeight,AdapterView.OnItemClickListener listener) {
+    public ColorPicker(Activity context, int screenWidth, int screenHeight, AdapterView.OnItemClickListener listener) {
         this.context = context;
         populateColorsList();
-        dialog = new CustomColorDialogClass(context, "Pick a Color", screenWidth, screenHeight, colors
-                ,listener);
+        dialog = new CustomColorDialogClass(context, context.getString(R.string.select_color), screenWidth, screenHeight, colors
+                , listener);
         dialog.show(context.getFragmentManager(), "jma");
     }
 

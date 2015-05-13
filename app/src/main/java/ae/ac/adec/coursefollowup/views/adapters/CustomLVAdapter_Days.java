@@ -53,10 +53,15 @@ public class CustomLVAdapter_Days extends BaseAdapter {
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
-                        days.add(dataset[position].id);
-                    else
-                        days.remove(dataset[position].id);
+                    try {
+                        if (isChecked)
+                            days.add(dataset[position].id);
+                        else
+                            days.remove(dataset[position].id);
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
             });
 

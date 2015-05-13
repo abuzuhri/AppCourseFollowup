@@ -15,7 +15,8 @@ public class NoteViewHolder extends BaseRecyclerViewHolder implements View.OnCli
 
     public ImageView img_note_color;
     public TextView txtNoteAddDate;
-    public TextView txtNoteType;
+    public TextView txtNoteName;
+    public ImageView imgNoteType;
     public TextView txtNoteSubject;
 
     public IClickCardView mListener;
@@ -25,7 +26,8 @@ public class NoteViewHolder extends BaseRecyclerViewHolder implements View.OnCli
         mListener = listener;
         img_note_color = (ImageView) itemLayoutView.findViewById(R.id.img_note_color);
         txtNoteSubject = (TextView) itemLayoutView.findViewById(R.id.txtNoteSubject);
-        txtNoteType = (TextView) itemLayoutView.findViewById(R.id.txtNoteType);
+        txtNoteName = (TextView) itemLayoutView.findViewById(R.id.txtNoteName);
+        imgNoteType = (ImageView) itemLayoutView.findViewById(R.id.imgNoteType);
         txtNoteAddDate = (TextView) itemLayoutView.findViewById(R.id.txtNoteAddDate);
         itemLayoutView.setOnClickListener(this);
 

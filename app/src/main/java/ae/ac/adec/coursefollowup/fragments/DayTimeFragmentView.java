@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -36,6 +37,7 @@ public class DayTimeFragmentView extends BaseFragment {
     MaterialEditText endTime = null;
     MaterialEditText daysOfWeek = null;
     MaterialEditText oneDayDate = null;
+    ListView lv_times;
     CheckBox isRepeat = null;
 
     @Override
@@ -116,18 +118,27 @@ public class DayTimeFragmentView extends BaseFragment {
     private void fillDate() {
         if (ID != null && ID != 0) {
             CourseTimeDay ctd = CourseTimeDay.load(CourseTimeDay.class, ID);
+            if (ctd != null) {
+                startTime.setText(ConstantVariable.getTimeString(ctd.Start_time));
+                startTime.setEnabled(false);
 
-            startTime.setText(ConstantVariable.getTimeString(ctd.Start_time));
-            startTime.setEnabled(false);
+                endTime.setText(ConstantVariable.getTimeString(ctd.End_time));
+                endTime.setEnabled(false);
 
-            endTime.setText(ConstantVariable.getTimeString(ctd.End_time));
-            endTime.setEnabled(false);
+                if (!ctd.IsRepeat) {
+                    oneDayDate.setText(ConstantVariable.getDateString(ctd.Start_time));
+                    oneDayDate.setTag(ctd.Start_time.getTime());
+                    oneDayDate.setEnabled(false);
+                } else
+                    oneDayDate.setVisibility(View.GONE);
+                daysOfWeek.setText(ConstantVariable.DayOfWeek.fromInteger(ctd.DayOfWeek));
+                daysOfWeek.setEnabled(false);
 
-            daysOfWeek.setText(ConstantVariable.DayOfWeek.fromInteger(ctd.DayOfWeek));
-            daysOfWeek.setEnabled(false);
-
-            isRepeat.setChecked(ctd.IsRepeat);
-            isRepeat.setEnabled(false);
+                isRepeat.setChecked(ctd.IsRepeat);
+                isRepeat.setEnabled(false);
+            }
+            else
+                getActivity().finish();
         }
     }
 
@@ -140,17 +151,15 @@ public class DayTimeFragmentView extends BaseFragment {
 
         isRepeat = (CheckBox) rootView.findViewById(R.id.cb_dt_isRepeat);
         daysOfWeek = (MaterialEditText) rootView.findViewById(R.id.tv_dt_daysOfWeek);
+        daysOfWeek.setTypeface(tf_roboto_light);
         startTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_startTime1);
+        startTime.setTypeface(tf_roboto_light);
         SetDateControl(startTime);
         endTime = (MaterialEditText) rootView.findViewById(R.id.tv_dt_endTime1);
+        endTime.setTypeface(tf_roboto_light);
         SetDateControl(endTime);
         oneDayDate = (MaterialEditText) rootView.findViewById(R.id.tv_dt_onceDate);
-        SetDateControl(oneDayDate);
-
-        if (!isRepeat.isChecked())
-            oneDayDate.setVisibility(View.VISIBLE);
-        else
-            oneDayDate.setVisibility(View.GONE);
+        oneDayDate.setTypeface(tf_roboto_light);
 
         fillDate();
 

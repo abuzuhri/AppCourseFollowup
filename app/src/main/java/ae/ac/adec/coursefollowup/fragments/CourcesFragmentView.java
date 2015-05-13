@@ -1,8 +1,10 @@
 package ae.ac.adec.coursefollowup.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,16 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.List;
+
+import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
+import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.HolidayDao;
 import ae.ac.adec.coursefollowup.db.models.Course;
+import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Holiday;
 import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
@@ -36,15 +46,19 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  */
 public class CourcesFragmentView extends BaseFragment {
 
-    MaterialEditText courseName=null;
-    MaterialEditText startDate=null;
-    MaterialEditText endDate=null;
-    MaterialEditText semester=null;
-    MaterialEditText code=null;
-    MaterialEditText building=null;
-    MaterialEditText room=null;
-    MaterialEditText teacher=null;
-    Button times = null;
+    MaterialEditText courseName = null;
+    MaterialEditText startDate = null;
+    MaterialEditText endDate = null;
+    MaterialEditText semester = null;
+    MaterialEditText code = null;
+    MaterialEditText building = null;
+    MaterialEditText room = null;
+    MaterialEditText teacher = null;
+    LinearLayout ll_times;
+    CardView times_cardView;
+    TextView tv_color = null;
+    String colorCode;
+    Button times = null, btn_color = null;
     CustomDialogClass dialogClass = null;
 
     @Override
@@ -123,7 +137,7 @@ public class CourcesFragmentView extends BaseFragment {
 
     private void fillDate() {
         if (ID != null && ID != 0) {
-            Course course= Course.load(Course.class, ID);
+            Course course = Course.load(Course.class, ID);
             courseName.setText(course.Name);
             courseName.setEnabled(false);
             startDate.setText(ConstantVariable.getDateString(course.StartDate));
@@ -132,7 +146,8 @@ public class CourcesFragmentView extends BaseFragment {
             endDate.setText(ConstantVariable.getDateString(course.EndDate));
             endDate.setTag(course.EndDate.getTime());
             endDate.setEnabled(false);
-            semester.setText(course.Semester.Name);
+            if (course.Semester != null)
+                semester.setText(course.Semester.Name);
             semester.setEnabled(false);
             code.setText(course.Code);
             code.setEnabled(false);
@@ -142,8 +157,47 @@ public class CourcesFragmentView extends BaseFragment {
             building.setEnabled(false);
             teacher.setText(course.Teacher);
             teacher.setEnabled(false);
-            times.setText(R.string.click_to_edit_times);
-            times.setEnabled(false);
+            colorCode = course.ColorCode;
+            if (colorCode != null)
+                btn_color.setBackgroundColor(Color.parseColor(colorCode));
+            btn_color.setEnabled(false);
+            times.setText(R.string.click_to_show_times);
+
+            fillTimes(course);
+        }
+    }
+
+    private void fillTimes(Course course) {
+        ConstantVariable.DayOfWeek days[] = ConstantVariable.DayOfWeek.values();
+        LinearLayout ll_customView = null, ll_innerTimes, ll_timesRow;
+        TextView tv_day, tv_row_date, tv_row_isRepeat;
+        CourseTimeDayDao ctdDao = new CourseTimeDayDao();
+        List<CourseTimeDay> ctd;
+        for (int i = 0; i < days.length; i++) {
+            ctd = ctdDao.getTimesByCourse_DayOfWeek(course, days[i].id);
+            ll_customView = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.custom_time_view, null);
+
+            tv_day = (TextView) ll_customView.findViewById(R.id.custom_time_tvDay);
+            tv_day.setTypeface(tf_roboto_light);
+            ll_innerTimes = (LinearLayout) ll_customView.findViewById(R.id.custom_time_ll_times);
+            for (CourseTimeDay c : ctd) {
+                tv_day.setText(ConstantVariable.DayOfWeek.fromInteger(days[i].id));
+                ll_timesRow = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.times_row, null);
+                tv_row_date = (TextView) ll_timesRow.findViewById(R.id.tv_timesrow_time);
+                tv_row_date.setTypeface(tf_roboto_light);
+                tv_row_isRepeat = (TextView) ll_timesRow.findViewById(R.id.tv_timesrow_repeat);
+                tv_row_isRepeat.setTypeface(tf_roboto_light);
+                tv_row_date.setText(ConstantVariable.getTimeString(c.Start_time) + "-" +
+                        ConstantVariable.getTimeString(c.End_time));
+                if (c.IsRepeat) {
+                    tv_row_isRepeat.setText(getString(R.string.time_repeated));
+                } else {
+                    tv_row_isRepeat.setText(getString(R.string.once_on) + ConstantVariable.getDateString(c.Start_time));
+                }
+                ll_innerTimes.addView(ll_timesRow);
+            }
+            if (ctd.size() > 0)
+                ll_times.addView(ll_customView);
         }
     }
 
@@ -155,24 +209,41 @@ public class CourcesFragmentView extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         courseName = (MaterialEditText) rootView.findViewById(R.id.tv_course_nameCode);
+        courseName.setTypeface(tf_roboto_light);
         // Start Date
-        startDate= (MaterialEditText) rootView.findViewById(R.id.tv_course_startDate);
+        startDate = (MaterialEditText) rootView.findViewById(R.id.tv_course_startDate);
         SetDateControl(startDate);
+        startDate.setTypeface(tf_roboto_light);
         // End Date
-        endDate= (MaterialEditText) rootView.findViewById(R.id.tv_course_endDate);
+        endDate = (MaterialEditText) rootView.findViewById(R.id.tv_course_endDate);
         SetDateControl(endDate);
+        endDate.setTypeface(tf_roboto_light);
 
         semester = (MaterialEditText) rootView.findViewById(R.id.tv_course_semmester);
+        semester.setTypeface(tf_roboto_light);
         code = (MaterialEditText) rootView.findViewById(R.id.tv_course_code);
+        code.setTypeface(tf_roboto_light);
         building = (MaterialEditText) rootView.findViewById(R.id.tv_course_building);
+        building.setTypeface(tf_roboto_light);
         room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
+        room.setTypeface(tf_roboto_light);
         teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
+        teacher.setTypeface(tf_roboto_light);
         times = (Button) rootView.findViewById(R.id.tv_course_times);
+        times.setVisibility(View.GONE);
+
+        ll_times = (LinearLayout) rootView.findViewById(R.id.ll_courseView_times);
+
+        tv_color = (TextView) rootView.findViewById(R.id.tv_course_color);
+        tv_color.setTypeface(tf_roboto_light);
+        colorCode = getResources().getStringArray(R.array.colors)[0];
+        btn_color = (Button) rootView.findViewById(R.id.btn_course_color);
+        if (colorCode != null)
+            btn_color.setBackgroundColor(Color.parseColor(colorCode));
 
         fillDate();
 
         return rootView;
     }
-
 
 }

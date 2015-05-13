@@ -73,7 +73,7 @@ public class ExamDao extends BaseDao {
         NotificationDao notificationDao = new NotificationDao();
         // remove old related with this time if found
         notificationDao.deleteRelatedWithExam(exam);
-        notificationDao.Add(exam.StartDateTime.getTime(), exam.StartDateTime.getTime() - (4 * 60 * 60 * 1000),
+        notificationDao.Add(exam.StartDateTime.getTime(), exam.StartDateTime.getTime() - (24 * 60 * 60 * 1000),
                 null, null, null, exam, false, false, false);
     }
 

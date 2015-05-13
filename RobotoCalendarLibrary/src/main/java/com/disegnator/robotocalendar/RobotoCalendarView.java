@@ -181,15 +181,20 @@ public class RobotoCalendarView extends LinearLayout {
 
         TextView dayOfWeek;
         String dayOfTheWeekString;
-        String[] weekDaysArray = new DateFormatSymbols(locale).getShortWeekdays();
+        DateFormatSymbols dfs = new DateFormatSymbols(locale);
+        String[] weekDaysArray;
+        if (locale.getLanguage().substring(0, 2).equals("ar"))
+            weekDaysArray = dfs.getWeekdays();
+        else
+            weekDaysArray = dfs.getShortWeekdays();
         for (int i = 1; i < weekDaysArray.length; i++) {
             dayOfWeek = (TextView) view.findViewWithTag("dayOfWeek" + getWeekIndex(i, currentCalendar));
             dayOfTheWeekString = weekDaysArray[i];
 
             // Check it for languages with only one week day lenght
-            if (dayOfTheWeekString.length() > 1) {
-                dayOfTheWeekString = dayOfTheWeekString.substring(0, 1).toUpperCase() + dayOfTheWeekString.subSequence(1, 2);
-            }
+//            if (dayOfTheWeekString.length() > 1) {
+//                dayOfTheWeekString = dayOfTheWeekString.substring(0, 1).toUpperCase() + dayOfTheWeekString.subSequence(1, 2);
+//            }
 
             dayOfWeek.setText(dayOfTheWeekString);
 

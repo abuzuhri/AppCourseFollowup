@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -32,13 +33,18 @@ public class BaseFragment extends Fragment {
     public Long ID;
     public static final String POSITION = "POSITION";
     public static final String DATE = "SELECTED_DATE";
-    public Typeface tf_roboto_light,getTf_roboto_medium;
+    public Typeface tf_roboto_light, getTf_roboto_medium;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tf_roboto_light = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto-Light.ttf");
-        getTf_roboto_medium = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto-Medium.ttf");
+        if (getResources().getString(R.string.lang).equals("ar")) {
+            tf_roboto_light = Typeface.createFromAsset(getActivity().getAssets(), "fonts/jaz.otf");
+            getTf_roboto_medium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/jaz.otf");
+        } else {
+            tf_roboto_light = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Light.ttf");
+            getTf_roboto_medium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf");
+        }
         //set Item ID
         if (getArguments() != null) {
             ID = getArguments().getLong(AppAction.IDEXTRA, 0);
@@ -71,10 +77,10 @@ public class BaseFragment extends Fragment {
     }
 
     public void SetDateControl(final MaterialEditText dateControl) {
-        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        dateControl.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_DOWN) {
                     OpenDatePicker(new IDateTimePickerResult() {
                         @Override
                         public void onDatePickerSubmit(int year, int month, int day, String tag) {
@@ -90,64 +96,107 @@ public class BaseFragment extends Fragment {
                         }
                     });
                 }
-                v.clearFocus();
+                return false;
             }
         });
-
     }
 
     public void SetDateControl_New(final MaterialEditText dateControl) {
-        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    Calendar calendar = Calendar.getInstance();
-                    DatePickerDialog pickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(i, i2, i3);
-                            dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
-                            dateControl.setTag(calendar.getTimeInMillis());
-                        }
-                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
-                    pickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
+        if (ConstantVariable.isVersionUnder21()) {
+            dateControl.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction()==MotionEvent.ACTION_DOWN) {
+                        Calendar calendar = Calendar.getInstance();
+                        DatePickerDialog pickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(i, i2, i3);
+                                dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
+                                dateControl.setTag(calendar.getTimeInMillis());
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
+                        pickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
+                    }
+                    return false;
                 }
-                v.clearFocus();
-            }
-        });
+            });
+        } else
+            SetDateControl(dateControl);
+    }
 
+    public void SetDateControl_New(final MaterialEditText dateControl, final MaterialEditText startTime
+            , final MaterialEditText endTime) {
+        if (ConstantVariable.isVersionUnder21()) {
+            dateControl.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction()==MotionEvent.ACTION_DOWN) {
+                        Calendar calendar = Calendar.getInstance();
+                        DatePickerDialog pickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(i, i2, i3);
+                                dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
+                                dateControl.setTag(calendar.getTimeInMillis());
+                                if (startTime.getTag() != null) {
+                                    Calendar start = Calendar.getInstance();
+                                    start.setTimeInMillis((Long) startTime.getTag());
+                                    start.set(i, i2, i3);
+                                    startTime.setText(ConstantVariable.getTimeString(start.getTime()));
+                                    startTime.setTag(start.getTimeInMillis());
+                                }
+                                if (endTime.getTag() != null) {
+                                    Calendar end = Calendar.getInstance();
+                                    end.setTimeInMillis((Long) endTime.getTag());
+                                    end.set(i, i2, i3);
+                                    endTime.setText(ConstantVariable.getTimeString(end.getTime()));
+                                    endTime.setTag(end.getTimeInMillis());
+                                }
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
+                        pickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
+                    }
+                    return false;
+                }
+            });
+        } else
+            SetDateControl(dateControl);
     }
 
     public void SetTimeControl_New(final MaterialEditText dateControl) {
-        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    Calendar calendar = Calendar.getInstance();
-                    TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.HOUR_OF_DAY, i);
-                            calendar.set(Calendar.MINUTE, i2);
-                            dateControl.setText(ConstantVariable.getTimeString(calendar.getTime()));
-                            dateControl.setTag(calendar.getTimeInMillis());
-                        }
-                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
-                    timePickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
+        if (ConstantVariable.isVersionUnder21()) {
+            dateControl.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction()==MotionEvent.ACTION_DOWN) {
+                        Calendar calendar = Calendar.getInstance();
+                        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.HOUR_OF_DAY, i);
+                                calendar.set(Calendar.MINUTE, i2);
+                                dateControl.setText(ConstantVariable.getTimeString(calendar.getTime()));
+                                dateControl.setTag(calendar.getTimeInMillis());
+                            }
+                        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
+                        timePickerDialog.show(getActivity().getSupportFragmentManager(), "jma");
+                    }
+                    return false;
                 }
-                v.clearFocus();
-            }
-        });
-
+            });
+        } else
+            SetTimeControl(dateControl);
     }
 
     public void SetTimeControl(final MaterialEditText dateControl) {
-        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        dateControl.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     OpenTimePicker(new IDateTimePickerResult() {
                         @Override
                         public void onDatePickerSubmit(int year, int month, int day, String tag) {
@@ -167,17 +216,17 @@ public class BaseFragment extends Fragment {
                         }
                     });
                 }
-                v.clearFocus();
+                return false;
             }
         });
 
     }
 
     public void SetTimeControl(final MaterialEditText dateControl, final MaterialEditText date) {
-        dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        dateControl.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     OpenTimePicker(new IDateTimePickerResult() {
                         @Override
                         public void onDatePickerSubmit(int year, int month, int day, String tag) {
@@ -201,7 +250,7 @@ public class BaseFragment extends Fragment {
                         }
                     });
                 }
-                v.clearFocus();
+                return false;
             }
         });
     }
@@ -210,6 +259,7 @@ public class BaseFragment extends Fragment {
         View shadowView = rootView.findViewById(R.id.shadow_main_activity);
         // Solve Android bug in API < 21 by app custom shadow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            shadowView.setVisibility(View.GONE);
+            if (shadowView != null)
+                shadowView.setVisibility(View.GONE);
     }
 }

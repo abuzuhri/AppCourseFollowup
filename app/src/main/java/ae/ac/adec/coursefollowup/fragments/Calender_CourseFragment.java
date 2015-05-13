@@ -72,7 +72,7 @@ public class Calender_CourseFragment extends BaseFragment {
         List<CourseTimeDay> ctd = new CourseTimeDayDao().getCoursesTimesOnDate(startDate, endDate, dayOfWeek);
         List<Course> courses = new ArrayList<Course>();
         for (CourseTimeDay c : ctd) {
-            if ((startDate >= c.Course.StartDate.getTime()) &&
+            if (c.Course!=null && (startDate >= c.Course.StartDate.getTime()) &&
                     (endDate < c.Course.EndDate.getTime()))
                 courses.add(c.Course);
         }

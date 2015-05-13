@@ -52,6 +52,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
     MaterialEditText txtTaskSubject = null;
     MaterialEditText txtTaskType = null;
     MaterialEditText txtTaskDueDate = null;
+    MaterialEditText txtTaskDueTime = null;
     MaterialEditText txtTaskDetail = null;
     int progressValue = 0;
     TextView txtTaskProgress = null;
@@ -104,28 +105,26 @@ public class TaskFragmentAddEdit extends BaseFragment {
             if (txtTaskName.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_TSK_001);
             // BR_TSK_004
-            if (ID != null && ID != 0) {
-                Task t = Task.load(Task.class, ID);
-                selectedType = t.TaskType;
-                selectedCourse = t.Course;
-            }
+
             if (selectedCourse == null)
                 throw new BusinessRoleError(R.string.BR_TSK_004);
             // BR_TSK_003
             if (selectedType == -1)
                 throw new BusinessRoleError(R.string.BR_TSK_003);
             // BR_TSK_005
-            if (txtTaskDueDate.getText().toString().trim().equals(""))
+            if (txtTaskDueTime.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_TSK_005);
 
-            long dueDateMil = (long) txtTaskDueDate.getTag();
-            if (ID != null && ID != 0)
+            long dueDateMil = (long) txtTaskDueTime.getTag();
+            if (ID != null && ID != 0) {
                 task.Edit(ID, txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, progressValue, selectedCourse);
-            else
+                Toast.makeText(getActivity(), R.string.task_edit_successfully, Toast.LENGTH_LONG).show();
+            } else {
                 task.Add(txtTaskName.getText().toString().trim(), dueDateMil, Calendar.getInstance().getTimeInMillis(), null, txtTaskDetail.getText().toString().trim(), selectedType, progressValue, selectedCourse);
+                Toast.makeText(getActivity(), R.string.task_add_successfully, Toast.LENGTH_LONG).show();
+            }
 
             getActivity().finish();
-            Toast.makeText(getActivity(), R.string.task_add_successfully, Toast.LENGTH_LONG).show();
         } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
@@ -143,6 +142,8 @@ public class TaskFragmentAddEdit extends BaseFragment {
         if (ID != null && ID != 0) {
             Task task = Task.load(Task.class, ID);
 
+            selectedType = task.TaskType;
+            selectedCourse = task.Course;
 
             txtTaskName.setText(task.Name);
             txtTaskSubject.setText(task.Course.Name);
@@ -150,7 +151,9 @@ public class TaskFragmentAddEdit extends BaseFragment {
             txtTaskDetail.setText(task.Detail);
             txtTaskDueDate.setText(ConstantVariable.getDateString(task.DueDate));
             txtTaskDueDate.setTag(task.DueDate.getTime());
-            txtTaskProgress.setText("Task Progress: " + task.Progress + "% complete");
+            txtTaskDueTime.setText(ConstantVariable.getTimeString(task.DueDate));
+            txtTaskDueTime.setTag(task.DueDate.getTime());
+            txtTaskProgress.setText(getString(R.string.task_progress)+ task.Progress + getString(R.string.complete));
             seekProgressBar.setProgress(task.Progress);
         }
     }
@@ -163,16 +166,24 @@ public class TaskFragmentAddEdit extends BaseFragment {
 
 
         txtTaskName = (MaterialEditText) rootView.findViewById(R.id.txtTaskName);
-
+        txtTaskName.setTypeface(tf_roboto_light);
         txtTaskDueDate = (MaterialEditText) rootView.findViewById(R.id.txtTaskDueDate);
         SetDateControl_New(txtTaskDueDate);
+        txtTaskDueDate.setTypeface(tf_roboto_light);
 
+        txtTaskDueTime = (MaterialEditText) rootView.findViewById(R.id.txtTaskDueTime);
+        SetTimeControl(txtTaskDueTime, txtTaskDueDate);
+        txtTaskDueTime.setTypeface(tf_roboto_light);
 
         txtTaskDetail = (MaterialEditText) rootView.findViewById(R.id.txtTaskDetail);
+        txtTaskDetail.setTypeface(tf_roboto_light);
 
         txtTaskType = (MaterialEditText) rootView.findViewById(R.id.txtTaskType);
+        txtTaskType.setTypeface(tf_roboto_light);
 
         txtTaskSubject = (MaterialEditText) rootView.findViewById(R.id.txtTaskSubject);
+        txtTaskSubject.setTypeface(tf_roboto_light);
+
         txtTaskSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -180,7 +191,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                     List<Course> courses = new CourseDao().getAll(position);
                     final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
 
-                    dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), "Select Subject",
+                    dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), getString(R.string.select_course),
                             adapter, false, -1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -199,8 +210,12 @@ public class TaskFragmentAddEdit extends BaseFragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    final BaseAdapter ad = new ArrayAdapter<ConstantVariable.TaskType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.TaskType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Task Type", ad, false, -1, new AdapterView.OnItemClickListener() {
+                    ArrayList<String> types = new ArrayList<String>();
+                    for (ConstantVariable.TaskType t : ConstantVariable.TaskType.values()) {
+                        types.add(getString(ConstantVariable.TaskType.fromInteger(t.id)));
+                    }
+                    final BaseAdapter ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, types);
+                    dialogClass = new CustomDialogClass(getActivity(), "", getString(R.string.select_Ttype), ad, false, -1, new AdapterView.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -216,6 +231,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
         });
 
         txtTaskProgress = (TextView) rootView.findViewById(R.id.txtTaskProgress);
+        txtTaskProgress.setTypeface(tf_roboto_light);
         seekProgressBar = (SeekBar) rootView.findViewById(R.id.seekBar);
         if (ID == null || ID == 0) {
             txtTaskProgress.setVisibility(View.GONE);
@@ -233,7 +249,7 @@ public class TaskFragmentAddEdit extends BaseFragment {
                 progress = progress / 5;
                 progress = progress * 5;
                 progressFinal = progress;
-                txtTaskProgress.setText(progress + "% Complete");
+                txtTaskProgress.setText(progress + getString(R.string.complete));
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {

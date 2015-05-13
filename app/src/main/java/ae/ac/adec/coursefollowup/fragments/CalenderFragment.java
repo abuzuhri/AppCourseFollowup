@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.disegnator.robotocalendar.RobotoCalendarView;
 
@@ -23,9 +25,11 @@ import ae.ac.adec.coursefollowup.R;
 import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseTimeDayDao;
 import ae.ac.adec.coursefollowup.db.dal.ExamDao;
+import ae.ac.adec.coursefollowup.db.dal.NotificationDao;
 import ae.ac.adec.coursefollowup.db.dal.TaskDao;
 import ae.ac.adec.coursefollowup.db.models.CourseTimeDay;
 import ae.ac.adec.coursefollowup.db.models.Exam;
+import ae.ac.adec.coursefollowup.db.models.Notification;
 import ae.ac.adec.coursefollowup.db.models.Task;
 
 /**
@@ -41,7 +45,7 @@ public class CalenderFragment extends BaseFragment {
     SlidingTabLayout mSlidingTabLayout;
     SampleFragmentPagerAdapter pagerAdapter;
     List<Fragment> frags;
-    String[] tabs = {"Exams", "Courses", "Tasks"};
+    String[] tabs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class CalenderFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_calender, container, false);
-
+        tabs = getResources().getStringArray(R.array.cats);
         ((BaseActivity) getActivity()).RemoveToolBarShadow();
         populateFragments();
 
@@ -64,19 +68,22 @@ public class CalenderFragment extends BaseFragment {
 
         setCalenderListener();
         currentMonthIndex = 0;
-        currentCalendar = Calendar.getInstance(Locale.ENGLISH);
+        currentCalendar = Calendar.getInstance();
+
+        selectedDate = currentCalendar.getTime().getTime();
+        selectedDayOfWeek = currentCalendar.get(Calendar.DAY_OF_WEEK);
 
         calendarView.initializeCalendar(currentCalendar);
         calendarView.markDayAsCurrentDay(currentCalendar.getTime());
         calendarView.markDayAsSelectedDay(currentCalendar.getTime());
 
+
         pagerAdapter = new SampleFragmentPagerAdapter(getChildFragmentManager(), tabs);
         mViewPager.setAdapter(pagerAdapter);
 
         fillTabs();
-        updateCurrentFragment(currentCalendar.getTime().getTime(), currentCalendar.get(Calendar.DAY_OF_WEEK));
         markCalenderWithDots(currentCalendar.getTime().getTime());
-
+        updateCurrentFragment(currentCalendar.getTime().getTime(), currentCalendar.get(Calendar.DAY_OF_WEEK));
         return rootView;
     }
 
@@ -100,7 +107,20 @@ public class CalenderFragment extends BaseFragment {
         long monthStartDate = c_currentMonth.getTimeInMillis();
         long monthEndDate = c_nxtMonth.getTimeInMillis();
 
-        List<Exam> exams_list = new ExamDao().getExamsOnDate(monthStartDate, monthEndDate);
+        NotificationDao notificationDao = new NotificationDao();
+        List<Notification> notifications = notificationDao.getNotificationsOnPeriod(monthStartDate, monthEndDate);
+        Calendar cal = Calendar.getInstance();
+        for (Notification n : notifications) {
+            cal.setTime(n.CalenderDateTime);
+            if (n.Course != null)
+                calendarView.markDayWithStyle(RobotoCalendarView.BLUE_CIRCLE, cal.getTime());
+            else if (n.Exam != null)
+                calendarView.markDayWithStyle(RobotoCalendarView.RED_CIRCLE, cal.getTime());
+            else if (n.Task != null)
+                calendarView.markDayWithStyle(RobotoCalendarView.GREEN_CIRCLE, cal.getTime());
+        }
+
+        /*List<Exam> exams_list = new ExamDao().getExamsOnDate(monthStartDate, monthEndDate);
         List<Task> tasks_list = new TaskDao().getTasksOnDate(monthStartDate, monthEndDate);
         List<CourseTimeDay> ctd_list = new CourseTimeDayDao().getTimesWithinPeriod(monthStartDate, monthEndDate);
 
@@ -143,7 +163,7 @@ public class CalenderFragment extends BaseFragment {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             calendarView.markDayWithStyle(RobotoCalendarView.RED_CIRCLE, calendar.getTime());
-        }
+        }*/
 
     }
 
@@ -158,7 +178,7 @@ public class CalenderFragment extends BaseFragment {
         mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
         mSlidingTabLayout.setContentDescription(1, tabs[0]);
         mSlidingTabLayout.setContentDescription(2, tabs[1]);
-        mSlidingTabLayout.setContentDescription(2, tabs[2]);
+        mSlidingTabLayout.setContentDescription(3, tabs[2]);
 
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
 
@@ -218,14 +238,18 @@ public class CalenderFragment extends BaseFragment {
     }
 
     private void updateCurrentFragment(long date, int dayOfWeek) {
+        AppLog.i("jma: in update");
         Fragment f = getChildFragmentManager()
                 .findFragmentByTag("android:switcher:" + R.id.view_pager_calender + ":" + mViewPager.getCurrentItem());
         if (mViewPager.getCurrentItem() == 0 && f != null) {
             ((Calender_ExamFragment) f).populateExamsList(date);
+            AppLog.i("jma: in exams up");
         } else if (mViewPager.getCurrentItem() == 1 && f != null) {
             ((Calender_CourseFragment) f).populateCoursesList(date, dayOfWeek);
+            AppLog.i("jma: in courses up");
         } else if (mViewPager.getCurrentItem() == 2 && f != null) {
             ((Calender_TasksFragment) f).populateTasksList(date);
+            AppLog.i("jma: in tasks up");
         }
     }
 
@@ -234,6 +258,11 @@ public class CalenderFragment extends BaseFragment {
         currentCalendar = Calendar.getInstance(Locale.getDefault());
         currentCalendar.add(Calendar.MONTH, currentMonthIndex);
         calendarView.initializeCalendar(currentCalendar);
+
+        if (currentCalendar.get(Calendar.MONTH) == Calendar.getInstance().get(Calendar.MONTH)) {
+            calendarView.markDayAsSelectedDay(currentCalendar.getTime());
+            calendarView.markDayAsCurrentDay(currentCalendar.getTime());
+        }
     }
 
     public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {

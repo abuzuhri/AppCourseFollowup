@@ -98,6 +98,15 @@ public class NotificationDao extends BaseDao {
                 .execute();
     }
 
+    public List<Notification> getNotificationsOnPeriod(long startDate, long endDate) {
+        return new Select()
+                .from(Notification.class)
+                .where("(NotificationDateTime >= ? AND NotificationDateTime < ?) AND IsHoliday=? " +
+                        "AND IsNoNeedNothing=?", startDate, endDate, false, false)
+                .orderBy("NotificationDateTime ASC")
+                .execute();
+    }
+
     public List<Notification> getAll(int position) {
         Calendar calendar = Calendar.getInstance();
         long currentTimeInMillis = calendar.getTimeInMillis();

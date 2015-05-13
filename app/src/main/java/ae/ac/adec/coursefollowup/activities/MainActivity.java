@@ -12,9 +12,8 @@ import android.support.v7.widget.Toolbar;
 import java.util.Calendar;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
+import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
-import ae.ac.adec.coursefollowup.db.models.Course;
-import ae.ac.adec.coursefollowup.db.models.Exam;
 import ae.ac.adec.coursefollowup.db.service.FollowUpService;
 
 
@@ -25,7 +24,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ConstantVariable.lang = getString(R.string.lang);
         startServices();
 
         int x = 10;
@@ -50,9 +49,8 @@ public class MainActivity extends BaseActivity {
                 .getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(),
-                4 * 1000, pendingIntent); // change it to call
+                c.getTimeInMillis(),
+                60 * 1000, pendingIntent); // change it to call
     }
-
 
 }

@@ -5,12 +5,50 @@
     <string name="action_settings">Settings</string>
 
     <string name="facebook_app_id">530775210395799</string>
+    <string name="lang">en</string>
+
+    <string name="new_">New</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_course">Select Course</string>
+    <string name="select_color">Select Color</string>
+    <string name="ok">Ok</string>
+    <string name="select_Ttype">Select Task Type</string>
+    <string name="complete">% Complete</string>
+    <string name="task_progress">Task Progress: </string>
+    <string name="once_on">Once On: </string>
+
+    <string name="task_hw">Homework</string>
+    <string name="task_ass">Assignment</string>
+    <string name="task_rem">Reminder</string>
+    <string name="task_rev">Revision</string>
+    <string name="task_meet">Meeting</string>
+
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+
+    <string name="sat">Sa</string>
+    <string name="sun">Su</string>
+    <string name="mon">Mo</string>
+    <string name="tue">Tu</string>
+    <string name="wed">We</string>
+    <string name="thu">Th</string>
+    <string name="fri">Fr</string>
+
+    <string name="voice">Voice</string>
+    <string name="text">Text</string>
+    <string name="video">Video</string>
+    <string name="image">Image</string>
 
 
     <!-- categories -->
     <string name="category_dashboard">Dashboard</string>
     <string name="category_calender">Calender</string>
-    <string name="category_classes">Classes</string>
+    <string name="category_classes">Courses</string>
     <string name="category_tasks">Tasks</string>
     <string name="category_notes">Notes</string>
     <string name="category_exams">Exams</string>
@@ -22,6 +60,8 @@
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
     <string name="category_test">Testing</string>
+    <string name="category_ar">عربي</string>
+    <string name="category_en">English</string>
     <!-- ADD Edit  -->
     <string name="delete_confirmation">Are you sure you want to delete?</string>
     <string name="delete_confirmation_title">Delete</string>
@@ -32,6 +72,7 @@
     <string name="holiday_add_subtitle">Add Holiday</string>
     <string name="holiday_edit_subtitle">Edit Holiday</string>
     <string name="holiday_add_successfully">Successfully add holiday</string>
+    <string name="holiday_edit_successfully">Successfully edit holiday</string>
     <string name="holiday_name">Holiday Name</string>
     <string name="holiday_start_date_hint">Start Date</string>
     <string name="holiday_end_date_hint">End Date</string>
@@ -52,6 +93,7 @@
     <string name="course_add_subtitle">Add Course</string>
     <string name="course_edit_subtitle">Edit Course</string>
     <string name="course_add_successfully">Successfully add Course</string>
+    <string name="course_edit_successfully">Successfully edit Course</string>
     <string name="course_name">Course Name</string>
     <string name="course_start_date_hint">Start Date</string>
     <string name="course_end_date_hint">End Date</string>
@@ -67,7 +109,8 @@
     <string name="year_add_subtitle">Add Academic Year</string>
     <string name="year_edit_subtitle">Edit Academic Year</string>
     <string name="year_add_successfully">Successfully add academic year</string>
-    <string name="year_name">Year Name</string>
+    <string name="year_edit_successfully">Successfully edit academic year</string>
+    <string name="year_name">Ex:(2014\2015)</string>
     <string name="year_start_date_hint">Start Date</string>
     <string name="year_end_date_hint">End Date</string>
 
@@ -75,6 +118,7 @@
     <string name="exam_add_subtitle">Add Exam</string>
     <string name="exam_edit_subtitle">Edit Exam</string>
     <string name="exam_add_successfully">Successfully add Exam</string>
+    <string name="exam_edit_successfully">Successfully edit Exam</string>
     <string name="exam_course_name">Select Course</string>
     <string name="exam_start_date_hint">Start Time</string>
     <string name="exam_date_hint">Exam Date</string>
@@ -88,21 +132,24 @@
     <string name="task_add_subtitle">New Task</string>
     <string name="task_edit_subtitle">Edit Task</string>
     <string name="task_add_successfully">Successfully add Task</string>
+    <string name="task_edit_successfully">Successfully edit Task</string>
     <string name="task_subject_hint">Subject</string>
     <string name="task_type_hint">Type</string>
     <string name="task_due_date_hint">Due Date</string>
+    <string name="task_due_time_hint">Due Time</string>
     <string name="task_name">Task Name</string>
     <string name="task_detail_hint">Detail</string>
 
-    <!-- Task  -->
+    <!-- Note  -->
     <string name="note_add_subtitle">New Note</string>
     <string name="note_edit_subtitle">Edit Note</string>
     <string name="note_add_successfully">Successfully add Note</string>
     <string name="note_due_date_hint">Due Date</string>
     <string name="note_name">Note Name</string>
     <string name="note_detail_hint">Detail</string>
+    <string name="note_edit_successfully">Successfully edit Note</string>
 
-        <!-- Semester  -->
+    <!-- Semester  -->
     <string name="semester_name">Semester Name</string>
     <string name="semester_start_date_hint">Start Date</string>
     <string name="semester_end_date_hint">End Date</string>
@@ -110,6 +157,7 @@
     <string name="semester_add_subtitle">Add Semester</string>
     <string name="semester_edit_subtitle">Edit Semester</string>
     <string name="semester_add_successfully">Successfully add semester</string>
+    <string name="semester_edit_successfully">Successfully edit semester</string>
     <!-- /ADD Edit  -->
 
     <!-- Tab  -->
@@ -122,7 +170,7 @@
     <!-- BusinessRoleExcption  -->
     <string name="BR_GENERAL_001">Error in deleting</string>
     <string name="BR_GENERAL_002">You must be in the same course to edit times, Only colored times can be editted</string>
-    <string name="BR_GENERAL_003">You must firstly select exam date</string>
+    <string name="BR_GENERAL_003">You must firstly select date</string>
     <!-- Holiday  -->
     <string name="BR_HLD_001">Start date can\'t be less than end date</string>
     <string name="BR_HLD_002">Can\'t add holiday with period more than 30 days</string>
@@ -141,7 +189,7 @@
     <string name="BR_YER_006">Academic year name can\'t be null</string>
     <string name="BR_YER_007">This Academic year conflicts with other Academic year</string>
     <!--/ Semesters  -->
-    <string name="BR_SMR_001">Semester name already exists un this year</string>
+    <string name="BR_SMR_001">Semester name already exists in this year</string>
     <string name="BR_SMR_002">Semester start date and end date must be within a year\'s start and end date</string>
     <string name="BR_SMR_003">Can\'t delete semester have a courses, you must delete courses before</string>
     <string name="BR_SMR_004">Start date can\'t be less than end date</string>
@@ -184,33 +232,41 @@
     <string name="BR_NOT_001">Note can\'t be empty</string>
     <string name="BR_NOT_002">Select Note Type First</string>
     <string name="BR_NOT_003">Select Subject First</string>
-    <string name="BR_NOT_004">Text Note Can\'t be empty</string>
+    <string name="BR_NOT_004">Please insert note content Ex: image, text ...etc</string>
+    <string name="BR_NOT_005">Note must have a name</string>
 
 
     <string name="dashboard_note">Note</string>
     <string name="dashboard_task">Task</string>
-    <string name="dashboard_class">Class</string>
+    <string name="dashboard_class">Course</string>
     <string name="dashboard_exam">Exam</string>
 
 
-<!--tests 2666 d-->
+    <!--tests 2666 d-->
     <string name="login_loading">Loading</string>
     <string name="login_title">LOGIN</string>
     <string name="login_username">Username</string>
     <string name="login_pass">Password</string>
-    <string name="click_to_show_times" >Click to show times</string>
+    <string name="click_to_show_times">Click to show times</string>
     <string name="click_to_edit_times">Click edit to edit times</string>
+    <string name="noTimes">There is no times at this day</string>
+    <string name="time_repeated">Repeated</string>
 
     <string-array name="colors">
-    <item>#f5f522</item>
-    <item>#FF4081</item>
-    <item>#1687ca</item>
-    <item>#b2b222</item>
-    <item>#81374a</item>
-    <item>#E64A19</item>
-    <item>#FBC02D</item>
-    <item>#4CAF50</item>
-    <item>#222222</item>
-    <item>#D32F2F</item>
-</string-array>
+        <item>#f5f522</item>
+        <item>#FF4081</item>
+        <item>#1687ca</item>
+        <item>#b2b222</item>
+        <item>#81374a</item>
+        <item>#E64A19</item>
+        <item>#FBC02D</item>
+        <item>#4CAF50</item>
+        <item>#222222</item>
+        <item>#D32F2F</item>
+    </string-array>
+    <string-array name="cats">
+        <item>Exams</item>
+        <item>Courses</item>
+        <item>Tasks</item>
+    </string-array>
 </resources>

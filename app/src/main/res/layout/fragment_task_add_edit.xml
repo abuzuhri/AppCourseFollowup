@@ -83,6 +83,14 @@
                     app:iconLeft="@drawable/ic_today_white"
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/txtTaskDueTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/task_due_time_hint"
+                    app:iconLeft="@drawable/ic_today_white"
+                    app:floatingLabel="highlight"
+                    app:iconPadding="10dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

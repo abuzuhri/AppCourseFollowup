@@ -22,10 +22,10 @@
             android:paddingTop="16dp">
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/txtTaskName"
+                android:id="@+id/txtNoteName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Note"
+                android:hint="@string/note_name"
                 android:textSize="34sp"
                 app:baseColor="@android:color/white"
                 app:floatingLabel="highlight"
@@ -65,26 +65,17 @@
                     app:floatingLabel="highlight"
                     app:iconPadding="10dp" />
 
-
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/txtNoteType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/task_type_hint"
-                    app:iconLeft="@drawable/ic_today_white"
-                    app:floatingLabel="highlight"
-                    app:iconPadding="10dp" />
-
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <Button
                     android:id="@+id/txtNoteFilePath"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="New Note"
-                    app:iconLeft="@drawable/ic_today_white"
-                    app:floatingLabel="highlight"
-                    app:iconPadding="10dp"
-                    android:indeterminate="false" />
+                    android:gravity="center"
+                    android:hint="@string/note_name"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:padding="8dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="8dp" />
 
 
                 <com.rengwuxian.materialedittext.MaterialEditText

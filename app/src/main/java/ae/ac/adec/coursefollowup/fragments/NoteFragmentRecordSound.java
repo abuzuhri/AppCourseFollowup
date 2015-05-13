@@ -31,12 +31,10 @@ public class NoteFragmentRecordSound extends BaseFragment {
     private MediaRecorder myAudioRecorder;
     private String outputFile = null;
 
-    private ToggleButton startRecord    = null;
-  //  private Button playRecord   = null;
-    private Button stopRecord     = null;
-    boolean isRecording=false;
-
-
+    private ToggleButton startRecord = null;
+    //  private Button playRecord   = null;
+    private Button stopRecord = null;
+    boolean isRecording = false;
 
 
     @Override
@@ -49,18 +47,17 @@ public class NoteFragmentRecordSound extends BaseFragment {
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-            setSubTitle("Sound Record");
+        setSubTitle("Sound Record");
         String s_directory = ConstantVariable.NOTES_VOICE_DIRECTORY;
-        String s_time= ConstantVariable.getTimeString(Calendar.getInstance().getTime()).toString();
-        String s_date= ConstantVariable.getDateString(Calendar.getInstance().getTime()).toString();
-        String s_courseName= OneFragmentActivity.getCourseName();
+        String s_time = ConstantVariable.getTimeString(Calendar.getInstance().getTime()).toString();
+        String s_date = ConstantVariable.getDateString(Calendar.getInstance().getTime()).toString();
+        String s_courseName = OneFragmentActivity.getCourseName();
 
-        outputFile = s_directory + "/VIC_" +s_courseName+"_"+ s_date+ "_" + s_time +".3gp";
+        outputFile = s_directory + "/VIC_" + s_courseName + "_" + s_date + "_" + s_time + ".3gp";
 
 
         myAudioRecorder = new MediaRecorder();
@@ -73,48 +70,33 @@ public class NoteFragmentRecordSound extends BaseFragment {
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.menu_empty, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.ic_menu_save_menu:
-                    AddEdit();
-                break;
-            default:
-                break;
-        }
         return true;
     }
 
-    public void AddEdit(){
-        try{
+    public void AddEdit() {
+        try {
             stopRecord.performClick();
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
         OneFragmentActivity.setFilePath(outputFile);
         OneFragmentActivity.setNoteType("I have a Note Voice!");
 
-   getActivity().finish();
+        getActivity().finish();
     }
-
-
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
     @Override
@@ -124,7 +106,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
 
-        startRecord= (ToggleButton) rootView.findViewById(R.id.startRecord);
+        startRecord = (ToggleButton) rootView.findViewById(R.id.startRecord);
 
 
         startRecord.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -141,18 +123,20 @@ public class NoteFragmentRecordSound extends BaseFragment {
                         e.printStackTrace();
                     }
 
-                 //   startRecord.setText("Stop Recording");
+                    //   startRecord.setText("Stop Recording");
                     //       stopRecord.setEnabled(true);
                     isRecording = true;
                 } else {
-
-                    myAudioRecorder.stop();
-                    myAudioRecorder.release();
-                    myAudioRecorder = null;
-                    OneFragmentActivity.setFilePath(outputFile);
-                    OneFragmentActivity.setNoteType("I have a Note Voice!");
-                    getActivity().finish();
-
+                    try {
+                        myAudioRecorder.stop();
+                        myAudioRecorder.release();
+                        myAudioRecorder = null;
+                        OneFragmentActivity.setFilePath(outputFile);
+                        OneFragmentActivity.setNoteType("I have a Note Voice!");
+                        getActivity().finish();
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
+                    }
                 }
 
 
@@ -162,7 +146,6 @@ public class NoteFragmentRecordSound extends BaseFragment {
 
         return rootView;
     }
-
 
 
 }

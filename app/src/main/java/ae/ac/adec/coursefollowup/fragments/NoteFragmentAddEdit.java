@@ -44,33 +44,33 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
 /**
  * Created by MyLabtop on 3/28/2015.
  */
-public class NoteFragmentAddEdit  extends BaseFragment {
-
+public class NoteFragmentAddEdit extends BaseFragment {
 
 
     Course selectedCourse = null;
-    int selectedType = -1;
-    String filePath =null;
+    String filePath = null;
     private int position;
     CustomDialogClass dialogClass = null;
     MaterialEditText txtNoteSubject = null;
-    MaterialEditText txtNoteType = null;
-    MaterialEditText txtNoteFilePath = null;
+    //MaterialEditText txtNoteType = null;
+    Button txtNoteFilePath = null;
     MaterialEditText txtNoteDetail = null;
-boolean touched = false;
+    MaterialEditText txtNoteName = null;
+    int noteType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(POSITION, 0);
+        noteType = getActivity().getIntent().getExtras().getInt(AppAction.NOTETYPE, 0);
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
         hideSoftKeyboard();
-        File NotesDirectory = new File( ConstantVariable.NOTES_DIRECTORY);
-        File voiceDirectory = new File( ConstantVariable.NOTES_VOICE_DIRECTORY);
-        File imageDirectory = new File( ConstantVariable.NOTES_IMAGE_DIRECTORY);
-        File textDirectory  = new File( ConstantVariable.NOTES_TEXT_DIRECTORY);
-        File videoDirectory = new File( ConstantVariable.NOTES_VIDEO_DIRECTORY);
+        File NotesDirectory = new File(ConstantVariable.NOTES_DIRECTORY);
+        File voiceDirectory = new File(ConstantVariable.NOTES_VOICE_DIRECTORY);
+        File imageDirectory = new File(ConstantVariable.NOTES_IMAGE_DIRECTORY);
+        File textDirectory = new File(ConstantVariable.NOTES_TEXT_DIRECTORY);
+        File videoDirectory = new File(ConstantVariable.NOTES_VIDEO_DIRECTORY);
 
         if (!NotesDirectory.exists())
             NotesDirectory.mkdirs();
@@ -91,12 +91,10 @@ boolean touched = false;
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-            setSubTitle("New Note");
-
+        setSubTitle("New Note");
     }
 
     @Override
@@ -104,68 +102,47 @@ boolean touched = false;
         super.onResume();
         txtNoteFilePath.setText(OneFragmentActivity.getNoteType());
         filePath = OneFragmentActivity.getFilePath();
-
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.ic_menu_save_menu:
                 AddEdit();
                 break;
-            case R.id.ic_menu_delete:
-                AppDialog.Delete(getActivity(), new IDialogClick() {
-                    @Override
-                    public void onConfirm() {
-                        Delete();
-                    }
-                });
-                return true;
             default:
                 break;
         }
         return true;
     }
 
-    public void Delete(){
-
-
-            if(filePath!=null){
-                File f = new File(filePath);
-                if(f!=null)
-                    if(f.exists()){
-                        f.delete();
-                        OneFragmentActivity.setNoteType(null);
-                    }
-            }
-            getActivity().finish();
-
-    }
-
-    public void AddEdit(){
+    public void AddEdit() {
         try {
             AppLog.i("ID== >>> " + ID);
             NoteDao Note = new NoteDao();
 
-            if(filePath==null || filePath.equals(""))
+            String notename = txtNoteName.getText().toString().trim();
+            if (notename.equals(""))
+                throw new BusinessRoleError(R.string.BR_NOT_005);
+            if (filePath == null || filePath.equals(""))
                 throw new BusinessRoleError(R.string.BR_NOT_001);
 
-
-            if(ID!=null && ID!=0)
-                Note.Edit(ID, selectedCourse, selectedType , txtNoteDetail.getText().toString() ,filePath , Calendar.getInstance().getTimeInMillis() );
-            else
-                Note.Add(selectedCourse, selectedType , txtNoteDetail.getText().toString() ,filePath , Calendar.getInstance().getTimeInMillis() );
+            if (ID != null && ID != 0) {
+                Note.Edit(ID, selectedCourse, notename, noteType, txtNoteDetail.getText().toString(), filePath, Calendar.getInstance().getTimeInMillis());
+                Toast.makeText(getActivity(), R.string.note_edit_successfully, Toast.LENGTH_LONG).show();
+            } else {
+                Note.Add(selectedCourse, notename, noteType, txtNoteDetail.getText().toString(), filePath, Calendar.getInstance().getTimeInMillis());
+                Toast.makeText(getActivity(), R.string.note_add_successfully, Toast.LENGTH_LONG).show();
+            }
 
             getActivity().finish();
-            Toast.makeText(getActivity(), R.string.note_add_successfully, Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
 
@@ -182,9 +159,7 @@ boolean touched = false;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
     }
-
 
 
     @Override
@@ -194,27 +169,28 @@ boolean touched = false;
         removeShadowForNewApi21(rootView);
 
 
-
         txtNoteSubject = (MaterialEditText) rootView.findViewById(R.id.txtNoteSubject);
+        txtNoteSubject.setTypeface(tf_roboto_light);
+        txtNoteName = (MaterialEditText) rootView.findViewById(R.id.txtNoteName);
+        txtNoteName.setTypeface(tf_roboto_light);
 
-        txtNoteType = (MaterialEditText) rootView.findViewById(R.id.txtNoteType);
+        //txtNoteType = (MaterialEditText) rootView.findViewById(R.id.txtNoteType);
 
-        txtNoteFilePath = (MaterialEditText) rootView.findViewById(R.id.txtNoteFilePath);
+        txtNoteFilePath = (Button) rootView.findViewById(R.id.txtNoteFilePath);
+        txtNoteFilePath.setTypeface(tf_roboto_light);
 
         txtNoteDetail = (MaterialEditText) rootView.findViewById(R.id.txtNoteDetail);
+        txtNoteDetail.setTypeface(tf_roboto_light);
 
-
-
-
-         txtNoteSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        txtNoteSubject.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    List<Course> courses = new CourseDao().getAll(position);
+                    List<Course> courses = new CourseDao().getAll(2);
                     final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
 
-                    dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), "Select Subject",
-                            adapter,false,-1, new AdapterView.OnItemClickListener() {
+                    dialogClass = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(), getString(R.string.select_course),
+                            adapter, false, -1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -232,69 +208,52 @@ boolean touched = false;
         });
 
 
+//        txtNoteType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    final BaseAdapter ad = new ArrayAdapter<ConstantVariable.NoteType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.NoteType.values());
+//                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Note Type", ad, false, -1, new AdapterView.OnItemClickListener() {
+//
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            txtNoteType.setText(ad.getItem(position).toString());
+//                            selectedType = position + 1;
+//                            dialogClass.dismiss();
+//                        }
+//                    });
+//                    dialogClass.show(getActivity().getFragmentManager(), "Iam here!");
+//                    v.clearFocus();
+//                }
+//
+//            }
+//        });
 
-        txtNoteType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        txtNoteFilePath.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-
-                    final BaseAdapter ad = new ArrayAdapter<ConstantVariable.NoteType>(getActivity(), android.R.layout.simple_list_item_1, ConstantVariable.NoteType.values());
-                    dialogClass = new CustomDialogClass(getActivity(), "", "Select Note Type", ad,false,-1, new AdapterView.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            txtNoteType.setText(ad.getItem(position).toString());
-                            selectedType = position + 1;
-                            dialogClass.dismiss();
-                        }
-                    });
-                    dialogClass.show(getActivity().getFragmentManager(), "Iam here!");
-                    v.clearFocus();
-                }
-
-            }
-        });
-
-        txtNoteFilePath.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-
-                    try{
-                    if(txtNoteSubject.getText().toString()!=null && !txtNoteSubject.getText().toString().equals("")) {
-
+            public void onClick(View v) {
+                try {
+                    if (txtNoteSubject.getText().toString() != null && !txtNoteSubject.getText().toString().equals("")) {
                         OneFragmentActivity.setCourseName(txtNoteSubject.getText().toString());
-
-                        if (txtNoteType.getText().toString() != null && !txtNoteType.getText().toString().equals("")) {
-                            if (txtNoteType.getText().toString().equals("Voice")) {
+                        if (noteType > 0) {
+                            if (noteType == ConstantVariable.NoteType.Voice.id) {
                                 AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentRecordSound.class.getName(), -1);
-                            } else if (txtNoteType.getText().toString().equals("Image")) {
+                            } else if (noteType == ConstantVariable.NoteType.Image.id) {
                                 AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentTakeImage.class.getName(), -1);
-                            } else if (txtNoteType.getText().toString().equals("Video")) {
+                            } else if (noteType == ConstantVariable.NoteType.Video.id) {
                                 AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentTakeVideo.class.getName(), -1);
-                            } else if (txtNoteType.getText().toString().equals("Text")) {
+                            } else if (noteType == ConstantVariable.NoteType.Text.id) {
                                 AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentText.class.getName(), -1);
                             }
-
                         } else {
-
-
-                                throw new BusinessRoleError(R.string.BR_NOT_002);
-                           }
-                    }else{
-
-                        throw new BusinessRoleError( R.string.BR_NOT_003);
-
+                            throw new BusinessRoleError(R.string.BR_NOT_002);
+                        }
+                    } else {
+                        throw new BusinessRoleError(R.string.BR_NOT_003);
                     }
-                    } catch (BusinessRoleError ex) {
-                        AppAction.DiaplayError(getActivity(), ex.getMessage());
-                    }
-
-                    v.clearFocus();
+                } catch (BusinessRoleError ex) {
+                    AppAction.DiaplayError(getActivity(), ex.getMessage());
                 }
-
-
-
             }
         });
 

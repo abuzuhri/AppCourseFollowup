@@ -1,8 +1,12 @@
 package ae.ac.adec.coursefollowup.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,10 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.Card;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.Calendar;
 import java.util.List;
 
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
@@ -23,6 +30,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.ColorPicker;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.SemesterDao;
 import ae.ac.adec.coursefollowup.db.dal.YearDao;
@@ -40,6 +48,7 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
  */
 public class CourcesFragmentAddEdit extends BaseFragment {
 
+    Boolean isSaved = false, isNew = true;
     MaterialEditText courseName = null;
     MaterialEditText startDate = null;
     MaterialEditText endDate = null;
@@ -49,8 +58,11 @@ public class CourcesFragmentAddEdit extends BaseFragment {
     MaterialEditText room = null;
     MaterialEditText teacher = null;
     String colorCode = null;
-    Button times = null;
+    TextView tv_color = null;
+    Button times = null, btn_color = null;
     Display display;
+
+    CardView times_cardView;
 
     ColorPicker picker = null;
 
@@ -58,7 +70,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
     private Semester current_semester;
     private int position;
 
-
+    // note: there is some work in OnPause method.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -81,7 +93,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_save_color, menu);
+        inflater.inflate(R.menu.menu_save, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -91,9 +103,6 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         switch (item.getItemId()) {
             case R.id.ic_menu_save_menu:
                 AddEdit();
-                break;
-            case R.id.ic_menu_color_menu:
-                openColorPicker();
                 break;
             default:
                 break;
@@ -105,19 +114,18 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         picker = new ColorPicker(getActivity(), display.getWidth(), display.getHeight(), new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                colorCode  = picker.dialog.colors[position];
+                colorCode = picker.dialog.colors[position];
+                btn_color.setBackgroundColor(Color.parseColor(colorCode));
                 picker.dialog.dismiss();
             }
         });
     }
 
     public void AddEdit() {
-
+        isSaved = true;
         try {
             AppLog.i("ID== >>> " + ID);
             CourseDao courseDao = new CourseDao();
-
-
             // BR BR_CRS_009
             if (courseName.getText().toString().trim().equals(""))
                 throw new BusinessRoleError(R.string.BR_CRS_009);
@@ -141,16 +149,16 @@ public class CourcesFragmentAddEdit extends BaseFragment {
                 courseDao.Edit(ID, courseName.getText().toString().trim(), code.getText().toString().trim(), room.getText().toString().trim(),
                         building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.toString().trim(), current_semester
                         , startDateMil, endDateMil, true);
+                Toast.makeText(getActivity(), R.string.course_edit_successfully, Toast.LENGTH_LONG).show();
             } else {
                 courseDao.Add(courseName.getText().toString().trim(), code.getText().toString().trim(), room.getText().toString().trim(),
                         building.getText().toString().trim(), teacher.getText().toString().trim(), colorCode.toString().trim(), current_semester
                         , startDateMil, endDateMil, true);
+                Toast.makeText(getActivity(), R.string.course_add_successfully, Toast.LENGTH_LONG).show();
             }
             getActivity().finish();
-            Toast.makeText(getActivity(), R.string.holiday_add_successfully, Toast.LENGTH_LONG).show();
         } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
-
         }
     }
 
@@ -163,6 +171,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
 
     private void fillDate() {
         if (ID != null && ID != 0) {
+            isNew = false;
             Course course = Course.load(Course.class, ID);
             courseName.setText(course.Name);
             startDate.setText(ConstantVariable.getDateString(course.StartDate));
@@ -175,6 +184,7 @@ public class CourcesFragmentAddEdit extends BaseFragment {
             building.setText(course.Building);
             teacher.setText(course.Teacher);
             colorCode = course.ColorCode;
+            btn_color.setBackgroundColor(Color.parseColor(colorCode));
             times.setText(R.string.click_to_show_times);
         } else {
             List<Year> years = new YearDao().getCurrentYear(System.currentTimeMillis());
@@ -183,6 +193,10 @@ public class CourcesFragmentAddEdit extends BaseFragment {
                 if (sems.size() > 0) {
                     current_semester = sems.get(0);
                     semester.setText(current_semester.Name);
+                    startDate.setText(ConstantVariable.getDateString(current_semester.StartDate));
+                    startDate.setTag(current_semester.StartDate.getTime());
+                    endDate.setText(ConstantVariable.getDateString(current_semester.EndDate));
+                    endDate.setTag(current_semester.EndDate.getTime());
                 }
             }
         }
@@ -208,12 +222,18 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         room = (MaterialEditText) rootView.findViewById(R.id.tv_course_room);
         teacher = (MaterialEditText) rootView.findViewById(R.id.tv_course_teacher);
 
+        times_cardView = (CardView) rootView.findViewById(R.id.course_inner_time_cardView);
+        times_cardView.setVisibility(View.GONE);
+
+        tv_color = (TextView) rootView.findViewById(R.id.tv_course_color);
         colorCode = getResources().getStringArray(R.array.colors)[0];
+        btn_color = (Button) rootView.findViewById(R.id.btn_course_color);
 
         times = (Button) rootView.findViewById(R.id.tv_course_times);
 
-        if (ID == null || ID == 0)
-            times.setVisibility(View.GONE);
+
+//        if (ID == null || ID == 0)
+//            times.setVisibility(View.GONE);
 
         semester.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -239,29 +259,85 @@ public class CourcesFragmentAddEdit extends BaseFragment {
         times.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CustomLVAdapter_Times adapter;
-                AppLog.i("jma " + ID.longValue());
-                if (ID != null && ID != 0)
-                    adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
-                else
-                    adapter = new CustomLVAdapter_Times(getActivity(), new Long(0), ConstantVariable.DayOfWeek.values());
-                dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAdd.class.getName(), "Times",
-                        adapter, false, ID, new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek + "");
-                        //dialogClass.dismiss();
+                ConstantVariable.isTimesDialog = true;
+                ConstantVariable.isValidPause = false;
+                // BR BR_CRS_009
+                if (courseName.getText().toString().trim().equals(""))
+                    AppAction.DiaplayError(getActivity(), getString(R.string.BR_CRS_009));
+                // BR BR_CRS_008
+                else if (startDate.getText().toString().trim().equals("") || endDate.getText().toString().trim().equals("")) {
+                    AppAction.DiaplayError(getActivity(), getString(R.string.BR_CRS_008));
+                } else {
+                    final CustomLVAdapter_Times adapter;
+                    AppLog.i("jma " + ID.longValue());
+                    if (ID == null || ID == 0) {
+                        Course course = new Course();
+                        Calendar start = Calendar.getInstance();
+                        start.setTimeInMillis((long) startDate.getTag());
+                        Calendar end = Calendar.getInstance();
+                        end.setTimeInMillis((long) endDate.getTag());
+                        course.StartDate = start.getTime();
+                        course.EndDate = end.getTime();
+                        course.Name=courseName.getText().toString().trim();
+                        // BR BR_CRS_010
+                        if (current_semester == null)
+                            try {
+                                throw new BusinessRoleError(R.string.BR_CRS_010);
+                            } catch (BusinessRoleError businessRoleError) {
+                                businessRoleError.printStackTrace();
+                            }
+                        else {
+                            course.Semester = current_semester;
+                            ID = course.save();
+                        }
                     }
-                });
-                dialogClass.show(getActivity().getFragmentManager(), "jma");
+                    adapter = new CustomLVAdapter_Times(getActivity(), ID, ConstantVariable.DayOfWeek.values());
+                    dialogClass = new CustomDialogClass(getActivity(), DayTimeFragmentAdd.class.getName(), "Times",
+                            adapter, false, ID, new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //times.setText(((CourseTimeDay) adapter.getItem(position)).DayOfWeek + "");
+                            //dialogClass.dismiss();
+                        }
+                    });
+                    dialogClass.show(getActivity().getFragmentManager(), "jma");
+                }
             }
         });
 
+        btn_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openColorPicker();
+            }
+        });
 
         fillDate();
 
         return rootView;
     }
 
+    public void deleteUnsavedItem() {
+//        Toast.makeText(getActivity().getBaseContext(), "delete called", Toast.LENGTH_LONG).show();
+        if (!isSaved && isNew) {
+            try {
+                new CourseDao().delete(ID);
+            } catch (BusinessRoleError businessRoleError) {
+                businessRoleError.printStackTrace();
+            }
+        }
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (ConstantVariable.isValidPause)
+            deleteUnsavedItem();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ConstantVariable.isValidPause = true;
+    }
 }

@@ -1,5 +1,7 @@
 package ae.ac.adec.coursefollowup.db.dal;
 
+import android.widget.Toast;
+
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 
@@ -16,6 +18,7 @@ import ae.ac.adec.coursefollowup.db.models.Note;
 import ae.ac.adec.coursefollowup.db.models.Semester;
 import ae.ac.adec.coursefollowup.db.models.Task;
 import ae.ac.adec.coursefollowup.db.models.Year;
+import ae.ac.adec.coursefollowup.services.AppAction;
 import ae.ac.adec.coursefollowup.services.BusinessRoleError;
 
 /**
@@ -97,6 +100,8 @@ public class CourseDao extends BaseDao {
     public void delete(long Id) throws BusinessRoleError {
 
         Course course = Course.load(Course.class, Id);
+        if (course == null)
+            return;
         List<Note> cNotes = new NoteDao().getNotesWithinCourse(course);
         List<Exam> cExams = new ExamDao().getExamsWithinCourse(course);
         List<Task> cTasks = new TaskDao().getTasksWithinCourse(course);
@@ -112,14 +117,17 @@ public class CourseDao extends BaseDao {
         ActiveAndroid.beginTransaction();
         try {
             DeleteSyncer(course);
-            List<CourseTimeDay> ctd = new CourseTimeDayDao().getTimesByCourse(course);
+            CourseTimeDayDao cDao = new CourseTimeDayDao();
+            List<CourseTimeDay> ctd = cDao.getTimesByCourse(course);
             for (int i = 0; i < ctd.size(); i++) {
-                ctd.get(i).delete();
+                cDao.delete(ctd.get(i).getId());
             }
             course.delete();
             ActiveAndroid.setTransactionSuccessful();
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new BusinessRoleError(R.string.BR_GENERAL_001);
+
         } finally {
             ActiveAndroid.endTransaction();
         }

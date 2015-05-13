@@ -172,6 +172,7 @@ public class NoteFragmentText extends BaseFragment {
         LinearLayout v = (LinearLayout)rootView.findViewById(R.id.compoundView);
 
         customEditText = new CustomEditText(getActivity(),null);
+        customEditText.setTypeface(tf_roboto_light);
         customEditText.setLines(30);
         customEditText.setGravity(Gravity.LEFT | Gravity.TOP);
         v.addView(customEditText);

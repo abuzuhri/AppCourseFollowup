@@ -56,6 +56,7 @@ public class TabFragment extends BaseFragment {
         String tabTitles[] = new String[] { getActivity().getString(R.string.tab_current), getActivity().getString(R.string.tab_past), getActivity().getString(R.string.tab_all) };
         mViewPager.setAdapter(new SampleFragmentPagerAdapter(fragmentManager,getActivity(),tabTitles, FragmentName));
         mSlidingTabLayout.setViewPager(mViewPager);
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

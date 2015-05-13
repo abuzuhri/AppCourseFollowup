@@ -142,15 +142,17 @@ public class HolidayFragmentView extends BaseFragment {
 
         //Holiday Name
         holidayName= (MaterialEditText) rootView.findViewById(R.id.txtName);
-
+        holidayName.setTypeface(tf_roboto_light);
         // Start Date
         startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl(startDate);
+        startDate.setTypeface(tf_roboto_light);
 
 
         // End Date
         endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl(endDate);
+        endDate.setTypeface(tf_roboto_light);
 
         fillDate();
 

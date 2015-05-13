@@ -37,11 +37,12 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  */
 public class TaskFragmentView extends BaseFragment {
 
-    MaterialEditText txtTaskName=null;
-    MaterialEditText txtTaskSubject=null;
-    MaterialEditText txtTaskType=null;
-    MaterialEditText txtTaskDueDate=null;
-    TextView txtTaskDetail=null;
+    MaterialEditText txtTaskName = null;
+    MaterialEditText txtTaskSubject = null;
+    MaterialEditText txtTaskType = null;
+    MaterialEditText txtTaskDueDate = null;
+    MaterialEditText txtTaskDueTime = null;
+    TextView txtTaskDetail = null;
     TextView txtTaskProgress = null;
     SeekBar seekProgressBar = null;
 
@@ -53,6 +54,7 @@ public class TaskFragmentView extends BaseFragment {
         ((IRemovableShadowToolBarShadow) getActivity()).RemoveToolBarShadow();
 
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -61,13 +63,10 @@ public class TaskFragmentView extends BaseFragment {
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_edit_delete, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -92,23 +91,23 @@ public class TaskFragmentView extends BaseFragment {
         return false;
     }
 
-    public void Edit(){
+    public void Edit() {
         try {
             AppAction.OpenActivityWithFRAGMENT(getActivity(), TaskFragmentAddEdit.class.getName(), ID);
             getActivity().finish();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Crouton.makeText(getActivity(), ex.getMessage(), Style.ALERT).show();
         }
     }
 
-    public void Delete(){
+    public void Delete() {
         try {
-            SemesterDao semesterDao = new SemesterDao();
-            semesterDao.delete(ID);
+            TaskDao taskDao = new TaskDao();
+            taskDao.delete(ID);
 
             getActivity().finish();
             Toast.makeText(getActivity(), R.string.delete_successfully, Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
@@ -120,9 +119,9 @@ public class TaskFragmentView extends BaseFragment {
 
     }
 
-    private  void fillDate(){
-        if(ID!=null && ID!=0){
-            Task task= Task.load(Task.class, ID);
+    private void fillDate() {
+        if (ID != null && ID != 0) {
+            Task task = Task.load(Task.class, ID);
 
             txtTaskName.setText(task.Name);
             txtTaskName.setEnabled(false);
@@ -139,17 +138,19 @@ public class TaskFragmentView extends BaseFragment {
             txtTaskDueDate.setText(ConstantVariable.getDateString(task.DueDate));
             txtTaskDueDate.setEnabled(false);
 
-            txtTaskProgress.setText("Task Progress: "+task.Progress+"% complete");
+            txtTaskDueTime.setText(ConstantVariable.getTimeString(task.DueDate));
+            txtTaskDueTime.setEnabled(false);
+
+            txtTaskProgress.setText("Task Progress: " + task.Progress + "% complete");
             txtTaskProgress.setEnabled(false);
 
             seekProgressBar.setProgress(task.Progress);
             seekProgressBar.setEnabled(false);
-          //  txtTaskProgress.setEnabled(false);
+            //  txtTaskProgress.setEnabled(false);
 
 
         }
     }
-
 
 
     @Override
@@ -159,22 +160,28 @@ public class TaskFragmentView extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         //Semester Name
-        txtTaskName= (MaterialEditText) rootView.findViewById(R.id.txtTaskName);
+        txtTaskName = (MaterialEditText) rootView.findViewById(R.id.txtTaskName);
 
         // Start Date
-        txtTaskSubject= (MaterialEditText) rootView.findViewById(R.id.txtTaskSubject);
-
+        txtTaskSubject = (MaterialEditText) rootView.findViewById(R.id.txtTaskSubject);
+        txtTaskSubject.setTypeface(tf_roboto_light);
         // End Date
-        txtTaskDueDate= (MaterialEditText) rootView.findViewById(R.id.txtTaskDueDate);
+        txtTaskDueDate = (MaterialEditText) rootView.findViewById(R.id.txtTaskDueDate);
         SetDateControl(txtTaskDueDate);
+        txtTaskDueDate.setTypeface(tf_roboto_light);
+
+        txtTaskDueTime = (MaterialEditText) rootView.findViewById(R.id.txtTaskDueTime);
+        SetTimeControl(txtTaskDueTime, txtTaskDueDate);
+        txtTaskDueTime.setTypeface(tf_roboto_light);
 
         txtTaskType = (MaterialEditText) rootView.findViewById(R.id.txtTaskType);
+        txtTaskType.setTypeface(tf_roboto_light);
         txtTaskDetail = (TextView) rootView.findViewById(R.id.txtTaskDetail);
+        txtTaskDetail.setTypeface(tf_roboto_light);
 
         txtTaskProgress = (TextView) rootView.findViewById(R.id.txtTaskProgress);
+        txtTaskProgress.setTypeface(tf_roboto_light);
         seekProgressBar = (SeekBar) rootView.findViewById(R.id.seekBar);
-
-
 
 
         fillDate();

@@ -42,6 +42,7 @@ public class CustomDialogClass<T> extends DialogFragment {
     AdapterView.OnItemClickListener listener;
     DialogInterface.OnClickListener clickListener;
     public ListView lv;
+    public AlertDialog.Builder builder;
 
     public CustomDialogClass(Context activity, String fragmentName, String title, BaseAdapter adapter, Boolean isMultiple, long course_id, AdapterView.OnItemClickListener listener) {
         this.title = title;
@@ -63,13 +64,14 @@ public class CustomDialogClass<T> extends DialogFragment {
         this.course_id = course_id;
         this.isDays = isDays;
     }
-    public void setClickListener(DialogInterface.OnClickListener clickListener){
-        this.clickListener=clickListener;
+
+    public void setClickListener(DialogInterface.OnClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(getActivity());
         View v = getActivity().getLayoutInflater().inflate(R.layout.custom_courses_dialoge, null);
 
         TextView tv_title = (TextView) v.findViewById(R.id.tv_customDialog_title);
@@ -82,13 +84,13 @@ public class CustomDialogClass<T> extends DialogFragment {
         lv.setOnItemClickListener(listener);
 
         if (isDays)
-            builder.setView(v).setPositiveButton("Ok", clickListener);
+            builder.setView(v).setPositiveButton(getString(R.string.ok), clickListener);
         else if (fragmentName != "")
-            builder.setView(v).setPositiveButton("New", new DialogInterface.OnClickListener() {
+            builder.setView(v).setPositiveButton( getString(R.string.new_), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     AppAction.OpenActivityWithFRAGMENT(getActivity(), OneFragmentActivity.class, fragmentName, course_id);
                 }
-            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            }).setNegativeButton( getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User cancelled the dialog
 
@@ -110,5 +112,12 @@ public class CustomDialogClass<T> extends DialogFragment {
         lv.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (ConstantVariable.isTimesDialog) {
+            ConstantVariable.isValidPause = true;
+            ConstantVariable.isTimesDialog = false;
+        }
+    }
 }

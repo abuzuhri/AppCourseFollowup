@@ -16,19 +16,16 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
 
-
-    <com.melnykov.fab.FloatingActionButton
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_add_white"
-        fab:fab_colorNormal="@color/colorPrimaryDark"
-        fab:fab_colorPressed="@color/colorPrimary"
-        fab:fab_colorRipple="@color/cardview_shadow_start_color" />
-
+        android:layout_alignParentBottom="true"
+        fab:fab_plusIconColor="@color/white"
+        fab:fab_addButtonColorNormal="@color/colorPrimary"
+        fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
+        />
 
 </RelativeLayout>

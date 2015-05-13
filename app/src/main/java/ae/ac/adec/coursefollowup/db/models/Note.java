@@ -24,6 +24,8 @@ public class Note extends BaseModel {
     @Column
     public int NoteType;
     @Column
+    public String NoteName;
+    @Column
     public String Details;
     @Column
     public String FilePath;

@@ -35,7 +35,7 @@ public class Course extends BaseModel {
     @Column
     public String ColorCode;
 
-    @Column(name = "semester", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.NO_ACTION)
+    @Column(name = "semester", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Semester Semester;
 
     @Column

@@ -1,6 +1,7 @@
 package ae.ac.adec.coursefollowup.db.dal;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
@@ -53,10 +54,10 @@ public class CourseTimeDayDao extends BaseDao {
                 day = startCal.get(Calendar.DAY_OF_WEEK);
                 if (day == dayOfWeek) {
                     if (holidayDao.getHolidaysOnDate(startCal.getTimeInMillis()).size() > 0)
-                        notificationDao.Add(startCal.getTimeInMillis(), startCal.getTimeInMillis() - (15 * 60 * 1000), course,
+                        notificationDao.Add(startCal.getTimeInMillis(), startCal.getTimeInMillis() - (60 * 60 * 1000), course,
                                 courseTime, null, null, true, false, false);
                     else
-                        notificationDao.Add(startCal.getTimeInMillis(), startCal.getTimeInMillis() - (15 * 60 * 1000), course,
+                        notificationDao.Add(startCal.getTimeInMillis(), startCal.getTimeInMillis() - (60 * 60 * 1000), course,
                                 courseTime, null, null, false, false, false);
                 }
                 startCal.add(Calendar.DATE, 1);
@@ -65,9 +66,9 @@ public class CourseTimeDayDao extends BaseDao {
         } else {
 
             if (holidayDao.getHolidaysOnDate(startTime).size() > 0)
-                notificationDao.Add(startTime, startTime - (15 * 60 * 1000), course, courseTime, null, null, true, false, false);
+                notificationDao.Add(startTime, startTime - (60 * 60 * 1000), course, courseTime, null, null, true, false, false);
             else
-                notificationDao.Add(startTime, startTime - (15 * 60 * 1000), course, courseTime, null, null, false, false, false);
+                notificationDao.Add(startTime, startTime - (60 * 60 * 1000), course, courseTime, null, null, false, false, false);
         }
     }
 
@@ -156,6 +157,14 @@ public class CourseTimeDayDao extends BaseDao {
         return new Select()
                 .from(CourseTimeDay.class)
                 .where("Course=?", course.getId())
+                .orderBy("Start_time ASC")
+                .execute();
+    }
+
+    public List<CourseTimeDay> getTimesByCourse_DayOfWeek(Course course, int dayOfWeek) {
+        return new Select()
+                .from(CourseTimeDay.class)
+                .where("Course=? AND DayOfWeek=?", course.getId(), dayOfWeek)
                 .orderBy("Start_time ASC")
                 .execute();
     }

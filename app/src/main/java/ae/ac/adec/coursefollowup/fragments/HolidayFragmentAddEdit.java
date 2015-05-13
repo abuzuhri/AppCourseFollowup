@@ -27,9 +27,9 @@ import ae.ac.adec.coursefollowup.views.event.IRemovableShadowToolBarShadow;
  */
 public class HolidayFragmentAddEdit extends BaseFragment {
 
-    MaterialEditText holidayName=null;
-    MaterialEditText startDate=null;
-    MaterialEditText endDate=null;
+    MaterialEditText holidayName = null;
+    MaterialEditText startDate = null;
+    MaterialEditText endDate = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,23 +41,19 @@ public class HolidayFragmentAddEdit extends BaseFragment {
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(ID!=null && ID!=0)
+        if (ID != null && ID != 0)
             setSubTitle(getString(R.string.holiday_edit_subtitle));
         else setSubTitle(getString(R.string.holiday_add_subtitle));
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -73,7 +69,7 @@ public class HolidayFragmentAddEdit extends BaseFragment {
         return true;
     }
 
-    public void AddEdit(){
+    public void AddEdit() {
         try {
             AppLog.i("ID== >>> " + ID);
             HolidayDao holiday = new HolidayDao();
@@ -88,19 +84,19 @@ public class HolidayFragmentAddEdit extends BaseFragment {
             long startDateMil = (long) startDate.getTag();
             long endDateMil = (long) endDate.getTag();
 
-            if(ID!=null && ID!=0)
+            if (ID != null && ID != 0) {
                 holiday.Edit(ID, holidayName.getText().toString().trim(), startDateMil, endDateMil);
-            else
+                Toast.makeText(getActivity(), R.string.holiday_edit_successfully, Toast.LENGTH_LONG).show();
+            } else {
                 holiday.Add(holidayName.getText().toString().trim(), startDateMil, endDateMil);
+                Toast.makeText(getActivity(), R.string.holiday_add_successfully, Toast.LENGTH_LONG).show();
+            }
 
             getActivity().finish();
-            Toast.makeText(getActivity(),R.string.holiday_add_successfully,Toast.LENGTH_LONG).show();
-        }catch (BusinessRoleError ex){
+        } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
     }
-
-
 
 
     @Override
@@ -110,9 +106,9 @@ public class HolidayFragmentAddEdit extends BaseFragment {
 
     }
 
-    private  void fillDate(){
-        if(ID!=null && ID!=0){
-            Holiday holiday= Holiday.load(Holiday.class, ID);
+    private void fillDate() {
+        if (ID != null && ID != 0) {
+            Holiday holiday = Holiday.load(Holiday.class, ID);
             holidayName.setText(holiday.Name);
             startDate.setText(ConstantVariable.getDateString(holiday.StartDate));
             startDate.setTag(holiday.StartDate.getTime());
@@ -128,21 +124,22 @@ public class HolidayFragmentAddEdit extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         //Holiday Name
-        holidayName= (MaterialEditText) rootView.findViewById(R.id.txtName);
-
+        holidayName = (MaterialEditText) rootView.findViewById(R.id.txtName);
+        holidayName.setTypeface(tf_roboto_light);
         // Start Date
-        startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
+        startDate = (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl_New(startDate);
+        startDate.setTypeface(tf_roboto_light);
 
         // End Date
-        endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
+        endDate = (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl_New(endDate);
+        endDate.setTypeface(tf_roboto_light);
 
         fillDate();
 
         return rootView;
     }
-
 
 
 }

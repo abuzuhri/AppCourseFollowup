@@ -1,45 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
             android:textColor="#ff0b8700"
             android:hint="Subject : " />
+    </LinearLayout>
 
-        </LinearLayout>
-    <include  android:id="@+id/shadow_main_activity" layout="@layout/toolbar_shadow" />
+    <include
+        android:id="@+id/shadow_main_activity"
+        layout="@layout/toolbar_shadow" />
 
 
-
-    <ScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideInset"
 
         >
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/compoundView">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/compoundView">
 
 
-
-
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

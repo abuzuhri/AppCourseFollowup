@@ -22,32 +22,32 @@ import ae.ac.adec.coursefollowup.views.view.TaskViewHolder;
 /**
  * Created by MyLabtop on 3/24/2015.
  */
-public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
+public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     public List<Note> mDataset;
     private Context context;
     private IClickCardView mListener;
-    private int posList=-1;
+    private int posList = -1;
     private Typeface tf;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NoteAdapter(List<Note> myDataset,Typeface tf,Context context,IClickCardView mListener) {
+    public NoteAdapter(List<Note> myDataset, Typeface tf, Context context, IClickCardView mListener) {
         mDataset = myDataset;
-        this.context=context;
-        this.mListener=mListener;
-        this.tf=tf;
+        this.context = context;
+        this.mListener = mListener;
+        this.tf = tf;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public NoteViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_cardview_note, null);
 
         // create ViewHolder
         NoteViewHolder viewHolder = new NoteViewHolder(itemLayoutView, new IClickCardView() {
             @Override
-            public void onClick(View v,long ID) {
+            public void onClick(View v, long ID) {
                 mListener.onClick(v, ID);
             }
         });
@@ -60,19 +60,29 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
 
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
-        Note note= mDataset.get(position);
+        Note note = mDataset.get(position);
 
         viewHolder.setID(note.getId());
 
         viewHolder.txtNoteSubject.setText(note.Course.Name);
         viewHolder.txtNoteSubject.setTypeface(tf);
 
-        String addDate= ConstantVariable.getDateString(note.DateAdded);
+        String addDate = ConstantVariable.getDateString(note.DateAdded);
         viewHolder.txtNoteAddDate.setText(addDate);
         viewHolder.txtNoteAddDate.setTypeface(tf);
 
-        viewHolder.txtNoteType.setText(ConstantVariable.NoteType.fromInteger(note.NoteType));
-        viewHolder.txtNoteType.setTypeface(tf);
+        viewHolder.txtNoteName.setText(note.NoteName);
+        viewHolder.txtNoteName.setTypeface(tf);
+
+        int noteType = note.NoteType;
+        if (noteType == ConstantVariable.NoteType.Text.id)
+            viewHolder.imgNoteType.setImageResource(R.drawable.text_icon_1);
+        else if (noteType == ConstantVariable.NoteType.Image.id)
+            viewHolder.imgNoteType.setImageResource(R.drawable.image_icon_1);
+        else if (noteType == ConstantVariable.NoteType.Voice.id)
+            viewHolder.imgNoteType.setImageResource(R.drawable.sound_icon_1);
+        else if (noteType == ConstantVariable.NoteType.Video.id)
+            viewHolder.imgNoteType.setImageResource(R.drawable.video_icon_1);
 
         viewHolder.img_note_color.setBackgroundColor(Color.parseColor(note.Course.ColorCode));
 
@@ -82,19 +92,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder>  {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-    //    AppLog.i("mDataset ==> " + mDataset.size());
-       return mDataset.size();
-      //  return posList;
+        //    AppLog.i("mDataset ==> " + mDataset.size());
+        return mDataset.size();
+        //  return posList;
 
     }
 
 
-
-    private void setposList(int i){
+    private void setposList(int i) {
         posList = i;
     }
 
-public int getPosition(){
-    return posList;
-}
+    public int getPosition() {
+        return posList;
+    }
 }

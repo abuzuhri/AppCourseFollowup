@@ -70,7 +70,7 @@ public class SemesterDao extends BaseDao {
         else
             cCount = new Select().from(Semester.class).where("Name=?", semester.Name).count();
         if (cCount > 0)
-            throw new BusinessRoleError(R.string.BR_HLD_003);
+            throw new BusinessRoleError(R.string.BR_SMR_001);
 
         AppLog.i("Name =>" + Name + " startDate=>" + semester.StartDate.toString() + " endDate=>" + semester.EndDate.toString());
         Long id = semester.save();

@@ -104,13 +104,14 @@ public class ExamFragmentAddEdit extends BaseFragment {
             if (ID != null && ID != 0) {
                 examDao.Edit(ID, startDateMil, endDateMil, System.currentTimeMillis(), room.getText().toString(),
                         seat.getText().toString(), isResit.isChecked(), current_course);
+                Toast.makeText(getActivity(), R.string.exam_edit_successfully, Toast.LENGTH_LONG).show();
             } else {
                 examDao.Add(startDateMil, endDateMil, System.currentTimeMillis(), room.getText().toString(),
                         seat.getText().toString(), isResit.isChecked(), current_course);
+                Toast.makeText(getActivity(), R.string.exam_add_successfully, Toast.LENGTH_LONG).show();
             }
 
             getActivity().finish();
-            Toast.makeText(getActivity(), R.string.exam_add_successfully, Toast.LENGTH_LONG).show();
         } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
@@ -150,17 +151,23 @@ public class ExamFragmentAddEdit extends BaseFragment {
         removeShadowForNewApi21(rootView);
 
         courseName = (MaterialEditText) rootView.findViewById(R.id.tv_exam_course_name);
+        courseName.setTypeface(tf_roboto_light);
         seat = (MaterialEditText) rootView.findViewById(R.id.tv_exam_seat);
+        seat.setTypeface(tf_roboto_light);
         room = (MaterialEditText) rootView.findViewById(R.id.tv_exam_room);
+        room.setTypeface(tf_roboto_light);
         isResit = (CheckBox) rootView.findViewById(R.id.cb_exam_isResit);
 
         examDate = (MaterialEditText) rootView.findViewById(R.id.tv_exam_date);
+        examDate.setTypeface(tf_roboto_light);
         SetDateControl_New(examDate);
 
         startDateTime = (MaterialEditText) rootView.findViewById(R.id.tv_exam_startTime);
         SetTimeControl(startDateTime, examDate);
+        startDateTime.setTypeface(tf_roboto_light);
         endDateTime = (MaterialEditText) rootView.findViewById(R.id.tv_exam_endTime);
         SetTimeControl(endDateTime, examDate);
+        endDateTime.setTypeface(tf_roboto_light);
 
 
         courseName.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +176,7 @@ public class ExamFragmentAddEdit extends BaseFragment {
                 final List<Course> courses = new CourseDao().getAll(2);
                 final CustomLVAdapter_Courses adapter = new CustomLVAdapter_Courses(getActivity(), courses);
                 dialog = new CustomDialogClass(getActivity(), CourcesFragmentAddEdit.class.getName(),
-                        "Courses", adapter, false, -1, new AdapterView.OnItemClickListener() {
+                        getString(R.string.select_course), adapter, false, -1, new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         current_course = (Course) adapter.getItem(position);

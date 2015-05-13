@@ -34,7 +34,7 @@ public class OnBootReceiver extends BroadcastReceiver {
                 .getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(),
-                4 * 1000, pendingIntent); // change it to call
+                c.getTimeInMillis(),
+                60 * 1000, pendingIntent); // change it to call
     }
 }

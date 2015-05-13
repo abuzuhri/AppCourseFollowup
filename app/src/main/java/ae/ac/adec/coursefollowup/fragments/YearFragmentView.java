@@ -143,15 +143,17 @@ public class YearFragmentView extends BaseFragment {
 
         //year Name
         yearName= (MaterialEditText) rootView.findViewById(R.id.txtName);
-
+        yearName.setTypeface(tf_roboto_light);
         // Start Date
         startDate= (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl(startDate);
+        startDate.setTypeface(tf_roboto_light);
 
 
         // End Date
         endDate= (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl(endDate);
+        endDate.setTypeface(tf_roboto_light);
 
         fillDate();
 

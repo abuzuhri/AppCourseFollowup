@@ -39,12 +39,12 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txtNoteSubject"
+                        android:id="@+id/txtNoteName"
                         android:layout_weight="0.65"
                         android:padding="10dp"
                         android:textColor="#3C3C3C"
                         android:textSize="20sp"
-                        tools:text="Subject"
+                        tools:text="@string/note_name"
                         android:layout_gravity="center_vertical"
                         android:gravity="left" />
                     <TextView
@@ -71,16 +71,23 @@
                     android:orientation="horizontal"
                     android:layout_below="@+id/linerHorzTitle">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/imgNoteType"
+                        android:padding="10dp"
+                        android:src="@drawable/teacher"
+                        android:paddingRight="2dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txtNoteType"
-                        android:textColor="#3C3C3C"
+                        android:id="@+id/txtNoteSubject"
                         android:padding="10dp"
-                        android:textSize="18sp"
-                        tools:text="Type"
-                        android:paddingRight="2dp" />
-
+                        android:textColor="#3C3C3C"
+                        android:textSize="20sp"
+                        tools:text="Subject"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left" />
 
                 </LinearLayout>
             </LinearLayout>

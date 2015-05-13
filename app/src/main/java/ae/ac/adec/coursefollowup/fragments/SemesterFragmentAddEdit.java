@@ -106,13 +106,15 @@ public class SemesterFragmentAddEdit extends BaseFragment {
             //ToDo
             //Check selectedYear not null
             AppLog.i("1 : " + selectedYear.Name);
-            if (ID != null && ID != 0)
+            if (ID != null && ID != 0) {
                 semester.Edit(ID, semesterName.getText().toString().trim(), startDateMil, endDateMil, selectedYear);
-            else
+                Toast.makeText(getActivity(), R.string.semester_edit_successfully, Toast.LENGTH_LONG).show();
+            } else {
                 semester.Add(semesterName.getText().toString().trim(), startDateMil, endDateMil, selectedYear);
+                Toast.makeText(getActivity(), R.string.semester_add_successfully, Toast.LENGTH_LONG).show();
+            }
 
             getActivity().finish();
-            Toast.makeText(getActivity(), R.string.semester_add_successfully, Toast.LENGTH_LONG).show();
         } catch (BusinessRoleError ex) {
             AppAction.DiaplayError(getActivity(), ex.getMessage());
         }
@@ -134,6 +136,7 @@ public class SemesterFragmentAddEdit extends BaseFragment {
             endDate.setText(ConstantVariable.getDateString(semester.EndDate));
             endDate.setTag(semester.EndDate.getTime());
             selectYear.setText(semester.year.Name);
+            selectedYear = semester.year;
         } else {
             List<Year> years = new YearDao().getCurrentYear(System.currentTimeMillis());
             if (years.size() > 0) {
@@ -152,14 +155,16 @@ public class SemesterFragmentAddEdit extends BaseFragment {
 
 
         semesterName = (MaterialEditText) rootView.findViewById(R.id.txtName);
-
+        semesterName.setTypeface(tf_roboto_light);
         // Start Date
         startDate = (MaterialEditText) rootView.findViewById(R.id.txtStartDate);
         SetDateControl_New(startDate);
+        startDate.setTypeface(tf_roboto_light);
 
         // End Date
         endDate = (MaterialEditText) rootView.findViewById(R.id.txtEndDate);
         SetDateControl_New(endDate);
+        endDate.setTypeface(tf_roboto_light);
 
         selectYear = (MaterialEditText) rootView.findViewById(R.id.txtSelectYear);
         selectYear.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -170,7 +175,7 @@ public class SemesterFragmentAddEdit extends BaseFragment {
                     final CustomLVAdapter_Years adapter = new CustomLVAdapter_Years(getActivity(), years);
 
                     dialogClass = new CustomDialogClass(getActivity(), YearFragmentAddEdit.class.getName(), "Years",
-                            adapter,false,-1, new AdapterView.OnItemClickListener() {
+                            adapter, false, -1, new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
