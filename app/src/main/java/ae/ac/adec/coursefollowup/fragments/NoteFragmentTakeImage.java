@@ -96,7 +96,7 @@ public class NoteFragmentTakeImage extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        settingLanguage("ar");
+        //settingLanguage("ar");
         if (requestCode == IMAGE_CAPTURE) {
             if (resultCode == getActivity().RESULT_OK) {
 

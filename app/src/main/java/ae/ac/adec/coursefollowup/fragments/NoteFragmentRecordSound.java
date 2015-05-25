@@ -89,7 +89,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
         }
         OneFragmentActivity.setFilePath(outputFile);
         OneFragmentActivity.setNoteType(getString(R.string.voice_captured));
-        settingLanguage("ar");
+        //settingLanguage("ar");
         getActivity().finish();
     }
 
