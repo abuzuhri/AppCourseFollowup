@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="25dp"
+    android:orientation="horizontal"
+    card_view:cardElevation="2sp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="0dp"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.975"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linerHorzTitle"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/txtTaskDueDate"
+                        android:layout_weight="0.35"
+                        android:textColor="@color/colorInnerBlockText"
+                        android:padding="10dp"
+                        android:textSize="13sp"
+                        tools:text="Mar 23 15"
+                        android:layout_margin="4dp"
+                        android:gravity="center"
+                        android:background="@color/colorInnerBlockBG"
+                        android:layout_gravity="center_vertical" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtTaskTitle"
+                        android:layout_weight="0.65"
+                        android:padding="10dp"
+                        android:textColor="#3C3C3C"
+                        android:textSize="20sp"
+                        tools:text="Task"
+                        android:layout_gravity="center_vertical|right"
+                        android:gravity="right" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linerHorz"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_below="@+id/linerHorzTitle">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/txtTaskType"
+                        android:textColor="#3C3C3C"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical|right"
+                        tools:text="Type"
+                        android:paddingLeft="1dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtTaskSubject"
+                        android:textColor="#3C3C3C"
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:gravity="right"
+                        tools:text="Subject"
+                        android:paddingRight="2dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.025"
+                android:id="@+id/img_task_color"
+                android:background="@color/colorAccent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

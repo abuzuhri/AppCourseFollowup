@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="0.9"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
+        android:padding="4dp"
+        android:text="New Text"
+        android:id="@+id/tv_custom_course_row" />
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="0.1"
+        android:layout_height="fill_parent"
+        android:background="@color/colorAccent"
+        android:id="@+id/img_custom_course_row" />
+</LinearLayout>

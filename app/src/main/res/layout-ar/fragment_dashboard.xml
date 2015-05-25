@@ -1,0 +1,154 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:padding="4dp"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:padding="4dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_tasks"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_tasks">
+
+
+            <ImageView
+                android:id="@+id/img_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/tasks_card" />
+
+            <TextView
+                android:id="@+id/tv_task_title"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.7"
+                android:gravity="right|center_vertical"
+                android:textSize="22dp"
+                android:layout_margin="16dp"
+                android:paddingRight="16dp"
+                android:textColor="#ffffff"
+                android:text="ddd" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_classes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_classes">
+
+            <ImageView
+                android:id="@+id/img_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/class_card" />
+
+            <TextView
+                android:id="@+id/tv_class_title"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.7"
+                android:gravity="right|center_vertical"
+                android:textSize="22dp"
+                android:paddingRight="16dp"
+                android:textColor="#ffffff"
+                android:layout_margin="16dp"
+                android:text="ddd" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_exams"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:background="@color/color_exams">
+
+
+            <ImageView
+                android:id="@+id/img_exam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/exams_card" />
+
+            <TextView
+                android:id="@+id/tv_exam_title"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.7"
+                android:gravity="right|center_vertical"
+                android:textSize="22dp"
+                android:textColor="#ffffff"
+                android:layout_margin="16dp"
+                android:paddingRight="16dp"
+                android:text="ddd" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorPrimary">
+
+
+        <ae.ac.adec.coursefollowup.Lib.SlidingTabs.SlidingTabLayout
+            android:background="@color/colorTab"
+            android:id="@+id/sliding_tabs_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!--<include
+        android:id="@+id/shadow_main_activity"
+        layout="@layout/toolbar_shadow" /> -->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_dashboard"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+</LinearLayout>

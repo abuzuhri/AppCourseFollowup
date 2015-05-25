@@ -1,0 +1,294 @@
+<resources>
+    <string name="app_name_cfu">دروسي</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">530775210395799</string>
+    <string name="lang">ar</string>
+
+    <string name="about">للتواصل</string>
+
+    <string name="about_name">الاسم:</string>
+    <string name="about_email">البريد الالكتروني:</string>
+    <string name="about_univ">الدولة:</string>
+
+    <string name="dev1_name">أحمد علي أحمد الحمادي</string>
+    <string name="dev2_name">محمد أحمد با معبد</string>
+    <string name="dev1_email">a7madal7ammadi@gmail.com</string>
+    <string name="dev2_email">H00207360@hct.ac.ae</string>
+    <string name="dev1_univ">الإمارات العربية المتحده</string>
+    <string name="dev2_univ">الإمارات العربية المتحده</string>
+
+    <string name="new_">جديد</string>
+    <string name="no_times">لا مواعيد</string>
+    <string name="current_time">الوقت:</string>
+    <string name="current_date">التاريخ:</string>
+
+    <string name="img_captured">تم التقاط صورة</string>
+    <string name="vid_captured">تم تسجيل فيديو</string>
+    <string name="text_captured">تم انشاء نص</string>
+    <string name="voice_captured">تم تسجيل صوت</string>
+
+    <string name="cancel">الغاء</string>
+    <string name="select_course">حدد مساق</string>
+    <string name="select_color">حدد لون</string>
+    <string name="ok">تم</string>
+    <string name="select_Ttype">حدد نوع المهمة</string>
+    <string name="complete">% اكتمل</string>
+    <string name="task_progress">انجاز المهمة: </string>
+    <string name="once_on">مرة واحدة يوم: </string>
+
+    <string name="task_hw">واجب</string>
+    <string name="task_ass">تقييم</string>
+    <string name="task_rem">تذكير</string>
+    <string name="task_rev">مراجعه</string>
+    <string name="task_meet">مقابله</string>
+
+    <string name="saturday">السبت</string>
+    <string name="sunday">الأحد</string>
+    <string name="monday">الاثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الأربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="friday">الجمعه</string>
+
+    <string name="sat">سبت</string>
+    <string name="sun">احد</string>
+    <string name="mon">اثنين</string>
+    <string name="tue">ثلاثاء</string>
+    <string name="wed">اربعاء</string>
+    <string name="thu">خميس</string>
+    <string name="fri">جمعه</string>
+
+    <string name="voice">صوت</string>
+    <string name="text">نص</string>
+    <string name="video">فيديو</string>
+    <string name="image">صورة</string>
+
+    <!-- categories -->
+    <string name="category_dashboard">لوحة المحتوى</string>
+    <string name="category_calender">التقويم</string>
+    <string name="category_classes">المساقات</string>
+    <string name="category_tasks">المهام</string>
+    <string name="category_notes">الملاحظات</string>
+    <string name="category_exams">الامتحانات</string>
+    <string name="category_semesters">الفصول الدراسية</string>
+    <string name="category_year">السنوات الدراسية</string>
+    <string name="category_holidays">الاجازات</string>
+    <string name="category_search">بحث</string>
+    <string name="category_setting">الضبط</string>
+    <string name="category_people">People</string>
+    <string name="category_technology">Technology</string>
+    <string name="category_test">Testing</string>
+    <string name="category_ar">عربي</string>
+    <string name="category_en">English</string>
+    <!-- ADD Edit  -->
+    <string name="delete_confirmation">هل أنت متأكد من الحذف؟</string>
+    <string name="delete_confirmation_title">حذف</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="delete_successfully">تم الحذف بنجاح</string>
+    <!-- Holiday  -->
+    <string name="holiday_add_subtitle">اضافة اجازة</string>
+    <string name="holiday_edit_subtitle">تعديل اجازة</string>
+    <string name="holiday_add_successfully">تمت اضافة الاجازة بنجاح</string>
+    <string name="holiday_edit_successfully">تم تعديل الاجازة بنجاح</string>
+    <string name="holiday_name">اسم الاجازة</string>
+    <string name="holiday_start_date_hint">تاريخ البداية</string>
+    <string name="holiday_end_date_hint">تاريخ النهاية</string>
+    <!-- DaysTimes  -->
+    <string name="dt_add_subtitle">اضافة موعد</string>
+    <string name="dt_edit_subtitle">تعديل موعد</string>
+    <string name="dt_add_successfully">تمت اضافة الموعد بنجاح</string>
+    <string name="dt_edit_successfully">تم تعديل الموعد بنجاح</string>
+    <string name="dt_start_time_hint">وقت البداية</string>
+    <string name="dt_end_time_hint">وقت النهاية</string>
+    <string name="dt_oneDate_hint">موعد لمرة واحدة</string>
+    <string name="dt_daysOfWeek_hint">أيام الاسبوع</string>
+    <string name="dt_course_hint">اسم المساق</string>
+    <string name="dt_isRepeat">متكرر</string>
+
+
+    <!-- Course  -->
+    <string name="course_add_subtitle">اضافة مساق</string>
+    <string name="course_edit_subtitle">تعديل مساق</string>
+    <string name="course_add_successfully">تمت اضافة المساق بنجاح</string>
+    <string name="course_edit_successfully">تم تعديل المساق بنجاح</string>
+    <string name="course_name">اسم المساق</string>
+    <string name="course_start_date_hint">تاريخ بداية المساق</string>
+    <string name="course_end_date_hint">تاريخ نهاية المساق</string>
+    <string name="course_seat_hint">القاعه الدراسية</string>
+    <string name="course_building_hint">المبنى</string>
+    <string name="course_code_hint">اختصار المساق</string>
+    <string name="course_teacher_hint">مدرس المساق</string>
+    <string name="course_colorCode_hint">حدد لون</string>
+    <string name="course_times_hint">مواعيد المساق</string>
+
+
+    <!-- Year  -->
+    <string name="year_add_subtitle">اضافة سنة دراسية</string>
+    <string name="year_edit_subtitle">تعديل سنة دراسية</string>
+    <string name="year_add_successfully">تمت اضافة السنة الدراسية بنجاح</string>
+    <string name="year_edit_successfully">تم تعديل السنة الدراسية بنجاح</string>
+    <string name="year_name">مثال: 2014/2015</string>
+    <string name="year_start_date_hint">تاريخ بداية السنة</string>
+    <string name="year_end_date_hint">تاريخ نهاية السنة</string>
+
+    <!-- Exam  -->
+    <string name="exam_add_subtitle">اضافة امتحان</string>
+    <string name="exam_edit_subtitle">تعديل امتحان</string>
+    <string name="exam_add_successfully">تمت اضافة الامتحان بنجاح</string>
+    <string name="exam_edit_successfully">تم تعديل الامتحان بنجاح</string>
+    <string name="exam_course_name">اختار مساق</string>
+    <string name="exam_start_date_hint">وقت البداية</string>
+    <string name="exam_date_hint">تاريخ الامتحان</string>
+    <string name="exam_isResit">اعادة؟</string>
+    <string name="exam_seat_hint">المقعد</string>
+    <string name="exam_room_hint">القاعه</string>
+    <string name="exam_duration">مدة الامتحان</string>
+    <string name="exam_end_date_hint">وقت الانتهاء</string>
+
+    <!-- Task  -->
+    <string name="task_add_subtitle">مهمة جديدة</string>
+    <string name="task_edit_subtitle">تعديل المهمة</string>
+    <string name="task_add_successfully">تمت اضافة المهمة بنجاح</string>
+    <string name="task_edit_successfully">تم تعديل المهمة بنجاح</string>
+    <string name="task_subject_hint">المساق</string>
+    <string name="task_type_hint">النوع</string>
+    <string name="task_due_date_hint">حتى تاريخ</string>
+    <string name="task_due_time_hint">الوقت</string>
+    <string name="task_name">اسم المهمة</string>
+    <string name="task_detail_hint">تفاصيل اكثر</string>
+
+    <!-- Note  -->
+    <string name="note_add_subtitle">ملاحظة جديدة</string>
+    <string name="note_edit_subtitle">تعديل ملاحظة</string>
+    <string name="note_add_successfully">تمت اضافة الملاحظة بنجاح</string>
+    <string name="note_due_date_hint">حتى تاريخ</string>
+    <string name="note_name">اسم الملاحظة</string>
+    <string name="note_detail_hint">تفاصيل اكثر</string>
+    <string name="note_edit_successfully">تم تعديل الملاحظة بنجاح</string>
+
+        <!-- Semester  -->
+    <string name="semester_name">اسم الفصل الدراسي</string>
+    <string name="semester_start_date_hint">تاريخ بداية الفصل</string>
+    <string name="semester_end_date_hint">تاريخ نهاية الفصل</string>
+    <string name="semester_select_year_hint">اختر سنة دراسية</string>
+    <string name="semester_add_subtitle">اضافة فصل دراسي</string>
+    <string name="semester_edit_subtitle">تعديل فصل دراسي</string>
+    <string name="semester_add_successfully">تمت اضافة الفصل الدراسي بنجاح</string>
+    <string name="semester_edit_successfully">تم تعديل الفصل الدراسي بنجاح</string>
+    <!-- /ADD Edit  -->
+
+    <!-- Tab  -->
+    <string name="tab_current">الحالي</string>
+    <string name="tab_past">السابق</string>
+    <string name="tab_all">الكل</string>
+
+    <string name="font_fontFamily_medium">sans-serif</string>
+
+    <!-- BusinessRoleExcption  -->
+    <string name="BR_GENERAL_001">حدث خطأ اثناء الحذف</string>
+    <string name="BR_GENERAL_002">يجب أن تكون في نفس المساق كي تستطيع تعديل مواعيده, المواعيد الملونة هي للمساق الحالي</string>
+    <string name="BR_GENERAL_003">يجب تحديد التاريخ أولاً</string>
+    <!-- Holiday  -->
+    <string name="BR_HLD_001">تاريخ البداية يجب أن يكون قبل تاريخ النهاية</string>
+    <string name="BR_HLD_002">لا يمكن اضافة اجازة مدتها اكثر من 30 يوما</string>
+    <integer name="MaxHoildayPeriod">30</integer>
+    <string name="BR_HLD_003">الاجازة موجودة مسبقاً</string>
+    <string name="BR_HLD_004">يجب تحديد تاريخ بداية ونهاية للاجازة</string>
+    <string name="BR_HLD_005">يجب اضافة اسم للاجازة</string>
+    <string name="BR_HLD_006">هذه الاجازة تتعارض مع اجازات اخرى</string>
+    <!--/ Year  -->
+    <string name="BR_YER_001">تاريخ البداية يجب ان يكون قبل تاريخ النهاية</string>
+    <string name="BR_YER_002">السنة الدراسية موجودة مسبقاً</string>
+    <integer name="MaxYearPeriod">400</integer>
+    <string name="BR_YER_003">لا يمكن حذف سنة دراسية تحتوي على فصول , يجب حذف الفصول أولاً</string>
+    <string name="BR_YER_004">لا يمكن اضافة سنة دراسية بها أكثر من 400 يوماً</string>
+    <string name="BR_YER_005">يجب تحديد تاريخ بداية ونهاية للسنة الدراسية</string>
+    <string name="BR_YER_006">يجب اضافة اسم للسنة الدراسية</string>
+    <string name="BR_YER_007">هذه السنة الدراسية تتعارض مع سنوات اخرى</string>
+    <!--/ Semesters  -->
+    <string name="BR_SMR_001">الفصل الدراسي موجود مسبقاً في هذه السنة</string>
+    <string name="BR_SMR_002">تاريخ بداية ونهاية الفصل يجب ان يكون ضمن نطاق السنة الدراسية</string>
+    <string name="BR_SMR_003">هذا الفصل يحتوي على مساقات, يجب حذف المساقات أولا ان كنت تريد حذف هذا الفصل</string>
+    <string name="BR_SMR_004">تاريخ البداية يجب ان يكون قبل تاريخ النهاية</string>
+    <string name="BR_SMR_005">يجب تحديد تاريخ بداية ونهاية للفصل الدراسي</string>
+    <string name="BR_SMR_006">يجب ادخال اسم للفصل الدراسي</string>
+    <string name="BR_SMR_007">الفصل الدراسي يجب أن يكون تابعاً لسنة دراسية</string>
+    <string name="BR_SMR_008">هذا الفصل يتعارض مع فصول اخرى</string>
+    <!--/ Courses  -->
+    <string name="BR_CRS_001">اسم المساق موجود مسبقاً</string>
+    <string name="BR_CRS_002"></string>
+    <string name="BR_CRS_003">تاريخ بداية ونهاية المساق يجب ان يكون ضمن الفصل الدراسي المحدد</string>
+    <string name="BR_CRS_004">لا يمكن حذف مساق يحتوي على ملاحظات, يجب حذف الملاحظات اولاً</string>
+    <string name="BR_CRS_005">لا يمكن حذف مساق يحتوي على مهام, يجب حذف المهام اولاً</string>
+    <string name="BR_CRS_006">لا يمكن حذف مساق يحتوي على امتحانات, يجب حذف الامتحانات اولاً</string>
+    <string name="BR_CRS_007">تاريخ البداية يجب ان يكون قبل تاريخ النهاية</string>
+    <string name="BR_CRS_008">يجب تحديد تاريخ بداية ونهاية للمساق</string>
+    <string name="BR_CRS_009">يجب ادخال اسم للمساق</string>
+    <string name="BR_CRS_010">المساق يجب ان يكون تابعاً لفصل دراسي</string>
+    <string name="BR_CRS_011">اختر لون</string>
+    <string name="BR_CRS_012">هذا المساق يتعارض مع مساقات اخرى</string>
+    <!--/ Exams -->
+    <string name="BR_EXM_001">يجب تحديد تاريخ بداية ونهاية للامتحان</string>
+    <string name="BR_EXM_002">الامتحان يجب ان يكون لمساقاً معيناً</string>
+    <string name="BR_EXM_003">تاريخ البداية يجب ان يكون قبل تاريخ النهاية</string>
+    <string name="BR_EXM_004">الامتحان يتعارض مع امتحانات اخرى</string>
+    <!--/ Tasks -->
+    <string name="BR_TSK_001">يجب ادخال اسم للمهمة</string>
+    <string name="BR_TSK_002">المهمة موجودة مسبقاً</string>
+    <string name="BR_TSK_003">حدد نوع المهمة</string>
+    <string name="BR_TSK_004">المهمة يجب ان تكون لمساق</string>
+    <string name="BR_TSK_005">حدد تاريخ المهمة</string>
+    <!--/ Tasks -->
+    <string name="BR_DT_001">يجب تحديد تاريخ بداية ونهاية</string>
+    <string name="BR_DT_002">يجب تحديد ايام من ايام الاسبوع</string>
+    <string name="BR_DT_003">المواعيد يجب ان تكون لمساق معين</string>
+    <!-- Times -->
+    <string name="BR_TIM_001">الموعد المدخل يتعارض مع مواعيد اخرى</string>
+
+    <!-- Notes  -->
+    <string name="BR_NOT_001">الملاحظة لا يمكن ان تكون فارغه</string>
+    <string name="BR_NOT_002">حدد نوع الملاحظة اولا</string>
+    <string name="BR_NOT_003">حدد المساق اولا</string>
+    <string name="BR_NOT_004">الرجاء ادخال محتوى الملاحظة مثال: الصورة , النص ...الخ</string>
+    <string name="BR_NOT_005">الرجاء ادخال اسم الملاحظة</string>
+
+
+    <string name="dashboard_note">ملاحظة</string>
+    <string name="dashboard_task">مهمة</string>
+    <string name="dashboard_class">مساق</string>
+    <string name="dashboard_exam">امتحان</string>
+
+
+<!--tests 2666 d-->
+    <string name="login_loading">تحميل</string>
+    <string name="login_title">تسجيل دخول</string>
+    <string name="login_username">اسم المستخدم</string>
+    <string name="login_pass">كلمة المرور</string>
+    <string name="click_to_show_times" >جدول المواعيد</string>
+    <string name="click_to_edit_times">تعديل جدول المواعيد</string>
+    <string name="noTimes">لا يوجد مواعيد في هذا اليوم</string>
+    <string name="time_repeated">متكرر</string>
+
+    <string-array name="colors">
+    <item>#f5f522</item>
+    <item>#FF4081</item>
+    <item>#1687ca</item>
+    <item>#b2b222</item>
+    <item>#81374a</item>
+    <item>#E64A19</item>
+    <item>#FBC02D</item>
+    <item>#4CAF50</item>
+    <item>#222222</item>
+    <item>#D32F2F</item>
+</string-array>
+
+    <string-array name="cats">
+        <item>الامتحانات</item>
+        <item>المساقات</item>
+        <item>المهام</item>
+    </string-array>
+</resources>

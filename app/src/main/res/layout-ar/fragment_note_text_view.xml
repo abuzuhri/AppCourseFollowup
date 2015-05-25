@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/flexible_space_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingRight="72dp"
+        android:paddingLeft="16dp"
+        android:elevation="5dp"
+        android:paddingTop="16dp">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:hint="@string/note_name"
+            android:textColor="@color/white"
+            android:paddingRight="35dp"
+            android:layout_gravity="bottom|left"
+            android:id="@+id/txtNoteName" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/shadow_main_activity"
+        layout="@layout/toolbar_shadow" />
+
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="outsideInset">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/compoundView">
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject"
+                android:gravity="right"
+                app:iconRight="@drawable/ic_today_white"
+                android:layout_gravity="bottom|right"
+                android:id="@+id/txtNoteSubject" />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/txtNoteAddDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRight="@drawable/ic_today_white"
+                app:floatingLabel="highlight"
+                app:iconPadding="10dp"
+                android:gravity="right"
+                android:enabled="false"
+                android:indeterminate="false" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/txtNoteDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/note_detail_hint"
+                app:iconRight="@drawable/ic_today_white"
+                android:gravity="right"
+                app:floatingLabel="highlight"
+                app:iconPadding="10dp"
+                android:indeterminate="false" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+
