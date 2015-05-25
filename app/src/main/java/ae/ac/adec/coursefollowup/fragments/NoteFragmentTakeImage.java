@@ -83,15 +83,11 @@ public class NoteFragmentTakeImage extends BaseFragment {
 
     public void AddEdit(){
      //   OneFragmentActivity.setFilePath(outputFile);
-
-
-
         if(successRecord) {
             OneFragmentActivity.setFilePath(outputFile);
-            OneFragmentActivity.setNoteType("I have an image note");
+            OneFragmentActivity.setNoteType(getString(R.string.img_captured));
         }else{
             OneFragmentActivity.setFilePath(null);
-            OneFragmentActivity.setNoteType("No Image Capture!");
         }
         getActivity().finish();
 
@@ -100,7 +96,7 @@ public class NoteFragmentTakeImage extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        settingLanguage("ar");
         if (requestCode == IMAGE_CAPTURE) {
             if (resultCode == getActivity().RESULT_OK) {
 

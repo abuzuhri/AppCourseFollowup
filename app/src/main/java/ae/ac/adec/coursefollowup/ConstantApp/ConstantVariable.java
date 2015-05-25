@@ -22,7 +22,12 @@ import ae.ac.adec.coursefollowup.services.AppAction;
  * Created by JMA on 3/8/2015.
  */
 public class ConstantVariable {
-
+    public static int[] imageResId = {
+            R.drawable.text_icon,
+            R.drawable.image_icon,
+            R.drawable.sound_icon,
+            R.drawable.video_icon
+    };
     public static String MAIN_APP_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup";
     public static String NOTES_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes";
     public static String NOTES_TEXT_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Text";
@@ -30,6 +35,7 @@ public class ConstantVariable {
     public static String NOTES_VOICE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Voice";
     public static String NOTES_VIDEO_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CourseFollowup/Notes/Video";
     public static String lang = "en";
+    public static Boolean isInDash = false;
     public static Boolean isValidPause=true,isTimesDialog=false;
 
     public enum TaskType {
@@ -98,7 +104,8 @@ public class ConstantVariable {
         Setting(100),
         Test(1000),
         Profile(101),
-        Language(102);
+        Language(102),
+        About(103);
 
         public int id;
 

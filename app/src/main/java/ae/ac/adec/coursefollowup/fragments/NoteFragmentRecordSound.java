@@ -88,8 +88,8 @@ public class NoteFragmentRecordSound extends BaseFragment {
 
         }
         OneFragmentActivity.setFilePath(outputFile);
-        OneFragmentActivity.setNoteType("I have a Note Voice!");
-
+        OneFragmentActivity.setNoteType(getString(R.string.voice_captured));
+        settingLanguage("ar");
         getActivity().finish();
     }
 
@@ -132,7 +132,7 @@ public class NoteFragmentRecordSound extends BaseFragment {
                         myAudioRecorder.release();
                         myAudioRecorder = null;
                         OneFragmentActivity.setFilePath(outputFile);
-                        OneFragmentActivity.setNoteType("I have a Note Voice!");
+                        OneFragmentActivity.setNoteType(getString(R.string.voice_captured));
                         getActivity().finish();
                     } catch (IllegalStateException e) {
                         e.printStackTrace();

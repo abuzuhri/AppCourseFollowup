@@ -98,7 +98,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder> {
         if (result.length()>0)
             result = result.substring(0,result.length()-1);
         if (result.equals(""))
-            result = "No times";
+            result = context.getString(R.string.no_times);
         return result;
     }
 }

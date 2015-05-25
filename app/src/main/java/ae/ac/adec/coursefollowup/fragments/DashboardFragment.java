@@ -41,7 +41,7 @@ import ae.ac.adec.coursefollowup.services.AppAction;
  * Created by Tareq on 02/28/2015.
  */
 public class DashboardFragment extends BaseFragment {
-    TextView tv_tasks, tv_classes, tv_exams;
+    TextView tv_tasks, tv_classes, tv_exams, tv_time, tv_date;
     ImageView img_tasks, img_classes, img_exams;
     LinearLayout ll_tasks, ll_classes, ll_exams;
     ViewPager mViewPager;
@@ -57,10 +57,18 @@ public class DashboardFragment extends BaseFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ConstantVariable.isInDash = false;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ((BaseActivity) getActivity()).RemoveToolBarShadow();
+
+        ConstantVariable.isInDash = true;
 
         tabs = getResources().getStringArray(R.array.cats);
         tv_tasks = (TextView) rootView.findViewById(R.id.tv_task_title);
@@ -69,6 +77,18 @@ public class DashboardFragment extends BaseFragment {
         tv_classes.setTypeface(tf_roboto_light);
         tv_exams = (TextView) rootView.findViewById(R.id.tv_exam_title);
         tv_exams.setTypeface(tf_roboto_light);
+
+        Calendar current_date = Calendar.getInstance();
+        String day = getString(ConstantVariable.DayOfWeek.fromInteger(current_date.get(Calendar.DAY_OF_WEEK)));
+
+        tv_date = (TextView) rootView.findViewById(R.id.tv_date);
+        tv_date.setTypeface(tf_roboto_light);
+
+        tv_date.setText(getString(R.string.current_date) +" "+ day + " " + ConstantVariable.getDateString(current_date.getTime()));
+
+        tv_time = (TextView) rootView.findViewById(R.id.tv_time);
+        tv_time.setTypeface(tf_roboto_light);
+        tv_time.setText(getString(R.string.current_time) + ConstantVariable.getTimeString(current_date.getTime()));
 
         img_tasks = (ImageView) rootView.findViewById(R.id.img_task);
         img_classes = (ImageView) rootView.findViewById(R.id.img_class);

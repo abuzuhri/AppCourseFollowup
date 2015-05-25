@@ -168,7 +168,6 @@ public class NoteFragmentAddEdit extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_note_add_edit, container, false);
         removeShadowForNewApi21(rootView);
 
-
         txtNoteSubject = (MaterialEditText) rootView.findViewById(R.id.txtNoteSubject);
         txtNoteSubject.setTypeface(tf_roboto_light);
         txtNoteName = (MaterialEditText) rootView.findViewById(R.id.txtNoteName);

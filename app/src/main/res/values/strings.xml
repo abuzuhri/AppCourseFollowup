@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Course Followup</string>
+    <string name="app_name_cfu">Course Followup</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -7,7 +7,30 @@
     <string name="facebook_app_id">530775210395799</string>
     <string name="lang">en</string>
 
+    <string name="about">Contact us</string>
+
+    <string name="about_name">Name:</string>
+    <string name="about_email">Email:</string>
+    <string name="about_univ">Country:</string>
+
+    <string name="dev1_name">Ahmed Ali Ahmed Alhammadi</string>
+    <string name="dev2_name">Mohammed Ahmed Ba M3bed</string>
+    <string name="dev1_email">a7madal7ammadi@gmail.com</string>
+    <string name="dev2_email">H00207360@hct.ac.ae</string>
+    <string name="dev1_univ">United Arab Emirates</string>
+    <string name="dev2_univ">United Arab Emirates</string>
+
+
     <string name="new_">New</string>
+    <string name="no_times">No Times</string>
+    <string name="current_time">Time:</string>
+    <string name="current_date">Date:</string>
+
+    <string name="img_captured">I have image</string>
+    <string name="vid_captured">I have video</string>
+    <string name="text_captured">I have text</string>
+    <string name="voice_captured">I have voice</string>
+
     <string name="cancel">Cancel</string>
     <string name="select_course">Select Course</string>
     <string name="select_color">Select Color</string>

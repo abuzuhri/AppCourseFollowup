@@ -1,10 +1,12 @@
 package ae.ac.adec.coursefollowup.fragments;
 
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +19,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
@@ -261,5 +264,13 @@ public class BaseFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             if (shadowView != null)
                 shadowView.setVisibility(View.GONE);
+    }
+    public void settingLanguage(String langCode) {
+        Resources res = getActivity().getBaseContext().getResources();
+        // Change locale settings in the app.
+        DisplayMetrics dm = res.getDisplayMetrics();
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.locale = new Locale(langCode.toLowerCase());
+        res.updateConfiguration(conf, dm);
     }
 }

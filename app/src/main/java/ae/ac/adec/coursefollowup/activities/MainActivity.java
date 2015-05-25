@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settingLanguage("en");
         setContentView(R.layout.activity_main);
         ConstantVariable.lang = getString(R.string.lang);
         startServices();
@@ -53,4 +54,8 @@ public class MainActivity extends BaseActivity {
                 60 * 1000, pendingIntent); // change it to call
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

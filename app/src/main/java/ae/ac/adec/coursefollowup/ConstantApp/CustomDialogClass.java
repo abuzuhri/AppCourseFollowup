@@ -97,7 +97,7 @@ public class CustomDialogClass<T> extends DialogFragment {
                 }
             });
         else
-            builder.setView(v).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setView(v).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User cancelled the dialog
 

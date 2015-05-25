@@ -42,14 +42,24 @@ public class YearDao extends BaseDao {
 
         Calendar startDateCalendar = Calendar.getInstance();
         startDateCalendar.setTimeInMillis(startDate);
+        startDateCalendar.clear(Calendar.MILLISECOND);
+        startDateCalendar.clear(Calendar.SECOND);
+        startDateCalendar.clear(Calendar.MINUTE);
+        startDateCalendar.clear(Calendar.HOUR_OF_DAY);
+        startDateCalendar.clear(Calendar.DAY_OF_WEEK);
         year.StartDate = startDateCalendar.getTime();
 
         Calendar endDateCalendar = Calendar.getInstance();
         endDateCalendar.setTimeInMillis(endDate);
+        endDateCalendar.clear(Calendar.MILLISECOND);
+        endDateCalendar.clear(Calendar.SECOND);
+        endDateCalendar.clear(Calendar.HOUR_OF_DAY);
+        endDateCalendar.clear(Calendar.MINUTE);
+        endDateCalendar.clear(Calendar.DAY_OF_WEEK);
         year.EndDate = endDateCalendar.getTime();
 
         // BR BR_YER_001
-        if (endDate < startDate)
+        if (year.EndDate.getTime() < year.StartDate.getTime())
             throw new BusinessRoleError(R.string.BR_YER_001);
 
         // BR_YER_007

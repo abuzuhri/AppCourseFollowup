@@ -146,7 +146,7 @@ public class NoteFragmentText extends BaseFragment {
 
         if(success) {
             OneFragmentActivity.setFilePath(outputFile);
-            OneFragmentActivity.setNoteType("I have an Text note");
+            OneFragmentActivity.setNoteType(getString(R.string.text_captured));
             OneFragmentActivity.temp = customEditText.getText().toString();
         }else{
             OneFragmentActivity.setFilePath(null);

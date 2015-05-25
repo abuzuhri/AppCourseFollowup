@@ -37,6 +37,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
 import ae.ac.adec.coursefollowup.db.dal.NoteDao;
@@ -120,6 +121,7 @@ public class NoteFragmentViewVoice extends BaseFragment {
                 playPauseVoiceBtn.setEnabled(true);
                 stopVoiceBtn.setEnabled(true);
             }
+            ((BaseActivity)getActivity()).settingLanguage("ar");
         }
     }
 

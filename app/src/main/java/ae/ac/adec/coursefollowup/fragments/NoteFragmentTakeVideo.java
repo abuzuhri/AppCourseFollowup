@@ -104,7 +104,7 @@ public class NoteFragmentTakeVideo extends BaseFragment {
 
         if(successRecord) {
             OneFragmentActivity.setFilePath(outputFile);
-            OneFragmentActivity.setNoteType("I have a Video note");
+            OneFragmentActivity.setNoteType(getString(R.string.vid_captured));
         }else{
             OneFragmentActivity.setFilePath(null);
             OneFragmentActivity.setNoteType("No Video Recorded!");
@@ -115,6 +115,7 @@ public class NoteFragmentTakeVideo extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        settingLanguage("ar");
         if (requestCode == VIDEO_CAPTURE) {
             if (resultCode == getActivity().RESULT_OK) {
                  successRecord = true;

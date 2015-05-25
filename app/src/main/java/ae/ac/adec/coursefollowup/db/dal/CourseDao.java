@@ -52,10 +52,20 @@ public class CourseDao extends BaseDao {
 
         Calendar startDateCal = Calendar.getInstance();
         startDateCal.setTimeInMillis(startDate);
+        startDateCal.clear(Calendar.MILLISECOND);
+        startDateCal.clear(Calendar.SECOND);
+        startDateCal.clear(Calendar.MINUTE);
+        startDateCal.clear(Calendar.HOUR_OF_DAY);
+        startDateCal.clear(Calendar.DAY_OF_WEEK);
         course.StartDate = startDateCal.getTime();
 
         Calendar endDateCal = Calendar.getInstance();
         endDateCal.setTimeInMillis(endDate);
+        endDateCal.clear(Calendar.MILLISECOND);
+        endDateCal.clear(Calendar.SECOND);
+        endDateCal.clear(Calendar.MINUTE);
+        endDateCal.clear(Calendar.HOUR_OF_DAY);
+        endDateCal.clear(Calendar.DAY_OF_WEEK);
         course.EndDate = endDateCal.getTime();
 
         course.Code = code;
@@ -67,7 +77,7 @@ public class CourseDao extends BaseDao {
         course.IsNotify = isNotify;
 
         // BR_CRS_007
-        if (endDate < startDate)
+        if (course.EndDate.getTime() < course.StartDate.getTime())
             throw new BusinessRoleError(R.string.BR_CRS_007);
 
         // BR_CRS_001
@@ -90,7 +100,7 @@ public class CourseDao extends BaseDao {
 //            throw new BusinessRoleError(R.string.BR_CRS_012);
 
         // BR_CRS_003
-        if ((startDate < semester.StartDate.getTime()) || (endDate > semester.EndDate.getTime()))
+        if ((course.StartDate.getTime() < semester.StartDate.getTime()) || (course.EndDate.getTime() > semester.EndDate.getTime()))
             throw new BusinessRoleError(R.string.BR_CRS_003);
 
         long result = course.save();

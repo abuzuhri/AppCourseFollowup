@@ -43,20 +43,31 @@ public class SemesterDao extends BaseDao {
 
         Calendar startDateCalendar = Calendar.getInstance();
         startDateCalendar.setTimeInMillis(startDate);
+        startDateCalendar.clear(Calendar.MILLISECOND);
+        startDateCalendar.clear(Calendar.SECOND);
+        startDateCalendar.clear(Calendar.MINUTE);
+        startDateCalendar.clear(Calendar.HOUR_OF_DAY);
+        startDateCalendar.clear(Calendar.DAY_OF_WEEK);
         semester.StartDate = startDateCalendar.getTime();
 
         Calendar endDateCalendar = Calendar.getInstance();
         endDateCalendar.setTimeInMillis(endDate);
+        endDateCalendar.clear(Calendar.MILLISECOND);
+        endDateCalendar.clear(Calendar.SECOND);
+        endDateCalendar.clear(Calendar.MINUTE);
+        endDateCalendar.clear(Calendar.HOUR_OF_DAY);
+        endDateCalendar.clear(Calendar.DAY_OF_WEEK);
         semester.EndDate = endDateCalendar.getTime();
 
         semester.year = year;
 
         // BR BR_SMR_004
-        if (endDate < startDate)
+        if (semester.EndDate.getTime() < semester.StartDate.getTime())
             throw new BusinessRoleError(R.string.BR_SMR_004);
 
         // BR BR_SMR_002
-        if ((startDate < year.StartDate.getTime()) || (endDate > year.EndDate.getTime()))
+        AppLog.i("SEM: "+semester.EndDate.getTime()+" YER: "+semester.year.EndDate.getTime());
+        if ((semester.StartDate.getTime() < year.StartDate.getTime()) || (semester.EndDate.getTime() > year.EndDate.getTime()))
             throw new BusinessRoleError(R.string.BR_SMR_002);
 
         // BR BR_SMR_008

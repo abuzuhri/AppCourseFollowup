@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.disegnator.robotocalendar.RobotoCalendarView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -68,10 +70,12 @@ public class CalenderFragment extends BaseFragment {
 
         setCalenderListener();
         currentMonthIndex = 0;
-        currentCalendar = Calendar.getInstance();
+        currentCalendar = Calendar.getInstance(Locale.ENGLISH);
+        //currentCalendar.setFirstDayOfWeek(Calendar.MONDAY);
 
         selectedDate = currentCalendar.getTime().getTime();
         selectedDayOfWeek = currentCalendar.get(Calendar.DAY_OF_WEEK);
+        AppLog.i(selectedDayOfWeek + " day in start");
 
         calendarView.initializeCalendar(currentCalendar);
         calendarView.markDayAsCurrentDay(currentCalendar.getTime());
@@ -212,12 +216,18 @@ public class CalenderFragment extends BaseFragment {
         calendarView.setRobotoCalendarListener(new RobotoCalendarView.RobotoCalendarListener() {
             @Override
             public void onDateSelected(Date date) {
-                Calendar cal = Calendar.getInstance();
+                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                 cal.setTime(date);
-                selectedDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+//                if (getString(R.string.lang).equals("ar")) {
+//                    cal.add(Calendar.DAY_OF_WEEK,-1);
+//                }
 
-                selectedDate = date.getTime();
-                calendarView.markDayAsSelectedDay(date);
+
+                selectedDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+                AppLog.i(date.toGMTString() + "day of week " + selectedDayOfWeek);
+                selectedDate = cal.getTime().getTime();
+
+                calendarView.markDayAsSelectedDay(cal.getTime());
                 updateCurrentFragment(selectedDate, selectedDayOfWeek);
             }
 
@@ -253,10 +263,10 @@ public class CalenderFragment extends BaseFragment {
         }
     }
 
-
     private void updateCalendar() {
-        currentCalendar = Calendar.getInstance(Locale.getDefault());
+        currentCalendar = Calendar.getInstance();
         currentCalendar.add(Calendar.MONTH, currentMonthIndex);
+        //currentCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.initializeCalendar(currentCalendar);
 
         if (currentCalendar.get(Calendar.MONTH) == Calendar.getInstance().get(Calendar.MONTH)) {

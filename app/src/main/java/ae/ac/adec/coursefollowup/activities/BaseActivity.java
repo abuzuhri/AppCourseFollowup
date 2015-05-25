@@ -29,6 +29,7 @@ import java.util.Locale;
 import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.fragments.AboutFragment;
 import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
 import ae.ac.adec.coursefollowup.fragments.CoursesFragment;
 import ae.ac.adec.coursefollowup.fragments.DashboardFragment;
@@ -61,7 +62,6 @@ public class BaseActivity extends ActionBarActivity implements IRemovableShadowT
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-
     }
 
     public void SetupToolbarShadow() {
@@ -83,10 +83,10 @@ public class BaseActivity extends ActionBarActivity implements IRemovableShadowT
     }
 
     public void Drawable() {
-        if (getResources().getString(R.string.lang).trim().toLowerCase().equals("ar"))
-            language_name = R.string.category_en;
-        else
-            language_name = R.string.category_ar;
+//        if (getResources().getString(R.string.lang).trim().toLowerCase().equals("ar"))
+//            language_name = R.string.category_en;
+//        else
+//            language_name = R.string.category_ar;
         // Create the AccountHeader
         String Name = "Jafar Edit Name";
         String Email = "Jafar@Edit.com";
@@ -121,7 +121,8 @@ public class BaseActivity extends ActionBarActivity implements IRemovableShadowT
                         new PrimaryDrawerItem().withName(R.string.category_tasks).withIdentifier(ConstantVariable.Category.Tasks.id).withIcon(FontAwesome.Icon.faw_tasks),
                         new PrimaryDrawerItem().withName(R.string.category_notes).withIdentifier(ConstantVariable.Category.Notes.id).withIcon(FontAwesome.Icon.faw_comment),
                         new PrimaryDrawerItem().withName(R.string.category_holidays).withIdentifier(ConstantVariable.Category.Holiday.id).withIcon(FontAwesome.Icon.faw_hotel),
-                        new PrimaryDrawerItem().withName(language_name).withIdentifier(ConstantVariable.Category.Language.id).withIcon(FontAwesome.Icon.faw_hotel)
+                        new PrimaryDrawerItem().withName(R.string.about).withIdentifier(ConstantVariable.Category.About.id).withIcon(FontAwesome.Icon.faw_bell)
+                        //new PrimaryDrawerItem().withName(language_name).withIdentifier(ConstantVariable.Category.Language.id).withIcon(FontAwesome.Icon.faw_hotel)
                         //,new PrimaryDrawerItem().withName(R.string.category_search).withIdentifier(ConstantVariable.Category.Search.id).withIcon(FontAwesome.Icon.faw_search),
                         //new PrimaryDrawerItem().withName(R.string.category_setting).withIdentifier(ConstantVariable.Category.Setting.id).withIcon(FontAwesome.Icon.faw_gear),
                         // For Test Only
@@ -192,15 +193,18 @@ public class BaseActivity extends ActionBarActivity implements IRemovableShadowT
         } else if (filter == ConstantVariable.Category.Test.id) {
             fragment = new TabFragment();
             args.putString(TabFragment.FRAGMENT, HolidayFragment.class.getName());
-        } else if (filter == ConstantVariable.Category.Language.id) {
-            Toast.makeText(getBaseContext(), Locale.getDefault().getDisplayLanguage(), Toast.LENGTH_LONG).show();
-            fragment = new DashboardFragment();
-            if (getResources().getString(R.string.lang).trim().toLowerCase().equals("ar"))
-                settingLanguage("en");
-            else
-                settingLanguage("ar");
-            recreate();
+        }else if (filter == ConstantVariable.Category.About.id) {
+            fragment = new AboutFragment();
         }
+//        else if (filter == ConstantVariable.Category.Language.id) {
+//            Toast.makeText(getBaseContext(), Locale.getDefault().getDisplayLanguage(), Toast.LENGTH_LONG).show();
+//            fragment = new DashboardFragment();
+//            if (getResources().getString(R.string.lang).trim().toLowerCase().equals("ar"))
+//                settingLanguage("en");
+//            else
+//                settingLanguage("ar");
+//            recreate();
+//        }
 
         fragment.setArguments(args);
 
@@ -213,7 +217,7 @@ public class BaseActivity extends ActionBarActivity implements IRemovableShadowT
         SetToolbarShadow();
     }
 
-    private void settingLanguage(String langCode) {
+    public void settingLanguage(String langCode) {
         Resources res = getBaseContext().getResources();
         // Change locale settings in the app.
         DisplayMetrics dm = res.getDisplayMetrics();
@@ -232,9 +236,24 @@ public class BaseActivity extends ActionBarActivity implements IRemovableShadowT
 
     @Override
     public void onBackPressed() {
-        if (result!=null && result.isDrawerOpen())
+        if (result != null && result.isDrawerOpen())
             result.closeDrawer();
-        else
+        else if(result==null)
             super.onBackPressed();
+        else if (!ConstantVariable.isInDash) {
+            Fragment fragment = new DashboardFragment();
+            if (fragment != null) {
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_main, fragment)
+                        .commit();
+                if(toolbar!=null)
+                    toolbar.setTitle(getString(R.string.app_name_cfu));
+
+            }
+        }
+        else if (ConstantVariable.isInDash) {
+            super.onBackPressed();
+        }
     }
 }

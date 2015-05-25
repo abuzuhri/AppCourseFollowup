@@ -56,6 +56,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private boolean mDistributeEvenly;
     private View oldSelection = null;
     private ViewPager mViewPager;
+    private Typeface tf_roboto_light;
     private SparseArray<String> mContentDescriptions = new SparseArray<String>();
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
@@ -167,6 +168,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     }
 
     private void populateTabStrip() {
+        tf_roboto_light = Typeface.createFromAsset(getContext().getAssets(), "fonts/jaz.otf");
         removeOldSelection(); // add those two lines
         oldSelection = null;
         final PagerAdapter adapter = mViewPager.getAdapter();
@@ -198,6 +200,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             tabTitleView.setText(adapter.getPageTitle(i));
+            tabTitleView.setTypeface(tf_roboto_light);
             tabView.setOnClickListener(tabClickListener);
             String desc = mContentDescriptions.get(i, null);
             if (desc != null) {

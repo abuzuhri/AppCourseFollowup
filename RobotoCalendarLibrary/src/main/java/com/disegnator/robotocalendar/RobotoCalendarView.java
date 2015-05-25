@@ -234,7 +234,7 @@ public class RobotoCalendarView extends LinearLayout {
     }
 
     private void setDaysInCalendar() {
-        Calendar auxCalendar = Calendar.getInstance(locale);
+        Calendar auxCalendar = Calendar.getInstance(Locale.ENGLISH);
         auxCalendar.setTime(currentCalendar.getTime());
         auxCalendar.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayOfMonth = auxCalendar.get(Calendar.DAY_OF_WEEK);

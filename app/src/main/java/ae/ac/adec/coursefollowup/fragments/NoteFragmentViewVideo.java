@@ -32,6 +32,7 @@ import ae.ac.adec.coursefollowup.ConstantApp.AppLog;
 import ae.ac.adec.coursefollowup.ConstantApp.ConstantVariable;
 import ae.ac.adec.coursefollowup.ConstantApp.CustomDialogClass;
 import ae.ac.adec.coursefollowup.R;
+import ae.ac.adec.coursefollowup.activities.BaseActivity;
 import ae.ac.adec.coursefollowup.activities.FullScreenVideoActivity;
 import ae.ac.adec.coursefollowup.activities.OneFragmentActivity;
 import ae.ac.adec.coursefollowup.db.dal.CourseDao;
@@ -184,6 +185,7 @@ public class NoteFragmentViewVideo extends BaseFragment {
                 img_delete.setVisibility(View.VISIBLE);
                 img_upload.setVisibility(View.GONE);
             }
+            ((BaseActivity)getActivity()).settingLanguage("ar");
         }
     }
 
